@@ -1,0 +1,103 @@
+ @theme {
+            --color-ink: #123b39;
+            --color-deep: #082c2a;
+            --color-teal: #0e927f;
+            --color-teal-dark: #087866;
+            --color-teal-light: #20ae87;
+            --color-mint: #dcefe9;
+            --color-paper: #f8f8f4;
+            --color-line: #d7dfdb;
+            --color-muted: #6d7f7b;
+            --color-amber: #f59e0b;
+            --font-sans: 'DM Sans', sans-serif;
+            --font-heading: 'Manrope', sans-serif;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* Mobile nav toggle state */
+        @media (max-width: 850px) {
+            .primary-nav {
+                display: none;
+            }
+            .primary-nav.is-open {
+                display: flex;
+            }
+        }
+
+        /* Active states for tabs and buttons */
+        .auth-tab.active {
+            color: #0e927f !important;
+            border-bottom-color: #0e927f !important;
+        }
+        .auth-role-btn.active {
+            background-color: #ffffff !important;
+            color: #082c2a !important;
+            box-shadow: 0 4px 12px rgba(6, 37, 33, 0.08);
+        }
+        .quick-links button.active {
+            background-color: #dcefe9 !important;
+            border-color: #0e927f !important;
+            color: #087866 !important;
+            font-weight: 600;
+        }
+
+        /* Accordion FAQ marker */
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details summary::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #0e927f;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1;
+        }
+        details[open] summary::after {
+            content: '−';
+        }
+
+        /* Pulse animation for live dot */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 4px #cce9df; }
+            50% { box-shadow: 0 0 0 8px rgba(32, 174, 135, 0.25); }
+        }
+        .live-dot-pulse {
+            animation: pulseGlow 2.5s infinite;
+        }
+
+        /* Scroll reveal transition */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleUp {
+            from { transform: scale(0.96) translateY(12px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.25s ease forwards;
+        }
+        .animate-scale-up {
+            animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }

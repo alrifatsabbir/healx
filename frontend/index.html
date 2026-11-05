@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find the right doctor for you with HealX, an online doctor directory and appointment booking platform built around better care.">
+    <meta name="theme-color" content="#082c2a">
+    <title>HealX | Find Care That Fits Your Life</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
+    <!-- Header & Navigation -->
+    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
+            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="#" aria-label="HealX home">
+                <img src="./assets/images/healx-logo-bg-black.png" alt="HealX Logo" width="150" height="80" class="h-24 w-auto object-contain rounded-md">
+            </a>
+            
+            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+                <span class="menu-icon">☰</span>
+            </button>
+            
+            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
+                <a href="#find-care" class="hover:text-white transition-colors">Find a doctor</a>
+                <a href="#specialties" class="hover:text-white transition-colors">Specialties</a>
+                <a href="#how-it-works" class="hover:text-white transition-colors">How it works</a>
+                <a href="#stories" class="hover:text-white transition-colors">Patient stories</a>
+                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+            </nav>
+            
+            <div class="nav-actions hidden min-[851px]:flex items-center gap-6 text-sm">
+                <button class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer" type="button" data-open-auth>Sign in</button>
+                <button class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#f1f7f4] text-[#082c2a] hover:bg-white hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0" data-open-booking type="button">Get started <span aria-hidden="true">↗</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero relative overflow-hidden min-h-[calc(100vh-76px)] flex items-center py-14 lg:py-20 bg-[#edf5f1]">
+            <div class="hero-glow absolute w-[58vw] h-[58vw] -right-[20vw] -top-[20vw] rounded-full bg-[radial-gradient(circle,#c6e8df_0%,transparent_65%)] opacity-70 pointer-events-none" aria-hidden="true"></div>
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-20 items-center relative">
+                <div class="hero-copy max-w-[580px]">
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-4">Care, made easier</p>
+                    <h1 class="font-extrabold text-4xl sm:text-5xl lg:text-[68px] leading-[1.05] tracking-tight text-[#082c2a] mb-6">Find a doctor who fits your life.</h1>
+                    <p class="hero-text text-base sm:text-lg lg:text-[18.5px] leading-relaxed max-w-[490px] text-[#556e68] mb-8">Search trusted doctors, compare care options, and book verified appointments with confidence from one calm, simple place.</p>
+                    <div class="hero-actions flex flex-wrap items-center gap-4 sm:gap-6">
+                        <a class="button button-primary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-[0_4px_14px_rgba(14,146,127,0.25)] hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(14,146,127,0.35)] transition-all" href="#find-care">Find your doctor <span aria-hidden="true">↗</span></a>
+                        <a class="text-link inline-flex items-center gap-2 text-sm font-bold border-b-[1.5px] border-[#90aaa3] pb-0.5 text-[#123b39] hover:text-[#0e927f] hover:border-[#0e927f] transition-colors" href="#how-it-works">See how it works <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="hero-note mt-10 text-xs sm:text-[12.5px] text-[#6e847d] flex items-center gap-2.5 font-medium">
+                        <span class="live-dot live-dot-pulse w-2 h-2 rounded-full bg-[#20ae87] inline-block flex-shrink-0" aria-hidden="true"></span> Verified medical professionals added weekly
+                    </div>
+                </div>
+                <div class="hero-visual relative max-w-[480px] w-full justify-self-center lg:justify-self-end">
+                    <div class="hero-image-frame h-[400px] sm:h-[500px] lg:h-[560px] rounded-t-[120px] sm:rounded-t-[190px] rounded-b-3xl overflow-hidden relative bg-[#b9d9cf] shadow-[0_24px_50px_rgba(8,44,42,0.12)]">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=900&q=80" alt="Doctor speaking attentively with a patient in a modern clinic" class="w-full h-full object-cover block" loading="eager">
+                        <div class="image-stamp absolute bottom-5 left-5 bg-white text-[#082c2a] px-4 py-3 flex items-center gap-3 rounded-xl text-xs leading-tight shadow-[0_12px_30px_rgba(27,81,69,0.18)]">
+                            <span class="stamp-mark w-9 h-9 rounded-full bg-[#dcefe9] text-[#0e927f] text-xl font-bold grid place-items-center flex-shrink-0">+</span>
+                            <span><strong class="text-[#082c2a] text-sm block">Good care</strong>starts here</span>
+                        </div>
+                    </div>
+                    <div class="hero-card absolute -right-2 sm:-right-6 top-6 sm:top-16 bg-white px-5 py-4 rounded-xl flex items-center gap-3 shadow-[0_16px_36px_rgba(25,72,59,0.14)] text-xs">
+                        <span class="card-icon w-7 h-7 rounded-full bg-[#0e927f] text-white grid place-items-center text-xs font-bold flex-shrink-0" aria-hidden="true">✓</span>
+                        <div>
+                            <strong class="block text-[#082c2a] text-xs font-bold">Verified professionals</strong>
+                            <small class="block text-[#78908a] mt-0.5">BMDC credentials checked by HealX</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Filter Section -->
+        <section class="search-section py-20 lg:py-24 bg-white" id="find-care">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="section-intro flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div>
+                        <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Your care, your choice</p>
+                        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a]">Start with what you need.</h2>
+                    </div>
+                    <p class="max-w-[300px] text-[#6d7f7b] text-sm sm:text-[14.5px] leading-relaxed">Search by medical specialty, doctor name, or city to find trusted local care.</p>
+                </div>
+                
+                <form class="search-box grid grid-cols-1 md:grid-cols-[1.3fr_1fr_auto] gap-0 mt-9 border-[1.5px] border-[#d7dfdb] rounded-2xl bg-[#f8f8f4] p-2 focus-within:border-[#0e927f] focus-within:ring-4 focus-within:ring-[#0e927f]/10 transition-all" id="doctor-search" role="search">
+                    <label class="search-field p-3 sm:px-5 sm:py-2.5 border-b md:border-b-0 md:border-r border-[#d7dfdb] flex flex-col justify-center">
+                        <span class="text-[11px] font-bold text-[#6e807c] uppercase tracking-wider mb-1">What are you looking for?</span>
+                        <input id="search-input" type="search" placeholder="Specialty, condition, or doctor name" autocomplete="off" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-[15px] font-medium placeholder-[#9cb0ab]">
+                    </label>
+                    <label class="search-field location-field p-3 sm:px-5 sm:py-2.5 flex flex-col justify-center">
+                        <span class="text-[11px] font-bold text-[#6e807c] uppercase tracking-wider mb-1">Where?</span>
+                        <input id="location-input" type="text" placeholder="City (e.g. Dhaka, Chattogram)" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-[15px] font-medium placeholder-[#9cb0ab]">
+                    </label>
+                    <button class="button button-primary search-button m-1 md:ml-2 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] shadow-md transition-all flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer border-0" type="submit">Search doctors <span aria-hidden="true">↗</span></button>
+                </form>
+
+                <div class="search-feedback-wrap flex items-center justify-between mt-3.5 min-h-[24px]">
+                    <div class="search-feedback text-[#0e927f] text-sm font-semibold" id="search-feedback" role="status" aria-live="polite"></div>
+                    <button type="button" id="clear-search" class="clear-search-btn border-0 bg-[#eef5f2] text-[#123b39] px-3 py-1 rounded-full text-xs font-semibold hover:bg-[#dcefe9] hover:text-[#087866] transition-colors cursor-pointer" hidden>Clear filter ✕</button>
+                </div>
+
+                <div class="quick-links flex flex-wrap items-center gap-2.5 mt-4 text-xs text-[#8a9894]">
+                    <span class="font-semibold text-[#123b39]">Popular:</span>
+                    <button type="button" data-search="Dermatology" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Dermatology</button>
+                    <button type="button" data-search="Cardiology" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Cardiology</button>
+                    <button type="button" data-search="Mental health" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Mental health</button>
+                    <button type="button" data-search="Pediatrics" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Pediatrics</button>
+                    <button type="button" data-search="Orthopedics" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Orthopedics</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctors Directory Section -->
+        <section class="doctors-section py-20 lg:py-28 bg-[#f3f5f0]" aria-labelledby="doctor-heading">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="section-heading-row flex items-center justify-between mb-9">
+                    <div>
+                        <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-2">A better place to begin</p>
+                        <h2 id="doctor-heading" class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a]">Meet doctors people trust.</h2>
+                    </div>
+                    <button class="text-link inline-flex items-center gap-2 text-sm font-bold border-b-[1.5px] border-[#90aaa3] pb-0.5 text-[#123b39] hover:text-[#0e927f] hover:border-[#0e927f] transition-colors cursor-pointer bg-transparent border-t-0 border-x-0" type="button" id="view-all-doctors-btn">View all doctors <span aria-hidden="true">→</span></button>
+                </div>
+                
+                <div class="doctor-grid flex gap-5 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="doctor-grid">
+                    <!-- Doctor 1 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Sana Rahman"
+                        data-specialties="dermatology skin acne allergy"
+                        data-title="Dermatologist & Cosmetologist"
+                        data-location="Dhaka"
+                        data-experience="12 years experience"
+                        data-degree="MBBS, FCPS (Dermatology), DDV"
+                        data-hospital="Square Hospital, Dhaka"
+                        data-fee="৳1,200"
+                        data-time="Sun - Thu, 5:00 PM - 8:30 PM"
+                        data-rating="4.9 (148 reviews)"
+                        data-about="Dr. Sana Rahman specializes in clinical dermatology, acne treatments, skin allergy therapies, and cosmetic dermatology with over a decade of hospital and chamber practice."
+                        data-image="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80" alt="Dr Sana Rahman" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Dermatology</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Sana Rahman</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Dermatologist & Cosmetologist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Dhaka</span>
+                                <span>12 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Sana Rahman">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 2 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Arif Hossain"
+                        data-specialties="cardiology heart hypertension chest pain"
+                        data-title="Cardiologist"
+                        data-location="Chattogram"
+                        data-experience="15 years experience"
+                        data-degree="MBBS, MD (Cardiology), FACC"
+                        data-hospital="Evercare Hospital, Chattogram"
+                        data-fee="৳1,500"
+                        data-time="Sat - Wed, 4:00 PM - 9:00 PM"
+                        data-rating="4.95 (210 reviews)"
+                        data-about="Dr. Arif Hossain has comprehensive expertise in preventative cardiology, coronary heart disease, high blood pressure management, and echocardiography."
+                        data-image="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80" alt="Dr Arif Hossain" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Cardiology</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Arif Hossain</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Cardiologist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Chattogram</span>
+                                <span>15 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Arif Hossain">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 3 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Nabila Karim"
+                        data-specialties="mental health psychology depression anxiety therapy counseling"
+                        data-title="Clinical Psychologist"
+                        data-location="Dhaka"
+                        data-experience="9 years experience"
+                        data-degree="B.Sc, M.Sc, M.Phil (Clinical Psychology)"
+                        data-hospital="MindCare Wellness Center, Dhaka"
+                        data-fee="৳1,000"
+                        data-time="Sun - Thu, 3:00 PM - 7:30 PM"
+                        data-rating="4.85 (115 reviews)"
+                        data-about="Dr. Nabila Karim provides evidence-based cognitive behavioral therapy, anxiety and depression counseling, stress management, and emotional wellness consultations."
+                        data-image="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="Dr Nabila Karim" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Mental Health</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.8</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Nabila Karim</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Clinical Psychologist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Dhaka</span>
+                                <span>9 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Nabila Karim">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 4 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Tasnim Ahmed"
+                        data-specialties="pediatrics children baby infant fever vaccination"
+                        data-title="Pediatric Specialist"
+                        data-location="Sylhet"
+                        data-experience="11 years experience"
+                        data-degree="MBBS, DCH, FCPS (Pediatrics)"
+                        data-hospital="Mount Adora Hospital, Sylhet"
+                        data-fee="৳900"
+                        data-time="Sat - Thu, 4:30 PM - 8:00 PM"
+                        data-rating="4.9 (180 reviews)"
+                        data-about="Dedicated to compassionate child healthcare, infant nutrition, childhood illness management, and developmental milestone checkups."
+                        data-image="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80" alt="Dr Tasnim Ahmed" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Pediatrics</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Tasnim Ahmed</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Pediatrician</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Sylhet</span>
+                                <span>11 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Tasnim Ahmed">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 5 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Rahim Chowdhury"
+                        data-specialties="general practice family medicine fever diabetes cough"
+                        data-title="General Physician & Family Specialist"
+                        data-location="Dhaka"
+                        data-experience="18 years experience"
+                        data-degree="MBBS, MCPS, MRCGP (UK)"
+                        data-hospital="United Hospital, Dhaka"
+                        data-fee="৳1,200"
+                        data-time="Sun - Thu, 10:00 AM - 2:00 PM"
+                        data-rating="4.92 (320 reviews)"
+                        data-about="Over 18 years of holistic family medicine, routine adult healthcare, chronic condition management (diabetes & hypertension), and preventative health assessments."
+                        data-image="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80" alt="Dr Rahim Chowdhury" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">General Practice</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Rahim Chowdhury</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">General Physician</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Dhaka</span>
+                                <span>18 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Rahim Chowdhury">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 6 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Faria Jahan"
+                        data-specialties="womens health gynecology pregnancy obstetrics"
+                        data-title="Gynecologist & Obstetrician"
+                        data-location="Rajshahi"
+                        data-experience="10 years experience"
+                        data-degree="MBBS, MS (Obstetrics & Gynecology)"
+                        data-hospital="Royal Hospital, Rajshahi"
+                        data-fee="৳1,000"
+                        data-time="Sat - Wed, 5:00 PM - 8:30 PM"
+                        data-rating="4.88 (160 reviews)"
+                        data-about="Specialist in prenatal care, maternal health, menstrual disorders, PCOS management, and comprehensive women's reproductive health."
+                        data-image="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=600&q=80" alt="Dr Faria Jahan" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Women's Health</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Faria Jahan</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Women's Health Specialist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Rajshahi</span>
+                                <span>10 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Faria Jahan">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 7 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Mahfuz Alam"
+                        data-specialties="nutrition wellness diet weight obesity metabolism"
+                        data-title="Clinical Nutritionist & Dietitian"
+                        data-location="Dhaka"
+                        data-experience="8 years experience"
+                        data-degree="MBBS, M.Sc (Clinical Nutrition), PGD"
+                        data-hospital="Labaid Specialized Hospital, Dhaka"
+                        data-fee="৳800"
+                        data-time="Sun - Thu, 6:00 PM - 9:00 PM"
+                        data-rating="4.8 (94 reviews)"
+                        data-about="Specializes in therapeutic medical nutrition, metabolic health, healthy sustainable weight loss, diabetic diet management, and digestive wellness."
+                        data-image="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80" alt="Dr Mahfuz Alam" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Nutrition</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.8</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Mahfuz Alam</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Nutrition Specialist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Dhaka</span>
+                                <span>8 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Mahfuz Alam">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 8 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Sabir Hasan"
+                        data-specialties="orthopedics bone joint spine fracture arthritis"
+                        data-title="Orthopedic Surgeon"
+                        data-location="Khulna"
+                        data-experience="14 years experience"
+                        data-degree="MBBS, MS (Orthopedics), AO Trauma Fellow"
+                        data-hospital="Gazi Medical Hospital, Khulna"
+                        data-fee="৳1,200"
+                        data-time="Sat - Thu, 4:00 PM - 8:00 PM"
+                        data-rating="4.9 (130 reviews)"
+                        data-about="Expert in orthopedic trauma surgery, osteoarthritis care, joint pain therapies, sports injuries, and spinal posture alignment."
+                        data-image="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?auto=format&fit=crop&w=600&q=80" alt="Dr Sabir Hasan" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Orthopedics</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Sabir Hasan</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Orthopedic Surgeon</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Khulna</span>
+                                <span>14 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Sabir Hasan">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Doctor 9 -->
+                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
+                        data-doctor="Dr Nusrat Sultana"
+                        data-specialties="eye ophthalmology vision cataract glaucoma"
+                        data-title="Ophthalmologist & Eye Surgeon"
+                        data-location="Dhaka"
+                        data-experience="13 years experience"
+                        data-degree="MBBS, FCPS (Ophthalmology), FICO"
+                        data-hospital="Ispahani Islamia Eye Institute, Dhaka"
+                        data-fee="৳1,000"
+                        data-time="Sat - Wed, 5:00 PM - 8:30 PM"
+                        data-rating="4.86 (142 reviews)"
+                        data-about="Comprehensive ophthalmic evaluations, modern cataract microsurgery, glaucoma monitoring, pediatric vision therapy, and refractive correction consultations."
+                        data-image="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80">
+                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
+                            <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80" alt="Dr Nusrat Sultana" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Ophthalmology</span>
+                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
+                        </div>
+                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
+                            <div class="doctor-name flex items-center gap-2">
+                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Nusrat Sultana</h3>
+                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
+                            </div>
+                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Ophthalmologist</p>
+                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
+                                <span>Dhaka</span>
+                                <span>13 yrs exp</span>
+                            </div>
+                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Nusrat Sultana">
+                                <span>View profile</span>
+                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="carousel-controls flex items-center justify-end gap-4 mt-7 text-xs font-semibold text-[#849691]" aria-label="Doctor carousel controls">
+                    <button type="button" data-carousel-prev aria-label="Previous doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">←</button>
+                    <span><b id="carousel-page" class="font-bold text-[#082c2a]">01</b> / <span id="carousel-total">03</span></span>
+                    <button type="button" data-carousel-next aria-label="Next doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">→</button>
+                </div>
+
+                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb]" id="empty-state" hidden>
+                    <h3 class="font-bold text-xl text-[#082c2a] mb-2">No doctors found matching your criteria.</h3>
+                    <p class="text-[#6d7f7b]">Try searching for a different specialty like <strong class="text-[#082c2a] font-semibold">Dermatology</strong>, <strong class="text-[#082c2a] font-semibold">Cardiology</strong>, or check the city spelling.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Section -->
+        <section class="trust-section bg-white border-y border-[#e4eae6]">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto trust-grid grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-9">
+                <div class="flex flex-col gap-1.5 md:border-r border-[#d7dfdb] md:pl-0">
+                    <strong class="font-bold text-sm sm:text-base text-[#082c2a]">One place for your health journey</strong>
+                    <span class="text-xs sm:text-[13px] text-[#849691]">From first questions to ongoing verified care</span>
+                </div>
+                <div class="flex flex-col gap-1.5 md:border-r border-[#d7dfdb] md:pl-6">
+                    <strong class="font-bold text-sm sm:text-base text-[#082c2a]">100% Verified profiles</strong>
+                    <span class="text-xs sm:text-[13px] text-[#849691]">BMDC credentials and clinical chambers verified</span>
+                </div>
+                <div class="flex flex-col gap-1.5 md:pl-6">
+                    <strong class="font-bold text-sm sm:text-base text-[#082c2a]">Care that fits your schedule</strong>
+                    <span class="text-xs sm:text-[13px] text-[#849691]">Choose between in-person visits or secure video calls</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialties Section -->
+        <section class="specialties-section py-24 lg:py-28 bg-[#e0eee9]" id="specialties">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto specialty-layout grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+                <div class="specialty-copy max-w-[460px]">
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Explore by specialty</p>
+                    <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a] mb-5">Whatever you are feeling, there is a place to start.</h2>
+                    <p class="text-[#557069] text-base leading-relaxed mb-8 max-w-[380px]">From everyday questions to specialist support, find certified doctors who listen and understand.</p>
+                    <a class="text-link inline-flex items-center gap-2 text-sm font-bold border-b-[1.5px] border-[#90aaa3] pb-0.5 text-[#123b39] hover:text-[#0e927f] hover:border-[#0e927f] transition-colors" href="#find-care">Explore all specialties <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="specialty-list border-t border-[#b7d1c8]">
+                    <button type="button" data-search="General practice" class="w-full flex justify-between items-center py-5 border-b border-[#b7d1c8] text-left text-[#082c2a] font-semibold text-lg sm:text-xl tracking-tight hover:text-[#0e927f] hover:pl-2 transition-all cursor-pointer bg-transparent border-t-0 border-x-0 group">
+                        <span>General Practice & Family Care</span>
+                        <b class="font-normal text-xl text-[#0e927f] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</b>
+                    </button>
+                    <button type="button" data-search="Women's health" class="w-full flex justify-between items-center py-5 border-b border-[#b7d1c8] text-left text-[#082c2a] font-semibold text-lg sm:text-xl tracking-tight hover:text-[#0e927f] hover:pl-2 transition-all cursor-pointer bg-transparent border-t-0 border-x-0 group">
+                        <span>Women's Health & Gynecology</span>
+                        <b class="font-normal text-xl text-[#0e927f] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</b>
+                    </button>
+                    <button type="button" data-search="Mental health" class="w-full flex justify-between items-center py-5 border-b border-[#b7d1c8] text-left text-[#082c2a] font-semibold text-lg sm:text-xl tracking-tight hover:text-[#0e927f] hover:pl-2 transition-all cursor-pointer bg-transparent border-t-0 border-x-0 group">
+                        <span>Mental Health & Counseling</span>
+                        <b class="font-normal text-xl text-[#0e927f] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</b>
+                    </button>
+                    <button type="button" data-search="Pediatrics" class="w-full flex justify-between items-center py-5 border-b border-[#b7d1c8] text-left text-[#082c2a] font-semibold text-lg sm:text-xl tracking-tight hover:text-[#0e927f] hover:pl-2 transition-all cursor-pointer bg-transparent border-t-0 border-x-0 group">
+                        <span>Pediatrics & Child Health</span>
+                        <b class="font-normal text-xl text-[#0e927f] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</b>
+                    </button>
+                    <button type="button" data-search="Nutrition" class="w-full flex justify-between items-center py-5 border-b border-[#b7d1c8] text-left text-[#082c2a] font-semibold text-lg sm:text-xl tracking-tight hover:text-[#0e927f] hover:pl-2 transition-all cursor-pointer bg-transparent border-t-0 border-x-0 group">
+                        <span>Nutrition & Lifestyle Medicine</span>
+                        <b class="font-normal text-xl text-[#0e927f] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">↗</b>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-section py-24 lg:py-28 bg-[#082c2a] text-[#e8f4ef]" id="how-it-works">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="how-heading max-w-[650px]">
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#65c8b0] mb-3">How HealX works</p>
+                    <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#eff9f5]">Less time searching.<br><em class="not-italic text-[#64c8b0]">More time feeling better.</em></h2>
+                </div>
+                <div class="steps grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mt-16 sm:mt-20">
+                    <div class="step border-t border-[#346259] pt-6">
+                        <span class="text-[#62c5ae] font-mono font-bold text-xs sm:text-sm tracking-widest">01</span>
+                        <h3 class="font-bold text-xl text-white mt-6 mb-3 tracking-tight">Search with ease</h3>
+                        <p class="text-[#a8c3bc] text-sm leading-relaxed max-w-[260px]">Browse certified doctors by specialty, chamber location, and the consultation format you prefer.</p>
+                    </div>
+                    <div class="step border-t border-[#346259] pt-6">
+                        <span class="text-[#62c5ae] font-mono font-bold text-xs sm:text-sm tracking-widest">02</span>
+                        <h3 class="font-bold text-xl text-white mt-6 mb-3 tracking-tight">Choose with confidence</h3>
+                        <p class="text-[#a8c3bc] text-sm leading-relaxed max-w-[260px]">Review qualifications, hospital chambers, patient ratings, and visiting hours with complete clarity.</p>
+                    </div>
+                    <div class="step border-t border-[#346259] pt-6">
+                        <span class="text-[#62c5ae] font-mono font-bold text-xs sm:text-sm tracking-widest">03</span>
+                        <h3 class="font-bold text-xl text-white mt-6 mb-3 tracking-tight">Book your appointment</h3>
+                        <p class="text-[#a8c3bc] text-sm leading-relaxed max-w-[260px]">Reserve your preferred slot instantly with verified booking confirmation sent straight to your phone.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patient Story Section -->
+        <section class="story-section py-24 lg:py-28 bg-white" id="stories">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto story-grid grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+                <div class="story-image h-[320px] sm:h-[440px] rounded-tl-[120px] sm:rounded-tl-[160px] rounded-2xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1100&q=80" alt="Doctor in consultation with patient" loading="lazy" class="w-full h-full object-cover block">
+                </div>
+                <div class="story-copy max-w-[450px]">
+                    <span class="quote-mark font-bold text-6xl sm:text-7xl leading-none text-[#b3d8cb] block mb-4" aria-hidden="true">“</span>
+                    <blockquote class="font-semibold text-xl sm:text-2xl lg:text-[27px] leading-snug tracking-tight text-[#082c2a] my-4 sm:my-6">HealX made finding a specialist feel simple. I knew exactly what to expect, the consultation fees, and visiting hours before I stepped out the door.</blockquote>
+                    <p class="story-person text-sm font-bold text-[#082c2a] mb-8">Maliha Chowdhury <span class="block text-[#8b9b97] font-normal text-xs mt-1">Verified HealX Patient</span></p>
+                    <a class="button button-primary inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-[0_4px_14px_rgba(14,146,127,0.25)] hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(14,146,127,0.35)] transition-all" href="#find-care">Find your doctor <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section py-24 lg:py-28 bg-[#f3f5f0]" id="faq">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto faq-layout grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
+                <div>
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Good to know</p>
+                    <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a] mb-4">Questions, answered.</h2>
+                    <p class="faq-lead max-w-[280px] text-[#6d7f7b] text-sm sm:text-[15px] leading-relaxed">Everything you need to know about finding doctors and booking care through HealX.</p>
+                </div>
+                <div class="faq-list border-t border-[#cbd7d2]">
+                    <details open class="border-b border-[#cbd7d2] py-5 transition-colors">
+                        <summary class="cursor-pointer list-none pr-8 font-semibold text-base sm:text-lg tracking-tight relative text-[#082c2a] select-none">How does HealX verify doctor credentials?</summary>
+                        <p class="text-[#6d7f7b] text-sm sm:text-[14.5px] max-w-[580px] mt-3 leading-relaxed">Every doctor on HealX must provide verified Bangladesh Medical & Dental Council (BMDC) registration, institutional affiliations, and chamber credentials before being listed.</p>
+                    </details>
+                    <details class="border-b border-[#cbd7d2] py-5 transition-colors">
+                        <summary class="cursor-pointer list-none pr-8 font-semibold text-base sm:text-lg tracking-tight relative text-[#082c2a] select-none">Can I search for doctors in specific cities?</summary>
+                        <p class="text-[#6d7f7b] text-sm sm:text-[14.5px] max-w-[580px] mt-3 leading-relaxed">Yes. Enter your city or district in the "Where?" search field alongside any specialty to view local chambers and visiting times.</p>
+                    </details>
+                    <details class="border-b border-[#cbd7d2] py-5 transition-colors">
+                        <summary class="cursor-pointer list-none pr-8 font-semibold text-base sm:text-lg tracking-tight relative text-[#082c2a] select-none">Are online video consultations available?</summary>
+                        <p class="text-[#6d7f7b] text-sm sm:text-[14.5px] max-w-[580px] mt-3 leading-relaxed">Yes. Many specialists on HealX provide both physical chamber visits and high-definition video consultations for follow-ups and remote care.</p>
+                    </details>
+                    <details class="border-b border-[#cbd7d2] py-5 transition-colors">
+                        <summary class="cursor-pointer list-none pr-8 font-semibold text-base sm:text-lg tracking-tight relative text-[#082c2a] select-none">Is there any additional booking fee?</summary>
+                        <p class="text-[#6d7f7b] text-sm sm:text-[14.5px] max-w-[580px] mt-3 leading-relaxed">No. HealX is free for patients to search and schedule consultations. You pay the standard doctor's consultation fee directly at the chamber or during online checkout.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section py-20 bg-[#0e927f] text-white">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto cta-inner flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div>
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#b6eddd] mb-3">Ready when you are</p>
+                    <h2 class="font-extrabold text-3xl sm:text-4xl text-white max-w-[530px] leading-tight">Good care starts with one search.</h2>
+                </div>
+                <button class="button button-light px-6 py-3.5 rounded-full font-bold text-sm bg-[#f5fbf8] text-[#082c2a] hover:bg-white hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer border-0" data-open-booking type="button">Book an appointment <span aria-hidden="true">↗</span></button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-[#062321] text-[#d7e8e2] pt-16 sm:pt-20 pb-8">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
+            <div>
+                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="#">
+                    <img src="./assets/images/healx-logo-bg-black.png" alt="HealX" width="200" height="50" class="object-contain">
+                </a>
+                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making the path to better care feel more human, accessible, and transparent for everyone.</p>
+            </div>
+            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
+                    <a href="#find-care" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find a doctor</a>
+                    <a href="#specialties" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+                    <a href="#faq" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
+                    <a href="#about" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About HealX</a>
+                    <a href="#careers" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">For doctors</a>
+                    <a href="#contact" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact & Support</a>
+                </div>
+                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
+                    <a href="#privacy" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#terms" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#security" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Security</a>
+                </div>
+            </div>
+        </div>
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-bottom border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+            <span>© 2026 HealX Health Inc. Better care, together.</span>
+            <span>All credentials verified with authorized medical boards.</span>
+        </div>
+    </footer>
+
+    <!-- Appointment Booking Modal -->
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="booking-modal" hidden>
+        <div class="modal-card booking-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[520px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="booking-title">
+            <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
+            <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-2">Instant Scheduling</p>
+            <h2 id="booking-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mb-2 tracking-tight">Book an appointment</h2>
+            <p class="modal-subtitle text-[#6d7f7b] text-sm mb-6 leading-relaxed">Choose your preferred doctor, time, and consultation format.</p>
+            
+            <form id="booking-form" class="flex flex-col gap-4">
+                <label class="block text-xs font-bold text-[#082c2a]">
+                    <span class="block mb-1.5">Selected Doctor</span>
+                    <select id="booking-doctor-select" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <option value="">Choose a doctor or general consultation</option>
+                        <option value="Dr Sana Rahman">Dr Sana Rahman (Dermatologist - Dhaka)</option>
+                        <option value="Dr Arif Hossain">Dr Arif Hossain (Cardiologist - Chattogram)</option>
+                        <option value="Dr Nabila Karim">Dr Nabila Karim (Psychologist - Dhaka)</option>
+                        <option value="Dr Tasnim Ahmed">Dr Tasnim Ahmed (Pediatrician - Sylhet)</option>
+                        <option value="Dr Rahim Chowdhury">Dr Rahim Chowdhury (General Physician - Dhaka)</option>
+                        <option value="Dr Faria Jahan">Dr Faria Jahan (Women's Health - Rajshahi)</option>
+                        <option value="Dr Mahfuz Alam">Dr Mahfuz Alam (Nutritionist - Dhaka)</option>
+                        <option value="Dr Sabir Hasan">Dr Sabir Hasan (Orthopedic Surgeon - Khulna)</option>
+                        <option value="Dr Nusrat Sultana">Dr Nusrat Sultana (Ophthalmologist - Dhaka)</option>
+                    </select>
+                </label>
+
+                <div class="form-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Preferred Date</span>
+                        <input type="date" id="booking-date" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Time Slot</span>
+                        <select id="booking-slot" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <option value="Morning (10:00 AM - 12:00 PM)">Morning (10:00 AM)</option>
+                            <option value="Afternoon (03:00 PM - 05:00 PM)">Afternoon (03:00 PM)</option>
+                            <option value="Evening (05:30 PM - 07:30 PM)" selected>Evening (05:30 PM)</option>
+                            <option value="Night (08:00 PM - 09:30 PM)">Night (08:00 PM)</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label class="block text-xs font-bold text-[#082c2a]">
+                    <span class="block mb-1.5">Consultation Type</span>
+                    <div class="radio-pill-group flex gap-2.5 mt-1">
+                        <label class="flex-1 font-semibold text-xs border-[1.5px] border-[#d7dfdb] bg-white py-2.5 px-3 rounded-lg cursor-pointer text-center transition-all hover:bg-slate-50 flex items-center justify-center gap-1.5">
+                            <input type="radio" name="consultation-type" value="Chamber Visit" checked class="accent-[#0e927f]">
+                            <span>🏥 In-Person Chamber</span>
+                        </label>
+                        <label class="flex-1 font-semibold text-xs border-[1.5px] border-[#d7dfdb] bg-white py-2.5 px-3 rounded-lg cursor-pointer text-center transition-all hover:bg-slate-50 flex items-center justify-center gap-1.5">
+                            <input type="radio" name="consultation-type" value="Video Consultation" class="accent-[#0e927f]">
+                            <span>📹 Online Video</span>
+                        </label>
+                    </div>
+                </label>
+
+                <div class="form-grid-2 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Patient Full Name</span>
+                        <input type="text" id="patient-name" placeholder="e.g. Tanvir Hasan" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Phone Number</span>
+                        <input type="tel" id="patient-phone" placeholder="e.g. 01700-000000" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                </div>
+
+                <button class="button button-primary mt-2 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-0" type="submit">
+                    Confirm Appointment <span aria-hidden="true">↗</span>
+                </button>
+            </form>
+
+            <div class="form-success-card bg-[#eef8f5] border-[1.5px] border-[#c3e7dc] rounded-2xl p-6 text-center mt-3" id="form-success" hidden>
+                <div class="success-badge inline-grid place-items-center w-12 h-12 rounded-full bg-[#0e927f] text-white text-2xl mb-3.5">✓</div>
+                <h3 class="font-bold text-xl text-[#082c2a] mb-2">Appointment Confirmed!</h3>
+                <p class="text-[#49635d] text-sm mb-3">We've registered your appointment slot with <strong id="success-doctor-name" class="text-[#082c2a]">the doctor</strong>.</p>
+                <p class="text-sm mb-4">Booking Reference: <span class="booking-ref inline-block bg-white border border-dashed border-[#0e927f] text-[#087866] px-3 py-1 rounded font-mono font-bold text-sm" id="success-booking-ref">HLX-78249</span></p>
+                <p class="text-xs text-[#6b827c] mb-5">A confirmation SMS and appointment pass have been sent to your phone number.</p>
+                <button class="button button-primary button-small px-5 py-2 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0" type="button" id="booking-done-btn">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doctor Profile Modal -->
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="profile-modal" hidden>
+        <div class="modal-card doctor-profile-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[640px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="profile-doc-name">
+            <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
+            <div class="doc-modal-header flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 mb-6 pb-5 border-b border-[#d7dfdb]">
+                <img id="profile-doc-img" src="" alt="Doctor" class="doc-modal-avatar w-24 h-24 rounded-full object-cover border-4 border-[#dcefe9] flex-shrink-0">
+                <div class="doc-modal-info flex-1">
+                    <h2 id="profile-doc-name" class="font-extrabold text-2xl text-[#082c2a] mb-1 flex items-center justify-center sm:justify-start gap-2">Doctor Name <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0">✓</span></h2>
+                    <p class="doc-modal-specialty text-[#0e927f] font-bold text-sm mb-1.5" id="profile-doc-specialty">Specialty</p>
+                    <p class="doc-modal-degree text-[#6d7f7b] text-xs" id="profile-doc-degree">Degrees</p>
+                </div>
+            </div>
+
+            <div class="doc-details-grid grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6 bg-white p-4 sm:p-5 rounded-2xl border border-[#e7eee9]">
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Chamber / Hospital</span>
+                    <strong id="profile-doc-hospital" class="text-[#082c2a] text-sm font-semibold">Hospital</strong>
+                </div>
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Location</span>
+                    <strong id="profile-doc-location" class="text-[#082c2a] text-sm font-semibold">City</strong>
+                </div>
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Visiting Hours</span>
+                    <strong id="profile-doc-hours" class="text-[#082c2a] text-sm font-semibold">Time</strong>
+                </div>
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Consultation Fee</span>
+                    <strong id="profile-doc-fee" class="text-[#082c2a] text-sm font-semibold">Fee</strong>
+                </div>
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Experience</span>
+                    <strong id="profile-doc-exp" class="text-[#082c2a] text-sm font-semibold">Years</strong>
+                </div>
+                <div class="doc-detail-item">
+                    <span class="block text-[#81948e] text-[11px] font-bold uppercase tracking-wider mb-1">Patient Rating</span>
+                    <strong id="profile-doc-rating" class="text-[#082c2a] text-sm font-semibold">Rating</strong>
+                </div>
+            </div>
+
+            <p class="doc-about text-[#556c66] text-sm leading-relaxed mb-6" id="profile-doc-about">Doctor description...</p>
+
+            <button class="button button-primary w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] hover:shadow-lg transition-all cursor-pointer border-0 flex items-center justify-center gap-2" type="button" id="profile-book-btn">
+                Book Appointment With This Doctor <span aria-hidden="true">↗</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sign In / Auth Modal -->
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="auth-modal" hidden>
+        <div class="modal-card auth-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[500px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+            <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
+            
+            <div class="auth-tabs flex border-b-[1.5px] border-[#d7dfdb] mb-6">
+                <button type="button" class="auth-tab active flex-1 py-3 text-center font-bold text-sm sm:text-base text-[#6d7f7b] hover:text-[#082c2a] border-b-2 border-transparent transition-all cursor-pointer bg-transparent -mb-[2px]" data-auth-tab="login">Sign In</button>
+                <button type="button" class="auth-tab flex-1 py-3 text-center font-bold text-sm sm:text-base text-[#6d7f7b] hover:text-[#082c2a] border-b-2 border-transparent transition-all cursor-pointer bg-transparent -mb-[2px]" data-auth-tab="register">Create Account</button>
+            </div>
+
+            <h2 id="auth-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mb-2 tracking-tight">Welcome to HealX</h2>
+            <p class="modal-subtitle text-[#6d7f7b] text-sm mb-5 leading-relaxed">Access your appointments, medical history, and verified doctors.</p>
+
+            <div class="auth-role-toggle flex bg-[#eef3f0] p-1 rounded-xl mb-5">
+                <button type="button" class="auth-role-btn active flex-1 py-2 rounded-lg text-xs font-semibold text-[#6d7f7b] hover:text-[#082c2a] transition-all cursor-pointer bg-transparent border-0" data-role="patient">I'm a Patient</button>
+                <button type="button" class="auth-role-btn flex-1 py-2 rounded-lg text-xs font-semibold text-[#6d7f7b] hover:text-[#082c2a] transition-all cursor-pointer bg-transparent border-0" data-role="doctor">I'm a Doctor</button>
+            </div>
+
+            <form id="auth-form" class="flex flex-col gap-4">
+                <label class="block text-xs font-bold text-[#082c2a]">
+                    <span class="block mb-1.5">Email or Phone Number</span>
+                    <input type="text" placeholder="name@example.com or 017..." required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                </label>
+                <label class="block text-xs font-bold text-[#082c2a]">
+                    <span class="block mb-1.5">Password</span>
+                    <input type="password" placeholder="••••••••" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                </label>
+                <button class="button button-primary mt-2 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-0" type="submit" id="auth-submit-btn">
+                    Sign In <span aria-hidden="true">↗</span>
+                </button>
+            </form>
+
+            <div class="form-success-card bg-[#eef8f5] border-[1.5px] border-[#c3e7dc] rounded-2xl p-6 text-center mt-3" id="auth-success" hidden>
+                <div class="success-badge inline-grid place-items-center w-12 h-12 rounded-full bg-[#0e927f] text-white text-2xl mb-3.5">✓</div>
+                <h3 class="font-bold text-xl text-[#082c2a] mb-2">Welcome back!</h3>
+                <p id="auth-success-msg" class="text-[#49635d] text-sm mb-4">You have successfully signed in.</p>
+                <button class="button button-primary button-small px-5 py-2 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0" type="button" id="auth-done-btn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Logic -->
+    <script src="./js/main.js"></script>
+</body>
+</html>
