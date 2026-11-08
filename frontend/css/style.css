@@ -30,23 +30,25 @@ body, button, input, select, textarea {
     background: #087866;
 }
 
-/* Infinite Marquee - Right to Left Seamless Loop */
+/* Infinite Marquee - Right to Left 100% Seamless Loop (Zero Blink) */
 @keyframes marquee-scroll {
-    from {
-        transform: translateX(0);
+    0% {
+        transform: translate3d(0, 0, 0);
     }
-    to {
-        transform: translateX(-50%);
+    100% {
+        transform: translate3d(-100%, 0, 0);
     }
 }
 
 .animate-marquee {
     display: flex;
-    width: max-content;
-    animation: marquee-scroll 24s linear infinite;
+    flex-shrink: 0;
+    align-items: center;
+    animation: marquee-scroll 32s linear infinite;
     will-change: transform;
+    backface-visibility: hidden;
 }
 
-.animate-marquee:hover {
+.marquee-container:hover .animate-marquee {
     animation-play-state: paused;
 }

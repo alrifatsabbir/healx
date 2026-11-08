@@ -243,16 +243,16 @@
                 </p>
             </div>
 
-            <!-- Infinite Seamless Scrolling Track -->
-            <div class="relative w-full overflow-hidden">
+            <!-- Infinite Seamless Scrolling Track (Zero Blink / Zero Jitter) -->
+            <div class="relative w-full overflow-hidden marquee-container">
                 <!-- Left & Right Smooth Gradients for seamless edge fading -->
                 <div class="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 z-10 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
                 <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 z-10 bg-gradient-to-l from-white via-white/80 to-transparent"></div>
 
-                <!-- Scrolling Marquee Track -->
-                <div class="animate-marquee flex items-center gap-12 sm:gap-16 lg:gap-20 py-2">
-                    <!-- Set 1 -->
-                    <div class="flex items-center gap-12 sm:gap-16 lg:gap-20 flex-shrink-0">
+                <!-- Scrolling Marquee Wrapper with 2 Identical Interlocking Tracks -->
+                <div class="flex w-max">
+                    <!-- Track 1 -->
+                    <div class="animate-marquee flex items-center gap-12 sm:gap-16 lg:gap-20 pr-12 sm:pr-16 lg:pr-20 py-2">
                         <img src="./partnerwith/evercare.svg" alt="Evercare Hospital" class="h-8 sm:h-10 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
                         <img src="./partnerwith/aalok.svg" alt="Aalok Healthcare" class="h-9 sm:h-11 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
                         <img src="./partnerwith/popular.svg" alt="Popular Diagnostic Centre" class="h-9 sm:h-11 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
@@ -263,8 +263,8 @@
                         <img src="./partnerwith/vercel_wordmark.svg" alt="Vercel" class="h-5 sm:h-6 w-auto max-w-[120px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
                     </div>
 
-                    <!-- Set 2 (Exact Duplicate for Infinite Seamless Loop) -->
-                    <div class="flex items-center gap-12 sm:gap-16 lg:gap-20 flex-shrink-0" aria-hidden="true">
+                    <!-- Track 2 (Exact Duplicate) -->
+                    <div class="animate-marquee flex items-center gap-12 sm:gap-16 lg:gap-20 pr-12 sm:pr-16 lg:pr-20 py-2" aria-hidden="true">
                         <img src="./partnerwith/evercare.svg" alt="Evercare Hospital" class="h-8 sm:h-10 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
                         <img src="./partnerwith/aalok.svg" alt="Aalok Healthcare" class="h-9 sm:h-11 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
                         <img src="./partnerwith/popular.svg" alt="Popular Diagnostic Centre" class="h-9 sm:h-11 w-auto max-w-[140px] object-contain opacity-75 hover:opacity-100 hover:scale-105 transition-all duration-300">
