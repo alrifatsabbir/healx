@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about HealX, our mission to make healthcare accessible, verified, and transparent for everyone in Bangladesh.">
+    <title>About Us | HealX Healthcare Platform</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
+    <!-- Header & Navigation -->
+    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
+            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealX home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+            </a>
+            
+            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+                <span class="menu-icon">☰</span>
+            </button>
+            
+            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="text-white font-semibold border-b-2 border-[#0e927f] pb-0.5">About Us</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+            
+            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
+                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-[#edf5f1] py-16 lg:py-24 border-b border-[#dcebe6] relative overflow-hidden">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto relative z-10">
+                <div class="max-w-2xl">
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Our Mission & Purpose</p>
+                    <h1 class="font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[#082c2a] tracking-tight leading-tight mb-6">Healthcare built around people, not paperwork.</h1>
+                    <p class="text-lg text-[#556e68] leading-relaxed mb-8">We started HealX with a straightforward promise: finding trusted, verified medical care should be as simple, dignified, and calm as sending a text message.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="find-doctors.html" class="px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all shadow-md">Find a Doctor</a>
+                        <a href="contact.html" class="px-6 py-3.5 rounded-full font-bold text-sm bg-white text-[#082c2a] border border-[#d7dfdb] hover:border-[#0e927f] transition-all">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-12 bg-white border-b border-[#e9efe8]">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <strong class="font-extrabold text-3xl sm:text-4xl text-[#082c2a] block mb-1">500+</strong>
+                        <span class="text-xs sm:text-sm text-[#6c8680] font-medium">BMDC-Verified Doctors</span>
+                    </div>
+                    <div>
+                        <strong class="font-extrabold text-3xl sm:text-4xl text-[#0e927f] block mb-1">45,000+</strong>
+                        <span class="text-xs sm:text-sm text-[#6c8680] font-medium">Successful Consultations</span>
+                    </div>
+                    <div>
+                        <strong class="font-extrabold text-3xl sm:text-4xl text-[#082c2a] block mb-1">64</strong>
+                        <span class="text-xs sm:text-sm text-[#6c8680] font-medium">Districts Covered</span>
+                    </div>
+                    <div>
+                        <strong class="font-extrabold text-3xl sm:text-4xl text-[#0e927f] block mb-1">98.4%</strong>
+                        <span class="text-xs sm:text-sm text-[#6c8680] font-medium">Patient Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story & Values Section -->
+        <section class="py-20">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Why We Built HealX</p>
+                        <h2 class="font-extrabold text-3xl sm:text-4xl text-[#082c2a] tracking-tight leading-tight mb-6">Bridging the gap between patients and quality medicine.</h2>
+                        <div class="space-y-4 text-base text-[#556e68] leading-relaxed">
+                            <p>In many parts of Bangladesh, finding the right specialist often involves long queues, confusing schedules, and unverified credentials. Patients frequently travel across cities without knowing if the doctor is available.</p>
+                            <p>HealX resolves this by organizing a verified directory of doctors, showing accurate hospital chambers, transparent consultation fees, real patient reviews, and instant time-slot confirmations.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center font-bold text-lg mb-4">✓</div>
+                            <h3 class="font-bold text-base text-[#082c2a] mb-2">100% BMDC Verified</h3>
+                            <p class="text-xs text-[#6c8680] leading-relaxed">Every doctor listed on HealX is thoroughly checked with official national medical council records.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center font-bold text-lg mb-4">⚡</div>
+                            <h3 class="font-bold text-base text-[#082c2a] mb-2">Instant Booking</h3>
+                            <p class="text-xs text-[#6c8680] leading-relaxed">No phone hold music or middleman commissions. Select your slot and receive confirmation instantly.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center font-bold text-lg mb-4">🤖</div>
+                            <h3 class="font-bold text-base text-[#082c2a] mb-2">AI-Powered Triage</h3>
+                            <p class="text-xs text-[#6c8680] leading-relaxed">Not sure who to consult? Our intelligent symptom checker points you directly to the relevant specialist.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center font-bold text-lg mb-4">🔒</div>
+                            <h3 class="font-bold text-base text-[#082c2a] mb-2">Private & Confidential</h3>
+                            <p class="text-xs text-[#6c8680] leading-relaxed">Your personal medical details and appointment records remain strictly protected with end-to-end security.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medical Advisory Team -->
+        <section class="py-20 bg-[#edf5f1] border-t border-[#dcebe6]">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto text-center">
+                <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Leadership & Ethics</p>
+                <h2 class="font-extrabold text-3xl sm:text-4xl text-[#082c2a] tracking-tight mb-4">Guided by Experienced Clinicians</h2>
+                <p class="text-base text-[#556e68] max-w-xl mx-auto mb-12">Our medical board oversees verification standards, patient safety policies, and directory accuracy.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm text-center">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=300&q=80" alt="Prof Dr Tariq Zaman" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-[#0e927f]">
+                        <h3 class="font-bold text-base text-[#082c2a]">Prof. Dr. Tariq Zaman</h3>
+                        <p class="text-xs text-[#0e927f] font-semibold">Chief Medical Advisor</p>
+                        <p class="text-xs text-[#6c8680] mt-2">Former Head of Internal Medicine, BSMMU</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm text-center">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=300&q=80" alt="Dr Shahana Parveen" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-[#0e927f]">
+                        <h3 class="font-bold text-base text-[#082c2a]">Dr. Shahana Parveen</h3>
+                        <p class="text-xs text-[#0e927f] font-semibold">Head of Clinical Verification</p>
+                        <p class="text-xs text-[#6c8680] mt-2">Associate Professor, Dhaka Medical College</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm text-center">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=80" alt="Dr Mehdi Hasan" class="w-24 h-24 rounded-full mx-auto object-cover mb-4 border-2 border-[#0e927f]">
+                        <h3 class="font-bold text-base text-[#082c2a]">Dr. Mehdi Hasan</h3>
+                        <p class="text-xs text-[#0e927f] font-semibold">Director of Patient Care</p>
+                        <p class="text-xs text-[#6c8680] mt-2">Cardiology Specialist & Public Health Advocate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#062321] text-[#d7e8e2] pt-16 pb-8">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
+            <div>
+                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
+                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealX" width="170" height="40" class="object-contain">
+                </a>
+                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
+            </div>
+            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
+                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
+                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
+                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About Us</a>
+                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
+                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+                </div>
+                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+            <span>© 2026 HealX Health Inc. Better care, together.</span>
+            <span>All medical credentials verified with BMDC.</span>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const primaryNav = document.getElementById('primary-nav');
+        menuToggle?.addEventListener('click', () => {
+            primaryNav.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

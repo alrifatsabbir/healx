@@ -61,11 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Modal Management ---
+    // --- Modal Management (Pure Tailwind) ---
     function openModal(modalEl) {
         if (!modalEl) return;
-        modalEl.hidden = false;
-        document.body.classList.add('modal-open');
+        modalEl.classList.remove('hidden');
+        modalEl.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
         const firstInput = modalEl.querySelector('input:not([type="hidden"]), select');
         if (firstInput) {
             setTimeout(() => firstInput.focus(), 50);
@@ -74,11 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeModal(modalEl) {
         if (!modalEl) return;
-        modalEl.hidden = true;
-        // Check if any modal is still open before removing modal-open
-        const anyOpen = document.querySelectorAll('.modal-backdrop:not([hidden])').length > 0;
+        modalEl.classList.add('hidden');
+        modalEl.classList.remove('flex');
+        const anyOpen = document.querySelectorAll('.modal-backdrop:not(.hidden)').length > 0;
         if (!anyOpen) {
-            document.body.classList.remove('modal-open');
+            document.body.classList.remove('overflow-hidden');
         }
     }
 
@@ -94,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close on Escape key
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
-            document.querySelectorAll('.modal-backdrop:not([hidden])').forEach(closeModal);
+            document.querySelectorAll('.modal-backdrop:not(.hidden)').forEach(closeModal);
         }
     });
 

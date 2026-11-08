@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to your HealX account to manage appointments and access healthcare records.">
+    <title>Sign In | HealX Healthcare Platform</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8f8f4] text-[#123b39] min-h-screen flex flex-col justify-between antialiased">
+    
+    <!-- Top bar -->
+    <div class="p-6">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="./assets/images/healx-logo-bg-black.png" alt="HealX" width="130" height="35" class="h-10 w-auto object-contain">
+            </a>
+            <a href="index.html" class="text-xs sm:text-sm font-semibold text-[#082c2a] hover:text-[#0e927f] transition-colors flex items-center gap-1.5">
+                ← Back to home
+            </a>
+        </div>
+    </div>
+
+    <!-- Login Card -->
+    <main class="flex-1 flex items-center justify-center p-4 sm:p-6 my-4">
+        <div class="w-full max-w-[480px] bg-white rounded-3xl p-8 sm:p-10 border border-[#e1eae6] shadow-[0_12px_40px_rgba(8,44,42,0.08)]">
+            
+            <!-- Role Toggle -->
+            <div class="flex bg-[#edf5f1] p-1.5 rounded-2xl mb-8">
+                <button type="button" id="tab-patient" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#082c2a] shadow-sm transition-all cursor-pointer">
+                    Patient Login
+                </button>
+                <button type="button" id="tab-doctor" class="flex-1 py-2 rounded-xl text-xs sm:text-sm font-bold text-[#627a74] hover:text-[#082c2a] transition-all cursor-pointer">
+                    Doctor Login
+                </button>
+            </div>
+
+            <div class="mb-6">
+                <h1 id="login-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] tracking-tight mb-2">Welcome Back</h1>
+                <p id="login-subtitle" class="text-xs sm:text-sm text-[#6c8680]">Enter your credentials to manage appointments and records.</p>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email or Mobile Number</label>
+                    <input type="text" id="login-identifier" required placeholder="name@example.com or 017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-bold text-[#082c2a]">Password</label>
+                        <a href="#" class="text-xs text-[#0e927f] font-semibold hover:underline">Forgot password?</a>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <button type="button" id="toggle-pwd-btn" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#738a83] hover:text-[#082c2a] cursor-pointer">Show</button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="remember-me" class="rounded text-[#0e927f] focus:ring-[#0e927f] cursor-pointer">
+                    <label for="remember-me" class="text-xs text-[#526a64] cursor-pointer select-none">Remember this device for 30 days</label>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 mt-4">
+                    Sign In <span>↗</span>
+                </button>
+            </form>
+
+            <div id="login-feedback" class="mt-4 p-3 rounded-xl text-center text-xs hidden"></div>
+
+            <div class="mt-8 pt-6 border-t border-[#edf2ef] text-center text-xs sm:text-sm text-[#6c8680]">
+                Don't have an account yet? 
+                <a href="sign-up.html" class="font-bold text-[#0e927f] hover:underline">Create an account</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom note -->
+    <footer class="p-6 text-center text-xs text-[#7d948f]">
+        © 2026 HealX Healthcare Platform • Secure 256-bit SSL encrypted
+    </footer>
+
+    <script>
+        let currentRole = 'patient';
+        const tabPatient = document.getElementById('tab-patient');
+        const tabDoctor = document.getElementById('tab-doctor');
+        const loginTitle = document.getElementById('login-title');
+        const loginSubtitle = document.getElementById('login-subtitle');
+
+        tabPatient.addEventListener('click', () => {
+            currentRole = 'patient';
+            tabPatient.classList.add('bg-white', 'text-[#082c2a]', 'shadow-sm');
+            tabPatient.classList.remove('text-[#627a74]');
+            tabDoctor.classList.remove('bg-white', 'text-[#082c2a]', 'shadow-sm');
+            tabDoctor.classList.add('text-[#627a74]');
+            loginTitle.textContent = 'Welcome Back';
+            loginSubtitle.textContent = 'Enter your credentials to manage appointments and records.';
+        });
+
+        tabDoctor.addEventListener('click', () => {
+            currentRole = 'doctor';
+            tabDoctor.classList.add('bg-white', 'text-[#082c2a]', 'shadow-sm');
+            tabDoctor.classList.remove('text-[#627a74]');
+            tabPatient.classList.remove('bg-white', 'text-[#082c2a]', 'shadow-sm');
+            tabPatient.classList.add('text-[#627a74]');
+            loginTitle.textContent = 'Doctor Portal Login';
+            loginSubtitle.textContent = 'Sign in to access your appointment schedules and patient notes.';
+        });
+
+        // Password visibility toggle
+        const pwdInput = document.getElementById('login-password');
+        const toggleBtn = document.getElementById('toggle-pwd-btn');
+        toggleBtn.addEventListener('click', () => {
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                toggleBtn.textContent = 'Hide';
+            } else {
+                pwdInput.type = 'password';
+                toggleBtn.textContent = 'Show';
+            }
+        });
+
+        // Form Submit
+        const form = document.getElementById('login-form');
+        const feedback = document.getElementById('login-feedback');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            feedback.classList.remove('hidden', 'bg-red-50', 'text-red-700');
+            feedback.classList.add('bg-[#eef8f5]', 'text-[#0e927f]');
+            feedback.innerHTML = `✓ Logging into ${currentRole} account... Redirecting to directory.`;
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

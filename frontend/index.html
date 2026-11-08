@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
@@ -26,16 +26,16 @@
             </button>
             
             <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
-                <a href="#find-care" class="hover:text-white transition-colors">Find a doctor</a>
-                <a href="#specialties" class="hover:text-white transition-colors">Specialties</a>
-                <a href="#how-it-works" class="hover:text-white transition-colors">How it works</a>
-                <a href="#stories" class="hover:text-white transition-colors">Patient stories</a>
-                <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+                <a href="index.html" class="text-white font-semibold">Home</a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
             </nav>
             
-            <div class="nav-actions hidden min-[851px]:flex items-center gap-6 text-sm">
-                <button class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer" type="button" data-open-auth>Sign in</button>
-                <button class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#f1f7f4] text-[#082c2a] hover:bg-white hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0" data-open-booking type="button">Get started <span aria-hidden="true">↗</span></button>
+            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
+                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </header>
@@ -127,329 +127,7 @@
                 </div>
                 
                 <div class="doctor-grid flex gap-5 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="doctor-grid">
-                    <!-- Doctor 1 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Sana Rahman"
-                        data-specialties="dermatology skin acne allergy"
-                        data-title="Dermatologist & Cosmetologist"
-                        data-location="Dhaka"
-                        data-experience="12 years experience"
-                        data-degree="MBBS, FCPS (Dermatology), DDV"
-                        data-hospital="Square Hospital, Dhaka"
-                        data-fee="৳1,200"
-                        data-time="Sun - Thu, 5:00 PM - 8:30 PM"
-                        data-rating="4.9 (148 reviews)"
-                        data-about="Dr. Sana Rahman specializes in clinical dermatology, acne treatments, skin allergy therapies, and cosmetic dermatology with over a decade of hospital and chamber practice."
-                        data-image="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80" alt="Dr Sana Rahman" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Dermatology</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Sana Rahman</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Dermatologist & Cosmetologist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Dhaka</span>
-                                <span>12 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Sana Rahman">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 2 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Arif Hossain"
-                        data-specialties="cardiology heart hypertension chest pain"
-                        data-title="Cardiologist"
-                        data-location="Chattogram"
-                        data-experience="15 years experience"
-                        data-degree="MBBS, MD (Cardiology), FACC"
-                        data-hospital="Evercare Hospital, Chattogram"
-                        data-fee="৳1,500"
-                        data-time="Sat - Wed, 4:00 PM - 9:00 PM"
-                        data-rating="4.95 (210 reviews)"
-                        data-about="Dr. Arif Hossain has comprehensive expertise in preventative cardiology, coronary heart disease, high blood pressure management, and echocardiography."
-                        data-image="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80" alt="Dr Arif Hossain" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Cardiology</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Arif Hossain</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Cardiologist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Chattogram</span>
-                                <span>15 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Arif Hossain">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 3 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Nabila Karim"
-                        data-specialties="mental health psychology depression anxiety therapy counseling"
-                        data-title="Clinical Psychologist"
-                        data-location="Dhaka"
-                        data-experience="9 years experience"
-                        data-degree="B.Sc, M.Sc, M.Phil (Clinical Psychology)"
-                        data-hospital="MindCare Wellness Center, Dhaka"
-                        data-fee="৳1,000"
-                        data-time="Sun - Thu, 3:00 PM - 7:30 PM"
-                        data-rating="4.85 (115 reviews)"
-                        data-about="Dr. Nabila Karim provides evidence-based cognitive behavioral therapy, anxiety and depression counseling, stress management, and emotional wellness consultations."
-                        data-image="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" alt="Dr Nabila Karim" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Mental Health</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.8</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Nabila Karim</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Clinical Psychologist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Dhaka</span>
-                                <span>9 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Nabila Karim">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 4 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Tasnim Ahmed"
-                        data-specialties="pediatrics children baby infant fever vaccination"
-                        data-title="Pediatric Specialist"
-                        data-location="Sylhet"
-                        data-experience="11 years experience"
-                        data-degree="MBBS, DCH, FCPS (Pediatrics)"
-                        data-hospital="Mount Adora Hospital, Sylhet"
-                        data-fee="৳900"
-                        data-time="Sat - Thu, 4:30 PM - 8:00 PM"
-                        data-rating="4.9 (180 reviews)"
-                        data-about="Dedicated to compassionate child healthcare, infant nutrition, childhood illness management, and developmental milestone checkups."
-                        data-image="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80" alt="Dr Tasnim Ahmed" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Pediatrics</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Tasnim Ahmed</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Pediatrician</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Sylhet</span>
-                                <span>11 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Tasnim Ahmed">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 5 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Rahim Chowdhury"
-                        data-specialties="general practice family medicine fever diabetes cough"
-                        data-title="General Physician & Family Specialist"
-                        data-location="Dhaka"
-                        data-experience="18 years experience"
-                        data-degree="MBBS, MCPS, MRCGP (UK)"
-                        data-hospital="United Hospital, Dhaka"
-                        data-fee="৳1,200"
-                        data-time="Sun - Thu, 10:00 AM - 2:00 PM"
-                        data-rating="4.92 (320 reviews)"
-                        data-about="Over 18 years of holistic family medicine, routine adult healthcare, chronic condition management (diabetes & hypertension), and preventative health assessments."
-                        data-image="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&q=80" alt="Dr Rahim Chowdhury" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">General Practice</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Rahim Chowdhury</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">General Physician</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Dhaka</span>
-                                <span>18 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Rahim Chowdhury">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 6 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Faria Jahan"
-                        data-specialties="womens health gynecology pregnancy obstetrics"
-                        data-title="Gynecologist & Obstetrician"
-                        data-location="Rajshahi"
-                        data-experience="10 years experience"
-                        data-degree="MBBS, MS (Obstetrics & Gynecology)"
-                        data-hospital="Royal Hospital, Rajshahi"
-                        data-fee="৳1,000"
-                        data-time="Sat - Wed, 5:00 PM - 8:30 PM"
-                        data-rating="4.88 (160 reviews)"
-                        data-about="Specialist in prenatal care, maternal health, menstrual disorders, PCOS management, and comprehensive women's reproductive health."
-                        data-image="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=600&q=80" alt="Dr Faria Jahan" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Women's Health</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Faria Jahan</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Women's Health Specialist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Rajshahi</span>
-                                <span>10 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Faria Jahan">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 7 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Mahfuz Alam"
-                        data-specialties="nutrition wellness diet weight obesity metabolism"
-                        data-title="Clinical Nutritionist & Dietitian"
-                        data-location="Dhaka"
-                        data-experience="8 years experience"
-                        data-degree="MBBS, M.Sc (Clinical Nutrition), PGD"
-                        data-hospital="Labaid Specialized Hospital, Dhaka"
-                        data-fee="৳800"
-                        data-time="Sun - Thu, 6:00 PM - 9:00 PM"
-                        data-rating="4.8 (94 reviews)"
-                        data-about="Specializes in therapeutic medical nutrition, metabolic health, healthy sustainable weight loss, diabetic diet management, and digestive wellness."
-                        data-image="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80" alt="Dr Mahfuz Alam" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Nutrition</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.8</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Mahfuz Alam</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Nutrition Specialist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Dhaka</span>
-                                <span>8 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Mahfuz Alam">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 8 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Sabir Hasan"
-                        data-specialties="orthopedics bone joint spine fracture arthritis"
-                        data-title="Orthopedic Surgeon"
-                        data-location="Khulna"
-                        data-experience="14 years experience"
-                        data-degree="MBBS, MS (Orthopedics), AO Trauma Fellow"
-                        data-hospital="Gazi Medical Hospital, Khulna"
-                        data-fee="৳1,200"
-                        data-time="Sat - Thu, 4:00 PM - 8:00 PM"
-                        data-rating="4.9 (130 reviews)"
-                        data-about="Expert in orthopedic trauma surgery, osteoarthritis care, joint pain therapies, sports injuries, and spinal posture alignment."
-                        data-image="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1622902046580-2b47f47f5471?auto=format&fit=crop&w=600&q=80" alt="Dr Sabir Hasan" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Orthopedics</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Sabir Hasan</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Orthopedic Surgeon</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Khulna</span>
-                                <span>14 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Sabir Hasan">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
-
-                    <!-- Doctor 9 -->
-                    <article class="doctor-card flex-[0_0_100%] sm:flex-[0_0_calc((100%-20px)/2)] lg:flex-[0_0_calc((100%-40px)/3)] bg-white rounded-[18px] overflow-hidden shadow-[0_4px_12px_rgba(6,37,33,0.06)] hover:-translate-y-1.5 hover:shadow-[0_12px_28px_rgba(6,37,33,0.10)] transition-all duration-300 snap-start flex flex-col group" 
-                        data-doctor="Dr Nusrat Sultana"
-                        data-specialties="eye ophthalmology vision cataract glaucoma"
-                        data-title="Ophthalmologist & Eye Surgeon"
-                        data-location="Dhaka"
-                        data-experience="13 years experience"
-                        data-degree="MBBS, FCPS (Ophthalmology), FICO"
-                        data-hospital="Ispahani Islamia Eye Institute, Dhaka"
-                        data-fee="৳1,000"
-                        data-time="Sat - Wed, 5:00 PM - 8:30 PM"
-                        data-rating="4.86 (142 reviews)"
-                        data-about="Comprehensive ophthalmic evaluations, modern cataract microsurgery, glaucoma monitoring, pediatric vision therapy, and refractive correction consultations."
-                        data-image="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80">
-                        <div class="doctor-photo relative h-[280px] overflow-hidden bg-[#d8e6e1]">
-                            <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=600&q=80" alt="Dr Nusrat Sultana" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <span class="doctor-tag absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-sm text-[#082c2a] px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide">Ophthalmology</span>
-                            <span class="doctor-rating absolute bottom-3.5 right-3.5 bg-[#082c2a]/85 text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1"><span class="text-[#f59e0b]">★</span> 4.9</span>
-                        </div>
-                        <div class="doctor-details p-5 sm:p-6 flex flex-col flex-1">
-                            <div class="doctor-name flex items-center gap-2">
-                                <h3 class="font-bold text-lg text-[#082c2a] tracking-tight">Dr Nusrat Sultana</h3>
-                                <span class="verified w-4 h-4 rounded-full bg-[#0e927f] text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0" title="Verified BMDC">✓</span>
-                            </div>
-                            <p class="text-[#0e927f] text-sm font-semibold my-1.5">Ophthalmologist</p>
-                            <div class="doctor-meta flex justify-between text-xs text-[#7b8e89] pt-2 pb-4 border-b border-[#eef2ef] mt-auto">
-                                <span>Dhaka</span>
-                                <span>13 yrs exp</span>
-                            </div>
-                            <button class="card-link pt-4 text-xs font-bold text-[#123b39] hover:text-[#0e927f] transition-colors flex items-center justify-between w-full bg-transparent border-0 cursor-pointer" type="button" data-doctor-trigger="Dr Nusrat Sultana">
-                                <span>View profile</span>
-                                <span class="text-[#0e927f] font-extrabold text-sm" aria-hidden="true">↗</span>
-                            </button>
-                        </div>
-                    </article>
+                    <!-- Dynamically populated from backend API -->
                 </div>
 
                 <!-- Carousel Controls -->
@@ -459,9 +137,10 @@
                     <button type="button" data-carousel-next aria-label="Next doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">→</button>
                 </div>
 
-                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb]" id="empty-state" hidden>
-                    <h3 class="font-bold text-xl text-[#082c2a] mb-2">No doctors found matching your criteria.</h3>
-                    <p class="text-[#6d7f7b]">Try searching for a different specialty like <strong class="text-[#082c2a] font-semibold">Dermatology</strong>, <strong class="text-[#082c2a] font-semibold">Cardiology</strong>, or check the city spelling.</p>
+                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb]" id="empty-state">
+                    <span class="text-3xl block mb-3">🩺</span>
+                    <h3 class="font-bold text-xl text-[#082c2a] mb-2">Doctor Directory</h3>
+                    <p class="text-[#6d7f7b]">Doctors will be loaded live here directly from the backend database.</p>
                 </div>
             </div>
         </section>
@@ -613,16 +292,16 @@
             <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
                 <div class="flex flex-col gap-3">
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
-                    <a href="#find-care" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find a doctor</a>
-                    <a href="#specialties" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find a doctor</a>
+                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
                     <a href="#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
                     <a href="#faq" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
                 </div>
                 <div class="flex flex-col gap-3">
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
-                    <a href="#about" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About HealX</a>
-                    <a href="#careers" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">For doctors</a>
-                    <a href="#contact" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact & Support</a>
+                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About HealX</a>
+                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">For doctors</a>
+                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact & Support</a>
                 </div>
                 <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
@@ -639,7 +318,7 @@
     </footer>
 
     <!-- Appointment Booking Modal -->
-    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="booking-modal" hidden>
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm hidden items-center justify-center p-4 z-[100] overflow-y-auto" id="booking-modal">
         <div class="modal-card booking-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[520px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="booking-title">
             <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
             <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-2">Instant Scheduling</p>
@@ -650,16 +329,7 @@
                 <label class="block text-xs font-bold text-[#082c2a]">
                     <span class="block mb-1.5">Selected Doctor</span>
                     <select id="booking-doctor-select" required class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                        <option value="">Choose a doctor or general consultation</option>
-                        <option value="Dr Sana Rahman">Dr Sana Rahman (Dermatologist - Dhaka)</option>
-                        <option value="Dr Arif Hossain">Dr Arif Hossain (Cardiologist - Chattogram)</option>
-                        <option value="Dr Nabila Karim">Dr Nabila Karim (Psychologist - Dhaka)</option>
-                        <option value="Dr Tasnim Ahmed">Dr Tasnim Ahmed (Pediatrician - Sylhet)</option>
-                        <option value="Dr Rahim Chowdhury">Dr Rahim Chowdhury (General Physician - Dhaka)</option>
-                        <option value="Dr Faria Jahan">Dr Faria Jahan (Women's Health - Rajshahi)</option>
-                        <option value="Dr Mahfuz Alam">Dr Mahfuz Alam (Nutritionist - Dhaka)</option>
-                        <option value="Dr Sabir Hasan">Dr Sabir Hasan (Orthopedic Surgeon - Khulna)</option>
-                        <option value="Dr Nusrat Sultana">Dr Nusrat Sultana (Ophthalmologist - Dhaka)</option>
+                        <option value="">Select a doctor...</option>
                     </select>
                 </label>
 
@@ -721,7 +391,7 @@
     </div>
 
     <!-- Doctor Profile Modal -->
-    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="profile-modal" hidden>
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm hidden items-center justify-center p-4 z-[100] overflow-y-auto" id="profile-modal">
         <div class="modal-card doctor-profile-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[640px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="profile-doc-name">
             <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
             <div class="doc-modal-header flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 mb-6 pb-5 border-b border-[#d7dfdb]">
@@ -769,7 +439,7 @@
     </div>
 
     <!-- Sign In / Auth Modal -->
-    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm grid place-items-center p-4 z-[100] overflow-y-auto animate-fade-in" id="auth-modal" hidden>
+    <div class="modal-backdrop fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm hidden items-center justify-center p-4 z-[100] overflow-y-auto" id="auth-modal">
         <div class="modal-card auth-modal relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[500px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] animate-scale-up max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="auth-title">
             <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
             
