@@ -40,6 +40,66 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSelectedDoctor = '';
     let carouselIndex = 0;
 
+    // --- Auto-Changing Hero Carousel (Images Only, Text Stays Static) ---
+    const imageSlides = document.querySelectorAll('.hero-image-slide');
+    const heroDots = document.querySelectorAll('[data-hero-dot]');
+    const heroSection = document.querySelector('#hero-carousel');
+    let heroCurrentIndex = 0;
+    let heroTimer = null;
+    const TOTAL_HERO_IMAGES = imageSlides.length;
+
+    function goToHeroSlide(index) {
+        if (!TOTAL_HERO_IMAGES) return;
+        heroCurrentIndex = (index + TOTAL_HERO_IMAGES) % TOTAL_HERO_IMAGES;
+
+        // Cross-fade images smoothly
+        imageSlides.forEach((img, i) => {
+            if (i === heroCurrentIndex) {
+                img.classList.remove('opacity-0', 'pointer-events-none');
+                img.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                img.classList.remove('opacity-100', 'pointer-events-auto');
+                img.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        // Update pagination dots
+        heroDots.forEach((dot, i) => {
+            if (i === heroCurrentIndex) {
+                dot.className = 'hero-dot w-3 h-3 rounded-full bg-[#0e927f] transition-all cursor-pointer border-0 p-0 shadow-sm';
+            } else {
+                dot.className = 'hero-dot w-3 h-3 rounded-full bg-[#bcd1cb] hover:bg-[#0e927f] transition-all cursor-pointer border-0 p-0';
+            }
+        });
+    }
+
+    if (TOTAL_HERO_IMAGES > 0) {
+        // Dot click handlers
+        heroDots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => {
+                goToHeroSlide(idx);
+                resetHeroTimer();
+            });
+        });
+
+        function startHeroTimer() {
+            heroTimer = setInterval(() => {
+                goToHeroSlide(heroCurrentIndex + 1);
+            }, 8000); 
+        }
+
+        function resetHeroTimer() {
+            clearInterval(heroTimer);
+            startHeroTimer();
+        }
+
+        heroSection?.addEventListener('mouseenter', () => clearInterval(heroTimer));
+        heroSection?.addEventListener('mouseleave', startHeroTimer);
+
+        startHeroTimer();
+    }
+
+
     // --- Mobile Menu ---
     if (menuToggle && nav) {
         menuToggle.addEventListener('click', () => {

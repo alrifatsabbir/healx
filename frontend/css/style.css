@@ -29,3 +29,26 @@ body, button, input, select, textarea {
 ::-webkit-scrollbar-thumb:hover {
     background: #087866;
 }
+
+/* Infinite Marquee - Right to Left 100% Seamless Loop (Zero Blink) */
+@keyframes marquee-scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.animate-marquee {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    animation: marquee-scroll 32s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.marquee-container:hover .animate-marquee {
+    animation-play-state: paused;
+}
