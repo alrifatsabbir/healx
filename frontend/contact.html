@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact the HealX healthcare team for patient support, doctor registration inquiries, and appointment assistance.">
+    <title>Contact Us | HealX Healthcare Platform</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
+    <!-- Header & Navigation -->
+    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
+            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealX home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+            </a>
+            
+            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+                <span class="menu-icon">☰</span>
+            </button>
+            
+            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="contact.html" class="text-white font-semibold border-b-2 border-[#0e927f] pb-0.5">Contact</a>
+            </nav>
+            
+            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
+                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="bg-[#edf5f1] py-14 border-b border-[#dcebe6]">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto max-w-3xl">
+                <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Support & Enquiries</p>
+                <h1 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] tracking-tight leading-tight mb-4">We're Here Whenever You Need Us</h1>
+                <p class="text-base text-[#556e68] leading-relaxed">Have questions about booking an appointment, doctor credentials, or technical issues? Our team is available 7 days a week.</p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="py-16">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Contact Form Column -->
+                    <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#e1eae6] shadow-sm">
+                        <h2 class="font-bold text-2xl text-[#082c2a] mb-2">Send us a message</h2>
+                        <p class="text-xs sm:text-sm text-[#6c8680] mb-8 leading-relaxed">Fill out the form below and an appointment coordinator will respond within 2-4 hours.</p>
+
+                        <form id="contact-form" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Full Name *</label>
+                                    <input type="text" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Address *</label>
+                                    <input type="email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number *</label>
+                                    <input type="tel" required placeholder="017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Subject / Department</label>
+                                    <select class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
+                                        <option>Appointment Scheduling & Rescheduling</option>
+                                        <option>Doctor Profile Verification / Onboarding</option>
+                                        <option>Technical / Account Issue</option>
+                                        <option>Feedback & Suggestions</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Your Message *</label>
+                                <textarea rows="5" required placeholder="How can we assist you today?" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2">
+                                Send Message <span>↗</span>
+                            </button>
+                        </form>
+
+                        <div id="contact-success" class="mt-6 p-4 rounded-xl bg-[#eef8f5] border border-[#c3e7dc] text-[#082c2a] text-sm text-center hidden">
+                            <span class="font-bold text-[#0e927f] block mb-1">✓ Message Sent Successfully!</span>
+                            Thank you for reaching out. We will respond promptly.
+                        </div>
+                    </div>
+
+                    <!-- Direct Info Cards Column -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] text-2xl flex items-center justify-center flex-shrink-0">
+                                    📞
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Direct Help Desk</h3>
+                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-3">For urgent appointment changes or immediate assistance:</p>
+                                    <p class="text-sm font-bold text-[#0e927f]">+880 1800-HEALX (43259)</p>
+                                    <p class="text-xs text-[#738a83] mt-1">Everyday 8:00 AM - 10:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] text-2xl flex items-center justify-center flex-shrink-0">
+                                    ✉️
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Email Inquiries</h3>
+                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-3">Send prescriptions or business queries directly:</p>
+                                    <p class="text-sm font-semibold text-[#082c2a]">Patient Support: <a href="mailto:care@healx.health" class="text-[#0e927f] hover:underline">care@healx.health</a></p>
+                                    <p class="text-sm font-semibold text-[#082c2a] mt-1">Doctor Desk: <a href="mailto:doctors@healx.health" class="text-[#0e927f] hover:underline">doctors@healx.health</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] text-2xl flex items-center justify-center flex-shrink-0">
+                                    📍
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Dhaka Headquarters</h3>
+                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-2">Level 7, Health Tech Tower, Road 11, Banani, Dhaka-1213, Bangladesh</p>
+                                    <span class="inline-block text-[11px] font-semibold text-[#0e927f] bg-[#eef8f5] px-2.5 py-1 rounded-md">Visiting Hours: Sun - Thu (9 AM - 6 PM)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#062321] text-[#d7e8e2] pt-16 pb-8">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
+            <div>
+                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
+                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealX" width="170" height="40" class="object-contain">
+                </a>
+                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
+            </div>
+            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
+                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
+                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
+                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About Us</a>
+                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
+                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+                </div>
+                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+            <span>© 2026 HealX Health Inc. Better care, together.</span>
+            <span>All medical credentials verified with BMDC.</span>
+        </div>
+    </footer>
+
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        const contactSuccess = document.getElementById('contact-success');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.reset();
+            contactSuccess.classList.remove('hidden');
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const primaryNav = document.getElementById('primary-nav');
+        menuToggle?.addEventListener('click', () => {
+            primaryNav.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

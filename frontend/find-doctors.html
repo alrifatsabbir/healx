@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search verified specialist doctors, compare consultation fees, and book appointments across Bangladesh on HealX.">
+    <title>Find Doctors | HealX Healthcare Directory</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
+    <!-- Header & Navigation -->
+    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
+            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealX home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+            </a>
+            
+            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+                <span class="menu-icon">☰</span>
+            </button>
+            
+            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="find-doctors.html" class="text-white font-semibold border-b-2 border-[#0e927f] pb-0.5">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </nav>
+            
+            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
+                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header & Filter Hero -->
+        <section class="bg-[#edf5f1] py-12 border-b border-[#dcebe6]">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="max-w-3xl mb-8">
+                    <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Directory & Booking</p>
+                    <h1 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] tracking-tight leading-tight mb-4">Find & Book Verified Doctors</h1>
+                    <p class="text-base text-[#556e68] leading-relaxed">Search through hundreds of board-certified specialists across Bangladesh. Filter by department, location, availability, and consultation fees.</p>
+                </div>
+
+                <!-- Search Bar Container -->
+                <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(8,44,42,0.08)] border border-[#dcefe9]">
+                    <form id="doctor-filter-form" class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                        <div class="md:col-span-5 relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">🔍</span>
+                            <input type="text" id="filter-search-input" placeholder="Doctor name, condition, or hospital..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        </div>
+                        <div class="md:col-span-3 relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">📍</span>
+                            <select id="filter-location-select" class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
+                                <option value="">All Locations</option>
+                                <option value="Dhaka">Dhaka</option>
+                                <option value="Chattogram">Chattogram</option>
+                                <option value="Sylhet">Sylhet</option>
+                                <option value="Rajshahi">Rajshahi</option>
+                                <option value="Khulna">Khulna</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-3 relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">🩺</span>
+                            <select id="filter-category-select" class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
+                                <option value="">All Specialties</option>
+                                <option value="Cardiology">Cardiology (Heart)</option>
+                                <option value="Dermatology">Dermatology (Skin)</option>
+                                <option value="Pediatrics">Pediatrics (Child)</option>
+                                <option value="Neurology">Neurology (Brain/Nerve)</option>
+                                <option value="Orthopedic">Orthopedics (Bones)</option>
+                                <option value="Gynecology">Gynecology (Women's Health)</option>
+                                <option value="General Physician">General Medicine</option>
+                                <option value="Psychiatry">Psychiatry / Mental Health</option>
+                                <option value="Ophthalmology">Ophthalmology (Eye)</option>
+                                <option value="Nutritionist">Nutrition & Dietetics</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-1">
+                            <button type="submit" class="w-full h-full min-h-[46px] bg-[#0e927f] text-white font-bold rounded-xl hover:bg-[#087866] transition-all flex items-center justify-center cursor-pointer shadow-sm">
+                                Filter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Listing Section -->
+        <section class="py-12">
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
+                <div class="flex flex-col lg:flex-row gap-8 items-start">
+                    
+                    <!-- Sidebar Filters -->
+                    <aside class="w-full lg:w-72 bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm flex-shrink-0">
+                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-[#edf2ef]">
+                            <h2 class="font-bold text-base text-[#082c2a]">Filters</h2>
+                            <button id="reset-filters-btn" class="text-xs text-[#0e927f] font-semibold hover:underline cursor-pointer">Reset All</button>
+                        </div>
+
+                        <!-- Availability Filter -->
+                        <div class="mb-6">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Availability</h3>
+                            <div class="space-y-2 text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="availability" value="today" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Available Today
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="availability" value="tomorrow" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Available Tomorrow
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="availability" value="online" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Video Consultation
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Fee Range Filter -->
+                        <div class="mb-6">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Consultation Fee</h3>
+                            <div class="space-y-2 text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="fee_range" value="all" checked class="text-[#0e927f] focus:ring-[#0e927f]"> Any Fee
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="fee_range" value="under_1000" class="text-[#0e927f] focus:ring-[#0e927f]"> Under ৳1000
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="fee_range" value="1000_1500" class="text-[#0e927f] focus:ring-[#0e927f]"> ৳1000 - ৳1500
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="fee_range" value="above_1500" class="text-[#0e927f] focus:ring-[#0e927f]"> ৳1500 & Above
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Gender Filter -->
+                        <div class="mb-6">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Doctor Gender</h3>
+                            <div class="space-y-2 text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="gender" value="male" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Male Doctor
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="checkbox" name="gender" value="female" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Female Doctor
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Rating Filter -->
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Rating</h3>
+                            <div class="space-y-2 text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="min_rating" value="4.8" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.8 & Above
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="min_rating" value="4.5" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.5 & Above
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="min_rating" value="all" checked class="text-[#0e927f] focus:ring-[#0e927f]"> All Ratings
+                                </label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Doctor Cards Results List -->
+                    <div class="flex-1 w-full">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <p class="text-sm text-[#5a746e] font-medium" id="results-count-text">Showing <strong class="text-[#082c2a]" id="results-count">0 verified doctors</strong> matching your criteria</p>
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-[#798e88]">Sort by:</span>
+                                <select id="sort-select" class="border border-[#d7dfdb] bg-white rounded-lg px-3 py-1.5 text-xs text-[#082c2a] outline-none font-semibold cursor-pointer">
+                                    <option value="recommended">Recommended</option>
+                                    <option value="rating">Highest Rated</option>
+                                    <option value="experience">Most Experienced</option>
+                                    <option value="fee_low">Lowest Fee</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Doctors Grid -->
+                        <div id="doctors-listing-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                            <!-- Dynamically loaded from backend API -->
+                        </div>
+                        <div id="empty-doctors-state" class="mt-8 bg-white p-12 rounded-2xl text-center text-[#6d7f7b] border border-dashed border-[#d7dfdb]">
+                            <span class="text-3xl block mb-3">🩺</span>
+                            <h3 class="font-bold text-xl text-[#082c2a] mb-2">No Doctors Listed Yet</h3>
+                            <p class="text-sm text-[#6c8680]">Connecting to backend to fetch verified doctors...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Appointment Booking Modal -->
+    <div class="fixed inset-0 bg-[#03201d]/75 backdrop-blur-sm hidden items-center justify-center p-4 z-[100] overflow-y-auto" id="booking-modal">
+        <div class="relative bg-[#f8fbf8] text-[#082c2a] w-full max-w-[520px] rounded-3xl p-6 sm:p-10 shadow-[0_20px_45px_rgba(6,37,33,0.16)] max-h-[90vh] overflow-y-auto" role="dialog" aria-modal="true">
+            <button class="modal-close absolute right-5 top-5 bg-[#edf2ee] text-[#6d7f7b] hover:text-[#082c2a] hover:bg-[#dce7e2] w-9 h-9 rounded-full flex items-center justify-center text-xl transition-all cursor-pointer border-0" type="button" aria-label="Close dialog">×</button>
+            <p class="inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-2">Instant Scheduling</p>
+            <h2 id="booking-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mb-2 tracking-tight">Book an appointment</h2>
+            <p class="text-[#6d7f7b] text-sm mb-6 leading-relaxed">Confirm your appointment slot with verified specialists.</p>
+            
+            <form id="booking-form" class="flex flex-col gap-4">
+                <label class="block text-xs font-bold text-[#082c2a]">
+                    <span class="block mb-1.5">Doctor</span>
+                    <input type="text" id="selected-doctor-input" readonly class="w-full border-[1.5px] border-[#d7dfdb] bg-[#f0f4f2] rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] font-semibold outline-none">
+                </label>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Your Full Name</span>
+                        <input type="text" required placeholder="Patient name" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Phone Number</span>
+                        <input type="tel" required placeholder="017xxxxxxxx" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Appointment Date</span>
+                        <input type="date" required id="booking-date" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    </label>
+                    <label class="block text-xs font-bold text-[#082c2a]">
+                        <span class="block mb-1.5">Preferred Slot</span>
+                        <select class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <option>Morning (10:00 AM - 12:00 PM)</option>
+                            <option>Afternoon (03:00 PM - 05:00 PM)</option>
+                            <option selected>Evening (06:00 PM - 08:30 PM)</option>
+                        </select>
+                    </label>
+                </div>
+
+                <button class="mt-3 py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] transition-all cursor-pointer border-0 flex items-center justify-center gap-2" type="submit">
+                    Confirm Appointment <span aria-hidden="true">↗</span>
+                </button>
+            </form>
+
+            <div class="hidden bg-[#eef8f5] border-[1.5px] border-[#c3e7dc] rounded-2xl p-6 text-center mt-3" id="booking-success">
+                <div class="w-12 h-12 rounded-full bg-[#0e927f] text-white text-2xl flex items-center justify-center mx-auto mb-3.5">✓</div>
+                <h3 class="font-bold text-xl text-[#082c2a] mb-2">Appointment Confirmed!</h3>
+                <p class="text-[#49635d] text-sm mb-4">We sent booking details and SMS token to your mobile number.</p>
+                <button class="py-2 px-5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0" id="booking-done-btn" type="button">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#062321] text-[#d7e8e2] pt-16 pb-8">
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
+            <div>
+                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
+                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealX" width="170" height="40" class="object-contain">
+                </a>
+                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
+            </div>
+            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
+                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
+                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
+                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About Us</a>
+                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
+                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+                </div>
+                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
+                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+            <span>© 2026 HealX Health Inc. Better care, together.</span>
+            <span>All medical credentials verified with Bangladesh Medical and Dental Council (BMDC).</span>
+        </div>
+    </footer>
+
+    <!-- Interactive script -->
+    <script>
+        // Modal & Booking
+        const modal = document.getElementById('booking-modal');
+        const bookingForm = document.getElementById('booking-form');
+        const bookingSuccess = document.getElementById('booking-success');
+        const docInput = document.getElementById('selected-doctor-input');
+
+        document.querySelectorAll('.book-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                docInput.value = btn.dataset.doctor;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                bookingForm.classList.remove('hidden');
+                bookingSuccess.classList.add('hidden');
+            });
+        });
+
+        document.querySelectorAll('.modal-close, #booking-done-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+        });
+
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            bookingForm.classList.add('hidden');
+            bookingSuccess.classList.remove('hidden');
+        });
+
+        // Set tomorrow as default date
+        const dateInput = document.getElementById('booking-date');
+        if (dateInput) {
+            const tom = new Date();
+            tom.setDate(tom.getDate() + 1);
+            dateInput.min = new Date().toISOString().split('T')[0];
+            dateInput.value = tom.toISOString().split('T')[0];
+        }
+
+        // Live Filter in Page
+        const filterForm = document.getElementById('doctor-filter-form');
+        const searchInput = document.getElementById('filter-search-input');
+        const locSelect = document.getElementById('filter-location-select');
+        const catSelect = document.getElementById('filter-category-select');
+        const cards = document.querySelectorAll('.doctor-card');
+        const countText = document.getElementById('results-count-text');
+
+        function applyFilter() {
+            const query = (searchInput.value || '').toLowerCase().trim();
+            const location = (locSelect.value || '').toLowerCase();
+            const category = (catSelect.value || '').toLowerCase();
+
+            let matched = 0;
+            cards.forEach(card => {
+                const name = (card.dataset.doctor || '').toLowerCase();
+                const spec = (card.dataset.specialty || '').toLowerCase();
+                const loc = (card.dataset.location || '').toLowerCase();
+                const cardText = card.textContent.toLowerCase();
+
+                const matchQ = !query || name.includes(query) || spec.includes(query) || cardText.includes(query);
+                const matchLoc = !location || loc.includes(location);
+                const matchCat = !category || spec.includes(category);
+
+                if (matchQ && matchLoc && matchCat) {
+                    card.style.display = 'flex';
+                    matched++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (countText) {
+                countText.innerHTML = `Showing <strong class="text-[#082c2a]">${matched} verified doctor${matched === 1 ? '' : 's'}</strong> matching your criteria`;
+            }
+        }
+
+        filterForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            applyFilter();
+        });
+
+        searchInput.addEventListener('input', applyFilter);
+        locSelect.addEventListener('change', applyFilter);
+        catSelect.addEventListener('change', applyFilter);
+
+        document.getElementById('reset-filters-btn').addEventListener('click', () => {
+            searchInput.value = '';
+            locSelect.value = '';
+            catSelect.value = '';
+            applyFilter();
+        });
+
+        // Mobile Nav
+        const menuToggle = document.querySelector('.menu-toggle');
+        const primaryNav = document.getElementById('primary-nav');
+        menuToggle?.addEventListener('click', () => {
+            primaryNav.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
