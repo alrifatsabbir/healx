@@ -153,46 +153,90 @@
         </section>
 
         <!-- Search & Filter Section -->
-        <section class="search-section py-20 lg:py-24 bg-white" id="find-care">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
-                <div class="section-intro flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <section class="search-section py-20 lg:py-24 bg-[#f2f7f5] border-b border-[#e2ede8] relative overflow-hidden" id="find-care">
+            <!-- Subtle ambient background glow -->
+            <div class="absolute -top-24 right-0 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,#daf0e7_0%,transparent_70%)] opacity-70 pointer-events-none"></div>
+
+            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto relative z-10">
+                <div class="section-intro flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
                     <div>
-                        <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Your care, your choice</p>
-                        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a]">Start with what you need.</h2>
+                        <span class="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] font-extrabold text-[#0e927f] bg-white px-3.5 py-1.5 rounded-full border border-[#d6eae2] shadow-sm mb-3.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#0e927f] animate-pulse"></span>
+                            Your care, your choice
+                        </span>
+                        <h2 class="font-extrabold text-3xl sm:text-4xl lg:text-[46px] leading-[1.12] tracking-tight text-[#082c2a]">
+                            Start with what you need.
+                        </h2>
                     </div>
-                    <p class="max-w-[300px] text-[#6d7f7b] text-sm sm:text-[14.5px] leading-relaxed">Search by medical specialty, doctor name, or city to find trusted local care.</p>
+                    <p class="max-w-[340px] text-[#556e68] text-sm sm:text-[15px] leading-relaxed">
+                        Search by medical specialty, doctor name, hospital chamber, or city to find verified local care.
+                    </p>
                 </div>
                 
-                <form class="search-box grid grid-cols-1 md:grid-cols-[1.3fr_1fr_auto] gap-0 mt-9 border-[1.5px] border-[#d7dfdb] rounded-2xl bg-[#f8f8f4] p-2 focus-within:border-[#0e927f] focus-within:ring-4 focus-within:ring-[#0e927f]/10 transition-all" id="doctor-search" role="search">
-                    <label class="search-field p-3 sm:px-5 sm:py-2.5 border-b md:border-b-0 md:border-r border-[#d7dfdb] flex flex-col justify-center">
-                        <span class="text-[11px] font-bold text-[#6e807c] uppercase tracking-wider mb-1">What are you looking for?</span>
-                        <input id="search-input" type="search" placeholder="Specialty, condition, or doctor name" autocomplete="off" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-[15px] font-medium placeholder-[#9cb0ab]">
+                <!-- Upgraded Floating Search Card -->
+                <form class="search-box bg-white rounded-3xl p-2.5 sm:p-3 shadow-[0_16px_45px_rgba(8,44,42,0.07)] border border-[#d9e6e1] focus-within:border-[#0e927f] focus-within:ring-4 focus-within:ring-[#0e927f]/15 transition-all grid grid-cols-1 md:grid-cols-[1.35fr_auto_1fr_auto] items-center gap-2 md:gap-0" id="doctor-search" role="search">
+                    <!-- Field 1: Specialty / Name -->
+                    <label class="search-field p-3 sm:px-6 sm:py-3.5 flex items-center gap-3.5 cursor-text">
+                        <div class="w-11 h-11 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <span class="block text-[10.5px] font-extrabold text-[#6f8983] uppercase tracking-wider mb-0.5">What are you looking for?</span>
+                            <input id="search-input" type="search" placeholder="Specialty, condition, or doctor name" autocomplete="off" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
+                        </div>
                     </label>
-                    <label class="search-field location-field p-3 sm:px-5 sm:py-2.5 flex flex-col justify-center">
-                        <span class="text-[11px] font-bold text-[#6e807c] uppercase tracking-wider mb-1">Where?</span>
-                        <input id="location-input" type="text" placeholder="City (e.g. Dhaka, Chattogram)" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-[15px] font-medium placeholder-[#9cb0ab]">
+
+                    <!-- Divider Line -->
+                    <div class="hidden md:block w-px h-12 bg-[#e4ede9]"></div>
+
+                    <!-- Field 2: Location -->
+                    <label class="search-field location-field p-3 sm:px-6 sm:py-3.5 flex items-center gap-3.5 cursor-text">
+                        <div class="w-11 h-11 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <span class="block text-[10.5px] font-extrabold text-[#6f8983] uppercase tracking-wider mb-0.5">Where?</span>
+                            <input id="location-input" type="text" placeholder="City or district (e.g. Dhaka, Chattogram)" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
+                        </div>
                     </label>
-                    <button class="button button-primary search-button m-1 md:ml-2 px-6 py-3.5 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] shadow-md transition-all flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer border-0" type="submit">Search doctors <span aria-hidden="true">↗</span></button>
+
+                    <!-- Action Button -->
+                    <button class="button button-primary search-button m-1 sm:m-1.5 px-8 py-4 rounded-2xl sm:rounded-full font-bold text-sm sm:text-[15px] bg-[#0e927f] text-white hover:bg-[#087866] shadow-[0_6px_20px_rgba(14,146,127,0.3)] hover:shadow-[0_8px_25px_rgba(14,146,127,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2.5 whitespace-nowrap cursor-pointer border-0" type="submit">
+                        <span>Search doctors</span>
+                        <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs">↗</span>
+                    </button>
                 </form>
 
-                <div class="search-feedback-wrap flex items-center justify-between mt-3.5 min-h-[24px]">
-                    <div class="search-feedback text-[#0e927f] text-sm font-semibold" id="search-feedback" role="status" aria-live="polite"></div>
-                    <button type="button" id="clear-search" class="clear-search-btn border-0 bg-[#eef5f2] text-[#123b39] px-3 py-1 rounded-full text-xs font-semibold hover:bg-[#dcefe9] hover:text-[#087866] transition-colors cursor-pointer" hidden>Clear filter ✕</button>
+                <!-- Feedback & Clear Filter -->
+                <div class="search-feedback-wrap flex items-center justify-between mt-3.5 min-h-[28px]">
+                    <div class="search-feedback text-[#0e927f] text-sm font-semibold flex items-center gap-2" id="search-feedback" role="status" aria-live="polite"></div>
+                    <button type="button" id="clear-search" class="clear-search-btn border border-[#d6eae2] bg-white text-[#082c2a] px-3.5 py-1.5 rounded-full text-xs font-bold hover:bg-[#eef8f5] hover:text-[#087866] hover:border-[#0e927f] transition-all cursor-pointer flex items-center gap-1.5 shadow-sm" hidden>
+                        <span>Clear filter</span>
+                        <span class="w-3.5 h-3.5 rounded-full bg-[#082c2a]/10 text-[10px] flex items-center justify-center font-bold">✕</span>
+                    </button>
                 </div>
 
-                <div class="quick-links flex flex-wrap items-center gap-2.5 mt-4 text-xs text-[#8a9894]">
-                    <span class="font-semibold text-[#123b39]">Popular:</span>
-                    <button type="button" data-search="Dermatology" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Dermatology</button>
-                    <button type="button" data-search="Cardiology" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Cardiology</button>
-                    <button type="button" data-search="Mental health" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Mental health</button>
-                    <button type="button" data-search="Pediatrics" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Pediatrics</button>
-                    <button type="button" data-search="Orthopedics" class="px-3.5 py-1.5 rounded-full border border-[#d3dedb] bg-white text-[#123b39] text-xs font-medium hover:bg-[#dcefe9] hover:border-[#0e927f] hover:text-[#087866] transition-all cursor-pointer">Orthopedics</button>
+                <!-- Popular Tags (Pill Chips) -->
+                <div class="quick-links flex flex-wrap items-center gap-2 sm:gap-2.5 mt-4 text-xs">
+                    <span class="font-bold text-[#082c2a] flex items-center gap-1.5 mr-1">
+                        <span class="text-[#0e927f]">✦</span> Popular:
+                    </span>
+                    <button type="button" data-search="Dermatology" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Dermatology</button>
+                    <button type="button" data-search="Cardiology" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Cardiology</button>
+                    <button type="button" data-search="Mental health" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Mental health</button>
+                    <button type="button" data-search="Pediatrics" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Pediatrics</button>
+                    <button type="button" data-search="Orthopedics" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Orthopedics</button>
                 </div>
             </div>
         </section>
 
         <!-- Doctors Directory Section -->
-        <section class="doctors-section py-20 lg:py-28 bg-[#f3f5f0]" aria-labelledby="doctor-heading">
+        <section class="doctors-section py-20 lg:py-28 bg-white" aria-labelledby="doctor-heading">
             <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
                 <div class="section-heading-row flex items-center justify-between mb-9">
                     <div>
@@ -222,7 +266,7 @@
         </section>
 
         <!-- Trust Section -->
-        <section class="trust-section bg-white border-y border-[#e4eae6]">
+        <section class="trust-section bg-[#f7faf9] border-y border-[#e2ede8]">
             <div class="container w-[min(1180px,calc(100%-48px))] mx-auto trust-grid grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 py-9">
                 <div class="flex flex-col gap-1.5 md:border-r border-[#d7dfdb] md:pl-0">
                     <strong class="font-bold text-sm sm:text-base text-[#082c2a]">One place for your health journey</strong>
