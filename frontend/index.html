@@ -42,15 +42,15 @@
 
     <main>
                 <!-- Minimal Hero Carousel Section (Auto Progress, No Arrows) -->
-                        <!-- Hero Section: Left Content + Right Full Image with Organic Torn Paper Edge -->
-        <section class="relative overflow-hidden bg-[#edf5f1] min-h-[580px] lg:min-h-[640px] flex items-stretch" id="hero-carousel">
+                        <!-- Hero Section: Left Content + Right Full Image with Organic Torn Paper Edge (100dvh full viewport height) -->
+        <section class="relative overflow-hidden bg-[#edf5f1] min-h-[calc(100dvh-76px)] lg:h-[calc(100dvh-76px)] flex items-stretch" id="hero-carousel" style="min-height: calc(100dvh - 76px);">
             <!-- Subtle ambient glows -->
             <div class="absolute -top-24 -left-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,#c2e9de_0%,transparent_70%)] opacity-60 pointer-events-none"></div>
 
-            <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch">
+            <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch h-full">
                 
                 <!-- Left Column (50% Width): Text Content & Bottom-Left Normal Dots -->
-                <div class="flex flex-col justify-between px-6 sm:px-12 lg:pl-16 xl:pl-24 lg:pr-10 py-12 lg:py-16 z-10 relative">
+                <div class="flex flex-col justify-between px-6 sm:px-12 lg:pl-16 xl:pl-24 lg:pr-10 py-8 lg:py-12 z-10 relative h-full">
                     
                     <!-- Static Hero Content (No Text Sliding) -->
                     <div class="w-full max-w-[540px] my-auto py-2">
@@ -83,7 +83,7 @@
                     </div>
 
                 </div>
-                <div class="relative w-full h-[440px] sm:h-[500px] lg:h-auto min-h-full overflow-hidden bg-[#cbe3db]">
+                <div class="relative w-full h-[440px] sm:h-[500px] lg:h-full min-h-full overflow-hidden bg-[#cbe3db]">
                     
                     <!-- 5-Degree Tilted Organic Torn Paper SVG Edge (Slants 5° with Fiber Pulp & Texture) -->
                     <svg viewBox="0 0 170 1000" preserveAspectRatio="none" class="hidden lg:block absolute -left-1 top-0 h-full w-20 xl:w-28 z-20 pointer-events-none filter drop-shadow-[6px_0_12px_rgba(8,44,42,0.22)]">
@@ -117,11 +117,11 @@
                         </g>
                     </svg>
 
-                    <!-- Cross-Fading Images (Unzoomed, Well-Balanced Wide Shots) -->
+                    <!-- Cross-Fading Images (True Wide-Angle, Zoomed-Out Clinic & Doctor Shots) -->
                     <div class="relative w-full h-full">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&h=1100&q=85" alt="Doctor Consultation" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[center_18%] transition-opacity duration-1000 opacity-100 pointer-events-auto" data-hero-img="0">
-                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1000&h=1100&crop=right&q=85" alt="Modern Consultation Chamber" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[70%_center] transition-opacity duration-1000 opacity-0 pointer-events-none" data-hero-img="1">
-                        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1000&h=1100&q=85" alt="Friendly Specialist Doctor" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[center_20%] transition-opacity duration-1000 opacity-0 pointer-events-none" data-hero-img="2">
+                        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1600&h=1100&q=85" alt="Doctor Consultation Chamber" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[65%_center] transition-opacity duration-1000 opacity-100 pointer-events-auto" data-hero-img="0">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&h=1100&q=85" alt="Specialist Doctor with Patient" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[60%_center] transition-opacity duration-1000 opacity-0 pointer-events-none" data-hero-img="1">
+                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1600&h=1100&q=85" alt="Modern Consultation Room" class="hero-image-slide absolute inset-0 w-full h-full object-cover object-[65%_center] transition-opacity duration-1000 opacity-0 pointer-events-none" data-hero-img="2">
                     </div>
 
                 </div>
