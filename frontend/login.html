@@ -42,37 +42,38 @@
 
             <div class="mb-6">
                 <h1 id="login-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] tracking-tight mb-2">Welcome Back</h1>
-                <p id="login-subtitle" class="text-xs sm:text-sm text-[#6c8680]">Enter your credentials to manage appointments and records.</p>
+                <p id="login-subtitle" class="text-xs sm:text-sm text-[#6c8680]">Enter your email or username to access your HealX account.</p>
             </div>
+
+            <!-- Feedback Notice -->
+            <div id="login-feedback" class="mb-4 p-3.5 rounded-xl text-xs font-semibold hidden"></div>
 
             <form id="login-form" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email or Mobile Number</label>
-                    <input type="text" id="login-identifier" required placeholder="name@example.com or 017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email or Username *</label>
+                    <input type="text" id="login-identifier" required placeholder="name@example.com or @username" autocomplete="username" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                 </div>
 
                 <div>
                     <div class="flex items-center justify-between mb-1.5">
-                        <label class="block text-xs font-bold text-[#082c2a]">Password</label>
+                        <label class="block text-xs font-bold text-[#082c2a]">Password *</label>
                         <a href="#" class="text-xs text-[#0e927f] font-semibold hover:underline">Forgot password?</a>
                     </div>
                     <div class="relative">
-                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                         <button type="button" id="toggle-pwd-btn" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#738a83] hover:text-[#082c2a] cursor-pointer">Show</button>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2 pt-1">
                     <input type="checkbox" id="remember-me" class="rounded text-[#0e927f] focus:ring-[#0e927f] cursor-pointer">
-                    <label for="remember-me" class="text-xs text-[#526a64] cursor-pointer select-none">Remember this device for 30 days</label>
+                    <label for="remember-me" class="text-xs text-[#526a64] cursor-pointer select-none">Remember this device</label>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 mt-4">
-                    Sign In <span>↗</span>
+                <button type="submit" id="submit-btn" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 mt-4 disabled:opacity-60 disabled:cursor-not-allowed">
+                    <span id="btn-text">Sign In</span> <span id="btn-arrow">↗</span>
                 </button>
             </form>
-
-            <div id="login-feedback" class="mt-4 p-3 rounded-xl text-center text-xs hidden"></div>
 
             <div class="mt-8 pt-6 border-t border-[#edf2ef] text-center text-xs sm:text-sm text-[#6c8680]">
                 Don't have an account yet? 
@@ -86,12 +87,22 @@
         © 2026 HealX Healthcare Platform • Secure 256-bit SSL encrypted
     </footer>
 
-    <script>
+    <!-- Real API Integration -->
+    <script type="module">
+        import api from './js/api.js';
+
         let currentRole = 'patient';
         const tabPatient = document.getElementById('tab-patient');
         const tabDoctor = document.getElementById('tab-doctor');
         const loginTitle = document.getElementById('login-title');
         const loginSubtitle = document.getElementById('login-subtitle');
+        const pwdInput = document.getElementById('login-password');
+        const toggleBtn = document.getElementById('toggle-pwd-btn');
+        const form = document.getElementById('login-form');
+        const feedback = document.getElementById('login-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const identifierInput = document.getElementById('login-identifier');
 
         tabPatient.addEventListener('click', () => {
             currentRole = 'patient';
@@ -100,7 +111,8 @@
             tabDoctor.classList.remove('bg-white', 'text-[#082c2a]', 'shadow-sm');
             tabDoctor.classList.add('text-[#627a74]');
             loginTitle.textContent = 'Welcome Back';
-            loginSubtitle.textContent = 'Enter your credentials to manage appointments and records.';
+            loginSubtitle.textContent = 'Enter your email or username to access your patient appointments.';
+            identifierInput.placeholder = 'name@example.com or @username';
         });
 
         tabDoctor.addEventListener('click', () => {
@@ -110,12 +122,10 @@
             tabPatient.classList.remove('bg-white', 'text-[#082c2a]', 'shadow-sm');
             tabPatient.classList.add('text-[#627a74]');
             loginTitle.textContent = 'Doctor Portal Login';
-            loginSubtitle.textContent = 'Sign in to access your appointment schedules and patient notes.';
+            loginSubtitle.textContent = 'Sign in to access consultation chamber schedules and patient notes.';
+            identifierInput.placeholder = 'doctor@healx.health or @doctor_username';
         });
 
-        // Password visibility toggle
-        const pwdInput = document.getElementById('login-password');
-        const toggleBtn = document.getElementById('toggle-pwd-btn');
         toggleBtn.addEventListener('click', () => {
             if (pwdInput.type === 'password') {
                 pwdInput.type = 'text';
@@ -126,17 +136,50 @@
             }
         });
 
-        // Form Submit
-        const form = document.getElementById('login-form');
-        const feedback = document.getElementById('login-feedback');
-        form.addEventListener('submit', (e) => {
+        function showFeedback(msg, isError = false) {
+            feedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            feedback.classList.add('border');
+            if (isError) {
+                feedback.classList.add('bg-red-50', 'text-red-700', 'border-red-200');
+            } else {
+                feedback.classList.add('bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            }
+            feedback.textContent = msg;
+        }
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            feedback.classList.remove('hidden', 'bg-red-50', 'text-red-700');
-            feedback.classList.add('bg-[#eef8f5]', 'text-[#0e927f]');
-            feedback.innerHTML = `✓ Logging into ${currentRole} account... Redirecting to directory.`;
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1200);
+            const identifier = identifierInput.value.trim();
+            const password = pwdInput.value;
+
+            if (!identifier || !password) {
+                showFeedback('Please provide both your Email/Username and Password.', true);
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                btnText.textContent = 'Verifying credentials...';
+
+                const res = await api.login(identifier, password);
+
+                showFeedback(`✓ Welcome back, ${res.user.fullName || res.user.username}! Redirecting...`, false);
+
+                setTimeout(() => {
+                    if (res.user.role === 'doctor' && res.user.profileUrl) {
+                        window.location.href = res.user.profileUrl;
+                    } else if (res.user.role === 'admin') {
+                        window.location.href = 'index.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                }, 800);
+            } catch (err) {
+                showFeedback(err.message || 'Login failed. Please check your credentials.', true);
+            } finally {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Sign In';
+            }
         });
     </script>
 </body>
