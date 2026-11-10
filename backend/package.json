@@ -1,7 +1,7 @@
 {
-  "name": "healx-backend",
+  "name": "healiix-backend",
   "version": "1.0.0",
-  "description": "HealX Doctor Directory and Telemedicine Backend powered by Hono and MongoDB",
+  "description": "HealiiX Doctor Directory and Telemedicine Backend powered by Hono and MongoDB",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
@@ -10,13 +10,13 @@
     "seed:admin": "node src/seed/adminSeed.js"
   },
   "keywords": [
-    "healx",
+    "healiix",
     "hono",
     "mongodb",
     "healthcare",
     "doctor-directory"
   ],
-  "author": "HealX Team",
+  "author": "HealiiX Team",
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^2.1.6",
