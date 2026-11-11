@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import Doctor from '../models/Doctor.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { sendDoctorApprovalStatusEmail } from '../config/mailer.js';
 
 const doctor = new Hono();
 
@@ -160,6 +161,43 @@ doctor.put('/:id', requireAuth, async (c) => {
         return c.json({
             success: true,
             message: 'Doctor profile updated successfully.',
+            doctor: doc,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// PATCH /api/doctors/:id/verify - Admin verifies/rejects doctor & sends status email
+doctor.patch('/:id/verify', requireAuth, requireRole('admin'), async (c) => {
+    try {
+        const id = c.req.param('id');
+        const { status, reason = '' } = await c.req.json();
+
+        if (!['approved', 'rejected'].includes(status)) {
+            return c.json({ success: false, message: 'Status must be "approved" or "rejected".' }, 400);
+        }
+
+        const doc = await Doctor.findById(id);
+        if (!doc) {
+            return c.json({ success: false, message: 'Doctor profile not found.' }, 404);
+        }
+
+        doc.verificationStatus = status;
+        doc.isVerified = status === 'approved';
+        await doc.save();
+
+        sendDoctorApprovalStatusEmail({
+            to: doc.email,
+            doctorName: doc.name,
+            username: doc.username,
+            status,
+            reason,
+        }).catch(console.error);
+
+        return c.json({
+            success: true,
+            message: `Doctor @${doc.username} verification updated to ${status}. Notification email dispatched.`,
             doctor: doc,
         });
     } catch (err) {

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact the HealX healthcare team for patient support, doctor registration inquiries, and appointment assistance.">
-    <title>Contact Us | HealX Healthcare Platform</title>
+    <meta name="description" content="Contact the HealiiX healthcare team for patient support, doctor registration inquiries, and appointment assistance.">
+    <title>Contact Us | HealiiX Healthcare Platform</title>
     <link rel="icon" href="./assets/images/icon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,8 +16,8 @@
     <!-- Header & Navigation -->
     <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
         <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
-            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealX home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
             </a>
             
             <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
@@ -34,7 +34,7 @@
             
             <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
                 <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">↗</span></a>
             </div>
         </div>
     </header>
@@ -63,22 +63,22 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Full Name *</label>
-                                    <input type="text" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                    <input type="text" id="contact-name" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Address *</label>
-                                    <input type="email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                    <input type="email" id="contact-email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number *</label>
-                                    <input type="tel" required placeholder="017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                    <input type="tel" id="contact-phone" required placeholder="017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Subject / Department</label>
-                                    <select class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
+                                    <select id="contact-subject" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
                                         <option>Appointment Scheduling & Rescheduling</option>
                                         <option>Doctor Profile Verification / Onboarding</option>
                                         <option>Technical / Account Issue</option>
@@ -89,11 +89,11 @@
 
                             <div>
                                 <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Your Message *</label>
-                                <textarea rows="5" required placeholder="How can we assist you today?" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all"></textarea>
+                                <textarea id="contact-message" rows="5" required placeholder="How can we assist you today?" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all"></textarea>
                             </div>
 
-                            <button type="submit" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2">
-                                Send Message <span>↗</span>
+                            <button type="submit" id="contact-submit-btn" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-60">
+                                <span>Send Message</span> <span>↗</span>
                             </button>
                         </form>
 
@@ -127,8 +127,8 @@
                                 <div>
                                     <h3 class="font-bold text-base text-[#082c2a] mb-1">Email Inquiries</h3>
                                     <p class="text-xs text-[#6c8680] leading-relaxed mb-3">Send prescriptions or business queries directly:</p>
-                                    <p class="text-sm font-semibold text-[#082c2a]">Patient Support: <a href="mailto:care@healx.health" class="text-[#0e927f] hover:underline">care@healx.health</a></p>
-                                    <p class="text-sm font-semibold text-[#082c2a] mt-1">Doctor Desk: <a href="mailto:doctors@healx.health" class="text-[#0e927f] hover:underline">doctors@healx.health</a></p>
+                                    <p class="text-sm font-semibold text-[#082c2a]">Patient Support: <a href="mailto:care@healiix.health" class="text-[#0e927f] hover:underline">care@healiix.health</a></p>
+                                    <p class="text-sm font-semibold text-[#082c2a] mt-1">Doctor Desk: <a href="mailto:doctors@healiix.health" class="text-[#0e927f] hover:underline">doctors@healiix.health</a></p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@
         <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
             <div>
                 <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
-                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealX" width="170" height="40" class="object-contain">
+                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX" width="170" height="40" class="object-contain">
                 </a>
                 <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
             </div>
@@ -181,18 +181,44 @@
             </div>
         </div>
         <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
-            <span>© 2026 HealX Health Inc. Better care, together.</span>
+            <span>© 2026 HealiiX Health Inc. Better care, together.</span>
             <span>All medical credentials verified with BMDC.</span>
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        import api from './js/api.js';
+        import './js/auth.js';
+
         const contactForm = document.getElementById('contact-form');
         const contactSuccess = document.getElementById('contact-success');
-        contactForm.addEventListener('submit', (e) => {
+        const submitBtn = document.getElementById('contact-submit-btn');
+
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            contactForm.reset();
-            contactSuccess.classList.remove('hidden');
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value.trim();
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Sending message...</span>';
+                await api.sendContactMessage({
+                    name,
+                    email,
+                    subject,
+                    message: `Phone: ${phone}\n\n${message}`,
+                });
+                contactForm.reset();
+                contactSuccess.classList.remove('hidden');
+            } catch (err) {
+                alert(err.message || 'Could not send message. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Send Message</span> <span>↗</span>';
+            }
         });
 
         const menuToggle = document.querySelector('.menu-toggle');

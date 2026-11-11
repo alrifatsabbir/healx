@@ -1,7 +1,8 @@
 import api from './api.js';
+import { CONFIG } from './config.js';
 
 /**
- * Initializes and syncs authentication state across all HealX frontend pages.
+ * Initializes and syncs authentication state across all HealiiX frontend pages.
  * Updates header navigation to show user profile & logout when signed in.
  */
 export function initAuthNav() {
@@ -15,15 +16,15 @@ export function initAuthNav() {
             // Unauthenticated state
             container.innerHTML = `
                 <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealX <span aria-hidden="true">↗</span></a>
+                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">↗</span></a>
             `;
             return;
         }
 
         // Authenticated state
         const profileUrl = user.role === 'doctor' 
-            ? `http://localhost:5000/d/${user.username}` 
-            : `http://localhost:5000/u/${user.username}`;
+            ? CONFIG.PROFILE_URLS.DOCTOR(user.username) 
+            : CONFIG.PROFILE_URLS.PATIENT(user.username);
 
         const roleBadge = user.role === 'doctor' 
             ? '<span class="bg-[#0e927f] text-white text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full ml-1.5">Doctor</span>'

@@ -1,17 +1,23 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import env from './config/env.js';
 import authRoutes from './routes/auth.routes.js';
 import doctorRoutes from './routes/doctor.routes.js';
 import appointmentRoutes from './routes/appointment.routes.js';
 import reviewRoutes from './routes/review.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
 import profileRoutes from './routes/profile.routes.js';
+import contactRoutes from './routes/contact.routes.js';
 
 export const app = new Hono();
 
-// CORS Middleware
+// Environment-aware CORS Middleware (Dev & Prod separated)
 app.use('*', cors({
-    origin: (origin) => origin || '*',
+    origin: (origin) => {
+        if (!origin) return '*';
+        if (!env.isProduction) return origin;
+        return env.ALLOWED_ORIGINS.includes(origin) ? origin : env.ALLOWED_ORIGINS[0] || '*';
+    },
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     exposeHeaders: ['Content-Length'],
@@ -30,7 +36,7 @@ app.use('*', async (c, next) => {
 // Root & Healthcheck
 app.get('/', (c) => {
     return c.json({
-        service: 'HealX Healthcare & Doctor Directory API',
+        service: 'HealiiX Healthcare & Doctor Directory API',
         status: 'online',
         version: '1.0.0',
         routes: {
@@ -55,6 +61,7 @@ app.route('/api/doctors', doctorRoutes);
 app.route('/api/appointments', appointmentRoutes);
 app.route('/api/reviews', reviewRoutes);
 app.route('/api/upload', uploadRoutes);
+app.route('/api/contact', contactRoutes);
 
 // 404 Fallback
 app.notFound((c) => {

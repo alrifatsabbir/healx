@@ -13,14 +13,12 @@ const otpSchema = new mongoose.Schema({
     },
     purpose: {
         type: String,
+        enum: ['patient_signup', 'doctor_signup', 'password_reset'],
         default: 'doctor_signup',
     },
     step1Data: {
-        name: { type: String, required: true },
-        username: { type: String, required: true },
-        email: { type: String, required: true },
-        phone: { type: String, required: true },
-        dateOfBirth: { type: Date, required: true },
+        type: mongoose.Schema.Types.Mixed,
+        default: {},
     },
     isVerified: {
         type: Boolean,
@@ -29,10 +27,9 @@ const otpSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 600, // 10 minutes TTL: auto-deleted by MongoDB
+        expires: 600, // 10 minutes TTL
     },
 });
 
 export const Otp = mongoose.model('Otp', otpSchema);
 export default Otp;
-
