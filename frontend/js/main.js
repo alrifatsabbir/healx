@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             authTabs.forEach((t) => t.classList.remove('active'));
             tab.classList.add('active');
             const isLogin = tab.dataset.authTab === 'login';
-            if (authTitle) authTitle.textContent = isLogin ? 'Welcome to HealX' : 'Create your HealX Account';
+            if (authTitle) authTitle.textContent = isLogin ? 'Welcome to HealiiX' : 'Create your HealiiX Account';
             if (authSubmitBtn) authSubmitBtn.innerHTML = isLogin ? 'Sign In <span aria-hidden="true">↗</span>' : 'Create Account <span aria-hidden="true">↗</span>';
         });
     });

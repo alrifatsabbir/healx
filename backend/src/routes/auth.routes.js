@@ -4,7 +4,15 @@ import User from '../models/User.js';
 import Doctor from '../models/Doctor.js';
 import Otp from '../models/Otp.js';
 import { generateToken, requireAuth } from '../middleware/auth.js';
-import { sendDoctorOtpEmail } from '../config/mailer.js';
+import {
+    sendDoctorOtpEmail,
+    sendPatientVerificationOtpEmail,
+    sendWelcomeEmail,
+    sendDoctorPendingReviewEmail,
+    sendAdminNewDoctorAlertEmail,
+    sendPasswordResetOtpEmail,
+    sendPasswordChangedEmail,
+} from '../config/mailer.js';
 import { compressAndUploadToWebP } from '../utils/imageCompressor.js';
 
 const auth = new Hono();
@@ -31,7 +39,53 @@ auth.get('/check-username/:username', async (c) => {
 });
 
 // --------------------------------------------------------------------------
-// 2. Patient Signup
+// 2A. Patient Signup - Send Verification OTP
+// --------------------------------------------------------------------------
+auth.post('/patient/send-otp', async (c) => {
+    try {
+        const body = await c.req.json();
+        const name = (body.name || body.fullName || '').trim();
+        const username = (body.username || '').toLowerCase().trim();
+        const email = (body.email || '').toLowerCase().trim();
+
+        if (!name || !username || !email) {
+            return c.json({
+                success: false,
+                message: 'Name, Username, and Email are required to send verification OTP.',
+            }, 400);
+        }
+
+        const existing = await User.findOne({ $or: [{ username }, { email }] });
+        if (existing) {
+            const conflict = existing.username === username ? 'Username' : 'Email';
+            return c.json({
+                success: false,
+                message: `${conflict} is already registered. Please choose another or login.`,
+            }, 409);
+        }
+
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        await Otp.deleteMany({ email, purpose: 'patient_signup' });
+        await Otp.create({
+            email,
+            otp: otpCode,
+            purpose: 'patient_signup',
+            step1Data: { name, username, email },
+        });
+
+        await sendPatientVerificationOtpEmail({ to: email, name, otp: otpCode });
+
+        return c.json({
+            success: true,
+            message: `Verification OTP sent to ${email}.`,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// --------------------------------------------------------------------------
+// 2B. Patient Signup (Creates account + sends Welcome Email)
 // --------------------------------------------------------------------------
 auth.post('/patient/signup', async (c) => {
     try {
@@ -45,6 +99,7 @@ auth.post('/patient/signup', async (c) => {
             dateOfBirth,
             password,
             confirmPassword,
+            otp,
         } = body;
 
         const resolvedName = name || fullName;
@@ -73,6 +128,22 @@ auth.post('/patient/signup', async (c) => {
             }, 400);
         }
 
+        // If OTP is supplied, validate it strictly against Otp collection
+        if (otp) {
+            const otpRecord = await Otp.findOne({
+                email: normalizedEmail,
+                otp: String(otp).trim(),
+                purpose: 'patient_signup',
+            });
+            if (!otpRecord) {
+                return c.json({
+                    success: false,
+                    message: 'Invalid or expired verification OTP.',
+                }, 400);
+            }
+            await Otp.deleteMany({ email: normalizedEmail, purpose: 'patient_signup' });
+        }
+
         // Check uniqueness
         const existing = await User.findOne({
             $or: [{ username: normalizedUsername }, { email: normalizedEmail }],
@@ -96,6 +167,14 @@ auth.post('/patient/signup', async (c) => {
             role: 'patient',
             isEmailVerified: true,
         });
+
+        // Dispatch Welcome Email asynchronously
+        sendWelcomeEmail({
+            to: user.email,
+            name: user.fullName,
+            username: user.username,
+            role: 'patient',
+        }).catch(console.error);
 
         const token = generateToken(user._id, user.role);
 
@@ -295,7 +374,7 @@ auth.post('/doctor/step-2', async (c) => {
         if (existingBmdc) {
             return c.json({
                 success: false,
-                message: 'This BMDC registration number is already registered in HealX.',
+                message: 'This BMDC registration number is already registered in HealiiX.',
             }, 409);
         }
 
@@ -365,6 +444,26 @@ auth.post('/doctor/step-2', async (c) => {
 
         // Clean up OTP record
         await Otp.deleteMany({ email: step1.email });
+
+        // Notify Doctor (Under Review) + Admin (New Application Alert)
+        Promise.all([
+            sendDoctorPendingReviewEmail({
+                to: user.email,
+                doctorName: user.fullName,
+                username: user.username,
+                bmdcNumber: doctorProfile.bmdcNumber,
+                specialty: doctorProfile.specialty,
+            }),
+            sendAdminNewDoctorAlertEmail({
+                doctorName: user.fullName,
+                username: user.username,
+                email: user.email,
+                phone: user.phone,
+                bmdcNumber: doctorProfile.bmdcNumber,
+                specialty: doctorProfile.specialty,
+                hospitalName: doctorProfile.currentWorkplace,
+            }),
+        ]).catch(console.error);
 
         const token = generateToken(user._id, user.role);
 
@@ -472,6 +571,102 @@ auth.get('/me', requireAuth, async (c) => {
             doctorProfile: extra,
         },
     });
+});
+
+// --------------------------------------------------------------------------
+// 8. Forgot Password - Request OTP
+// --------------------------------------------------------------------------
+auth.post('/forgot-password', async (c) => {
+    try {
+        const body = await c.req.json();
+        const identifier = (body.identifier || body.email || body.username || '').toLowerCase().trim();
+
+        if (!identifier) {
+            return c.json({ success: false, message: 'Please provide your email or username.' }, 400);
+        }
+
+        const user = await User.findOne({
+            $or: [{ email: identifier }, { username: identifier }],
+        });
+
+        if (!user) {
+            return c.json({ success: false, message: 'No account found with that email or username.' }, 404);
+        }
+
+        const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+        await Otp.deleteMany({ email: user.email, purpose: 'password_reset' });
+        await Otp.create({
+            email: user.email,
+            otp: otpCode,
+            purpose: 'password_reset',
+        });
+
+        await sendPasswordResetOtpEmail({
+            to: user.email,
+            name: user.fullName,
+            otp: otpCode,
+        });
+
+        return c.json({
+            success: true,
+            message: `Password reset OTP sent to ${user.email}.`,
+            email: user.email,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// --------------------------------------------------------------------------
+// 9. Reset Password with OTP
+// --------------------------------------------------------------------------
+auth.post('/reset-password', async (c) => {
+    try {
+        const body = await c.req.json();
+        const { email, otp, newPassword, confirmPassword } = body;
+
+        if (!email || !otp || !newPassword) {
+            return c.json({ success: false, message: 'Email, OTP, and new password are required.' }, 400);
+        }
+
+        if (confirmPassword !== undefined && newPassword !== confirmPassword) {
+            return c.json({ success: false, message: 'Passwords do not match.' }, 400);
+        }
+
+        const normalizedEmail = email.toLowerCase().trim();
+        const otpRecord = await Otp.findOne({
+            email: normalizedEmail,
+            otp: String(otp).trim(),
+            purpose: 'password_reset',
+        });
+
+        if (!otpRecord) {
+            return c.json({ success: false, message: 'Invalid or expired reset OTP.' }, 400);
+        }
+
+        const user = await User.findOne({ email: normalizedEmail });
+        if (!user) {
+            return c.json({ success: false, message: 'Account not found.' }, 404);
+        }
+
+        user.password = newPassword;
+        await user.save();
+
+        await Otp.deleteMany({ email: normalizedEmail, purpose: 'password_reset' });
+
+        // Send security notification email
+        sendPasswordChangedEmail({
+            to: user.email,
+            name: user.fullName,
+        }).catch(console.error);
+
+        return c.json({
+            success: true,
+            message: 'Password updated successfully. You may now sign in with your new password.',
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
 });
 
 export default auth;

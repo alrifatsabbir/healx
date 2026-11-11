@@ -2,7 +2,11 @@ import { Hono } from 'hono';
 import Appointment from '../models/Appointment.js';
 import Doctor from '../models/Doctor.js';
 import { requireAuth } from '../middleware/auth.js';
-import { sendAppointmentEmail } from '../config/mailer.js';
+import {
+    sendAppointmentEmail,
+    sendDoctorNewBookingEmail,
+    sendAppointmentStatusEmail,
+} from '../config/mailer.js';
 
 const appointment = new Hono();
 
@@ -75,9 +79,10 @@ appointment.post('/book', async (c) => {
             status: 'pending',
         });
 
-        // Trigger email notification if patient provided email
+        // Trigger confirmation email to patient & booking alert to doctor
+        const emailTasks = [];
         if (patientEmail) {
-            sendAppointmentEmail({
+            emailTasks.push(sendAppointmentEmail({
                 to: patientEmail,
                 patientName,
                 doctorName: doctor.name,
@@ -85,8 +90,22 @@ appointment.post('/book', async (c) => {
                 date: appointmentDate,
                 slot: timeSlot,
                 hospitalName: newAppointment.hospitalName,
-            }).catch(console.error);
+                fee: newAppointment.consultationFee,
+            }));
         }
+        if (doctor.email) {
+            emailTasks.push(sendDoctorNewBookingEmail({
+                to: doctor.email,
+                doctorName: doctor.name,
+                patientName,
+                patientPhone,
+                bookingRef,
+                date: appointmentDate,
+                slot: timeSlot,
+                symptoms: symptomsDescription,
+            }));
+        }
+        if (emailTasks.length) Promise.all(emailTasks).catch(console.error);
 
         return c.json({
             success: true,
@@ -159,6 +178,19 @@ appointment.patch('/:id/status', requireAuth, async (c) => {
         appt.status = status;
         if (cancelledReason) appt.cancelledReason = cancelledReason;
         await appt.save();
+
+        if (appt.patientEmail && ['confirmed', 'completed', 'cancelled'].includes(status)) {
+            sendAppointmentStatusEmail({
+                to: appt.patientEmail,
+                patientName: appt.patientName,
+                doctorName: appt.doctorName,
+                bookingRef: appt.bookingRef,
+                status,
+                date: appt.appointmentDate,
+                slot: appt.timeSlot,
+                reason: cancelledReason || '',
+            }).catch(console.error);
+        }
 
         return c.json({
             success: true,

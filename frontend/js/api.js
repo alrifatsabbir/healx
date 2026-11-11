@@ -60,6 +60,14 @@ export const api = {
         return this.request(CONFIG.ENDPOINTS.AUTH.CHECK_USERNAME(username), { method: 'GET' });
     },
 
+    // Patient Send Email Verification OTP
+    async patientSendOtp(data) {
+        return this.request(CONFIG.ENDPOINTS.AUTH.PATIENT_SEND_OTP, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
     // Patient Signup
     async patientSignup(patientData) {
         const res = await this.request(CONFIG.ENDPOINTS.AUTH.PATIENT_SIGNUP, {
@@ -69,6 +77,29 @@ export const api = {
         if (res.token) this.setToken(res.token);
         if (res.user) this.setCurrentUser(res.user);
         return res;
+    },
+
+    // Forgot & Reset Password
+    async forgotPassword(identifier) {
+        return this.request(CONFIG.ENDPOINTS.AUTH.FORGOT_PASSWORD, {
+            method: 'POST',
+            body: JSON.stringify({ identifier }),
+        });
+    },
+
+    async resetPassword(data) {
+        return this.request(CONFIG.ENDPOINTS.AUTH.RESET_PASSWORD, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    // Contact Us
+    async sendContactMessage(contactData) {
+        return this.request(CONFIG.ENDPOINTS.CONTACT, {
+            method: 'POST',
+            body: JSON.stringify(contactData),
+        });
     },
 
     // Doctor Signup Step 1 (Send OTP)

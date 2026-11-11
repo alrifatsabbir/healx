@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create a HealX account to book appointments or join our verified healthcare directory as a doctor.">
-    <title>Create an Account | HealX Healthcare Platform</title>
+    <meta name="description" content="Create a HealiiX account to book appointments or join our verified healthcare directory as a doctor.">
+    <title>Create an Account | HealiiX Healthcare Platform</title>
     <link rel="icon" href="./assets/images/icon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
     <div class="p-6">
         <div class="container w-[min(1180px,calc(100%-48px))] mx-auto flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-2">
-                <img src="./assets/images/healx-logo-bg-black.png" alt="HealX" width="130" height="35" class="h-10 w-auto object-contain">
+                <img src="./assets/images/healx-logo-bg-black.png" alt="HealiiX" width="130" height="35" class="h-10 w-auto object-contain">
             </a>
             <a href="index.html" class="text-xs sm:text-sm font-semibold text-[#082c2a] hover:text-[#0e927f] transition-colors flex items-center gap-1.5">
                 ← Back to home
@@ -42,7 +42,7 @@
 
             <div class="mb-6">
                 <h1 id="signup-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] tracking-tight mb-2">Create Your Patient Account</h1>
-                <p id="signup-subtitle" class="text-xs sm:text-sm text-[#6c8680]">Join HealX to book verified appointments with doctors across Bangladesh.</p>
+                <p id="signup-subtitle" class="text-xs sm:text-sm text-[#6c8680]">Join HealiiX to book verified appointments with doctors across Bangladesh.</p>
             </div>
 
             <!-- Global Feedback Alert -->
@@ -99,14 +99,36 @@
                 <div class="flex items-start gap-2.5 pt-1">
                     <input type="checkbox" required id="patient-terms" class="mt-0.5 rounded text-[#0e927f] focus:ring-[#0e927f] cursor-pointer">
                     <label for="patient-terms" class="text-xs text-[#526a64] leading-relaxed cursor-pointer select-none">
-                        I agree to the HealX <a href="#" class="text-[#0e927f] font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-[#0e927f] font-semibold hover:underline">Privacy Policy</a>.
+                        I agree to the HealiiX <a href="#" class="text-[#0e927f] font-semibold hover:underline">Terms of Service</a> and <a href="#" class="text-[#0e927f] font-semibold hover:underline">Privacy Policy</a>.
                     </label>
                 </div>
 
                 <button type="submit" id="patient-submit-btn" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 mt-4 disabled:opacity-60">
-                    <span>Create Patient Account</span> <span>↗</span>
+                    <span>Verify Email & Create Account</span> <span>↗</span>
                 </button>
             </form>
+
+            <!-- PATIENT OTP VERIFICATION CARD -->
+            <div id="patient-otp-section" class="hidden bg-[#f3f9f6] border border-[#d5ebe2] rounded-2xl p-6 text-center my-4">
+                <div class="w-12 h-12 rounded-full bg-[#daf1e8] text-[#0e927f] flex items-center justify-center mx-auto mb-3 text-xl">
+                    ✉️
+                </div>
+                <h3 class="font-extrabold text-base text-[#082c2a] mb-1">Confirm Your Email Address</h3>
+                <p class="text-xs text-[#556e68] mb-4">
+                    We sent a 6-digit verification code to <strong id="patient-otp-email" class="text-[#082c2a]"></strong>.
+                </p>
+                <div class="max-w-[280px] mx-auto mb-4">
+                    <input type="text" id="patient-otp-input" maxlength="6" placeholder="• • • • • •" class="w-full tracking-[8px] text-center text-2xl font-bold font-mono py-2.5 rounded-xl border border-[#c4ded4] bg-white text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none">
+                </div>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <button type="button" id="patient-otp-verify-btn" class="px-6 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-sm disabled:opacity-60">
+                        Verify & Finish Signup ↗
+                    </button>
+                    <button type="button" id="patient-otp-back-btn" class="px-4 py-2.5 rounded-full font-semibold text-xs text-[#526a64] hover:text-[#082c2a] cursor-pointer">
+                        ← Change Email
+                    </button>
+                </div>
+            </div>
 
             <!-- ==================================================================== -->
             <!-- 2. DOCTOR SIGNUP WRAPPER (2-STEP FLOW)                               -->
@@ -294,7 +316,7 @@
 
     <!-- Bottom note -->
     <footer class="p-6 text-center text-xs text-[#7d948f]">
-        © 2026 HealX Healthcare Platform • Secure medical credentialing
+        © 2026 HealiiX Healthcare Platform • Secure medical credentialing
     </footer>
 
     <!-- Real API Integration Script -->
@@ -334,7 +356,7 @@
             roleDoctorBtn.classList.add('text-[#627a74]');
             
             signupTitle.textContent = 'Create Your Patient Account';
-            signupSubtitle.textContent = 'Join HealX to book verified appointments with doctors across Bangladesh.';
+            signupSubtitle.textContent = 'Join HealiiX to book verified appointments with doctors across Bangladesh.';
             patientForm.classList.remove('hidden');
             doctorWrapper.classList.add('hidden');
             hideFeedback();
@@ -392,8 +414,22 @@
         });
 
         // -------------------------------------------------------------
-        // A. PATIENT FORM SUBMISSION
+        // A. PATIENT FORM SUBMISSION (SEND OTP -> VERIFY & CREATE)
         // -------------------------------------------------------------
+        let pendingPatientPayload = null;
+        const patientOtpSection = document.getElementById('patient-otp-section');
+        const patientOtpEmail = document.getElementById('patient-otp-email');
+        const patientOtpInput = document.getElementById('patient-otp-input');
+        const patientOtpVerifyBtn = document.getElementById('patient-otp-verify-btn');
+        const patientOtpBackBtn = document.getElementById('patient-otp-back-btn');
+
+        rolePatientBtn.addEventListener('click', () => {
+            patientOtpSection.classList.add('hidden');
+        });
+        roleDoctorBtn.addEventListener('click', () => {
+            patientOtpSection.classList.add('hidden');
+        });
+
         patientForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('patient-name').value.trim();
@@ -412,28 +448,53 @@
 
             try {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span>Creating account...</span>';
+                submitBtn.innerHTML = '<span>Sending verification OTP...</span>';
                 hideFeedback();
 
-                const res = await api.patientSignup({
-                    name,
-                    username,
-                    email,
-                    phone,
-                    dateOfBirth,
-                    password,
-                    confirmPassword,
-                });
+                const res = await api.patientSendOtp({ name, username, email });
 
-                showFeedback(`✓ Welcome to HealX, ${res.user.fullName}! Redirecting to home...`, false);
+                pendingPatientPayload = { name, username, email, phone, dateOfBirth, password, confirmPassword };
+                patientOtpEmail.textContent = email;
+                patientForm.classList.add('hidden');
+                patientOtpSection.classList.remove('hidden');
+                showFeedback(`✓ ${res.message}`, false);
+            } catch (err) {
+                showFeedback(err.message || 'Could not send verification OTP.', true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Verify Email & Create Account</span> <span>↗</span>';
+            }
+        });
+
+        patientOtpBackBtn?.addEventListener('click', () => {
+            patientOtpSection.classList.add('hidden');
+            patientForm.classList.remove('hidden');
+            hideFeedback();
+        });
+
+        patientOtpVerifyBtn?.addEventListener('click', async () => {
+            const otp = patientOtpInput.value.trim();
+            if (!otp || otp.length < 6) {
+                showFeedback('Please enter the 6-digit OTP sent to your email.', true);
+                return;
+            }
+
+            try {
+                patientOtpVerifyBtn.disabled = true;
+                patientOtpVerifyBtn.textContent = 'Verifying & Creating Account...';
+                hideFeedback();
+
+                const res = await api.patientSignup({ ...pendingPatientPayload, otp });
+
+                showFeedback(`✓ Welcome to HealiiX, ${res.user.fullName}! Redirecting to home...`, false);
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1000);
             } catch (err) {
-                showFeedback(err.message || 'Signup failed. Please check your data.', true);
+                showFeedback(err.message || 'Invalid OTP or signup error.', true);
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Create Patient Account</span> <span>↗</span>';
+                patientOtpVerifyBtn.disabled = false;
+                patientOtpVerifyBtn.textContent = 'Verify & Finish Signup ↗';
             }
         });
 
@@ -573,7 +634,7 @@
                     fileToBase64(degreeFile),
                 ]);
 
-                btn.innerHTML = '<span>Registering Doctor Profile in HealX...</span>';
+                btn.innerHTML = '<span>Registering Doctor Profile in HealiiX...</span>';
 
                 const res = await api.doctorStep2({
                     stepToken: currentStepToken,
