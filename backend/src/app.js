@@ -55,10 +55,6 @@ app.use('/api/*', async (c, next) => {
 
 // Root & Healthcheck
 app.get('/', (c) => {
-    if ((c.req.header('accept') || '').includes('text/html')) {
-        const html = fs.readFileSync(path.join(FRONTEND_DIR, 'index.html'), 'utf8');
-        return c.html(html);
-    }
     return c.json({
         service: 'HealiiX Healthcare & Doctor Directory API',
         status: 'online',
@@ -68,6 +64,8 @@ app.get('/', (c) => {
             doctorProfile: '/d/:username',
             adminProfile: '/admin/profile',
             api: '/api',
+            doctors: '/api/doctors',
+            auth: '/api/auth',
         },
     });
 });
@@ -118,13 +116,15 @@ app.route('/api/notifications', notificationRoutes);
 // Direct clean profile & vanity URLs: /u/:username, /d/:username, /admin/*
 app.route('/', profileRoutes);
 
-// Serve Frontend Static Files cleanly from root (/) and /frontend/* alias
-const relativeFrontendPath = path.relative(process.cwd(), FRONTEND_DIR).replace(/\\/g, '/') || './';
-app.use('/frontend/*', serveStatic({
-    root: relativeFrontendPath,
-    rewriteRequestPath: (p) => p.replace(/^\/frontend/, ''),
-}));
-app.use('/*', serveStatic({ root: relativeFrontendPath }));
+// Serve Frontend Static Files cleanly from root (/) and /frontend/* alias (if frontend exists in directory)
+if (fs.existsSync(FRONTEND_DIR)) {
+    const relativeFrontendPath = path.relative(process.cwd(), FRONTEND_DIR).replace(/\\/g, '/') || './';
+    app.use('/frontend/*', serveStatic({
+        root: relativeFrontendPath,
+        rewriteRequestPath: (p) => p.replace(/^\/frontend/, ''),
+    }));
+    app.use('/*', serveStatic({ root: relativeFrontendPath }));
+}
 
 // 404 Fallback
 app.notFound((c) => {

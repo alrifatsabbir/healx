@@ -18,8 +18,12 @@ function isHtmlRequest(c) {
 }
 
 function serveFrontendTemplate(c, filename) {
-    const html = fs.readFileSync(path.join(FRONTEND_DIR, filename), 'utf8');
-    return c.html(html);
+    const filePath = path.join(FRONTEND_DIR, filename);
+    if (fs.existsSync(filePath)) {
+        const html = fs.readFileSync(filePath, 'utf8');
+        return c.html(html);
+    }
+    return c.json({ success: true, message: `API profile view for ${filename}` });
 }
 
 export const profileRoutes = new Hono();
