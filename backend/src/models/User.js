@@ -48,6 +48,64 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         default: '',
+        validate: {
+            validator: function (v) {
+                if (!v) return true;
+                return !v.startsWith('data:image');
+            },
+            message: 'Base64 image data is not allowed in database. Images must be hosted on Cloudinary as WebP.',
+        },
+    },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other', ''],
+        default: '',
+    },
+    bloodGroup: {
+        type: String,
+        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', ''],
+        default: '',
+    },
+    height: {
+        type: Number, // in cm
+        default: null,
+    },
+    weight: {
+        type: Number, // in kg
+        default: null,
+    },
+    bloodPressure: {
+        type: String, // e.g. "120/80"
+        default: '',
+    },
+    bloodSugar: {
+        type: String, // e.g. "5.6" mmol/L
+        default: '',
+    },
+    emergencyContact: {
+        name: { type: String, default: '' },
+        phone: { type: String, default: '' },
+        relation: { type: String, default: '' },
+    },
+    allergies: {
+        type: String,
+        default: '',
+    },
+    chronicConditions: {
+        type: String,
+        default: '',
+    },
+    currentMedications: {
+        type: String,
+        default: '',
+    },
+    medicalNotes: {
+        type: String,
+        default: '',
+    },
+    address: {
+        type: String,
+        default: '',
     },
     isEmailVerified: {
         type: Boolean,

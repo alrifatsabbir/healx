@@ -30,6 +30,16 @@ const chamberSchema = new mongoose.Schema({
     visitingHours: {
         type: String,
     },
+    contactPhone: {
+        type: String,
+        trim: true,
+        default: '',
+    },
+    mapUrl: {
+        type: String,
+        trim: true,
+        default: '',
+    },
     slots: [{
         type: String,
     }],
@@ -103,20 +113,45 @@ const doctorSchema = new mongoose.Schema({
     photoUrl: {
         type: String,
         default: '', // Compressed WebP Cloudinary URL
+        validate: {
+            validator: (v) => !v || !v.startsWith('data:image'),
+            message: 'Base64 image is not allowed. Images must be hosted on Cloudinary as WebP.',
+        },
     },
     bmdcCertImageUrl: {
         type: String,
-        default: '', // Compressed WebP Cloudinary URL for verification
+        default: '', // Compressed WebP Cloudinary URL for verification (Admin-only)
+        validate: {
+            validator: (v) => !v || !v.startsWith('data:image'),
+            message: 'Base64 image is not allowed. Images must be hosted on Cloudinary as WebP.',
+        },
+    },
+    govtIdType: {
+        type: String,
+        enum: ['NID', 'Passport', 'Driving License', 'Other'],
+        default: 'NID',
+    },
+    govtIdImageUrl: {
+        type: String,
+        default: '', // Front image of NID/Passport/Driving License showing face (Admin-only)
+        validate: {
+            validator: (v) => !v || !v.startsWith('data:image'),
+            message: 'Base64 image is not allowed. Images must be hosted on Cloudinary as WebP.',
+        },
     },
     degreeCertImageUrl: {
         type: String,
-        default: '', // Compressed WebP Cloudinary URL for verification
+        default: '',
+        validate: {
+            validator: (v) => !v || !v.startsWith('data:image'),
+            message: 'Base64 image is not allowed. Images must be hosted on Cloudinary as WebP.',
+        },
     },
     chambers: [chamberSchema],
     rating: {
         type: Number,
-        default: 5.0,
-        min: 1,
+        default: 0,
+        min: 0,
         max: 5,
     },
     totalReviews: {
@@ -131,6 +166,10 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         enum: ['pending', 'approved', 'rejected'],
         default: 'pending',
+    },
+    verificationNotes: {
+        type: String,
+        default: '',
     },
     gender: {
         type: String,

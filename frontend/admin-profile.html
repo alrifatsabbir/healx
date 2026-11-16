@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile | HealiiX Healthcare</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased flex flex-col">
+
+    <!-- Top Standalone Header (No Sidebar on Admin Profile) -->
+    <header class="bg-[#082c2a] text-white border-b border-white/10 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="./index.html" id="nav-logo-link" class="bg-white px-3 py-1.5 rounded-xl shadow-xs inline-flex items-center hover:opacity-95 transition-all">
+                    <img src="./assets/images/healx-logo-bg-black.png" alt="HealiiX" class="h-7 w-auto object-contain">
+                </a>
+                <div class="hidden sm:flex items-center gap-2 text-xs text-[#a3c7be]">
+                    <span>/</span>
+                    <span class="text-white font-bold">Admin Profile</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-[#0e927f]/30 text-[#8ce2d4] text-[10px] font-extrabold uppercase border border-[#0e927f]/40">Super Admin</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <a href="./admin-dashboard.html" id="nav-dashboard-btn" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] transition-all shadow-xs">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span>Admin Dashboard</span>
+                </a>
+                <a href="./admin-settings.html" id="nav-settings-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-[#b6d1cb] hover:text-white hover:bg-white/10 transition-colors">
+                    <span>Settings</span>
+                </a>
+                <button type="button" id="nav-logout-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold text-red-300 hover:text-red-100 hover:bg-red-500/20 transition-all cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+        <div id="admin-loading" class="bg-white rounded-3xl p-14 text-center border border-[#e1eae6] shadow-xs">
+            <div class="w-8 h-8 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+            <p class="text-sm font-semibold text-[#556e68]">Verifying administrator credentials...</p>
+        </div>
+
+        <div id="admin-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Left Column: Admin Identity Card -->
+            <div class="lg:col-span-4 bg-white rounded-3xl overflow-hidden border border-[#e1eae6] shadow-xs">
+                <div class="h-28 bg-gradient-to-r from-[#082c2a] via-[#0d3b38] to-[#0e927f]"></div>
+                <div class="px-6 pb-8 -mt-14 text-center">
+                    <div id="profile-avatar-slot" class="flex justify-center mb-4"></div>
+                    <h2 id="prof-name" class="font-extrabold text-xl text-[#082c2a]">Administrator</h2>
+                    <p id="prof-username" class="text-xs font-mono font-semibold text-[#0e927f] mt-0.5">@admin</p>
+
+                    <div class="mt-5 pt-5 border-t border-[#edf3f0] space-y-2.5 text-xs text-[#556e68]">
+                        <div class="flex items-center justify-between">
+                            <span>Privilege Level</span>
+                            <span class="font-bold text-[#082c2a]">Super Admin</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Status</span>
+                            <span class="inline-flex items-center gap-1.5 font-bold text-[#0e927f]"><span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>Active</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Account Route</span>
+                            <span class="font-mono font-bold text-[#0e927f]">/admin-profile.html</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 space-y-2">
+                        <a id="btn-to-dashboard" href="./admin-dashboard.html" class="block w-full py-2.5 px-4 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] transition-all shadow-xs">
+                            Command Dashboard &rarr;
+                        </a>
+                        <a id="btn-to-settings" href="./admin-settings.html" class="block w-full py-2.5 px-4 rounded-full text-xs font-bold border border-[#d2e2dc] text-[#082c2a] hover:bg-[#edf5f1] transition-all">
+                            Edit Settings &amp; Password &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Platform Overview & Account Details Form -->
+            <div class="lg:col-span-8 space-y-6">
+                <!-- Platform Telemetry Strip -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-[#e1eae6] shadow-xs">
+                    <h3 class="font-extrabold text-base text-[#082c2a] mb-4">Platform Overview</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+                        <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e6efec]">
+                            <p class="text-[11px] font-bold text-[#6c8680] uppercase">Patients</p>
+                            <p id="stat-patients" class="font-extrabold text-2xl text-[#082c2a] mt-1">0</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e6efec]">
+                            <p class="text-[11px] font-bold text-[#6c8680] uppercase">Verified Docs</p>
+                            <p id="stat-doctors" class="font-extrabold text-2xl text-[#0e927f] mt-1">0</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e6efec]">
+                            <p class="text-[11px] font-bold text-amber-800 uppercase">Pending Docs</p>
+                            <p id="stat-pending" class="font-extrabold text-2xl text-amber-600 mt-1">0</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e6efec]">
+                            <p class="text-[11px] font-bold text-[#6c8680] uppercase">Appointments</p>
+                            <p id="stat-appts" class="font-extrabold text-2xl text-[#082c2a] mt-1">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Administrator Details Update Form -->
+                <div class="bg-white rounded-3xl p-6 sm:p-8 border border-[#e1eae6] shadow-xs">
+                    <h3 class="font-extrabold text-base text-[#082c2a] mb-1">Administrator Account Details</h3>
+                    <p class="text-xs text-[#6c8680] mb-5">Update your display contact information</p>
+
+                    <form id="admin-profile-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Display Name *</label>
+                                <input type="text" id="adm-name" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number</label>
+                                <input type="tel" id="adm-phone" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Address</label>
+                                <input type="email" id="adm-email" disabled class="w-full px-4 py-2.5 rounded-xl border border-[#e3ebe8] bg-[#f0f5f3] text-sm text-[#6c8680] cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Username</label>
+                                <input type="text" id="adm-username" disabled class="w-full px-4 py-2.5 rounded-xl border border-[#e3ebe8] bg-[#f0f5f3] text-sm text-[#6c8680] cursor-not-allowed font-mono">
+                            </div>
+                        </div>
+                        <div class="pt-2 flex items-center justify-between">
+                            <button type="submit" id="adm-save-btn" class="px-6 py-2.5 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold cursor-pointer transition-all shadow-xs">
+                                Save Details &rarr;
+                            </button>
+                            <a id="btn-to-pwd" href="./admin-settings.html" class="text-xs font-bold text-[#0e927f] hover:underline">
+                                Change Password &rarr;
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        const alertEl = document.getElementById('page-alert');
+        const loadingEl = document.getElementById('admin-loading');
+        const contentEl = document.getElementById('admin-content');
+
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        async function initAdminProfile() {
+            // Bind navigation links
+            document.getElementById('nav-logo-link').href = getAppPath('index.html');
+            document.getElementById('nav-dashboard-btn').href = getAppPath('admin-dashboard.html');
+            document.getElementById('nav-settings-btn').href = getAppPath('admin-settings.html');
+            document.getElementById('btn-to-settings').href = getAppPath('admin-settings.html');
+            document.getElementById('btn-to-dashboard').href = getAppPath('admin-dashboard.html');
+            document.getElementById('btn-to-pwd').href = getAppPath('admin-settings.html');
+
+            document.getElementById('nav-logout-btn').addEventListener('click', () => {
+                api.setToken(null);
+                api.setCurrentUser(null);
+                window.location.href = getAppPath('login.html');
+            });
+
+            // Authentication verification
+            let user = api.getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                try {
+                    const meRes = await api.getProfile();
+                    user = meRes.user;
+                } catch (_) {
+                    user = null;
+                }
+            }
+
+            if (!user || user.role !== 'admin') {
+                api.setToken(null);
+                api.setCurrentUser(null);
+                window.location.href = getAppPath('login.html');
+                return;
+            }
+
+            api.setCurrentUser(user);
+
+            // Populate User Details
+            document.getElementById('prof-name').textContent = user.fullName || 'Administrator';
+            document.getElementById('prof-username').textContent = `@${user.username}`;
+            document.getElementById('adm-name').value = user.fullName || '';
+            document.getElementById('adm-phone').value = user.phone || '';
+            document.getElementById('adm-email').value = user.email || '';
+            document.getElementById('adm-username').value = `@${user.username}`;
+
+            const avatarSlot = document.getElementById('profile-avatar-slot');
+            if (avatarSlot) {
+                avatarSlot.innerHTML = user.avatar
+                    ? `<img src="${user.avatar}" alt="${user.fullName}" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md">`
+                    : `<div class="w-24 h-24 rounded-full bg-gradient-to-br from-[#082c2a] to-[#0e927f] text-white font-extrabold text-3xl flex items-center justify-center border-4 border-white shadow-md">${(user.fullName || 'A').charAt(0).toUpperCase()}</div>`;
+            }
+
+            // Fetch live stats
+            try {
+                const statsRes = await api.getAdminStats().catch(() => ({ stats: {} }));
+                const stats = statsRes.stats || {};
+                document.getElementById('stat-patients').textContent = stats.totalPatients ?? 0;
+                document.getElementById('stat-doctors').textContent = stats.verifiedDoctors ?? 0;
+                document.getElementById('stat-pending').textContent = stats.pendingDoctors ?? 0;
+                document.getElementById('stat-appts').textContent = stats.totalAppointments ?? 0;
+            } catch (_) {}
+
+            loadingEl.classList.add('hidden');
+            contentEl.classList.remove('hidden');
+
+            // Handle Profile Save
+            document.getElementById('admin-profile-form')?.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('adm-save-btn');
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Saving...';
+                    const res = await api.updateProfile({
+                        fullName: document.getElementById('adm-name').value.trim(),
+                        phone: document.getElementById('adm-phone').value.trim(),
+                    });
+                    showAlert(res.message || 'Administrator profile updated.');
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Save Details →';
+                }
+            });
+        }
+
+        initAdminProfile();
+    </script>
+</body>
+</html>

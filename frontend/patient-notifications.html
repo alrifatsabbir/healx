@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications &amp; Alerts | Patient Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+
+            <main class="p-6 sm:p-8 flex-1 max-w-4xl w-full mx-auto space-y-6">
+                <!-- Page Banner -->
+                <div class="bg-gradient-to-r from-[#082c2a] via-[#0b3a36] to-[#0f4d47] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg border border-[#16504a]">
+                    <div class="absolute -right-12 -top-12 w-64 h-64 bg-teal-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider text-teal-200 border border-white/10 mb-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                Live Notification Feed
+                            </div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Updates &amp; Alerts</h1>
+                            <p class="text-xs sm:text-sm text-teal-100/80 mt-1 max-w-xl">
+                                Stay informed on consultation bookings, schedule changes, and hospital announcements.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-2xl border border-white/10">
+                            <span class="text-xs text-teal-100 font-medium">Unread Alerts</span>
+                            <span id="notif-count-badge" class="px-2 py-0.5 rounded-full bg-[#00e5a3] text-[#082c2a] font-black text-xs">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Container -->
+                <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#edf3f0] mb-6">
+                        <div>
+                            <h2 class="font-extrabold text-base sm:text-lg text-[#082c2a]">Recent Notifications</h2>
+                            <p class="text-xs text-[#6c8680]">Alerts automatically expire once their target date lapses.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="btn-refresh-notifs" class="px-3.5 py-1.5 rounded-xl border border-[#d6ebe2] bg-[#f0f8f5] hover:bg-[#e2f3ed] text-xs font-bold text-[#0e927f] transition-colors flex items-center gap-1.5 cursor-pointer">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                <span>Refresh</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="patient-notif-list" class="space-y-3.5 min-h-[160px]">
+                        <!-- Dynamic JS rendering -->
+                        <div class="py-12 flex flex-col items-center justify-center text-center">
+                            <div class="w-10 h-10 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin"></div>
+                            <span class="text-xs text-[#6c8680] mt-3">Loading notifications...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Help / Information Card -->
+                <div class="bg-[#edf5f2] rounded-3xl p-6 border border-[#d4e6df] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-[#0e927f] text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-[#082c2a]">Need to reschedule or review a booking?</h4>
+                            <p class="text-xs text-[#526d66] mt-0.5">You can inspect all confirmed, pending, and past visits in your appointments hub.</p>
+                        </div>
+                    </div>
+                    <a id="btn-view-appts" href="./patient-appointments.html" class="px-5 py-2.5 rounded-xl bg-[#082c2a] hover:bg-[#0f4541] text-white font-bold text-xs tracking-wide transition-colors flex-shrink-0">
+                        View Appointments ↗
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell, renderActiveNotifications, getAppPath } from './js/dashboard-layout.js';
+
+        async function loadNotifications() {
+            const el = document.getElementById('patient-notif-list');
+            try {
+                const res = await api.getMyNotifications();
+                const items = res.notifications || [];
+                const badge = document.getElementById('notif-count-badge');
+                if (badge) badge.textContent = items.length;
+
+                if (items.length === 0) {
+                    el.innerHTML = `
+                        <div class="py-16 px-4 text-center flex flex-col items-center justify-center">
+                            <div class="w-16 h-16 rounded-3xl bg-[#f0f7f4] border border-[#dbece4] flex items-center justify-center text-[#0e927f] mb-3">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                            </div>
+                            <h3 class="text-sm font-black text-[#082c2a]">You're all caught up!</h3>
+                            <p class="text-xs text-[#6c8680] mt-1 max-w-sm">No new alerts at this moment. You will be notified here whenever your doctors update appointment statuses or publish advisories.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                await renderActiveNotifications(el);
+            } catch (err) {
+                el.innerHTML = `
+                    <div class="py-8 text-center text-xs text-red-600 bg-red-50 rounded-2xl border border-red-200">
+                        Failed to load notifications: ${err.message}
+                    </div>
+                `;
+            }
+        }
+
+        (async () => {
+            const btnAppts = document.getElementById('btn-view-appts');
+            if (btnAppts) btnAppts.href = getAppPath('patient-appointments.html');
+
+            const user = await initDashboardShell('patient', 'patient-notifications.html', 'Notifications', 'Account updates and platform announcements');
+            if (!user) return;
+
+            await loadNotifications();
+
+            document.getElementById('btn-refresh-notifs')?.addEventListener('click', async () => {
+                const el = document.getElementById('patient-notif-list');
+                el.innerHTML = `
+                    <div class="py-12 flex flex-col items-center justify-center text-center">
+                        <div class="w-10 h-10 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-xs text-[#6c8680] mt-3">Refreshing...</span>
+                    </div>
+                `;
+                await loadNotifications();
+            });
+        })();
+    </script>
+</body>
+</html>

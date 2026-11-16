@@ -1,6 +1,19 @@
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config({ path: ['.env.local', '.env'] });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const BACKEND_ROOT = path.resolve(__dirname, '../../');
+
+dotenv.config({
+    path: [
+        path.join(BACKEND_ROOT, '.env.local'),
+        path.join(BACKEND_ROOT, '.env'),
+        '.env.local',
+        '.env'
+    ]
+});
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isProduction = NODE_ENV === 'production';

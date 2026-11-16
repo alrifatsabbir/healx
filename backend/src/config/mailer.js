@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import env from './env.js';
+import EmailLog from '../models/EmailLog.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +15,15 @@ let transporter = null;
 let isEtherealFallback = false;
 
 export async function getTransporter() {
+    if (process.env.DISABLE_MAIL === 'true') {
+        return {
+            sendMail: async (options) => {
+                console.log(`[Mailer] Suppressed email to ${options?.to} (DISABLE_MAIL is set to true)`);
+                return { messageId: 'suppressed-disable-mail-flag', response: 'Mail server suppressed' };
+            },
+        };
+    }
+
     if (transporter) return transporter;
 
     if (process.env.MAILER_HOST && process.env.MAILER_USER && process.env.MAILER_PASSWORD) {
@@ -180,7 +190,7 @@ function renderButton(text, href) {
     </table>`;
 }
 
-async function dispatchMail({ to, subject, html, text, replyTo }) {
+async function dispatchMail({ to, subject, html, text, replyTo, templateType = 'transactional', sentBy = 'system' }) {
     try {
         const mail = await getTransporter();
         const from = getFromAddress();
@@ -213,11 +223,53 @@ async function dispatchMail({ to, subject, html, text, replyTo }) {
         if (isEtherealFallback) {
             console.log(` 🔗 [Ethereal Preview]: ${nodemailer.getTestMessageUrl(info)}`);
         }
+
+        EmailLog.create({
+            to: Array.isArray(to) ? to.join(', ') : String(to),
+            subject,
+            templateType,
+            status: 'sent',
+            messageId: info.messageId || refId,
+            sentBy,
+        }).catch(() => {});
+
         return true;
     } catch (err) {
         console.warn(`[Email Warning] Failed sending "${subject}" to ${to}:`, err.message);
+        EmailLog.create({
+            to: Array.isArray(to) ? to.join(', ') : String(to),
+            subject,
+            templateType,
+            status: 'failed',
+            errorMessage: err.message,
+            sentBy,
+        }).catch(() => {});
         return false;
     }
+}
+
+export async function sendAdminCustomEmail({ to, subject, badge = 'Notice', heading, message, sentBy = 'admin' }) {
+    const escapedBody = String(message || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+
+    const html = buildEmailLayout({
+        preheader: subject,
+        badge,
+        heading: heading || subject,
+        bodyHtml: `<div style="font-size:14.5px;line-height:1.7;color:#274843;">${escapedBody}</div>`,
+    });
+
+    return dispatchMail({
+        to,
+        subject,
+        html,
+        text: String(message || ''),
+        templateType: `admin:${badge.toLowerCase()}`,
+        sentBy,
+    });
 }
 
 // ============================================================================

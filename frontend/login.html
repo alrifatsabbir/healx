@@ -60,8 +60,11 @@
                         <button type="button" id="forgot-pwd-trigger" class="text-xs text-[#0e927f] font-semibold hover:underline bg-transparent border-0 p-0 cursor-pointer">Forgot password?</button>
                     </div>
                     <div class="relative">
-                        <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                        <button type="button" id="toggle-pwd-btn" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#738a83] hover:text-[#082c2a] cursor-pointer">Show</button>
+                        <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                            <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                        </button>
                     </div>
                 </div>
 
@@ -92,7 +95,13 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-[#082c2a] mb-1.5">New Password *</label>
-                        <input type="password" id="reset-new-pwd" placeholder="Min 6 characters" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] outline-none">
+                        <div class="relative">
+                            <input type="password" id="reset-new-pwd" placeholder="Min 6 characters" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] outline-none">
+                            <button type="button" id="toggle-reset-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                            </button>
+                        </div>
                     </div>
                     <button type="button" id="reset-confirm-btn" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md">
                         Update Password & Sign In ↗
@@ -119,6 +128,7 @@
     <!-- Real API Integration -->
     <script type="module">
         import api from './js/api.js';
+        import { getAppPath } from './js/config.js';
 
         let currentRole = 'patient';
         const tabPatient = document.getElementById('tab-patient');
@@ -156,12 +166,26 @@
         });
 
         toggleBtn.addEventListener('click', () => {
-            if (pwdInput.type === 'password') {
-                pwdInput.type = 'text';
-                toggleBtn.textContent = 'Hide';
-            } else {
-                pwdInput.type = 'password';
-                toggleBtn.textContent = 'Show';
+            const isPassword = pwdInput.type === 'password';
+            pwdInput.type = isPassword ? 'text' : 'password';
+            const eyeOpen = toggleBtn.querySelector('.eye-open');
+            const eyeClosed = toggleBtn.querySelector('.eye-closed');
+            if (eyeOpen && eyeClosed) {
+                eyeOpen.classList.toggle('hidden', isPassword);
+                eyeClosed.classList.toggle('hidden', !isPassword);
+            }
+        });
+
+        const resetPwdInput = document.getElementById('reset-new-pwd');
+        const toggleResetBtn = document.getElementById('toggle-reset-pwd-btn');
+        toggleResetBtn?.addEventListener('click', () => {
+            const isPassword = resetPwdInput.type === 'password';
+            resetPwdInput.type = isPassword ? 'text' : 'password';
+            const eyeOpen = toggleResetBtn.querySelector('.eye-open');
+            const eyeClosed = toggleResetBtn.querySelector('.eye-closed');
+            if (eyeOpen && eyeClosed) {
+                eyeOpen.classList.toggle('hidden', isPassword);
+                eyeClosed.classList.toggle('hidden', !isPassword);
             }
         });
 
@@ -195,12 +219,12 @@
                 showFeedback(`✓ Welcome back, ${res.user.fullName || res.user.username}! Redirecting...`, false);
 
                 setTimeout(() => {
-                    if (res.user.role === 'doctor' && res.user.profileUrl) {
-                        window.location.href = res.user.profileUrl;
-                    } else if (res.user.role === 'admin') {
-                        window.location.href = 'index.html';
+                    if (res.user.role === 'admin') {
+                        window.location.href = getAppPath('admin-dashboard.html');
+                    } else if (res.user.role === 'doctor') {
+                        window.location.href = getAppPath('doctor-dashboard.html');
                     } else {
-                        window.location.href = 'index.html';
+                        window.location.href = getAppPath('patient-dashboard.html');
                     }
                 }, 800);
             } catch (err) {

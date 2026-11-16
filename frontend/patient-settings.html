@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Profile & Settings | Patient Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+
+            <main class="p-6 sm:p-8 flex-1 max-w-5xl w-full mx-auto space-y-8">
+                <!-- Page Banner -->
+                <div class="bg-gradient-to-r from-[#082c2a] via-[#0b3a36] to-[#0f4d47] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg border border-[#16504a]">
+                    <div class="absolute -right-12 -top-12 w-64 h-64 bg-teal-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider text-teal-200 border border-white/10 mb-2">
+                                <svg class="w-3.5 h-3.5 text-[#00e5a3]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
+                                Confidential Health Record
+                            </div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Health Profile &amp; Settings</h1>
+                            <p class="text-xs sm:text-sm text-teal-100/80 mt-1 max-w-xl">
+                                Manage your personal vitals, physical metrics, emergency contacts, and account security. Data is encrypted and shared only during active doctor consultations.
+                            </p>
+                        </div>
+                        <div class="hidden sm:flex flex-col items-end">
+                            <span class="text-xs text-teal-200/70 font-medium">Record ID</span>
+                            <span id="banner-uid" class="font-mono text-xs text-white/90 bg-white/10 px-2.5 py-1 rounded-lg mt-0.5">HEAL-PT-....</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all duration-300"></div>
+
+                <!-- Main Form Grid -->
+                <form id="patient-settings-form" class="space-y-8">
+                    <!-- SECTION 1: Personal & Contact Details -->
+                    <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                        <div class="flex items-center justify-between pb-5 border-b border-[#edf3f0] mb-6">
+                            <div>
+                                <h2 class="text-base sm:text-lg font-black text-[#082c2a] flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-[#edf6f3] text-[#0e927f] flex items-center justify-center text-xs font-black">1</span>
+                                    Personal &amp; Contact Info
+                                </h2>
+                                <p class="text-xs text-[#6c8680] mt-0.5">Basic identity and public display name for consultations</p>
+                            </div>
+                            <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-[#f0f7f4] text-[#0e927f] border border-[#d6ebe2]">Active Patient</span>
+                        </div>
+
+                        <!-- Avatar Uploader -->
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-5 pb-6 border-b border-[#f1f6f4] mb-6">
+                            <div class="relative group">
+                                <img id="ps-avatar-img" class="w-20 h-20 rounded-2xl object-cover border-2 border-[#0e927f] shadow-sm hidden">
+                                <div id="ps-avatar-fb" class="w-20 h-20 rounded-2xl bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-black text-2xl border-2 border-dashed border-[#cbe3da]">P</div>
+                                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#0e927f] text-white flex items-center justify-center text-[10px] shadow" title="Cloudinary WebP Compressed">⚡</span>
+                            </div>
+                            <div class="space-y-1.5 flex-1">
+                                <label class="block text-xs font-black text-[#082c2a]">Profile Avatar (Cloudinary WebP)</label>
+                                <div class="flex items-center gap-3">
+                                    <input type="file" id="ps-avatar-file" accept="image/*" class="text-xs text-[#556e68] file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#e4f3ed] file:text-[#087866] hover:file:bg-[#d5eee5] cursor-pointer">
+                                </div>
+                                <p class="text-[11px] text-[#718b85]">Compressed and uploaded directly to Cloudinary as high-speed WebP. No raw base64 in database.</p>
+                            </div>
+                        </div>
+
+                        <!-- Basic Inputs -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Full Name *</label>
+                                <input type="text" id="ps-name" required placeholder="e.g. Sarah Jenkins" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number *</label>
+                                <input type="tel" id="ps-phone" required placeholder="e.g. +880 1712 345678" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Username (Permanent Account ID)</label>
+                                <input type="text" id="ps-username" disabled class="w-full px-4 py-2.5 rounded-xl border border-[#e3ebe8] bg-[#f0f4f2] text-sm text-[#6c8680] cursor-not-allowed">
+                                <span class="text-[10px] text-[#869e98] mt-1 block">Assigned upon registration; unique system identifier.</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Address</label>
+                                <div class="relative">
+                                    <input type="email" id="ps-email" disabled class="w-full px-4 py-2.5 rounded-xl border border-[#e3ebe8] bg-[#f0f4f2] text-sm text-[#6c8680] cursor-not-allowed">
+                                    <span class="absolute right-3 top-2.5 px-2 py-0.5 rounded-md bg-[#e3f4ee] text-[#0e927f] text-[10px] font-bold">Verified</span>
+                                </div>
+                                <span class="text-[10px] text-[#869e98] mt-1 block">Used for appointment confirmations and e-receipts.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: Medical & Emergency Health Card -->
+                    <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-8 space-y-7">
+                        <div class="flex items-center justify-between pb-5 border-b border-[#edf3f0]">
+                            <div>
+                                <h2 class="text-base sm:text-lg font-black text-[#082c2a] flex items-center gap-2">
+                                    <span class="w-7 h-7 rounded-lg bg-[#edf6f3] text-[#0e927f] flex items-center justify-center text-xs font-black">2</span>
+                                    Emergency &amp; Medical Health Card
+                                </h2>
+                                <p class="text-xs text-[#6c8680] mt-0.5">Critical vitals, physical metrics and health history for consulting doctors</p>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/></svg>
+                                Private EHR
+                            </span>
+                        </div>
+
+                        <!-- Core Demographics: Blood Type, Gender, DOB -->
+                        <div>
+                            <h3 class="text-xs font-black text-[#082c2a] uppercase tracking-wider mb-3">A. Primary Demographics</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Blood Group *</label>
+                                    <select id="ps-blood" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A Positive (A+)</option>
+                                        <option value="A-">A Negative (A-)</option>
+                                        <option value="B+">B Positive (B+)</option>
+                                        <option value="B-">B Negative (B-)</option>
+                                        <option value="AB+">AB Positive (AB+)</option>
+                                        <option value="AB-">AB Negative (AB-)</option>
+                                        <option value="O+">O Positive (O+)</option>
+                                        <option value="O-">O Negative (O-)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Biological Sex / Gender *</label>
+                                    <select id="ps-gender" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                        <option value="">Select Sex</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Date of Birth *</label>
+                                    <input type="date" id="ps-dob" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                    <span id="ps-age-display" class="text-[11px] font-bold text-[#0e927f] mt-1 block"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Physical Vitals & Live BMI Calculator -->
+                        <div class="bg-[#f8fbf9] p-5 rounded-2xl border border-[#e6efeb] space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-black text-[#082c2a] uppercase tracking-wider flex items-center gap-1.5">
+                                    <span>⚖️</span>
+                                    <span>B. Physical Vitals &amp; BMI Calculator</span>
+                                </h3>
+                                <div id="bmi-status-badge" class="hidden text-xs font-bold px-3 py-1 rounded-full border"></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Height (cm)</label>
+                                    <input type="number" id="ps-height" placeholder="e.g. 172" min="50" max="250" class="w-full px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Weight (kg)</label>
+                                    <input type="number" id="ps-weight" placeholder="e.g. 68" min="20" max="300" class="w-full px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Blood Pressure</label>
+                                    <input type="text" id="ps-bp" placeholder="e.g. 120/80 mmHg" class="w-full px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Blood Sugar (Fasting)</label>
+                                    <input type="text" id="ps-sugar" placeholder="e.g. 5.6 mmol/L" class="w-full px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-[#6c8680]">BMI is automatically computed from your height and weight. Doctors use this for accurate medication dosage.</p>
+                        </div>
+
+                        <!-- Clinical Alerts & Medications -->
+                        <div>
+                            <h3 class="text-xs font-black text-[#082c2a] uppercase tracking-wider mb-3">C. Clinical Alerts &amp; Medications</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5 flex items-center justify-between">
+                                        <span>Known Drug / Food Allergies</span>
+                                        <span class="text-[10px] text-red-500 font-semibold">Important</span>
+                                    </label>
+                                    <textarea id="ps-allergies" rows="2" placeholder="e.g. Penicillin, Peanuts, Sulfa antibiotics" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors"></textarea>
+                                    <p class="text-[10px] text-[#869e98] mt-1">Physicians will be alerted to never prescribe reactive drugs.</p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5 flex items-center justify-between">
+                                        <span>Chronic Health Conditions</span>
+                                        <span class="text-[10px] text-[#869e98] font-normal">Optional</span>
+                                    </label>
+                                    <textarea id="ps-chronic" rows="2" placeholder="e.g. Type 2 Diabetes, Hypertension, Asthma" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors"></textarea>
+                                    <p class="text-[10px] text-[#869e98] mt-1">Pre-existing long term medical conditions.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Current Daily Medications</label>
+                                    <textarea id="ps-meds" rows="2" placeholder="e.g. Metformin 500mg (1+0+1), Losartan 50mg (0+0+1)" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors"></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Past Surgeries / Clinical Notes</label>
+                                    <textarea id="ps-notes" rows="2" placeholder="e.g. Appendectomy in 2021, Knee arthroscopy, Non-smoker" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact Person -->
+                        <div class="bg-[#fbf7f7] rounded-2xl p-5 border border-[#fae2e2] space-y-4">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xs font-black">!</div>
+                                <h3 class="text-xs font-black text-[#852626] uppercase tracking-wider">D. Emergency Contact Person</h3>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Contact Name</label>
+                                    <input type="text" id="ps-emg-name" placeholder="e.g. John Doe" class="w-full px-3.5 py-2 rounded-xl border border-[#e4d0d0] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Contact Phone</label>
+                                    <input type="tel" id="ps-emg-phone" placeholder="e.g. +880 1800 000000" class="w-full px-3.5 py-2 rounded-xl border border-[#e4d0d0] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-[#082c2a] mb-1">Relationship</label>
+                                    <select id="ps-emg-relation" class="w-full px-3.5 py-2 rounded-xl border border-[#e4d0d0] bg-white text-xs text-[#082c2a] focus:border-[#0e927f] outline-none">
+                                        <option value="">Select Relation</option>
+                                        <option value="Spouse">Spouse</option>
+                                        <option value="Parent">Parent</option>
+                                        <option value="Sibling">Sibling</option>
+                                        <option value="Child">Child</option>
+                                        <option value="Guardian">Guardian</option>
+                                        <option value="Friend">Friend</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Residential Address -->
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Residential Address &amp; District</label>
+                            <input type="text" id="ps-address" placeholder="e.g. House 45, Road 11, Banani, Dhaka" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                        </div>
+
+                        <!-- Save Profile Button -->
+                        <div class="pt-6 border-t border-[#edf3f0] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <span class="text-xs text-[#6c8680]">Updates are instantly synced to your digital health record.</span>
+                            <button type="submit" id="ps-save-btn" class="px-7 py-3 rounded-2xl bg-[#0e927f] hover:bg-[#087866] text-white font-black text-xs tracking-wide shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer flex items-center gap-2">
+                                <span>Save All Health &amp; Personal Info</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- SECTION 3: Account Security & Password -->
+                <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <div class="flex items-center justify-between pb-5 border-b border-[#edf3f0] mb-6">
+                        <div>
+                            <h2 class="text-base sm:text-lg font-black text-[#082c2a] flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-[#edf6f3] text-[#0e927f] flex items-center justify-center text-xs font-black">3</span>
+                                Security &amp; Password
+                            </h2>
+                            <p class="text-xs text-[#6c8680] mt-0.5">Protect your health record with a strong, distinct password</p>
+                        </div>
+                        <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-slate-50 text-slate-700 border border-slate-200">Encrypted</span>
+                    </div>
+
+                    <form id="patient-pwd-form" class="space-y-4 max-w-lg">
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Current Password *</label>
+                            <div class="relative">
+                                <input type="password" id="pp-cur" required placeholder="Enter current password" class="w-full px-4 py-2.5 pr-11 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                <button type="button" data-toggle="pp-cur" class="pwd-toggle-btn absolute right-3 top-2.5 text-[#869e98] hover:text-[#0e927f] transition-colors p-0.5 cursor-pointer">
+                                    <svg class="eye-open w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="eye-closed w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">New Password *</label>
+                            <div class="relative">
+                                <input type="password" id="pp-new" required minlength="6" placeholder="At least 6 characters" class="w-full px-4 py-2.5 pr-11 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                <button type="button" data-toggle="pp-new" class="pwd-toggle-btn absolute right-3 top-2.5 text-[#869e98] hover:text-[#0e927f] transition-colors p-0.5 cursor-pointer">
+                                    <svg class="eye-open w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="eye-closed w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Confirm New Password *</label>
+                            <div class="relative">
+                                <input type="password" id="pp-conf" required minlength="6" placeholder="Re-enter new password" class="w-full px-4 py-2.5 pr-11 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none">
+                                <button type="button" data-toggle="pp-conf" class="pwd-toggle-btn absolute right-3 top-2.5 text-[#869e98] hover:text-[#0e927f] transition-colors p-0.5 cursor-pointer">
+                                    <svg class="eye-open w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="eye-closed w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" id="pp-save-btn" class="px-6 py-2.5 rounded-xl bg-[#082c2a] hover:bg-[#0f4541] text-white font-bold text-xs tracking-wide shadow transition-colors cursor-pointer">
+                                Update Password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function calculateAge(dobString) {
+            if (!dobString) return '';
+            const birth = new Date(dobString);
+            if (isNaN(birth.getTime())) return '';
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age >= 0 ? `${age} years old` : '';
+        }
+
+        function updateBmiBadge() {
+            const h = parseFloat(document.getElementById('ps-height').value);
+            const w = parseFloat(document.getElementById('ps-weight').value);
+            const badge = document.getElementById('bmi-status-badge');
+            if (!h || !w || h <= 0 || w <= 0) {
+                badge.classList.add('hidden');
+                return;
+            }
+
+            const hm = h / 100;
+            const bmi = parseFloat((w / (hm * hm)).toFixed(1));
+
+            let text = '';
+            let classes = [];
+
+            if (bmi < 18.5) {
+                text = `BMI ${bmi} • Underweight`;
+                classes = ['bg-blue-50', 'text-blue-700', 'border-blue-200'];
+            } else if (bmi <= 24.9) {
+                text = `BMI ${bmi} • Normal / Healthy`;
+                classes = ['bg-emerald-50', 'text-emerald-700', 'border-emerald-200'];
+            } else if (bmi <= 29.9) {
+                text = `BMI ${bmi} • Overweight`;
+                classes = ['bg-amber-50', 'text-amber-700', 'border-amber-200'];
+            } else {
+                text = `BMI ${bmi} • Obese`;
+                classes = ['bg-red-50', 'text-red-700', 'border-red-200'];
+            }
+
+            badge.className = 'text-xs font-bold px-3 py-1 rounded-full border ' + classes.join(' ');
+            badge.textContent = text;
+            badge.classList.remove('hidden');
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) return resolve('');
+                const r = new FileReader();
+                r.readAsDataURL(file);
+                r.onload = () => resolve(r.result);
+                r.onerror = reject;
+            });
+        }
+
+        // Toggle password show / hide
+        document.querySelectorAll('.pwd-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-toggle');
+                const input = document.getElementById(targetId);
+                if (!input) return;
+                const open = btn.querySelector('.eye-open');
+                const closed = btn.querySelector('.eye-closed');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    open.classList.add('hidden');
+                    closed.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    open.classList.remove('hidden');
+                    closed.classList.add('hidden');
+                }
+            });
+        });
+
+        (async () => {
+            const user = await initDashboardShell('patient', 'patient-settings.html', 'Health Profile & Settings', 'Manage your personal medical record and account security');
+            if (!user) return;
+
+            // Populate UID in banner
+            document.getElementById('banner-uid').textContent = `HEAL-PT-${user.id ? user.id.slice(-6).toUpperCase() : '000000'}`;
+
+            // Populate form values
+            document.getElementById('ps-name').value = user.fullName || '';
+            document.getElementById('ps-phone').value = user.phone || '';
+            document.getElementById('ps-username').value = `@${user.username}`;
+            document.getElementById('ps-email').value = user.email || '';
+
+            if (user.dateOfBirth) {
+                const dobIso = new Date(user.dateOfBirth).toISOString().split('T')[0];
+                document.getElementById('ps-dob').value = dobIso;
+                document.getElementById('ps-age-display').textContent = calculateAge(dobIso);
+            }
+
+            document.getElementById('ps-dob').addEventListener('change', (e) => {
+                document.getElementById('ps-age-display').textContent = calculateAge(e.target.value);
+            });
+
+            // Populate Medical & Emergency fields
+            if (user.bloodGroup) document.getElementById('ps-blood').value = user.bloodGroup;
+            if (user.gender) document.getElementById('ps-gender').value = user.gender;
+            if (user.height) document.getElementById('ps-height').value = user.height;
+            if (user.weight) document.getElementById('ps-weight').value = user.weight;
+            if (user.bloodPressure) document.getElementById('ps-bp').value = user.bloodPressure;
+            if (user.bloodSugar) document.getElementById('ps-sugar').value = user.bloodSugar;
+            if (user.allergies) document.getElementById('ps-allergies').value = user.allergies;
+            if (user.chronicConditions) document.getElementById('ps-chronic').value = user.chronicConditions;
+            if (user.currentMedications) document.getElementById('ps-meds').value = user.currentMedications;
+            if (user.medicalNotes) document.getElementById('ps-notes').value = user.medicalNotes;
+            if (user.address) document.getElementById('ps-address').value = user.address;
+
+            updateBmiBadge();
+            document.getElementById('ps-height').addEventListener('input', updateBmiBadge);
+            document.getElementById('ps-weight').addEventListener('input', updateBmiBadge);
+
+            if (user.emergencyContact) {
+                document.getElementById('ps-emg-name').value = user.emergencyContact.name || '';
+                document.getElementById('ps-emg-phone').value = user.emergencyContact.phone || '';
+                document.getElementById('ps-emg-relation').value = user.emergencyContact.relation || '';
+            }
+
+            // Avatar Display
+            if (user.avatar) {
+                document.getElementById('ps-avatar-img').src = user.avatar;
+                document.getElementById('ps-avatar-img').classList.remove('hidden');
+                document.getElementById('ps-avatar-fb').classList.add('hidden');
+            } else {
+                document.getElementById('ps-avatar-fb').textContent = (user.fullName || 'P').charAt(0).toUpperCase();
+            }
+
+            // Preview local image selection before save
+            document.getElementById('ps-avatar-file').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (evt) => {
+                        const img = document.getElementById('ps-avatar-img');
+                        img.src = evt.target.result;
+                        img.classList.remove('hidden');
+                        document.getElementById('ps-avatar-fb').classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Save Settings
+            document.getElementById('patient-settings-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('ps-save-btn');
+                const origHtml = btn.innerHTML;
+                try {
+                    btn.disabled = true;
+                    btn.innerHTML = `<span>Saving...</span>`;
+                    
+                    const avatarFile = document.getElementById('ps-avatar-file').files[0];
+                    const avatarImage = avatarFile ? await fileToBase64(avatarFile) : undefined;
+
+                    const payload = {
+                        fullName: document.getElementById('ps-name').value.trim(),
+                        phone: document.getElementById('ps-phone').value.trim(),
+                        dateOfBirth: document.getElementById('ps-dob').value || undefined,
+                        gender: document.getElementById('ps-gender').value || '',
+                        bloodGroup: document.getElementById('ps-blood').value || '',
+                        height: document.getElementById('ps-height').value || '',
+                        weight: document.getElementById('ps-weight').value || '',
+                        bloodPressure: document.getElementById('ps-bp').value.trim(),
+                        bloodSugar: document.getElementById('ps-sugar').value.trim(),
+                        allergies: document.getElementById('ps-allergies').value.trim(),
+                        chronicConditions: document.getElementById('ps-chronic').value.trim(),
+                        currentMedications: document.getElementById('ps-meds').value.trim(),
+                        medicalNotes: document.getElementById('ps-notes').value.trim(),
+                        address: document.getElementById('ps-address').value.trim(),
+                        emergencyContact: {
+                            name: document.getElementById('ps-emg-name').value.trim(),
+                            phone: document.getElementById('ps-emg-phone').value.trim(),
+                            relation: document.getElementById('ps-emg-relation').value,
+                        },
+                        avatarImage: avatarImage || undefined,
+                    };
+
+                    const res = await api.updateProfile(payload);
+                    showAlert(res.message || 'Health profile updated successfully!');
+                    setTimeout(() => location.reload(), 800);
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = origHtml;
+                }
+            });
+
+            // Change Password
+            document.getElementById('patient-pwd-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const cur = document.getElementById('pp-cur').value;
+                const pwd = document.getElementById('pp-new').value;
+                const conf = document.getElementById('pp-conf').value;
+
+                if (pwd !== conf) {
+                    showAlert('New password and confirmation do not match.', true);
+                    return;
+                }
+
+                const btn = document.getElementById('pp-save-btn');
+                const origText = btn.textContent;
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Updating...';
+                    const res = await api.changePassword({
+                        currentPassword: cur,
+                        newPassword: pwd,
+                        confirmPassword: conf,
+                    });
+                    showAlert(res.message || 'Password changed successfully!');
+                    e.target.reset();
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = origText;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

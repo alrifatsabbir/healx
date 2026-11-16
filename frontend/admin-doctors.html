@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Directory | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-[#edf3f0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="font-extrabold text-lg text-[#082c2a]">Verified Doctor Directory</h2>
+                            <p class="text-xs text-[#6c8680]">Displays only BMDC-verified specialists. Certificates and Govt IDs remain protected and private to Admin.</p>
+                        </div>
+                        <input type="search" id="search-doctors" placeholder="Search name, @username, BMDC, specialty..." class="px-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs sm:text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+
+                    <div id="verified-doctors-list" class="divide-y divide-[#edf3f0]"></div>
+
+                    <!-- Pagination Controls (20 per page) -->
+                    <div id="pagination-wrapper" class="p-5 border-t border-[#edf3f0] bg-[#fbfdfc] flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <p class="text-xs font-semibold text-[#5a746e]" id="pagination-info">Showing 1 - 20 of 155 verified doctors</p>
+                        <div class="flex items-center gap-1.5 flex-wrap" id="pagination-buttons"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Doctor Details & Protected Docs Modal (Popup Lightbox on image click) -->
+    <div id="doc-view-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-[#e1eae6] max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 id="dvm-name" class="font-extrabold text-xl text-[#082c2a]">Doctor Details</h3>
+                    <p id="dvm-sub" class="text-xs text-[#6c8680]"></p>
+                </div>
+                <button type="button" id="close-dvm" class="w-8 h-8 rounded-full bg-[#edf5f1] text-[#082c2a] flex items-center justify-center cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="dvm-body" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- Edit Doctor Modal -->
+    <div id="doc-edit-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#e1eae6]">
+            <h3 class="font-extrabold text-xl text-[#082c2a] mb-4">Edit Verified Doctor</h3>
+            <form id="doc-edit-form" class="space-y-3.5">
+                <input type="hidden" id="de-id">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Full Name *</label>
+                        <input type="text" id="de-name" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Specialty *</label>
+                        <input type="text" id="de-specialty" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">BMDC Number *</label>
+                        <input type="text" id="de-bmdc" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Experience (Years)</label>
+                        <input type="number" id="de-exp" min="0" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Designation</label>
+                        <input type="text" id="de-designation" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Current Hospital</label>
+                        <input type="text" id="de-workplace" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1">Bio / About</label>
+                    <textarea id="de-about" rows="2" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" id="close-dem" class="px-4 py-2 rounded-full text-xs font-bold text-[#556e68] hover:bg-[#edf5f1] cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] cursor-pointer">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        let doctors = [];
+        let currentPage = 1;
+        const pageSize = 20;
+
+        const alertEl = document.getElementById('page-alert');
+        const viewModal = document.getElementById('doc-view-modal');
+        const editModal = document.getElementById('doc-edit-modal');
+
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function renderPagination(totalItems, totalPages) {
+            const paginationWrapper = document.getElementById('pagination-wrapper');
+            const paginationInfo = document.getElementById('pagination-info');
+            const paginationButtons = document.getElementById('pagination-buttons');
+            if (!paginationWrapper || !paginationButtons || !paginationInfo) return;
+
+            if (totalItems === 0 || totalPages <= 1) {
+                paginationWrapper.classList.add('hidden');
+                return;
+            }
+
+            paginationWrapper.classList.remove('hidden');
+            const startIndex = (currentPage - 1) * pageSize + 1;
+            const endIndex = Math.min(currentPage * pageSize, totalItems);
+
+            paginationInfo.innerHTML = `Showing <strong class="text-[#082c2a] font-bold">${startIndex} - ${endIndex}</strong> of <strong class="text-[#082c2a] font-bold">${totalItems}</strong> verified doctors (Page ${currentPage} of ${totalPages})`;
+
+            const pages = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+                pages.push(1);
+                if (currentPage > 3) pages.push('...');
+                const start = Math.max(2, currentPage - 1);
+                const end = Math.min(totalPages - 1, currentPage + 1);
+                for (let i = start; i <= end; i++) {
+                    if (!pages.includes(i)) pages.push(i);
+                }
+                if (currentPage < totalPages - 2) pages.push('...');
+                if (!pages.includes(totalPages)) pages.push(totalPages);
+            }
+
+            let buttonsHtml = '';
+            buttonsHtml += `
+                <button type="button" class="btn-prev-page px-3 py-1.5 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex items-center gap-1" ${currentPage === 1 ? 'disabled' : ''}>
+                    &larr; Prev
+                </button>
+            `;
+
+            pages.forEach(p => {
+                if (p === '...') {
+                    buttonsHtml += `<span class="px-2 py-1 text-xs text-[#798e88] font-bold">...</span>`;
+                } else {
+                    const isActive = p === currentPage;
+                    buttonsHtml += `
+                        <button type="button" data-page="${p}" class="btn-page-num w-8 h-8 rounded-lg text-xs font-bold transition-all cursor-pointer ${isActive ? 'bg-[#0e927f] text-white shadow-xs' : 'bg-white border border-[#d7dfdb] text-[#082c2a] hover:bg-[#edf7f4]'}">
+                            ${p}
+                        </button>
+                    `;
+                }
+            });
+
+            buttonsHtml += `
+                <button type="button" class="btn-next-page px-3 py-1.5 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex items-center gap-1" ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next &rarr;
+                </button>
+            `;
+
+            paginationButtons.innerHTML = buttonsHtml;
+
+            paginationButtons.querySelector('.btn-prev-page')?.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderDoctors();
+                    document.getElementById('verified-doctors-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            paginationButtons.querySelector('.btn-next-page')?.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderDoctors();
+                    document.getElementById('verified-doctors-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            paginationButtons.querySelectorAll('.btn-page-num').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetPage = Number(btn.dataset.page);
+                    if (targetPage && targetPage !== currentPage) {
+                        currentPage = targetPage;
+                        renderDoctors();
+                        document.getElementById('verified-doctors-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        function renderDoctors() {
+            const container = document.getElementById('verified-doctors-list');
+            if (doctors.length === 0) {
+                container.innerHTML = `<div class="p-10 text-center text-xs text-[#6c8680]">No verified doctors found. Approve pending specialists in Doctor Verification.</div>`;
+                renderPagination(0, 0);
+                return;
+            }
+
+            const totalPages = Math.ceil(doctors.length / pageSize) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, doctors.length);
+            const pageDoctors = doctors.slice(startIndex, endIndex);
+
+            renderPagination(doctors.length, totalPages);
+
+            container.innerHTML = pageDoctors.map(d => `
+                <div class="p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center hover:bg-[#fbfdfc] border-b border-[#edf3f0] transition-colors">
+                    <div class="lg:col-span-7 flex items-start sm:items-center gap-3.5 min-w-0">
+                        ${d.photoUrl ? `<img src="${d.photoUrl}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-cover border border-[#0e927f] flex-shrink-0 shadow-2xs">` : `<div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-black text-lg flex-shrink-0 border border-[#cbe6dc]">${(d.name || 'D').charAt(0)}</div>`}
+                        <div class="space-y-1 min-w-0 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h3 class="font-bold text-sm sm:text-base text-[#082c2a] truncate">${d.name}</h3>
+                                <a href="${CONFIG.PROFILE_PAGES.DOCTOR(d.username)}" target="_blank" class="font-mono text-xs text-[#0e927f] hover:underline flex-shrink-0">@${d.username}</a>
+                            </div>
+                            <p class="text-xs text-[#556e68] truncate">BMDC: <strong>${d.bmdcNumber}</strong> &bull; ${d.specialty} &bull; ${d.currentWorkplace || 'Specialized Clinic'}</p>
+                            <p class="text-xs text-[#6c8680] truncate">${d.email} &bull; ${d.phone}</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 flex items-center justify-start lg:justify-end gap-1.5 sm:gap-2 flex-wrap sm:flex-nowrap flex-shrink-0">
+                        <button type="button" onclick="viewDoctor('${d._id}')" class="px-3 py-1.5 rounded-full text-xs font-bold border border-[#c8dcd4] text-[#082c2a] hover:bg-[#edf5f1] transition-colors whitespace-nowrap cursor-pointer">Details &amp; Certs</button>
+                        <button type="button" onclick="openEditDoctor('${d._id}')" class="px-2.5 py-1.5 rounded-full text-xs font-bold bg-[#edf7f4] text-[#087866] hover:bg-[#daf1e8] transition-colors whitespace-nowrap cursor-pointer">Edit</button>
+                        <button type="button" onclick="unverifyDoctor('${d._id}')" class="px-2.5 py-1.5 rounded-full text-xs font-bold border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors whitespace-nowrap cursor-pointer">Revoke</button>
+                        <button type="button" onclick="deleteDoctor('${d._id}', '${d.username}')" class="px-2.5 py-1.5 rounded-full text-xs font-bold border border-red-200 text-red-600 hover:bg-red-50 transition-colors whitespace-nowrap cursor-pointer">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function fetchVerifiedDoctors(q = '') {
+            const res = await api.getAdminDoctors('approved', q);
+            doctors = res.doctors || [];
+            currentPage = 1;
+            renderDoctors();
+        }
+
+        document.getElementById('search-doctors')?.addEventListener('input', (e) => {
+            fetchVerifiedDoctors(e.target.value.trim());
+        });
+
+        window.viewDoctor = function(id) {
+            const d = doctors.find(x => x._id === id);
+            if (!d) return;
+            document.getElementById('dvm-name').textContent = d.name;
+            document.getElementById('dvm-sub').textContent = `BMDC: ${d.bmdcNumber} • ${d.specialty} • @${d.username}`;
+
+            const idFront = d.govtIdImageUrl || d.degreeCertImageUrl || '';
+            const idLabel = d.govtIdImageUrl ? `${d.govtIdType || 'Govt ID'} Front (Face Visible)` : 'Verification Certificate';
+
+            document.getElementById('dvm-body').innerHTML = `
+                <div class="grid grid-cols-2 gap-3 text-xs bg-[#f8fbf9] p-4 rounded-2xl border border-[#e6efec]">
+                    <div><span class="text-[#6c8680] block">Email</span><strong>${d.email}</strong></div>
+                    <div><span class="text-[#6c8680] block">Phone</span><strong>${d.phone}</strong></div>
+                    <div><span class="text-[#6c8680] block">Experience</span><strong>${d.experienceYears || 1} Years</strong></div>
+                    <div><span class="text-[#6c8680] block">Workplace</span><strong>${d.currentWorkplace || 'N/A'}</strong></div>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-[#082c2a] mb-2">Doctor Profile &amp; Verification Images (Click image to inspect in full-screen popup)</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
+                            <p class="text-[11px] font-bold text-[#556e68] mb-2">Doctor Photo</p>
+                            ${d.photoUrl
+                                ? `<img src="${d.photoUrl}" onclick="openImageLightbox('${d.photoUrl}', '${d.name} — Profile Photo')" class="w-full h-44 object-cover rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                : `<p class="text-xs text-[#6c8680] py-8 text-center">No Photo</p>`}
+                        </div>
+                        <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
+                            <p class="text-[11px] font-bold text-[#556e68] mb-2">BMDC Certificate</p>
+                            ${d.bmdcCertImageUrl
+                                ? `<img src="${d.bmdcCertImageUrl}" onclick="openImageLightbox('${d.bmdcCertImageUrl}', '${d.name} — BMDC Certificate (${d.bmdcNumber})')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                : `<p class="text-xs text-[#6c8680] py-8 text-center">Not uploaded (scrapped directory specialist)</p>`}
+                        </div>
+                        <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
+                            <p class="text-[11px] font-bold text-[#556e68] mb-2">${idLabel}</p>
+                            ${idFront
+                                ? `<img src="${idFront}" onclick="openImageLightbox('${idFront}', '${d.name} — ${idLabel}')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                : `<p class="text-xs text-[#6c8680] py-8 text-center">Not uploaded</p>`}
+                        </div>
+                    </div>
+                </div>
+            `;
+            viewModal.classList.remove('hidden');
+            viewModal.classList.add('flex');
+        };
+        document.getElementById('close-dvm')?.addEventListener('click', () => {
+            viewModal.classList.add('hidden');
+            viewModal.classList.remove('flex');
+        });
+
+        window.openEditDoctor = function(id) {
+            const d = doctors.find(x => x._id === id);
+            if (!d) return;
+            document.getElementById('de-id').value = d._id;
+            document.getElementById('de-name').value = d.name;
+            document.getElementById('de-specialty').value = d.specialty;
+            document.getElementById('de-bmdc').value = d.bmdcNumber;
+            document.getElementById('de-exp').value = d.experienceYears || 1;
+            document.getElementById('de-designation').value = d.designation || '';
+            document.getElementById('de-workplace').value = d.currentWorkplace || '';
+            document.getElementById('de-about').value = d.about || '';
+            editModal.classList.remove('hidden');
+            editModal.classList.add('flex');
+        };
+        document.getElementById('close-dem')?.addEventListener('click', () => {
+            editModal.classList.add('hidden');
+            editModal.classList.remove('flex');
+        });
+
+        document.getElementById('doc-edit-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('de-id').value;
+            try {
+                const res = await api.updateAdminDoctor(id, {
+                    name: document.getElementById('de-name').value.trim(),
+                    specialty: document.getElementById('de-specialty').value.trim(),
+                    bmdcNumber: document.getElementById('de-bmdc').value.trim(),
+                    experienceYears: Number(document.getElementById('de-exp').value) || 1,
+                    designation: document.getElementById('de-designation').value.trim(),
+                    currentWorkplace: document.getElementById('de-workplace').value.trim(),
+                    about: document.getElementById('de-about').value.trim(),
+                });
+                editModal.classList.add('hidden');
+                editModal.classList.remove('flex');
+                showAlert(res.message);
+                await fetchVerifiedDoctors();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        });
+
+        window.unverifyDoctor = async function(id) {
+            const confirmed = await window.healiixConfirm({
+                title: 'Revoke Verification?',
+                message: 'Move this doctor back to Pending Verification? They will be hidden from the public directory.',
+                confirmText: 'Revoke Verification',
+                type: 'warning',
+            });
+            if (!confirmed) return;
+            try {
+                const res = await api.verifyDoctor(id, 'pending');
+                showAlert(res.message);
+                await fetchVerifiedDoctors();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        window.deleteDoctor = async function(id, username) {
+            const confirmed = await window.healiixConfirm({
+                title: 'Delete Doctor Account?',
+                message: `Permanently delete Dr. @${username}, their profile, and all associated appointments? This action cannot be undone.`,
+                confirmText: 'Delete Permanently',
+                type: 'danger',
+            });
+            if (!confirmed) return;
+            try {
+                const res = await api.deleteAdminDoctor(id);
+                showAlert(res.message);
+                await fetchVerifiedDoctors();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        (async () => {
+            const user = await initDashboardShell('admin', 'admin-doctors.html', 'Doctor Directory', 'Verified specialist records & private credential inspection');
+            if (user) await fetchVerifiedDoctors();
+        })();
+    </script>
+</body>
+</html>
+

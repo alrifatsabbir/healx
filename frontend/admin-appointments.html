@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments Calendar | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto space-y-6">
+                <!-- Alert Banner -->
+                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all"></div>
+
+                <!-- KPI Status Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <p class="text-[11px] font-bold text-[#6c8680] uppercase tracking-wider">Total Consultations</p>
+                        <p id="cnt-all" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <p class="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Pending</p>
+                        <p id="cnt-pending" class="font-extrabold text-2xl sm:text-3xl text-amber-600 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <p class="text-[11px] font-bold text-[#0e927f] uppercase tracking-wider">Confirmed</p>
+                        <p id="cnt-confirmed" class="font-extrabold text-2xl sm:text-3xl text-[#0e927f] mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <p class="text-[11px] font-bold text-sky-700 uppercase tracking-wider">Completed</p>
+                        <p id="cnt-completed" class="font-extrabold text-2xl sm:text-3xl text-sky-600 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <p class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Cancelled</p>
+                        <p id="cnt-cancelled" class="font-extrabold text-2xl sm:text-3xl text-rose-600 mt-1">0</p>
+                    </div>
+                </div>
+
+                <!-- Two-Column Layout: Full Calendar (Left) + Side Appointment List (Right) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Left: Interactive Calendar (lg:col-span-7 xl:col-span-8) -->
+                    <div class="lg:col-span-7 xl:col-span-8 bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-5 sm:p-7 flex flex-col">
+                        <!-- Calendar Header & Navigation Controls -->
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-[#edf3f0]">
+                            <div>
+                                <h2 id="cal-month-label" class="font-extrabold text-xl sm:text-2xl text-[#082c2a] tracking-tight">Calendar</h2>
+                                <p class="text-xs text-[#6c8680] mt-0.5">Click any date to inspect scheduled appointments</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" id="cal-prev" class="w-9 h-9 rounded-xl border border-[#d7dfdb] hover:bg-[#edf5f1] hover:text-[#0e927f] flex items-center justify-center text-sm font-extrabold cursor-pointer transition-colors" title="Previous Month" aria-label="Previous Month">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                                </button>
+                                <button type="button" id="cal-today" class="px-3.5 py-2 rounded-xl bg-[#edf7f4] text-[#087866] text-xs font-bold hover:bg-[#d6f0e6] transition-colors cursor-pointer border border-[#c4e6dc]">
+                                    Today
+                                </button>
+                                <button type="button" id="cal-next" class="w-9 h-9 rounded-xl border border-[#d7dfdb] hover:bg-[#edf5f1] hover:text-[#0e927f] flex items-center justify-center text-sm font-extrabold cursor-pointer transition-colors" title="Next Month" aria-label="Next Month">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Days of Week Header -->
+                        <div class="grid grid-cols-7 text-center text-xs font-bold text-[#6c8680] uppercase tracking-wider mb-2">
+                            <span class="text-rose-500">Sun</span>
+                            <span>Mon</span>
+                            <span>Tue</span>
+                            <span>Wed</span>
+                            <span>Thu</span>
+                            <span>Fri</span>
+                            <span class="text-rose-500">Sat</span>
+                        </div>
+
+                        <!-- Calendar Days Grid -->
+                        <div id="cal-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2 min-h-[380px]"></div>
+
+                        <!-- Calendar Footer / Legend -->
+                        <div class="mt-6 pt-4 border-t border-[#edf3f0] flex flex-wrap items-center justify-between gap-3 text-xs">
+                            <div class="flex items-center gap-4 flex-wrap">
+                                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#556e68]">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-[#0e927f]"></span> Confirmed
+                                </span>
+                                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#556e68]">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Pending
+                                </span>
+                                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#556e68]">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Completed
+                                </span>
+                                <span class="flex items-center gap-1.5 text-[11px] font-bold text-[#556e68]">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Cancelled
+                                </span>
+                            </div>
+                            <button type="button" id="clear-date-filter" class="hidden text-xs font-bold text-[#0e927f] hover:underline cursor-pointer flex items-center gap-1">
+                                <span>Reset Filter (Show All)</span> &times;
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Side Appointment List (lg:col-span-5 xl:col-span-4) -->
+                    <div class="lg:col-span-5 xl:col-span-4 bg-white rounded-3xl border border-[#e1eae6] shadow-sm overflow-hidden flex flex-col">
+                        <!-- Side Panel Header -->
+                        <div class="p-5 sm:p-6 border-b border-[#edf3f0] bg-[#fbfdfc] space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="font-extrabold text-base text-[#082c2a]">Schedule List</h3>
+                                    <p id="agenda-sub-label" class="text-xs text-[#6c8680] mt-0.5">All scheduled visits</p>
+                                </div>
+                                <span id="agenda-count-badge" class="px-2.5 py-1 rounded-full bg-[#0e927f]/15 text-[#0e927f] text-xs font-extrabold">0</span>
+                            </div>
+
+                            <!-- Search & Filter Controls -->
+                            <div class="space-y-2">
+                                <div class="relative">
+                                    <svg class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-[#6c8680]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    <input type="search" id="appt-search" placeholder="Search ref, patient, doctor..." class="w-full pl-9 pr-3 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs outline-none focus:border-[#0e927f] transition-all">
+                                </div>
+                                <select id="appt-status" class="w-full px-3 py-2 rounded-xl border border-[#d7dfdb] bg-white text-xs font-bold text-[#082c2a] outline-none focus:border-[#0e927f]">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Side List Content -->
+                        <div id="agenda-list" class="divide-y divide-[#edf3f0] max-h-[620px] overflow-y-auto p-2 sm:p-3 space-y-2">
+                            <div class="p-8 text-center text-xs text-[#6c8680]">
+                                <svg class="w-8 h-8 mx-auto text-[#0e927f]/40 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                Loading schedule...
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        let allAppointments = [];
+        let viewDate = new Date();
+        let selectedDateKey = ''; // Format: YYYY-MM-DD
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-rose-50', 'text-rose-700', 'border-rose-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-rose-50', 'text-rose-700', 'border-rose-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function toDateKey(d) {
+            if (!d) return '';
+            const dt = new Date(d);
+            if (isNaN(dt.getTime())) return '';
+            const y = dt.getFullYear();
+            const m = String(dt.getMonth() + 1).padStart(2, '0');
+            const day = String(dt.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
+        function updateCounters() {
+            document.getElementById('cnt-all').textContent = allAppointments.length;
+            document.getElementById('cnt-pending').textContent = allAppointments.filter(a => a.status === 'pending').length;
+            document.getElementById('cnt-confirmed').textContent = allAppointments.filter(a => a.status === 'confirmed').length;
+            document.getElementById('cnt-completed').textContent = allAppointments.filter(a => a.status === 'completed').length;
+            document.getElementById('cnt-cancelled').textContent = allAppointments.filter(a => a.status === 'cancelled').length;
+        }
+
+        function renderCalendar() {
+            const year = viewDate.getFullYear();
+            const month = viewDate.getMonth();
+            const monthLabel = viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            document.getElementById('cal-month-label').textContent = monthLabel;
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            const todayKey = toDateKey(new Date());
+
+            // Build map of appointments grouped by day key
+            const apptMap = {};
+            allAppointments.forEach(a => {
+                const k = toDateKey(a.appointmentDate);
+                if (k) {
+                    if (!apptMap[k]) apptMap[k] = { total: 0, pending: 0, confirmed: 0, completed: 0, cancelled: 0 };
+                    apptMap[k].total++;
+                    if (apptMap[k][a.status] !== undefined) apptMap[k][a.status]++;
+                }
+            });
+
+            const cells = [];
+
+            // Previous month padding days
+            for (let i = firstDayIndex - 1; i >= 0; i--) {
+                const dayNum = daysInPrevMonth - i;
+                cells.push(`
+                    <div class="min-h-[64px] sm:min-h-[76px] p-2 rounded-2xl border border-transparent bg-slate-50/60 text-slate-300 text-xs flex flex-col justify-between pointer-events-none select-none">
+                        <span class="font-semibold">${dayNum}</span>
+                    </div>
+                `);
+            }
+
+            // Current month days
+            for (let d = 1; d <= daysInMonth; d++) {
+                const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const data = apptMap[key] || { total: 0, pending: 0, confirmed: 0, completed: 0, cancelled: 0 };
+                const isSelected = selectedDateKey === key;
+                const isToday = todayKey === key;
+
+                let borderBgClass = 'bg-[#f8fbf9] border-[#edf3f0] text-[#082c2a] hover:bg-[#edf7f4] hover:border-[#bde3d8]';
+                if (isToday) {
+                    borderBgClass = 'bg-[#edf7f4] border-[#0e927f] text-[#087866] font-bold shadow-xs';
+                }
+                if (isSelected) {
+                    borderBgClass = 'bg-[#0e927f] border-[#0e927f] text-white font-extrabold shadow-md ring-2 ring-[#0e927f]/30';
+                }
+
+                // Render status indicator dots
+                let dots = '';
+                if (data.total > 0) {
+                    dots = `
+                        <div class="flex items-center gap-1 flex-wrap mt-1">
+                            ${data.confirmed > 0 ? `<span class="w-2 h-2 rounded-full ${isSelected ? 'bg-white' : 'bg-[#0e927f]'}" title="${data.confirmed} confirmed"></span>` : ''}
+                            ${data.pending > 0 ? `<span class="w-2 h-2 rounded-full ${isSelected ? 'bg-amber-200' : 'bg-amber-500'}" title="${data.pending} pending"></span>` : ''}
+                            ${data.completed > 0 ? `<span class="w-2 h-2 rounded-full ${isSelected ? 'bg-sky-200' : 'bg-sky-500'}" title="${data.completed} completed"></span>` : ''}
+                            ${data.cancelled > 0 ? `<span class="w-2 h-2 rounded-full ${isSelected ? 'bg-rose-200' : 'bg-rose-500'}" title="${data.cancelled} cancelled"></span>` : ''}
+                            <span class="text-[10px] font-extrabold ml-auto ${isSelected ? 'text-white' : 'text-[#0e927f]'}">${data.total}</span>
+                        </div>
+                    `;
+                }
+
+                cells.push(`
+                    <button type="button" onclick="selectCalDate('${key}')" class="min-h-[64px] sm:min-h-[76px] p-2 rounded-2xl border text-left cursor-pointer transition-all flex flex-col justify-between ${borderBgClass}">
+                        <div class="flex items-center justify-between w-full">
+                            <span class="text-xs sm:text-sm font-bold ${isToday && !isSelected ? 'w-5 h-5 rounded-full bg-[#0e927f] text-white flex items-center justify-center text-[10px]' : ''}">${d}</span>
+                            ${isToday && !isSelected ? '<span class="text-[9px] uppercase font-mono font-bold text-[#0e927f]">Today</span>' : ''}
+                        </div>
+                        ${dots}
+                    </button>
+                `);
+            }
+
+            document.getElementById('cal-grid').innerHTML = cells.join('');
+        }
+
+        window.selectCalDate = function(key) {
+            if (selectedDateKey === key) {
+                // Click again to unfilter
+                selectedDateKey = '';
+            } else {
+                selectedDateKey = key;
+            }
+            updateFilterState();
+            renderCalendar();
+            renderAgenda();
+        };
+
+        function updateFilterState() {
+            const clearBtn = document.getElementById('clear-date-filter');
+            const subLabel = document.getElementById('agenda-sub-label');
+            if (selectedDateKey) {
+                const dateObj = new Date(selectedDateKey + 'T00:00:00');
+                subLabel.textContent = `Date: ${dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}`;
+                clearBtn?.classList.remove('hidden');
+            } else {
+                subLabel.textContent = 'All scheduled visits';
+                clearBtn?.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('clear-date-filter')?.addEventListener('click', () => {
+            selectedDateKey = '';
+            updateFilterState();
+            renderCalendar();
+            renderAgenda();
+        });
+
+        document.getElementById('cal-prev')?.addEventListener('click', () => {
+            viewDate.setMonth(viewDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('cal-next')?.addEventListener('click', () => {
+            viewDate.setMonth(viewDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        document.getElementById('cal-today')?.addEventListener('click', () => {
+            viewDate = new Date();
+            selectedDateKey = toDateKey(new Date());
+            updateFilterState();
+            renderCalendar();
+            renderAgenda();
+        });
+
+        function renderAgenda() {
+            const q = document.getElementById('appt-search')?.value.toLowerCase().trim() || '';
+            const status = document.getElementById('appt-status')?.value || '';
+
+            const filtered = allAppointments.filter(a => {
+                if (selectedDateKey && toDateKey(a.appointmentDate) !== selectedDateKey) return false;
+                if (status && a.status !== status) return false;
+                if (q && !(
+                    (a.bookingRef || '').toLowerCase().includes(q) ||
+                    (a.patientName || '').toLowerCase().includes(q) ||
+                    (a.doctorName || '').toLowerCase().includes(q) ||
+                    (a.hospitalName || '').toLowerCase().includes(q)
+                )) return false;
+                return true;
+            });
+
+            document.getElementById('agenda-count-badge').textContent = filtered.length;
+
+            const container = document.getElementById('agenda-list');
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 px-4 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="font-bold text-xs text-[#082c2a]">No appointments found</p>
+                        <p class="text-[11px] text-[#6c8680] mt-1">${selectedDateKey ? 'No consultations scheduled for this date.' : 'Try adjusting your search query or filters.'}</p>
+                        ${selectedDateKey ? `<button type="button" onclick="selectCalDate('${selectedDateKey}')" class="mt-3 inline-block px-3 py-1.5 rounded-xl bg-[#edf7f4] text-[#087866] text-xs font-bold hover:bg-[#d6f0e6] transition-colors cursor-pointer">Show All Visits</button>` : ''}
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(a => {
+                const statusStyles = {
+                    confirmed: 'bg-[#0e927f]/15 text-[#0e927f] border-[#0e927f]/30',
+                    pending: 'bg-amber-50 text-amber-700 border-amber-200',
+                    completed: 'bg-sky-50 text-sky-700 border-sky-200',
+                    cancelled: 'bg-rose-50 text-rose-700 border-rose-200',
+                };
+                const badgeClass = statusStyles[a.status] || 'bg-slate-50 text-slate-700 border-slate-200';
+                const formattedDate = new Date(a.appointmentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                return `
+                    <div class="p-4 rounded-2xl border border-[#edf3f0] bg-white hover:border-[#bde3d8] hover:shadow-xs transition-all space-y-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-1 rounded-lg text-[11px] font-extrabold uppercase border ${badgeClass}">${a.status}</span>
+                                <span class="text-xs font-mono font-bold text-[#6c8680]">${a.bookingRef || '#REF'}</span>
+                            </div>
+                            <span class="text-xs font-extrabold text-[#082c2a]">BDT ${a.consultationFee || 0}</span>
+                        </div>
+
+                        <div>
+                            <p class="font-extrabold text-sm text-[#082c2a] leading-tight">${a.patientName || 'Patient'}</p>
+                            <p class="text-[11px] text-[#6c8680] mt-0.5">${a.patientPhone || 'No phone'} &bull; ${a.patientEmail || ''}</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-[#edf3f0] flex flex-col gap-1 text-xs text-[#49635d]">
+                            <p class="truncate">Doctor: <strong class="text-[#082c2a]">${a.doctorName || 'Doctor'}</strong></p>
+                            <p class="truncate text-[11px] text-[#6c8680]">${a.hospitalName || 'Main Hospital'}</p>
+                            <div class="flex items-center gap-2 mt-1 text-[11px] font-bold text-[#0e927f]">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span>${formattedDate} &bull; ${a.timeSlot || 'Scheduled'}</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-2 border-t border-[#edf3f0] flex flex-wrap items-center gap-1.5">
+                            ${a.status === 'pending' ? `
+                                <button type="button" onclick="adminUpdateAppt('${a._id}', 'confirmed')" class="flex-1 px-3 py-1.5 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold transition-colors cursor-pointer text-center">
+                                    Confirm
+                                </button>
+                            ` : ''}
+                            ${['pending', 'confirmed'].includes(a.status) ? `
+                                <button type="button" onclick="adminUpdateAppt('${a._id}', 'completed')" class="flex-1 px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition-colors cursor-pointer text-center">
+                                    Complete
+                                </button>
+                            ` : ''}
+                            ${['pending', 'confirmed'].includes(a.status) ? `
+                                <button type="button" onclick="adminUpdateAppt('${a._id}', 'cancelled')" class="px-3 py-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold transition-colors cursor-pointer">
+                                    Cancel
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('appt-search')?.addEventListener('input', renderAgenda);
+        document.getElementById('appt-status')?.addEventListener('change', renderAgenda);
+
+        window.adminUpdateAppt = async function(id, status) {
+            let reason = '';
+            if (status === 'cancelled') {
+                reason = await window.healiixPrompt({
+                    title: 'Cancel Appointment',
+                    message: 'Provide a reason for cancellation. This will be sent to the patient.',
+                    placeholder: 'e.g., Doctor unavailable, schedule change...',
+                    defaultValue: 'Cancelled by Admin',
+                    confirmText: 'Cancel Booking',
+                });
+                if (reason === null) return;
+            } else if (status === 'confirmed') {
+                const confirmed = await window.healiixConfirm({
+                    title: 'Confirm Appointment?',
+                    message: 'Mark this consultation as confirmed? The patient will be notified.',
+                    confirmText: 'Confirm Visit',
+                    type: 'success',
+                });
+                if (!confirmed) return;
+            }
+            try {
+                await api.updateAppointmentStatus(id, status, reason);
+                showAlert(`Appointment marked as ${status}. Patient notified.`);
+                await loadAppointments();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        async function loadAppointments() {
+            try {
+                const res = await api.getAdminAppointments();
+                allAppointments = res?.appointments || [];
+                updateCounters();
+                renderCalendar();
+                renderAgenda();
+            } catch (err) {
+                console.error('Failed to load appointments:', err);
+                showAlert(err.message, true);
+            }
+        }
+
+        // 1. Render Calendar Immediately with zero delay
+        renderCalendar();
+        renderAgenda();
+
+        // 2. Initialize Shell & Fetch Fresh Live Data
+        (async () => {
+            const user = await initDashboardShell('admin', 'admin-appointments.html', 'All Appointments', 'Interactive calendar & clinical consultation scheduling workspace');
+            if (user) await loadAppointments();
+        })();
+    </script>
+</body>
+</html>

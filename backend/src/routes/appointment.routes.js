@@ -161,7 +161,7 @@ appointment.get('/doctor-appointments', requireAuth, async (c) => {
 });
 
 // PATCH /api/appointments/:id/status - Update booking status
-appointment.patch('/:id/status', requireAuth, async (c) => {
+const handleAppointmentStatus = async (c) => {
     try {
         const id = c.req.param('id');
         const { status, cancelledReason } = await c.req.json();
@@ -200,7 +200,10 @@ appointment.patch('/:id/status', requireAuth, async (c) => {
     } catch (err) {
         return c.json({ success: false, message: err.message }, 500);
     }
-});
+};
+
+appointment.patch('/:id/status', requireAuth, handleAppointmentStatus);
+appointment.post('/:id/status', requireAuth, handleAppointmentStatus);
 
 export default appointment;
 

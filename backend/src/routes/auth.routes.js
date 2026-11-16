@@ -340,6 +340,8 @@ auth.post('/doctor/step-2', async (c) => {
             chamberDetails,
             profileImage,
             bmdcCertImage,
+            govtIdType = 'NID',
+            govtIdImage,
             degreeCertImage,
             password,
             confirmPassword,
@@ -382,10 +384,11 @@ auth.post('/doctor/step-2', async (c) => {
 
         // Compress all uploaded images aggressively to WebP and upload to Cloudinary
         console.log('[Image Compression] Optimizing doctor assets to WebP...');
-        const [photoUrl, bmdcCertImageUrl, degreeCertImageUrl] = await Promise.all([
-            profileImage ? compressAndUploadToWebP(profileImage, { folder: 'healx_doctors/avatars', maxWidth: 800, quality: 75 }) : Promise.resolve(''),
-            bmdcCertImage ? compressAndUploadToWebP(bmdcCertImage, { folder: 'healx_doctors/certs_bmdc', maxWidth: 1400, quality: 70 }) : Promise.resolve(''),
-            degreeCertImage ? compressAndUploadToWebP(degreeCertImage, { folder: 'healx_doctors/certs_degrees', maxWidth: 1400, quality: 70 }) : Promise.resolve(''),
+        const [photoUrl, bmdcCertImageUrl, govtIdImageUrl, degreeCertImageUrl] = await Promise.all([
+            profileImage ? compressAndUploadToWebP(profileImage, { folder: 'healiix_doctors/avatars', maxWidth: 800, quality: 75 }) : Promise.resolve(''),
+            bmdcCertImage ? compressAndUploadToWebP(bmdcCertImage, { folder: 'healiix_doctors/certs_bmdc', maxWidth: 1400, quality: 72 }) : Promise.resolve(''),
+            govtIdImage ? compressAndUploadToWebP(govtIdImage, { folder: 'healiix_doctors/govt_ids', maxWidth: 1400, quality: 75 }) : Promise.resolve(''),
+            degreeCertImage ? compressAndUploadToWebP(degreeCertImage, { folder: 'healiix_doctors/certs_degrees', maxWidth: 1400, quality: 70 }) : Promise.resolve(''),
         ]);
 
         // 1. Create Doctor User
@@ -436,6 +439,8 @@ auth.post('/doctor/step-2', async (c) => {
             currentWorkplace: chamberOrHospital || body.currentWorkplace || '',
             photoUrl,
             bmdcCertImageUrl,
+            govtIdType,
+            govtIdImageUrl,
             degreeCertImageUrl,
             chambers,
             verificationStatus: 'pending',
@@ -567,10 +572,112 @@ auth.get('/me', requireAuth, async (c) => {
             phone: user.phone,
             dateOfBirth: user.dateOfBirth,
             avatar: user.avatar,
+            gender: user.gender || '',
+            bloodGroup: user.bloodGroup || '',
+            height: user.height ?? null,
+            weight: user.weight ?? null,
+            bloodPressure: user.bloodPressure || '',
+            bloodSugar: user.bloodSugar || '',
+            emergencyContact: user.emergencyContact || { name: '', phone: '', relation: '' },
+            allergies: user.allergies || '',
+            chronicConditions: user.chronicConditions || '',
+            currentMedications: user.currentMedications || '',
+            medicalNotes: user.medicalNotes || '',
+            address: user.address || '',
             profileUrl: user.role === 'doctor' ? `/d/${user.username}` : `/u/${user.username}`,
             doctorProfile: extra,
         },
     });
+});
+
+// --------------------------------------------------------------------------
+// 7B. Update User Profile (Patient / Any Auth User, compresses avatar to WebP)
+// --------------------------------------------------------------------------
+auth.put('/profile', requireAuth, async (c) => {
+    try {
+        const currentUser = c.get('user');
+        const body = await c.req.json();
+        const {
+            fullName,
+            phone,
+            dateOfBirth,
+            avatarImage,
+            gender,
+            bloodGroup,
+            height,
+            weight,
+            bloodPressure,
+            bloodSugar,
+            emergencyContact,
+            allergies,
+            chronicConditions,
+            currentMedications,
+            medicalNotes,
+            address,
+        } = body;
+
+        const user = await User.findById(currentUser._id);
+        if (!user) {
+            return c.json({ success: false, message: 'User not found.' }, 404);
+        }
+
+        if (fullName) user.fullName = fullName.trim();
+        if (phone) user.phone = phone.trim();
+        if (dateOfBirth) user.dateOfBirth = new Date(dateOfBirth);
+        if (gender !== undefined) user.gender = gender;
+        if (bloodGroup !== undefined) user.bloodGroup = bloodGroup;
+        if (height !== undefined) user.height = height === '' ? null : Number(height);
+        if (weight !== undefined) user.weight = weight === '' ? null : Number(weight);
+        if (bloodPressure !== undefined) user.bloodPressure = bloodPressure.trim();
+        if (bloodSugar !== undefined) user.bloodSugar = bloodSugar.trim();
+        if (emergencyContact !== undefined) user.emergencyContact = emergencyContact;
+        if (allergies !== undefined) user.allergies = allergies.trim();
+        if (chronicConditions !== undefined) user.chronicConditions = chronicConditions.trim();
+        if (currentMedications !== undefined) user.currentMedications = currentMedications.trim();
+        if (medicalNotes !== undefined) user.medicalNotes = medicalNotes.trim();
+        if (address !== undefined) user.address = address.trim();
+
+        if (avatarImage) {
+            const url = await compressAndUploadToWebP(avatarImage, {
+                folder: 'healiix_users/avatars',
+                maxWidth: 600,
+                quality: 75,
+            });
+            user.avatar = url;
+        }
+
+        await user.save();
+
+        return c.json({
+            success: true,
+            message: 'Profile updated successfully.',
+            user: {
+                id: user._id,
+                fullName: user.fullName,
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                phone: user.phone,
+                dateOfBirth: user.dateOfBirth,
+                avatar: user.avatar,
+                gender: user.gender,
+                bloodGroup: user.bloodGroup,
+                height: user.height,
+                weight: user.weight,
+                bloodPressure: user.bloodPressure,
+                bloodSugar: user.bloodSugar,
+                emergencyContact: user.emergencyContact,
+                allergies: user.allergies,
+                chronicConditions: user.chronicConditions,
+                currentMedications: user.currentMedications,
+                medicalNotes: user.medicalNotes,
+                address: user.address,
+                profileUrl: user.role === 'doctor' ? `/d/${user.username}` : `/u/${user.username}`,
+            },
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
 });
 
 // --------------------------------------------------------------------------
@@ -664,6 +771,40 @@ auth.post('/reset-password', async (c) => {
             success: true,
             message: 'Password updated successfully. You may now sign in with your new password.',
         });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// --------------------------------------------------------------------------
+// 10. Authenticated Change Password (Settings Pages)
+// --------------------------------------------------------------------------
+auth.put('/change-password', requireAuth, async (c) => {
+    try {
+        const currentUser = c.get('user');
+        const { currentPassword, newPassword, confirmPassword } = await c.req.json();
+
+        if (!currentPassword || !newPassword) {
+            return c.json({ success: false, message: 'Current password and new password are required.' }, 400);
+        }
+        if (confirmPassword !== undefined && newPassword !== confirmPassword) {
+            return c.json({ success: false, message: 'New passwords do not match.' }, 400);
+        }
+        if (newPassword.length < 6) {
+            return c.json({ success: false, message: 'New password must be at least 6 characters.' }, 400);
+        }
+
+        const user = await User.findById(currentUser._id).select('+password');
+        if (!user || !(await user.matchPassword(currentPassword))) {
+            return c.json({ success: false, message: 'Current password is incorrect.' }, 401);
+        }
+
+        user.password = newPassword;
+        await user.save();
+
+        sendPasswordChangedEmail({ to: user.email, name: user.fullName }).catch(console.error);
+
+        return c.json({ success: true, message: 'Password updated successfully.' });
     } catch (err) {
         return c.json({ success: false, message: err.message }, 500);
     }

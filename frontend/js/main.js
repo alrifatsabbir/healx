@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function startHeroTimer() {
             heroTimer = setInterval(() => {
                 goToHeroSlide(heroCurrentIndex + 1);
-            }, 8000); 
+            }, 3500); 
         }
 
         function resetHeroTimer() {
@@ -100,25 +100,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- Mobile Menu ---
-    if (menuToggle && nav) {
-        menuToggle.addEventListener('click', () => {
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', String(!isExpanded));
-            nav.classList.toggle('is-open', !isExpanded);
-            if (menuIcon) {
-                menuIcon.textContent = !isExpanded ? '✕' : '☰';
-            }
-        });
+    // --- Modern Navbar Scroll & Mobile Menu (Matches mr-scrappe style) ---
+    const siteHeader = document.getElementById('site-header') || document.querySelector('.site-header');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle') || menuToggle;
+    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+    const menuIconOpen = document.getElementById('menu-icon-open');
+    const menuIconClose = document.getElementById('menu-icon-close');
 
-        // Close mobile nav when link is clicked
-        nav.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('is-open');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                if (menuIcon) menuIcon.textContent = '☰';
+    if (siteHeader) {
+        const updateNavbarScroll = () => {
+            const isScrolled = (window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0) > 15;
+            const isMenuOpen = mobileMenuPanel && !mobileMenuPanel.classList.contains('hidden');
+
+            if (isScrolled || isMenuOpen) {
+                siteHeader.classList.remove('py-4');
+                siteHeader.classList.add('py-3', 'bg-[#082c2a]/95', 'backdrop-blur-md', 'border-b', 'border-white/10', 'shadow-[0_10px_24px_rgba(6,37,33,0.22)]');
+            } else {
+                siteHeader.classList.remove('py-3', 'bg-[#082c2a]/95', 'backdrop-blur-md', 'border-b', 'border-white/10', 'shadow-[0_10px_24px_rgba(6,37,33,0.22)]');
+                siteHeader.classList.add('py-4', 'bg-[#082c2a]');
+            }
+        };
+
+        window.addEventListener('scroll', updateNavbarScroll, { passive: true });
+        updateNavbarScroll();
+
+        if (mobileMenuToggle && mobileMenuPanel) {
+            mobileMenuToggle.addEventListener('click', () => {
+                const isCurrentlyHidden = mobileMenuPanel.classList.contains('hidden');
+                if (isCurrentlyHidden) {
+                    mobileMenuPanel.classList.remove('hidden');
+                    menuIconOpen?.classList.add('hidden');
+                    menuIconClose?.classList.remove('hidden');
+                } else {
+                    mobileMenuPanel.classList.add('hidden');
+                    menuIconOpen?.classList.remove('hidden');
+                    menuIconClose?.classList.add('hidden');
+                }
+                updateNavbarScroll();
             });
-        });
+
+            // Close mobile menu when any link inside is clicked
+            mobileMenuPanel.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    mobileMenuPanel.classList.add('hidden');
+                    menuIconOpen?.classList.remove('hidden');
+                    menuIconClose?.classList.add('hidden');
+                    updateNavbarScroll();
+                });
+            });
+        }
     }
 
     // --- Modal Management (Pure Tailwind) ---
@@ -317,165 +347,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Search & Filtering ---
-    function updateCarouselState() {
-        if (!doctorGrid) return;
-        const visibleCards = doctorCards.filter((card) => !card.hidden);
-        const cardsPerPage = window.innerWidth <= 580 ? 1 : window.innerWidth <= 960 ? 2 : 3;
-        const totalPages = Math.ceil(visibleCards.length / cardsPerPage) || 1;
-
-        carouselIndex = Math.max(0, Math.min(carouselIndex, totalPages - 1));
-
-        if (carouselPage) carouselPage.textContent = String(carouselIndex + 1).padStart(2, '0');
-        if (carouselTotal) carouselTotal.textContent = String(totalPages).padStart(2, '0');
-
-        if (prevBtn) prevBtn.disabled = carouselIndex === 0;
-        if (nextBtn) nextBtn.disabled = carouselIndex >= totalPages - 1;
-
-        // If only 1 page, hide or disable
-        const carouselControls = document.querySelector('.carousel-controls');
-        if (carouselControls) {
-            carouselControls.style.opacity = totalPages <= 1 ? '0.4' : '1';
-        }
-    }
-
-    function runSearch(term = '', location = '') {
-        const query = term.trim().toLowerCase();
-        const loc = location.trim().toLowerCase();
-
-        let visibleCount = 0;
-
-        doctorCards.forEach((card) => {
-            const specialties = (card.dataset.specialties || '').toLowerCase();
-            const doctorName = (card.dataset.doctor || '').toLowerCase();
-            const cardLocation = (card.dataset.location || '').toLowerCase();
-            const textContent = card.textContent.toLowerCase();
-
-            const matchesQuery = !query || specialties.includes(query) || doctorName.includes(query) || textContent.includes(query);
-            const matchesLocation = !loc || cardLocation.includes(loc) || textContent.includes(loc);
-
-            const isMatch = matchesQuery && matchesLocation;
-            card.hidden = !isMatch;
-            if (isMatch) visibleCount++;
-        });
-
-        if (emptyState) emptyState.hidden = visibleCount !== 0;
-
-        // Update feedback
-        if (feedback) {
-            if (query || loc) {
-                const parts = [];
-                if (query) parts.push(`“${term.trim()}”`);
-                if (loc) parts.push(`in ${location.trim()}`);
-                feedback.textContent = `Found ${visibleCount} ${visibleCount === 1 ? 'doctor' : 'doctors'} ${parts.join(' ')}.`;
-                if (clearSearchBtn) clearSearchBtn.hidden = false;
-            } else {
-                feedback.textContent = '';
-                if (clearSearchBtn) clearSearchBtn.hidden = true;
-            }
-        }
-
-        // Reset carousel position to first page
-        carouselIndex = 0;
-        if (doctorGrid) doctorGrid.scrollTo({ left: 0, behavior: 'smooth' });
-        updateCarouselState();
-    }
-
-    function clearFilter() {
-        if (searchInput) searchInput.value = '';
-        if (locationInput) locationInput.value = '';
-        document.querySelectorAll('.quick-links button').forEach((b) => b.classList.remove('active'));
-        runSearch('', '');
-    }
-
+    // --- Search & Find Doctors Navigation ---
     if (searchForm) {
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            runSearch(searchInput?.value || '', locationInput?.value || '');
-            document.querySelector('#doctor-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const term = (searchInput?.value || '').trim();
+            const loc = (locationInput?.value || '').trim();
+            const params = new URLSearchParams();
+            if (term) params.set('q', term);
+            if (loc) params.set('location', loc);
+            const queryStr = params.toString();
+            const targetPage = (typeof window !== 'undefined' && window.getAppPath) 
+                ? window.getAppPath('find-doctors.html') 
+                : 'find-doctors.html';
+            window.location.href = queryStr ? `${targetPage}?${queryStr}` : targetPage;
         });
     }
 
     if (clearSearchBtn) {
-        clearSearchBtn.addEventListener('click', clearFilter);
-    }
-
-    if (viewAllBtn) {
-        viewAllBtn.addEventListener('click', () => {
-            clearFilter();
-            document.querySelector('#doctor-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    }
-
-    // Live search on typing (optional enhancement)
-    let searchTimeout;
-    [searchInput, locationInput].forEach((input) => {
-        input?.addEventListener('input', () => {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                runSearch(searchInput?.value || '', locationInput?.value || '');
-            }, 300);
-        });
-    });
-
-    // Quick filter chips & Specialty buttons
-    document.querySelectorAll('[data-search]').forEach((button) => {
-        button.addEventListener('click', () => {
-            const term = button.dataset.search || '';
-            if (searchInput) searchInput.value = term;
+        clearSearchBtn.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
             if (locationInput) locationInput.value = '';
-
-            document.querySelectorAll('.quick-links button').forEach((b) => {
-                b.classList.toggle('active', b.dataset.search === term);
-            });
-
-            runSearch(term, '');
-            document.querySelector('#doctor-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            clearSearchBtn.hidden = true;
+            if (feedback) feedback.textContent = '';
         });
-    });
-
-    // --- Carousel Navigation ---
-    function moveCarousel(direction) {
-        if (!doctorGrid) return;
-        const visibleCards = doctorCards.filter((c) => !c.hidden);
-        if (visibleCards.length === 0) return;
-
-        const cardsPerPage = window.innerWidth <= 580 ? 1 : window.innerWidth <= 960 ? 2 : 3;
-        const totalPages = Math.ceil(visibleCards.length / cardsPerPage);
-
-        carouselIndex = Math.max(0, Math.min(totalPages - 1, carouselIndex + direction));
-
-        const cardWidth = visibleCards[0].getBoundingClientRect().width;
-        const gap = 22;
-        const scrollDistance = (cardWidth + gap) * cardsPerPage * carouselIndex;
-
-        doctorGrid.scrollTo({ left: scrollDistance, behavior: 'smooth' });
-        updateCarouselState();
     }
 
-    prevBtn?.addEventListener('click', () => moveCarousel(-1));
-    nextBtn?.addEventListener('click', () => moveCarousel(1));
-
-    // Handle manual scroll in grid
-    let scrollTimeout;
-    doctorGrid?.addEventListener('scroll', () => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            const visibleCards = doctorCards.filter((c) => !c.hidden);
-            if (visibleCards.length === 0) return;
-            const cardsPerPage = window.innerWidth <= 580 ? 1 : window.innerWidth <= 960 ? 2 : 3;
-            const cardWidth = visibleCards[0].getBoundingClientRect().width;
-            const gap = 22;
-            const step = (cardWidth + gap) * cardsPerPage;
-            if (step > 0) {
-                carouselIndex = Math.round(doctorGrid.scrollLeft / step);
-                updateCarouselState();
+    // Quick filter chips & Specialty buttons -> Seamlessly navigate to Directory with Filter
+    document.querySelectorAll('[data-search]').forEach((button) => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const term = (button.dataset.search || '').trim();
+            const targetPage = (typeof window !== 'undefined' && window.getAppPath) 
+                ? window.getAppPath('find-doctors.html') 
+                : 'find-doctors.html';
+            if (term) {
+                window.location.href = `${targetPage}?category=${encodeURIComponent(term)}`;
+            } else {
+                window.location.href = targetPage;
             }
-        }, 100);
-    });
-
-    window.addEventListener('resize', () => {
-        updateCarouselState();
+        });
     });
 
     // --- Scroll Reveal Animations ---
@@ -496,7 +407,4 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         revealElements.forEach((el) => el.classList.add('is-visible'));
     }
-
-    // Initialize carousel on load
-    updateCarouselState();
 });

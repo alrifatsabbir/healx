@@ -13,43 +13,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[72px] antialiased">
     <!-- Header & Navigation -->
-    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
-            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="#" aria-label="HealiiX home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+    <header id="site-header" class="site-header fixed top-0 left-0 right-0 h-[72px] z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] flex items-center shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Brand Link (Image contains full logo + name) -->
+            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
             </a>
-            
-            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
-                <span class="menu-icon">☰</span>
-            </button>
-            
-            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
-                <a href="index.html" class="text-white font-semibold">Home</a>
-                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
-                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
-                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+
+            <!-- Desktop Nav Links -->
+            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
+                <a class="text-[#34d399] p-1 flex items-center hover:text-white transition-colors" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
+                <a class="hover:text-white transition-colors" href="categories.html">Categories</a>
+                <a class="hover:text-white transition-colors" href="about.html">About</a>
+                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
+                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
             </nav>
-            
-            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
-                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">↗</span></a>
+
+            <!-- Desktop Actions -->
+            <div class="nav-actions hidden sm:flex items-center gap-4">
+                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
+                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Join HealiiX</span>
+                </a>
             </div>
+
+            <!-- Mobile Buttons -->
+            <div class="flex items-center gap-2.5 md:hidden">
+                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
+                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
+            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
+                <a href="index.html" class="py-1 text-[#34d399] font-bold flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-1 hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
+                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                </div>
+            </nav>
         </div>
     </header>
 
     <main>
-                <!-- Minimal Hero Carousel Section (Auto Progress, No Arrows) -->
-                        <!-- Hero Section: Left Content + Right Full Image with Organic Torn Paper Edge (100dvh full viewport height) -->
-        <section class="relative overflow-hidden bg-[#edf5f1] min-h-[calc(100dvh-76px)] lg:h-[calc(100dvh-76px)] flex items-stretch" id="hero-carousel" style="min-height: calc(100dvh - 76px);">
-            <!-- Subtle ambient glows -->
+        <section class="relative overflow-hidden bg-[#edf5f1] min-h-[calc(100dvh-72px)] lg:h-[calc(100dvh-72px)] flex items-stretch" id="hero-carousel" style="min-height: calc(100dvh - 72px);">
             <div class="absolute -top-24 -left-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,#c2e9de_0%,transparent_70%)] opacity-60 pointer-events-none"></div>
-
             <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch h-full">
-                
-                <!-- Left Column (50% Width): Text Content & Bottom-Left Normal Dots -->
                 <div class="flex flex-col justify-between px-6 sm:px-12 lg:pl-16 xl:pl-24 lg:pr-10 py-8 lg:py-12 z-10 relative h-full">
                     
                     <!-- Static Hero Content (No Text Sliding) -->
@@ -133,11 +175,11 @@
             <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center">
                     <div>
-                        <strong class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] block tracking-tight mb-2">500+</strong>
+                        <strong class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] block tracking-tight mb-2">150+</strong>
                         <span class="text-xs sm:text-sm text-[#6c8680] font-medium leading-normal block">BMDC-Verified Doctors</span>
                     </div>
                     <div>
-                        <strong class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#0e927f] block tracking-tight mb-2">45,000+</strong>
+                        <strong class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#0e927f] block tracking-tight mb-2">5,000+</strong>
                         <span class="text-xs sm:text-sm text-[#6c8680] font-medium leading-normal block">Successful Consultations</span>
                     </div>
                     <div>
@@ -174,7 +216,7 @@
                 </div>
                 
                 <!-- Upgraded Floating Search Card -->
-                <form class="search-box bg-white rounded-3xl p-2.5 sm:p-3 shadow-[0_16px_45px_rgba(8,44,42,0.07)] border border-[#d9e6e1] focus-within:border-[#0e927f] focus-within:ring-4 focus-within:ring-[#0e927f]/15 transition-all grid grid-cols-1 md:grid-cols-[1.35fr_auto_1fr_auto] items-center gap-2 md:gap-0" id="doctor-search" role="search">
+                <form action="find-doctors.html" method="GET" class="search-box bg-white rounded-3xl p-2.5 sm:p-3 shadow-[0_16px_45px_rgba(8,44,42,0.07)] border border-[#d9e6e1] focus-within:border-[#0e927f] focus-within:ring-4 focus-within:ring-[#0e927f]/15 transition-all grid grid-cols-1 md:grid-cols-[1.35fr_auto_1fr_auto] items-center gap-2 md:gap-0" id="doctor-search" role="search">
                     <!-- Field 1: Specialty / Name -->
                     <label class="search-field p-3 sm:px-6 sm:py-3.5 flex items-center gap-3.5 cursor-text">
                         <div class="w-11 h-11 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
@@ -184,7 +226,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <span class="block text-[10.5px] font-extrabold text-[#6f8983] uppercase tracking-wider mb-0.5">What are you looking for?</span>
-                            <input id="search-input" type="search" placeholder="Specialty, condition, or doctor name" autocomplete="off" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
+                            <input id="search-input" name="q" type="search" placeholder="Specialty, condition, or doctor name" autocomplete="off" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
                         </div>
                     </label>
 
@@ -201,7 +243,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <span class="block text-[10.5px] font-extrabold text-[#6f8983] uppercase tracking-wider mb-0.5">Where?</span>
-                            <input id="location-input" type="text" placeholder="City or district (e.g. Dhaka, Chattogram)" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
+                            <input id="location-input" name="location" type="text" placeholder="City or district (e.g. Dhaka, Chattogram)" class="w-full border-0 outline-none bg-transparent text-[#082c2a] text-sm sm:text-base font-semibold placeholder-[#9bb3ad]">
                         </div>
                     </label>
 
@@ -224,7 +266,7 @@
                 <!-- Popular Tags (Pill Chips) -->
                 <div class="quick-links flex flex-wrap items-center gap-2 sm:gap-2.5 mt-4 text-xs">
                     <span class="font-bold text-[#082c2a] flex items-center gap-1.5 mr-1">
-                        <span class="text-[#0e927f]">✦</span> Popular:
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#0e927f]"></span> Popular:
                     </span>
                     <button type="button" data-search="Dermatology" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Dermatology</button>
                     <button type="button" data-search="Cardiology" class="px-4 py-2 rounded-full border border-[#d6e5df] bg-white text-[#082c2a] text-xs font-semibold shadow-sm hover:border-[#0e927f] hover:text-[#0e927f] hover:bg-[#edf7f4] hover:-translate-y-0.5 transition-all cursor-pointer">Cardiology</button>
@@ -284,13 +326,11 @@
                         <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-2">A better place to begin</p>
                         <h2 id="doctor-heading" class="font-extrabold text-3xl sm:text-4xl lg:text-[44px] leading-tight tracking-tight text-[#082c2a]">Meet doctors people trust.</h2>
                     </div>
-                    <button class="text-link inline-flex items-center gap-2 text-sm font-bold border-b-[1.5px] border-[#90aaa3] pb-0.5 text-[#123b39] hover:text-[#0e927f] hover:border-[#0e927f] transition-colors cursor-pointer bg-transparent border-t-0 border-x-0" type="button" id="view-all-doctors-btn">View all doctors <span aria-hidden="true">→</span></button>
+                    <a href="./find-doctors.html" class="text-link inline-flex items-center gap-2 text-sm font-bold border-b-[1.5px] border-[#90aaa3] pb-0.5 text-[#123b39] hover:text-[#0e927f] hover:border-[#0e927f] transition-colors cursor-pointer" id="view-all-doctors-btn">View all doctors <span aria-hidden="true">&rarr;</span></a>
                 </div>
                 
                 <div class="doctor-grid flex gap-5 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" id="doctor-grid">
-                    <!-- Dynamically populated from backend API -->
                 </div>
-
                 <!-- Carousel Controls -->
                 <div class="carousel-controls flex items-center justify-end gap-4 mt-7 text-xs font-semibold text-[#849691]" aria-label="Doctor carousel controls">
                     <button type="button" data-carousel-prev aria-label="Previous doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">←</button>
@@ -298,10 +338,12 @@
                     <button type="button" data-carousel-next aria-label="Next doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">→</button>
                 </div>
 
-                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb]" id="empty-state">
-                    <span class="text-3xl block mb-3">🩺</span>
+                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb] hidden" id="empty-state">
+                    <span class="w-12 h-12 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
                     <h3 class="font-bold text-xl text-[#082c2a] mb-2">Doctor Directory</h3>
-                    <p class="text-[#6d7f7b]">Doctors will be loaded live here directly from the backend database.</p>
+                    <p class="text-[#6d7f7b]">Loading verified doctors directly from the database...</p>
                 </div>
             </div>
         </section>
@@ -401,7 +443,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="faq-section py-24 lg:py-28 bg-[#f3f5f0]" id="faq">
+        <section class="faq-section py-24 lg:py-28 bg-[#f3f5f0] min-h-screen" id="faq">
             <div class="container w-[min(1180px,calc(100%-48px))] mx-auto faq-layout grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-start">
                 <div>
                     <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Good to know</p>
@@ -425,6 +467,12 @@
                         <summary class="cursor-pointer list-none pr-8 font-semibold text-base sm:text-lg tracking-tight relative text-[#082c2a] select-none">Is there any additional booking fee?</summary>
                         <p class="text-[#6d7f7b] text-sm sm:text-[14.5px] max-w-[580px] mt-3 leading-relaxed">No. HealiiX is free for patients to search and schedule consultations. You pay the standard doctor's consultation fee directly at the chamber or during online checkout.</p>
                     </details>
+                    <div class="pt-6">
+                        <a href="faq.html" class="inline-flex items-center gap-2 text-sm font-bold text-[#0e927f] hover:text-[#087866] transition-colors">
+                            <span>Explore all questions in Knowledge Base</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -456,7 +504,7 @@
                     <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find a doctor</a>
                     <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
                     <a href="#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
-                    <a href="#faq" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
+                    <a href="faq.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
                 </div>
                 <div class="flex flex-col gap-3">
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
@@ -515,11 +563,11 @@
                     <div class="radio-pill-group flex gap-2.5 mt-1">
                         <label class="flex-1 font-semibold text-xs border-[1.5px] border-[#d7dfdb] bg-white py-2.5 px-3 rounded-lg cursor-pointer text-center transition-all hover:bg-slate-50 flex items-center justify-center gap-1.5">
                             <input type="radio" name="consultation-type" value="Chamber Visit" checked class="accent-[#0e927f]">
-                            <span>🏥 In-Person Chamber</span>
+                            <span class="inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#0e927f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg> In-Person Chamber</span>
                         </label>
                         <label class="flex-1 font-semibold text-xs border-[1.5px] border-[#d7dfdb] bg-white py-2.5 px-3 rounded-lg cursor-pointer text-center transition-all hover:bg-slate-50 flex items-center justify-center gap-1.5">
                             <input type="radio" name="consultation-type" value="Video Consultation" class="accent-[#0e927f]">
-                            <span>📹 Online Video</span>
+                            <span class="inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#0e927f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Online Video</span>
                         </label>
                     </div>
                 </label>
@@ -643,5 +691,172 @@
     <!-- Main JavaScript Logic & Authentication State -->
     <script src="./js/main.js"></script>
     <script type="module" src="./js/auth.js"></script>
+    <script type="module">
+        import api from './js/api.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        async function initHomeDoctors() {
+            const grid = document.getElementById('doctor-grid');
+            const emptyState = document.getElementById('empty-state');
+            const doctorSelect = document.getElementById('booking-doctor-select');
+            if (!grid) return;
+
+            try {
+                // Request top 9 verified doctors for home page showcase
+                const res = await api.getDoctors({ limit: 9, sortBy: 'rating' });
+                const allFetched = res.doctors || [];
+                const doctors = allFetched.slice(0, 9);
+
+                if (doctors.length === 0) {
+                    if (emptyState) emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                if (emptyState) emptyState.classList.add('hidden');
+
+                grid.innerHTML = doctors.map(d => {
+                    const primaryChamber = (d.chambers && d.chambers.length > 0) ? d.chambers[0] : {};
+                    const profileUrl = CONFIG.PROFILE_PAGES.DOCTOR(d.username);
+                    const feeDisplay = primaryChamber.fee ? `৳${primaryChamber.fee}` : '৳1,200';
+                    const hospitalDisplay = primaryChamber.hospitalName || d.currentWorkplace || 'Specialized Clinic';
+                    const locDisplay = primaryChamber.city ? `${primaryChamber.city}, ${primaryChamber.district || 'Bangladesh'}` : 'Dhaka, Bangladesh';
+                    let docName = (d.name || '').trim();
+                    if (!docName) docName = 'Dr. Specialist';
+                    else if (!/^(dr|prof|asst|assoc)\b/i.test(docName)) docName = 'Dr. ' + docName;
+
+                    const degreesList = (d.degrees && d.degrees.length > 0) ? d.degrees.join(', ') : 'MBBS';
+                    const workplaceText = [d.designation, d.currentWorkplace].filter(Boolean).join(' at ') || 'Specialist Consultant';
+
+                    const hasRating = d.totalReviews > 0 && d.rating > 0;
+                    const ratingBadge = hasRating ? `★ ${Number(d.rating).toFixed(1)} (${d.totalReviews})` : `0/5 ★ (0)`;
+
+                    return `
+                    <div class="doctor-card bg-white rounded-3xl border border-[#e1eae6] shadow-sm hover:shadow-xl hover:border-[#0e927f]/60 transition-all flex flex-col justify-between overflow-hidden group w-[300px] sm:w-[340px] flex-shrink-0 snap-start"
+                         data-doctor="${docName}"
+                         data-specialties="${d.specialty}"
+                         data-location="${primaryChamber.city || primaryChamber.district || ''}">
+                        
+                        <!-- Top Image Cover -->
+                        <div class="relative w-full h-60 sm:h-64 bg-[#edf5f2] overflow-hidden flex-shrink-0">
+                            ${d.photoUrl ? `
+                                <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            ` : `
+                                <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0b3a36] to-[#082c2a] text-white">
+                                    <span class="text-6xl font-black text-[#8ce2d4]">${docName.charAt(0) || 'D'}</span>
+                                    <span class="text-xs text-teal-200/80 mt-1 font-semibold uppercase tracking-wider">${d.specialty || 'Specialist'}</span>
+                                </div>
+                            `}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"></div>
+                            
+                            <!-- Badges on Image -->
+                            <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
+                                <span class="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/95 text-[#082c2a] shadow-md backdrop-blur-xs border border-white/40">
+                                    <svg class="w-3.5 h-3.5 text-[#0e927f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    BMDC Verified
+                                </span>
+                                <span class="inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-white/95 ${hasRating ? 'text-amber-700' : 'text-slate-600'} shadow-md backdrop-blur-xs border border-white/40">
+                                    ${ratingBadge}
+                                </span>
+                            </div>
+
+                            <!-- Doctor Name & Specialty overlay on Image -->
+                            <div class="absolute bottom-3 left-4 right-4 text-white pointer-events-none space-y-0.5 overflow-hidden">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-teal-300 block drop-shadow-sm truncate" title="${d.specialty}">${d.specialty}</span>
+                                <h3 class="font-black text-lg text-white truncate drop-shadow-md" title="${docName}">${docName}</h3>
+                            </div>
+                        </div>
+
+                        <!-- Minimal Details Underneath Image (Consistent Typography) -->
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                            <div class="space-y-2.5 overflow-hidden">
+                                <div class="flex items-center justify-between gap-2 text-xs overflow-hidden">
+                                    <span class="font-bold text-[#0e927f] truncate flex-1 min-w-0" title="${degreesList}">${degreesList}</span>
+                                    <span class="font-mono text-[11px] font-semibold bg-[#edf7f4] text-[#556e68] px-2 py-0.5 rounded-md border border-[#cbe5dc] flex-shrink-0">BMDC: ${d.bmdcNumber || 'Registered'}</span>
+                                </div>
+                                <p class="text-xs text-[#556e68] flex items-center gap-1.5 overflow-hidden" title="${workplaceText}">
+                                    <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    <span class="truncate">${workplaceText}</span>
+                                </p>
+                            </div>
+
+                            <!-- Minimal Location & Fee Info (Text only, NO map link) -->
+                            <div class="pt-3 border-t border-[#edf3f0] flex items-center justify-between gap-3 text-xs">
+                                <span class="flex items-center gap-1.5 text-[#556e68] truncate" title="${locDisplay}">
+                                    <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    <strong class="text-[#082c2a] truncate font-semibold">${locDisplay}</strong>
+                                </span>
+                                <span class="font-black text-sm text-[#0e927f] flex-shrink-0">${feeDisplay}</span>
+                            </div>
+
+                            <!-- Action: Profile Button Only (Call for serial removed) -->
+                            <div>
+                                <a href="${profileUrl}" target="_blank" class="w-full py-2.5 px-4 text-center rounded-xl text-xs font-bold bg-[#0e927f] hover:bg-[#087866] text-white shadow-xs transition-colors flex items-center justify-center gap-1.5">
+                                    <span>View Profile</span>
+                                    <span>↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+
+                // Also populate the modal doctor select
+                if (doctorSelect) {
+                    doctorSelect.innerHTML = `<option value="">Select a doctor...</option>` + doctors.map(d => {
+                        const clean = (d.name || '').replace(/^(dr\.?\s*)+/i, '').trim();
+                        const dn = clean ? `Dr. ${clean}` : 'Dr. Specialist';
+                        return `<option value="${dn}">${dn} (${d.specialty})</option>`;
+                    }).join('');
+                }
+
+                // Hook up the Book Visit buttons to open the modal
+                grid.querySelectorAll('.home-book-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const name = btn.dataset.name;
+                        if (doctorSelect) doctorSelect.value = name;
+                        const modal = document.getElementById('booking-modal');
+                        if (modal) {
+                            modal.classList.remove('hidden');
+                            modal.classList.add('flex');
+                        }
+                    });
+                });
+
+                // Carousel Next / Prev Controls
+                const prevBtn = document.querySelector('[data-carousel-prev]');
+                const nextBtn = document.querySelector('[data-carousel-next]');
+                const pageEl = document.getElementById('carousel-page');
+                const totEl = document.getElementById('carousel-total');
+
+                let curIdx = 0;
+                const cards = Array.from(grid.querySelectorAll('.doctor-card'));
+                const updateHomeCarousel = () => {
+                    const cardsPerPage = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 1024 ? 2 : 3);
+                    const totalP = Math.ceil(cards.length / cardsPerPage) || 1;
+                    curIdx = Math.max(0, Math.min(curIdx, totalP - 1));
+                    if (pageEl) pageEl.textContent = String(curIdx + 1).padStart(2, '0');
+                    if (totEl) totEl.textContent = String(totalP).padStart(2, '0');
+                    if (prevBtn) prevBtn.disabled = curIdx === 0;
+                    if (nextBtn) nextBtn.disabled = curIdx >= totalP - 1;
+
+                    if (cards[0]) {
+                        const cardW = cards[0].getBoundingClientRect().width;
+                        const gap = 20;
+                        grid.scrollTo({ left: (cardW + gap) * cardsPerPage * curIdx, behavior: 'smooth' });
+                    }
+                };
+
+                prevBtn?.addEventListener('click', () => { curIdx--; updateHomeCarousel(); });
+                nextBtn?.addEventListener('click', () => { curIdx++; updateHomeCarousel(); });
+                updateHomeCarousel();
+                window.addEventListener('resize', updateHomeCarousel);
+
+            } catch (err) {
+                console.warn('[Home Doctors] Failed to load:', err.message);
+            }
+        }
+
+        initHomeDoctors();
+    </script>
 </body>
 </html>
