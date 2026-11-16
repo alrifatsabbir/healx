@@ -44,6 +44,10 @@ app.use('*', async (c, next) => {
 
 // Database Auto-Connect Middleware (For Serverless Vercel & Persistent Node)
 app.use('/api/*', async (c, next) => {
+    // Never block CORS preflight OPTIONS requests with DB connection
+    if (c.req.method === 'OPTIONS') {
+        return next();
+    }
     try {
         await connectDB();
     } catch (dbErr) {
