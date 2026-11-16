@@ -22,17 +22,15 @@ import notificationRoutes from './routes/notification.routes.js';
 
 export const app = new Hono();
 
-// Environment-aware CORS Middleware (Dev & Prod separated)
+// Universal Resilient CORS Middleware (Supports local Live Server, Vercel frontend, and production origins)
 app.use('*', cors({
     origin: (origin) => {
-        if (!origin) return '*';
-        if (!env.isProduction) return origin;
-        return env.ALLOWED_ORIGINS.includes(origin) ? origin : env.ALLOWED_ORIGINS[0] || '*';
+        // Echo back the request origin so credentials work seamlessly across any frontend host
+        return origin || '*';
     },
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowHeaders: ['Content-Type', 'Authorization'],
+    allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     exposeHeaders: ['Content-Length'],
-    maxAge: env.isProduction ? 3600 : 0,
     credentials: true,
 }));
 
