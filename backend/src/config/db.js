@@ -16,12 +16,11 @@ dotenv.config({
     ]
 });
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 let cachedConnection = null;
 
 export async function connectDB() {
-    if (!MONGODB_URI) {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) {
         throw new Error('MONGODB_URI is not defined in environment variables');
     }
 
@@ -31,8 +30,9 @@ export async function connectDB() {
     }
 
     try {
-        cachedConnection = await mongoose.connect(MONGODB_URI, {
-            bufferCommands: false,
+        cachedConnection = await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 5000,
+            connectTimeoutMS: 10000,
         });
         console.log(`[Database] MongoDB Atlas Connected`);
         return cachedConnection;

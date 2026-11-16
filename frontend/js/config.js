@@ -6,7 +6,7 @@ const SERVICE_URLS = {
     },
     PROD: {
         // Set your live deployed Backend & AI Bot domains here before deploying Frontend
-        BACKEND: 'https://api.healiix.alrifatsabbir.me',
+        BACKEND: 'https://healiix-backend.vercel.app',
         AI_BOT: 'https://ai.healiix.alrifatsabbir.me',
     },
 };
