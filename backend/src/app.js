@@ -74,6 +74,35 @@ app.get('/', (c) => {
     });
 });
 
+// Diagnostic endpoint to inspect Vercel environment
+app.get('/api/diagnostic', async (c) => {
+    const hasUri = !!process.env.MONGODB_URI;
+    const uriPrefix = process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'MISSING';
+    const hasJwt = !!process.env.JWT_SECRET;
+    const hasCloudinary = !!process.env.CLOUDINARY_CLOUD_NAME;
+    let dbStatus = 'disconnected';
+    let dbError = null;
+
+    try {
+        const start = Date.now();
+        await connectDB();
+        dbStatus = `connected (${Date.now() - start}ms)`;
+    } catch (err) {
+        dbStatus = 'failed';
+        dbError = err.message;
+    }
+
+    return c.json({
+        timestamp: new Date().toISOString(),
+        hasUri,
+        uriPrefix,
+        hasJwt,
+        hasCloudinary,
+        dbStatus,
+        dbError,
+    });
+});
+
 app.get('/health', (c) => {
     return c.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
