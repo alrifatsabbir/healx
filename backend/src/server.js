@@ -2,7 +2,7 @@ import { serve } from '@hono/node-server';
 import env from './config/env.js';
 import app from './app.js';
 import { connectDB } from './config/db.js';
-import { seedAdmin } from './seed/adminSeed.js';
+// import { seedAdmin } from './seed/adminSeed.js';
 
 async function bootstrap() {
     try {
@@ -10,12 +10,13 @@ async function bootstrap() {
         await connectDB();
 
         // Ensure Super Admin is seeded
-        await seedAdmin();
+        // await seedAdmin();
 
-        // Start Hono Node Server
+        // Start Hono Node Server (Listening on 0.0.0.0 for Cloud Hosting like Render)
         serve({
             fetch: app.fetch,
             port: env.PORT,
+            hostname: '0.0.0.0',
         }, (info) => {
             console.log(`=========================================================`);
             console.log(` 🩺 HealiiX Backend Server running on port ${info.port}`);
