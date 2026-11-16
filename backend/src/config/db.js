@@ -18,15 +18,24 @@ dotenv.config({
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
+let cachedConnection = null;
+
 export async function connectDB() {
     if (!MONGODB_URI) {
         throw new Error('MONGODB_URI is not defined in environment variables');
     }
 
+    // Reuse existing MongoDB connection in Serverless environments (e.g. Vercel)
+    if (cachedConnection && mongoose.connection.readyState >= 1) {
+        return cachedConnection;
+    }
+
     try {
-        const conn = await mongoose.connect(MONGODB_URI);
+        cachedConnection = await mongoose.connect(MONGODB_URI, {
+            bufferCommands: false,
+        });
         console.log(`[Database] MongoDB Atlas Connected`);
-        return conn;
+        return cachedConnection;
     } catch (error) {
         console.error('[Database] MongoDB Connection Error:', error.message);
         throw error;

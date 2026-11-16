@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import env from './config/env.js';
+import { connectDB } from './config/db.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,6 +42,17 @@ app.use('*', async (c, next) => {
     await next();
     const ms = Date.now() - start;
     console.log(`[HTTP] ${c.req.method} ${c.req.url} -> ${c.res.status} (${ms}ms)`);
+});
+
+// Database Auto-Connect Middleware (For Serverless Vercel & Persistent Node)
+app.use('/api/*', async (c, next) => {
+    try {
+        await connectDB();
+    } catch (dbErr) {
+        console.error('Database connection failed:', dbErr.message);
+        return c.json({ error: 'Database unavailable', message: dbErr.message }, 503);
+    }
+    await next();
 });
 
 // Root & Healthcheck
