@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Verification | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <!-- Page Banner -->
+                <div class="bg-gradient-to-r from-[#082c2a] via-[#0b3a36] to-[#0f4d47] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg border border-[#16504a]">
+                    <div class="absolute -right-12 -top-12 w-64 h-64 bg-teal-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider text-teal-200 border border-white/10 mb-2">
+                                <svg class="w-3.5 h-3.5 text-[#00e5a3]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Credential Audit Desk
+                            </div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Doctor Verification &amp; BMDC Audit</h1>
+                            <p class="text-xs sm:text-sm text-teal-100/80 mt-1 max-w-xl">
+                                Verify medical licenses, cross-check govt-issued photo IDs with practitioner portraits, and publish approved specialists live to the directory.
+                            </p>
+                        </div>
+                        <a id="btn-banner-dir" href="./admin-doctors.html" class="px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition-colors flex items-center gap-2 flex-shrink-0">
+                            <span>Doctor Directory</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all duration-300"></div>
+
+                <!-- Main Content Panel -->
+                <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <!-- Filters & Search Bar -->
+                    <div class="p-6 border-b border-[#edf3f0] space-y-4">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <!-- Status Tabs -->
+                            <div class="flex flex-wrap items-center gap-2">
+                                <button type="button" data-status="pending" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#0e927f] text-white shadow-xs cursor-pointer">
+                                    <span>Pending Review</span>
+                                    <span id="badge-pending" class="px-2 py-0.5 rounded-full text-[10px] bg-white/20 font-black">0</span>
+                                </button>
+                                <button type="button" data-status="approved" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#f0f5f3] text-[#556e68] hover:bg-[#e4ede9] cursor-pointer">
+                                    <span>Approved &amp; Live</span>
+                                    <span id="badge-approved" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-200 font-black">0</span>
+                                </button>
+                                <button type="button" data-status="rejected" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#f0f5f3] text-[#556e68] hover:bg-[#e4ede9] cursor-pointer">
+                                    <span>Rejected</span>
+                                    <span id="badge-rejected" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-200 font-black">0</span>
+                                </button>
+                                <button type="button" data-status="" class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#f0f5f3] text-[#556e68] hover:bg-[#e4ede9] cursor-pointer">
+                                    <span>All</span>
+                                    <span id="badge-all" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-200 font-black">0</span>
+                                </button>
+                            </div>
+
+                            <!-- Live Search -->
+                            <div class="relative w-full lg:w-72">
+                                <input type="text" id="verify-search" placeholder="Search doctor, BMDC or specialty..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none transition-colors">
+                                <svg class="w-4 h-4 text-[#8ca39d] absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue List Container -->
+                    <div id="verification-queue" class="divide-y divide-[#edf3f0]">
+                        <div class="p-12 text-center flex flex-col items-center justify-center">
+                            <div class="w-10 h-10 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin"></div>
+                            <span class="text-xs text-[#6c8680] mt-3">Loading verification applications...</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Custom Approval Modal (Site-Native Dialog) -->
+    <div id="approval-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#e1eae6] shadow-2xl relative space-y-5">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl flex-shrink-0">
+                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div class="flex-1">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">BMDC Audit Verified</span>
+                    <h3 class="font-black text-lg text-[#082c2a] mt-1">Approve &amp; Publish Specialist</h3>
+                    <p class="text-xs text-[#556e68] mt-0.5">Confirming will immediately publish this physician's profile to the public directory and unlock patient appointments.</p>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e4ede9] space-y-2 text-xs">
+                <div class="flex items-center justify-between">
+                    <span class="text-[#6c8680]">Practitioner</span>
+                    <strong id="app-modal-name" class="text-[#082c2a] font-bold"></strong>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-[#6c8680]">BMDC Registration</span>
+                    <span id="app-modal-bmdc" class="font-mono font-bold text-[#0e927f]"></span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-[#6c8680]">Clinical Specialty</span>
+                    <span id="app-modal-specialty" class="font-semibold text-[#082c2a]"></span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#edf3f0]">
+                <button type="button" id="btn-cancel-approve" class="px-5 py-2.5 rounded-xl border border-[#d7dfdb] text-xs font-bold text-[#556e68] hover:bg-slate-50 cursor-pointer">
+                    Cancel
+                </button>
+                <button type="button" id="btn-confirm-approve" class="px-6 py-2.5 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center gap-2">
+                    <span>Confirm &amp; Publish Live</span>
+                    <span>↗</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Rejection Modal (Site-Native Dialog) -->
+    <div id="rejection-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#e1eae6] shadow-2xl relative space-y-5">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center text-2xl flex-shrink-0">
+                    <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <div class="flex-1">
+                    <span class="text-[10px] font-black uppercase tracking-wider text-red-700 bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200">Action Required</span>
+                    <h3 class="font-black text-lg text-[#082c2a] mt-1">Reject Doctor Application</h3>
+                    <p class="text-xs text-[#556e68] mt-0.5">Please specify why the verification was rejected. This explanation will be emailed to the applicant so they can fix it.</p>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Quick Reasons (Click to insert):</label>
+                <div class="flex flex-wrap gap-1.5 mb-2.5">
+                    <button type="button" class="rej-tag px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#f0f5f3] hover:bg-[#e1ece8] text-[#082c2a] border border-[#d6e4df] cursor-pointer">BMDC cert is blurry / illegible</button>
+                    <button type="button" class="rej-tag px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#f0f5f3] hover:bg-[#e1ece8] text-[#082c2a] border border-[#d6e4df] cursor-pointer">Govt ID face does not match portrait</button>
+                    <button type="button" class="rej-tag px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#f0f5f3] hover:bg-[#e1ece8] text-[#082c2a] border border-[#d6e4df] cursor-pointer">BMDC number expired or not found</button>
+                    <button type="button" class="rej-tag px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-[#f0f5f3] hover:bg-[#e1ece8] text-[#082c2a] border border-[#d6e4df] cursor-pointer">Please provide valid MBBS degree cert</button>
+                </div>
+                <textarea id="rej-reason-input" rows="3" required placeholder="Type the reason for rejection here..." class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-red-500 outline-none"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-3 border-t border-[#edf3f0]">
+                <button type="button" id="btn-cancel-reject" class="px-5 py-2.5 rounded-xl border border-[#d7dfdb] text-xs font-bold text-[#556e68] hover:bg-slate-50 cursor-pointer">
+                    Cancel
+                </button>
+                <button type="button" id="btn-confirm-reject" class="px-6 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer">
+                    Reject Application
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell, getAppPath } from './js/dashboard-layout.js';
+        import { CONFIG } from './js/config.js';
+
+        let allDoctors = [];
+        let currentStatusFilter = 'pending';
+        let searchQuery = '';
+        let targetDoctorId = null;
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+            if (window.healiixToast) {
+                window.healiixToast(msg, isError);
+            }
+        }
+
+        function updateTabCounters() {
+            const pendingCount = allDoctors.filter(d => d.verificationStatus === 'pending').length;
+            const approvedCount = allDoctors.filter(d => d.verificationStatus === 'approved').length;
+            const rejectedCount = allDoctors.filter(d => d.verificationStatus === 'rejected').length;
+
+            document.getElementById('badge-pending').textContent = pendingCount;
+            document.getElementById('badge-approved').textContent = approvedCount;
+            document.getElementById('badge-rejected').textContent = rejectedCount;
+            document.getElementById('badge-all').textContent = allDoctors.length;
+        }
+
+        function renderQueue() {
+            const container = document.getElementById('verification-queue');
+
+            let filtered = allDoctors;
+            if (currentStatusFilter) {
+                filtered = filtered.filter(d => d.verificationStatus === currentStatusFilter);
+            }
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(d => 
+                    (d.name && d.name.toLowerCase().includes(q)) ||
+                    (d.username && d.username.toLowerCase().includes(q)) ||
+                    (d.bmdcNumber && d.bmdcNumber.toLowerCase().includes(q)) ||
+                    (d.specialty && d.specialty.toLowerCase().includes(q)) ||
+                    (d.currentWorkplace && d.currentWorkplace.toLowerCase().includes(q))
+                );
+            }
+
+            if (filtered.length === 0) {
+                const labels = {
+                    pending: 'No pending doctor applications awaiting audit.',
+                    approved: 'No approved doctors found matching filter.',
+                    rejected: 'No rejected applications.',
+                    '': 'Zero applications found.',
+                };
+                container.innerHTML = `
+                    <div class="py-16 px-4 text-center flex flex-col items-center justify-center">
+                        <div class="w-14 h-14 rounded-2xl bg-[#edf5f1] text-[#0e927f] flex items-center justify-center text-xl mb-3">
+                            ✓
+                        </div>
+                        <h4 class="text-sm font-black text-[#082c2a]">${labels[currentStatusFilter] || 'No records'}</h4>
+                        <p class="text-xs text-[#6c8680] mt-1">Select another filter tab or clear search terms to view other applicants.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(d => {
+                const idImg = d.govtIdImageUrl || d.degreeCertImageUrl || '';
+                const idTitle = d.govtIdImageUrl ? `${d.govtIdType || 'Govt ID'} Front (Face Check)` : 'Certificate Preview';
+                const isApproved = d.verificationStatus === 'approved';
+                const isRejected = d.verificationStatus === 'rejected';
+
+                let statusBadge = `<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200">Pending Review</span>`;
+                if (isApproved) {
+                    statusBadge = `<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200">✓ Approved &amp; Live</span>`;
+                } else if (isRejected) {
+                    statusBadge = `<span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-red-50 text-red-700 border border-red-200">✕ Rejected</span>`;
+                }
+
+                return `
+                <div class="p-6 sm:p-7 space-y-5 hover:bg-[#fbfdfc] transition-colors">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                        <div class="flex items-start gap-4">
+                            ${d.photoUrl ? `
+                                <img src="${d.photoUrl}" onclick="openImageLightbox('${d.photoUrl}', '${d.name} — Profile Face')" class="w-16 h-16 rounded-2xl object-cover border-2 border-[#0e927f] cursor-zoom-in flex-shrink-0 shadow-sm hover:opacity-90">
+                            ` : `
+                                <div class="w-16 h-16 rounded-2xl bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-extrabold text-xl flex-shrink-0 border border-[#c8e2d8]">
+                                    ${(d.name || 'D').charAt(0)}
+                                </div>
+                            `}
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2.5 flex-wrap">
+                                    <h3 class="font-black text-base text-[#082c2a]">${d.name}</h3>
+                                    <a href="${CONFIG.PROFILE_PAGES.DOCTOR(d.username)}" target="_blank" class="font-mono text-xs text-[#0e927f] hover:underline">@${d.username}</a>
+                                    ${statusBadge}
+                                </div>
+                                <p class="text-xs text-[#49635d]">
+                                    BMDC Registration: <strong class="text-[#082c2a] font-mono bg-white px-2 py-0.5 rounded border border-[#dce6e2]">${d.bmdcNumber}</strong> 
+                                    &bull; ${d.specialty} 
+                                    &bull; ${d.currentWorkplace || 'No workplace specified'}
+                                </p>
+                                <p class="text-xs text-[#6c8680]">${d.email} &bull; ${d.phone} &bull; ${(d.degrees || []).join(', ') || 'MBBS'}</p>
+                                ${d.verificationNotes ? `<p class="text-[11px] text-red-600 bg-red-50 px-2.5 py-1 rounded-lg border border-red-100 mt-1 max-w-xl"><strong>Admin Note:</strong> ${d.verificationNotes}</p>` : ''}
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-wrap items-center gap-2.5 pt-2 lg:pt-0">
+                            ${!isApproved ? `
+                                <button type="button" data-approve-id="${d._id}" class="btn-open-approve px-5 py-2.5 rounded-xl text-xs font-black bg-[#0e927f] hover:bg-[#087866] text-white cursor-pointer shadow-sm flex items-center gap-1.5 transition-all">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Approve &amp; Verify</span>
+                                </button>
+                            ` : `
+                                <a href="${CONFIG.PROFILE_PAGES.DOCTOR(d.username)}" target="_blank" class="px-4 py-2 rounded-xl text-xs font-bold border border-[#b8ded0] bg-[#f0f8f5] text-[#087866] hover:bg-[#e2f3ec] transition-colors flex items-center gap-1.5">
+                                    <span>View Directory Profile</span>
+                                    <span>↗</span>
+                                </a>
+                                <button type="button" data-revoke-id="${d._id}" class="btn-open-revoke px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-200 text-amber-800 hover:bg-amber-50 cursor-pointer transition-colors">
+                                    Revoke
+                                </button>
+                            `}
+
+                            ${!isRejected ? `
+                                <button type="button" data-reject-id="${d._id}" class="btn-open-reject px-4 py-2.5 rounded-xl text-xs font-bold border border-red-200 text-red-600 hover:bg-red-50 cursor-pointer transition-colors">
+                                    Reject
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Protected Document Thumbnails (3-Column Grid) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-[#f8fbf9] p-4 rounded-2xl border border-[#e6efec]">
+                        <div>
+                            <p class="text-[11px] font-bold text-[#556e68] mb-1.5 flex items-center justify-between">
+                                <span>1. Profile Face Photo</span>
+                                <span class="text-[10px] text-[#8aa39c]">Click to inspect</span>
+                            </p>
+                            ${d.photoUrl ? `
+                                <img src="${d.photoUrl}" onclick="openImageLightbox('${d.photoUrl}', '${d.name} — Profile Face')" class="w-full h-36 object-cover rounded-xl border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity shadow-xs">
+                            ` : `
+                                <div class="h-36 flex items-center justify-center rounded-xl border border-dashed border-[#d7dfdb] text-xs text-[#8da59f]">No photo uploaded</div>
+                            `}
+                        </div>
+
+                        <div>
+                            <p class="text-[11px] font-bold text-[#556e68] mb-1.5 flex items-center justify-between">
+                                <span>2. ${idTitle}</span>
+                                <span class="text-[10px] text-[#8aa39c]">Click to inspect</span>
+                            </p>
+                            ${idImg ? `
+                                <img src="${idImg}" onclick="openImageLightbox('${idImg}', '${d.name} — ${idTitle}')" class="w-full h-36 object-contain rounded-xl border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity shadow-xs">
+                            ` : `
+                                <div class="h-36 flex items-center justify-center rounded-xl border border-dashed border-[#d7dfdb] text-xs text-[#8da59f]">Not uploaded</div>
+                            `}
+                        </div>
+
+                        <div>
+                            <p class="text-[11px] font-bold text-[#556e68] mb-1.5 flex items-center justify-between">
+                                <span>3. BMDC Certificate (${d.bmdcNumber})</span>
+                                <span class="text-[10px] text-[#8aa39c]">Click to inspect</span>
+                            </p>
+                            ${d.bmdcCertImageUrl ? `
+                                <img src="${d.bmdcCertImageUrl}" onclick="openImageLightbox('${d.bmdcCertImageUrl}', '${d.name} — BMDC Certificate (${d.bmdcNumber})')" class="w-full h-36 object-contain rounded-xl border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity shadow-xs">
+                            ` : `
+                                <div class="h-36 flex items-center justify-center rounded-xl border border-dashed border-[#d7dfdb] text-xs text-[#8da59f]">Not uploaded</div>
+                            `}
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // Bind Approval Modal triggers
+            container.querySelectorAll('.btn-open-approve').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.approveId;
+                    const doc = allDoctors.find(x => x._id === id);
+                    if (!doc) return;
+                    targetDoctorId = id;
+                    document.getElementById('app-modal-name').textContent = doc.name;
+                    document.getElementById('app-modal-bmdc').textContent = doc.bmdcNumber;
+                    document.getElementById('app-modal-specialty').textContent = doc.specialty;
+                    const modal = document.getElementById('approval-modal');
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                });
+            });
+
+            // Bind Rejection Modal triggers
+            container.querySelectorAll('.btn-open-reject').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    targetDoctorId = btn.dataset.rejectId;
+                    document.getElementById('rej-reason-input').value = '';
+                    const modal = document.getElementById('rejection-modal');
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                });
+            });
+
+            // Bind Revoke triggers
+            container.querySelectorAll('.btn-open-revoke').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.dataset.revokeId;
+                    const doc = allDoctors.find(x => x._id === id);
+                    if (!doc) return;
+
+                    const confirmed = await window.healiixConfirm({
+                        title: 'Revoke Doctor Verification?',
+                        message: `Move Dr. ${doc.name} back to Pending Review? Their profile will be hidden from the public directory until re-verified.`,
+                        confirmText: 'Revoke & Hide Profile',
+                        type: 'warning',
+                    });
+                    if (!confirmed) return;
+
+                    try {
+                        btn.disabled = true;
+                        btn.textContent = 'Updating...';
+                        const res = await api.verifyDoctor(id, 'pending');
+                        showAlert(res.message);
+                        await fetchQueue();
+                    } catch (err) {
+                        showAlert(err.message, true);
+                    }
+                });
+            });
+        }
+
+        async function fetchQueue() {
+            try {
+                // Fetch ALL doctors so tabs and live counters are instant
+                const res = await api.getAdminDoctors('');
+                allDoctors = res.doctors || [];
+                updateTabCounters();
+                renderQueue();
+            } catch (err) {
+                document.getElementById('verification-queue').innerHTML = `
+                    <div class="p-8 text-center text-xs text-red-600 bg-red-50">
+                        Failed to fetch doctor applications: ${err.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Tab Switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentStatusFilter = btn.dataset.status;
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#f0f5f3] text-[#556e68] hover:bg-[#e4ede9] cursor-pointer';
+                });
+                btn.className = 'tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-[#0e927f] text-white shadow-xs cursor-pointer';
+                renderQueue();
+            });
+        });
+
+        // Search input
+        document.getElementById('verify-search')?.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            renderQueue();
+        });
+
+        // Approval Modal handlers
+        function closeApprovalModal() {
+            const m = document.getElementById('approval-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+            targetDoctorId = null;
+        }
+        document.getElementById('btn-cancel-approve')?.addEventListener('click', closeApprovalModal);
+
+        document.getElementById('btn-confirm-approve')?.addEventListener('click', async () => {
+            if (!targetDoctorId) return;
+            const btn = document.getElementById('btn-confirm-approve');
+            const origHtml = btn.innerHTML;
+            try {
+                btn.disabled = true;
+                btn.innerHTML = `<span>Approving...</span>`;
+                const res = await api.verifyDoctor(targetDoctorId, 'approved');
+                closeApprovalModal();
+                showAlert(res.message || 'Doctor verified and published successfully!');
+                await fetchQueue();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = origHtml;
+            }
+        });
+
+        // Rejection Modal handlers
+        function closeRejectionModal() {
+            const m = document.getElementById('rejection-modal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+            targetDoctorId = null;
+        }
+        document.getElementById('btn-cancel-reject')?.addEventListener('click', closeRejectionModal);
+
+        document.querySelectorAll('.rej-tag').forEach(tagBtn => {
+            tagBtn.addEventListener('click', () => {
+                document.getElementById('rej-reason-input').value = tagBtn.textContent.trim();
+            });
+        });
+
+        document.getElementById('btn-confirm-reject')?.addEventListener('click', async () => {
+            if (!targetDoctorId) return;
+            const reason = document.getElementById('rej-reason-input').value.trim();
+            if (!reason) {
+                alert('Please enter or select a rejection reason.');
+                return;
+            }
+            const btn = document.getElementById('btn-confirm-reject');
+            const origHtml = btn.innerHTML;
+            try {
+                btn.disabled = true;
+                btn.innerHTML = `<span>Rejecting...</span>`;
+                const res = await api.verifyDoctor(targetDoctorId, 'rejected', reason);
+                closeRejectionModal();
+                showAlert(res.message || 'Doctor application rejected.');
+                await fetchQueue();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = origHtml;
+            }
+        });
+
+        (async () => {
+            const btnDir = document.getElementById('btn-banner-dir');
+            if (btnDir) btnDir.href = getAppPath('admin-doctors.html');
+
+            const user = await initDashboardShell('admin', 'admin-verifications.html', 'Doctor Verification', 'Inspect Govt IDs and BMDC certificates via protected lightbox before approving');
+            if (user) {
+                await fetchQueue();
+            } else {
+                const q = document.getElementById('verification-queue');
+                if (q) {
+                    q.innerHTML = `
+                        <div class="p-10 text-center flex flex-col items-center justify-center space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold border border-amber-200">!</div>
+                            <div>
+                                <h4 class="font-bold text-sm text-[#082c2a]">Administrator Session Required</h4>
+                                <p class="text-xs text-[#6c8680] mt-1">Please log in as an administrator to access the credential audit queue and verify medical practitioners.</p>
+                            </div>
+                            <a href="${getAppPath('login.html')}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold transition-all shadow-sm">
+                                <span>Sign In as Admin</span>
+                                <span>&rarr;</span>
+                            </a>
+                        </div>
+                    `;
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

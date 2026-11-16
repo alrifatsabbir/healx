@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emails Center | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <!-- 2 Sub-Tabs strictly on Emails page -->
+                <div class="inline-flex bg-white p-1.5 rounded-2xl border border-[#e1eae6] shadow-sm">
+                    <button type="button" id="subtab-send-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0e927f] text-white cursor-pointer transition-all">1. Send Email</button>
+                    <button type="button" id="subtab-logs-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#556e68] hover:text-[#082c2a] cursor-pointer transition-all">2. Email Logs (Last 30 Days)</button>
+                </div>
+
+                <!-- SUBTAB 1: COMPOSE & SEND EMAIL WITH PRE-TEMPLATES -->
+                <section id="panel-send" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-7 bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                        <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Compose Direct Email</h2>
+                        <p class="text-xs text-[#6c8680] mb-6">Sent through your authenticated HealiiX mailer with branded responsive layout</p>
+
+                        <form id="admin-email-form" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Load Pre-Built Template</label>
+                                <select id="email-template-select" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm font-semibold text-[#082c2a] outline-none focus:border-[#0e927f]">
+                                    <option value="custom">Custom Message (Blank)</option>
+                                    <option value="bmdc_resubmit">BMDC / Govt ID Resubmission Request</option>
+                                    <option value="maintenance">Scheduled Platform Maintenance Notice</option>
+                                    <option value="security">Account Security Reminder</option>
+                                    <option value="followup">Consultation Follow-up &amp; Feedback</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Quick Pick User (Optional)</label>
+                                    <select id="quick-user-select" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f]">
+                                        <option value="">Select user email...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Recipient Email *</label>
+                                    <input type="email" id="em-to" required placeholder="recipient@example.com" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Subject *</label>
+                                    <input type="text" id="em-subject" required placeholder="Subject line" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Header Badge</label>
+                                    <input type="text" id="em-badge" value="Official Notice" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Heading *</label>
+                                <input type="text" id="em-heading" required placeholder="Main heading shown inside email card" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Message Body *</label>
+                                <textarea id="em-body" rows="6" required placeholder="Write clear message..." class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]"></textarea>
+                            </div>
+
+                            <button type="submit" id="send-email-btn" class="px-7 py-3 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs sm:text-sm cursor-pointer shadow-sm">
+                                Send Branded Email ↗
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Live Template Preview -->
+                    <div class="lg:col-span-5 bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6">
+                        <p class="text-xs font-extrabold uppercase tracking-wider text-[#6c8680] mb-4">Live Email Preview</p>
+                        <div class="rounded-2xl border border-[#e1eae7] overflow-hidden bg-white shadow-sm">
+                            <div class="h-1 bg-[#0e927f]"></div>
+                            <div class="px-5 py-4 border-b border-[#eef4f1] flex items-center justify-between">
+                                <img src="./assets/images/healx-logo-bg-black.png" alt="HealiiX" class="h-7 w-auto object-contain">
+                                <span id="prev-badge" class="px-2.5 py-0.5 rounded-full bg-[#e9f6f1] border border-[#cde9de] text-[#087866] text-[10px] font-bold uppercase">Official Notice</span>
+                            </div>
+                            <div class="p-5">
+                                <h3 id="prev-heading" class="font-extrabold text-base text-[#082c2a] mb-2">Email Heading</h3>
+                                <p id="prev-body" class="text-xs text-[#4a6660] leading-relaxed whitespace-pre-line">Your message preview will appear here...</p>
+                            </div>
+                            <div class="px-5 py-3 bg-[#f9fcfb] border-t border-[#eef4f1] text-[11px] text-[#738d86]">
+                                HealiiX Healthcare Platform &bull; healiix@alrifatsabbir.me
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SUBTAB 2: EMAIL LOGS (LAST 30 DAYS) -->
+                <section id="panel-logs" class="hidden bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-[#edf3f0] flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <h2 class="font-extrabold text-lg text-[#082c2a]">Outbound Email Logs (Last 30 Days)</h2>
+                            <p class="text-xs text-[#6c8680]">Tracks all system OTPs, booking confirmations, password resets, and admin dispatches</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <input type="search" id="search-logs" placeholder="Filter recipient or subject..." class="px-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f]">
+                            <select id="filter-log-status" class="px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs font-bold outline-none">
+                                <option value="">All Status</option>
+                                <option value="sent">Sent</option>
+                                <option value="failed">Failed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead class="bg-[#f8fbf9] text-[11px] uppercase tracking-wider text-[#6c8680] border-b border-[#edf3f0]">
+                                <tr>
+                                    <th class="px-6 py-3.5">Recipient</th>
+                                    <th class="px-6 py-3.5">Subject</th>
+                                    <th class="px-6 py-3.5">Sender</th>
+                                    <th class="px-6 py-3.5">Status</th>
+                                    <th class="px-6 py-3.5">Dispatched At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-tbody" class="divide-y divide-[#edf3f0]"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        const TEMPLATES = {
+            custom: { subject: '', badge: 'Official Notice', heading: '', body: '' },
+            bmdc_resubmit: {
+                subject: 'Action Needed: Clearer BMDC / Govt ID Required - HealiiX',
+                badge: 'Verification',
+                heading: 'Please upload clearer verification documents',
+                body: 'Dear Doctor,\n\nThank you for applying to join HealiiX. During our verification audit, either your BMDC certificate or the front side of your Govt ID (showing your face clearly) was not legible enough.\n\nPlease reply directly to this email with clear photos so we can complete your approval promptly.\n\nBest regards,\nHealiiX Medical Verification Desk',
+            },
+            maintenance: {
+                subject: 'Scheduled Platform Maintenance Notice - HealiiX',
+                badge: 'System Update',
+                heading: 'Brief scheduled maintenance window',
+                body: 'Hello,\n\nWe will perform scheduled infrastructure maintenance tonight between 2:00 AM and 3:00 AM BST to improve booking response speed.\n\nNo existing appointments or patient data will be affected.\n\nThank you for choosing HealiiX Healthcare.',
+            },
+            security: {
+                subject: 'Important Account Security Reminder - HealiiX',
+                badge: 'Security',
+                heading: 'Keep your HealiiX credentials secure',
+                body: 'Hi,\n\nAs a routine security practice, please never share your one-time verification codes (OTP) or password with anyone claiming to be from support.\n\nIf you ever notice suspicious activity, reset your password immediately from the Sign In page.',
+            },
+            followup: {
+                subject: 'Thank you for consulting through HealiiX',
+                badge: 'Care Desk',
+                heading: 'How was your recent consultation?',
+                body: 'Dear Patient,\n\nWe hope your recent medical consultation went smoothly. You can always view upcoming bookings or manage your profile anytime from your HealiiX Patient Dashboard.\n\nWishing you great health,\nHealiiX Care Team',
+            },
+        };
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        // Sub-Tab Switcher
+        const sendBtn = document.getElementById('subtab-send-btn');
+        const logsBtn = document.getElementById('subtab-logs-btn');
+        const sendPanel = document.getElementById('panel-send');
+        const logsPanel = document.getElementById('panel-logs');
+
+        sendBtn.addEventListener('click', () => {
+            sendPanel.classList.remove('hidden');
+            logsPanel.classList.add('hidden');
+            sendBtn.classList.add('bg-[#0e927f]', 'text-white');
+            sendBtn.classList.remove('text-[#556e68]');
+            logsBtn.classList.remove('bg-[#0e927f]', 'text-white');
+            logsBtn.classList.add('text-[#556e68]');
+        });
+
+        logsBtn.addEventListener('click', () => {
+            logsPanel.classList.remove('hidden');
+            sendPanel.classList.add('hidden');
+            logsBtn.classList.add('bg-[#0e927f]', 'text-white');
+            logsBtn.classList.remove('text-[#556e68]');
+            sendBtn.classList.remove('bg-[#0e927f]', 'text-white');
+            sendBtn.classList.add('text-[#556e68]');
+            loadLogs();
+        });
+
+        function updatePreview() {
+            document.getElementById('prev-badge').textContent = document.getElementById('em-badge').value || 'Notice';
+            document.getElementById('prev-heading').textContent = document.getElementById('em-heading').value || 'Email Heading';
+            document.getElementById('prev-body').textContent = document.getElementById('em-body').value || 'Your message preview will appear here...';
+        }
+
+        ['em-badge', 'em-heading', 'em-body'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', updatePreview);
+        });
+
+        document.getElementById('email-template-select')?.addEventListener('change', (e) => {
+            const tpl = TEMPLATES[e.target.value] || TEMPLATES.custom;
+            document.getElementById('em-subject').value = tpl.subject;
+            document.getElementById('em-badge').value = tpl.badge;
+            document.getElementById('em-heading').value = tpl.heading;
+            document.getElementById('em-body').value = tpl.body;
+            updatePreview();
+        });
+
+        document.getElementById('quick-user-select')?.addEventListener('change', (e) => {
+            if (e.target.value) document.getElementById('em-to').value = e.target.value;
+        });
+
+        document.getElementById('admin-email-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('send-email-btn');
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Dispatching Email...';
+                const res = await api.sendAdminEmail({
+                    to: document.getElementById('em-to').value.trim(),
+                    subject: document.getElementById('em-subject').value.trim(),
+                    badge: document.getElementById('em-badge').value.trim(),
+                    heading: document.getElementById('em-heading').value.trim(),
+                    message: document.getElementById('em-body').value.trim(),
+                });
+                showAlert(res.message);
+                e.target.reset();
+                updatePreview();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send Branded Email ↗';
+            }
+        });
+
+        async function loadLogs() {
+            const status = document.getElementById('filter-log-status').value;
+            const q = document.getElementById('search-logs').value.trim();
+            const res = await api.getEmailLogs(status, q);
+            const logs = res.logs || [];
+            const tbody = document.getElementById('logs-tbody');
+            if (logs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-xs text-[#6c8680]">No email logs found in the last 30 days.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = logs.map(l => `
+                <tr class="hover:bg-[#fbfdfc]">
+                    <td class="px-6 py-4 font-semibold text-xs text-[#082c2a]">${l.to}</td>
+                    <td class="px-6 py-4 text-xs text-[#3b5751]">
+                        <p class="font-bold text-[#082c2a]">${l.subject}</p>
+                        <p class="text-[11px] text-[#7b948e]">${l.messageId || ''}</p>
+                    </td>
+                    <td class="px-6 py-4 text-xs text-[#556e68]">${l.sentBy || 'system'}</td>
+                    <td class="px-6 py-4 text-xs font-bold uppercase ${l.status === 'sent' ? 'text-[#0e927f]' : 'text-red-600'}">${l.status}</td>
+                    <td class="px-6 py-4 text-xs text-[#6c8680]">${new Date(l.createdAt).toLocaleString()}</td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('search-logs')?.addEventListener('input', loadLogs);
+        document.getElementById('filter-log-status')?.addEventListener('change', loadLogs);
+
+        (async () => {
+            const user = await initDashboardShell('admin', 'admin-emails.html', 'Emails Center', 'Send branded emails with pre-built templates and inspect 30-day delivery logs');
+            if (!user) return;
+            try {
+                const uRes = await api.getAdminUsers();
+                const sel = document.getElementById('quick-user-select');
+                (uRes.users || []).forEach(u => {
+                    const opt = document.createElement('option');
+                    opt.value = u.email;
+                    opt.textContent = `${u.fullName} (@${u.username} • ${u.role})`;
+                    sel.appendChild(opt);
+                });
+            } catch (_) {}
+        })();
+    </script>
+</body>
+</html>
+

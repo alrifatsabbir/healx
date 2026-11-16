@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Health Dashboard | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto space-y-6">
+                <!-- Notifications Feed (Admin Broadcasts) -->
+                <div id="notifications-feed" class="space-y-3"></div>
+
+                <!-- Personalized Patient Health Hub Banner -->
+                <div class="relative overflow-hidden bg-gradient-to-r from-[#082c2a] via-[#0b3b38] to-[#0e4844] text-white rounded-3xl p-6 sm:p-8 shadow-sm">
+                    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div class="flex items-center gap-4 sm:gap-5">
+                            <div id="patient-banner-avatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-white text-2xl sm:text-3xl font-extrabold flex-shrink-0 shadow-inner">
+                                P
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap mb-1">
+                                    <h2 class="font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+                                        Welcome, <span id="welcome-name">Patient</span>!
+                                    </h2>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-[#0e927f] text-white text-[11px] font-mono font-bold tracking-wide">
+                                        Patient Portal
+                                    </span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-[#b8d6cf] max-w-xl">
+                                    Track consultation schedules, review doctor feedback, and maintain your personal health records.
+                                </p>
+
+                                <!-- Medical Vitals Pills Strip -->
+                                <div class="flex items-center gap-2 sm:gap-3 flex-wrap mt-3 text-xs">
+                                    <div class="px-3 py-1 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs flex items-center gap-1.5">
+                                        <span class="text-[#84b9ae] font-semibold">Blood:</span>
+                                        <strong id="banner-blood-group" class="text-white font-extrabold">Not set</strong>
+                                    </div>
+                                    <div class="px-3 py-1 rounded-xl bg-white/10 border border-white/15 backdrop-blur-xs flex items-center gap-1.5">
+                                        <span class="text-[#84b9ae] font-semibold">Emergency:</span>
+                                        <strong id="banner-emergency-contact" class="text-white font-semibold">Not configured</strong>
+                                    </div>
+                                    <a href="patient-settings.html" class="text-[11px] text-[#34d399] font-bold hover:underline flex items-center gap-1">
+                                        <span>Update Health Record</span> &rarr;
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA Book Appointment Button -->
+                        <div class="flex items-center gap-3 flex-shrink-0">
+                            <a href="find-doctors.html" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-[#082c2a]/30 transition-all active:scale-[0.98]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                <span>Find &amp; Book Doctor</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPI Metric Cards -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <div class="flex items-center justify-between text-[#6c8680] mb-2">
+                            <span class="text-[11px] font-bold uppercase tracking-wider">Total Bookings</span>
+                            <div class="w-8 h-8 rounded-xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            </div>
+                        </div>
+                        <p id="stat-total" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a]">0</p>
+                    </div>
+
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <div class="flex items-center justify-between text-amber-700 mb-2">
+                            <span class="text-[11px] font-bold uppercase tracking-wider">Upcoming &amp; Pending</span>
+                            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p id="stat-upcoming" class="font-extrabold text-2xl sm:text-3xl text-amber-600">0</p>
+                    </div>
+
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <div class="flex items-center justify-between text-[#0e927f] mb-2">
+                            <span class="text-[11px] font-bold uppercase tracking-wider">Completed Visits</span>
+                            <div class="w-8 h-8 rounded-xl bg-[#eef8f5] text-[#0e927f] flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p id="stat-completed" class="font-extrabold text-2xl sm:text-3xl text-[#0e927f]">0</p>
+                    </div>
+
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs">
+                        <div class="flex items-center justify-between text-rose-600 mb-2">
+                            <span class="text-[11px] font-bold uppercase tracking-wider">Cancelled / Missed</span>
+                            <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p id="stat-cancelled" class="font-extrabold text-2xl sm:text-3xl text-rose-600">0</p>
+                    </div>
+                </div>
+
+                <!-- Spotlight Next Consultation Hero -->
+                <div id="next-consultation-spotlight" class="hidden bg-white rounded-3xl border border-[#e1eae6] p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#edf3f0]">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-[#0e927f] animate-pulse"></span>
+                            <span class="text-xs font-extrabold uppercase text-[#0e927f] tracking-wide">Next Scheduled Consultation</span>
+                        </div>
+                        <a href="patient-appointments.html" class="text-xs font-bold text-[#0e927f] hover:underline">View All &rarr;</a>
+                    </div>
+                    <div id="next-consultation-content" class="flex flex-col md:flex-row md:items-center justify-between gap-6"></div>
+                </div>
+
+                <!-- Two-Column Section: Recent Consultations (Left) + Quick Care Navigation (Right) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Left: Recent Consultations List (lg:col-span-8) -->
+                    <div class="lg:col-span-8 bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-7 space-y-4">
+                        <div class="flex items-center justify-between border-b border-[#edf3f0] pb-4">
+                            <div>
+                                <h3 class="font-extrabold text-lg text-[#082c2a]">Recent Consultations</h3>
+                                <p class="text-xs text-[#6c8680] mt-0.5">Your most recent doctor visits and appointment statuses</p>
+                            </div>
+                            <a href="patient-appointments.html" class="text-xs font-bold text-[#0e927f] hover:underline flex items-center gap-1">
+                                <span>See All</span> &rarr;
+                            </a>
+                        </div>
+                        <div id="recent-appts" class="space-y-3">
+                            <div class="py-8 text-center text-xs text-[#6c8680]">Loading consultations...</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quick Care Shortcuts & Health Profile (lg:col-span-4) -->
+                    <div class="lg:col-span-4 space-y-5">
+                        
+                        <!-- Emergency / Health Card Summary -->
+                        <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-5 sm:p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-extrabold text-sm text-[#082c2a] flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span>Personal Health Card</span>
+                                </h4>
+                                <a href="patient-settings.html" class="text-[11px] font-bold text-[#0e927f] hover:underline">Edit</a>
+                            </div>
+
+                            <div class="space-y-3 text-xs">
+                                <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#f8fbf9] border border-[#edf3f0]">
+                                    <span class="text-[#6c8680]">Blood Group</span>
+                                    <span id="card-blood" class="font-extrabold text-sm text-[#082c2a]">--</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#f8fbf9] border border-[#edf3f0]">
+                                    <span class="text-[#6c8680]">Gender / Age</span>
+                                    <span id="card-gender-age" class="font-bold text-[#082c2a]">--</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#f8fbf9] border border-[#edf3f0]">
+                                    <span class="text-[#6c8680]">Physical Vitals</span>
+                                    <span id="card-vitals" class="font-bold text-[#082c2a]">--</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-[#f8fbf9] border border-[#edf3f0] space-y-1">
+                                    <span class="text-[#6c8680] block text-[11px]">Emergency Contact</span>
+                                    <p id="card-emergency" class="font-bold text-[#082c2a] text-xs">None listed</p>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-[#f8fbf9] border border-[#edf3f0] space-y-1">
+                                    <span class="text-[#6c8680] block text-[11px]">Known Allergies</span>
+                                    <p id="card-allergies" class="font-semibold text-[#082c2a] text-xs">None declared</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Links Card -->
+                        <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-5 space-y-2.5">
+                            <h4 class="font-extrabold text-xs uppercase tracking-wider text-[#6c8680] px-2 mb-2">Care Shortcuts</h4>
+                            <a href="find-doctors.html" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-[#edf7f4] text-[#082c2a] hover:text-[#0e927f] transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                </div>
+                                <div class="text-xs">
+                                    <p class="font-bold">Find Specialists</p>
+                                    <p class="text-[11px] text-[#6c8680]">Browse certified doctors across 64 districts</p>
+                                </div>
+                            </a>
+                            <a href="patient-appointments.html" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-[#edf7f4] text-[#082c2a] hover:text-[#0e927f] transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div class="text-xs">
+                                    <p class="font-bold">Appointments History</p>
+                                    <p class="text-[11px] text-[#6c8680]">Manage pending, confirmed &amp; past visits</p>
+                                </div>
+                            </a>
+                            <a href="patient-reviews.html" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-[#edf7f4] text-[#082c2a] hover:text-[#0e927f] transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-[#edf7f4] text-amber-500 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                                <div class="text-xs">
+                                    <p class="font-bold">My Doctor Reviews</p>
+                                    <p class="text-[11px] text-[#6c8680]">Ratings, stars &amp; clinical feedback</p>
+                                </div>
+                            </a>
+                            <a href="patient-settings.html" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-[#edf7f4] text-[#082c2a] hover:text-[#0e927f] transition-all">
+                                <div class="w-8 h-8 rounded-xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
+                                </div>
+                                <div class="text-xs">
+                                    <p class="font-bold">Health Record Settings</p>
+                                    <p class="text-[11px] text-[#6c8680]">Update allergies, vitals &amp; account</p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell, renderActiveNotifications } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        (async () => {
+            const user = await initDashboardShell('patient', 'patient-dashboard.html', 'Patient Overview', 'Manage your consultations, health cards, and care schedule');
+            if (!user) return;
+
+            // Welcome details
+            const firstName = (user.fullName || user.username || 'Patient').split(' ')[0];
+            document.getElementById('welcome-name').textContent = firstName;
+
+            // Banner Avatar
+            const bannerAvatar = document.getElementById('patient-banner-avatar');
+            if (user.avatar) {
+                bannerAvatar.innerHTML = `<img src="${user.avatar}" alt="${user.fullName}" class="w-full h-full object-cover rounded-2xl">`;
+            } else {
+                bannerAvatar.textContent = (user.fullName || 'P').charAt(0).toUpperCase();
+            }
+
+            // Health Card Info
+            const blood = user.bloodGroup || 'Not set';
+            document.getElementById('banner-blood-group').textContent = blood;
+            document.getElementById('card-blood').textContent = blood;
+
+            let emText = 'Not configured';
+            if (user.emergencyContact?.name || user.emergencyContact?.phone) {
+                emText = `${user.emergencyContact.name || 'Contact'} (${user.emergencyContact.phone || ''})`;
+            }
+            document.getElementById('banner-emergency-contact').textContent = emText;
+            document.getElementById('card-emergency').textContent = emText;
+
+            // Age & Gender
+            let ageStr = '';
+            if (user.dateOfBirth) {
+                const diff = Date.now() - new Date(user.dateOfBirth).getTime();
+                const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+                if (!isNaN(age)) ageStr = `${age} yrs`;
+            }
+            const genderStr = user.gender || '';
+            const combinedGenderAge = [genderStr, ageStr].filter(Boolean).join(' • ') || 'Not specified';
+            document.getElementById('card-gender-age').textContent = combinedGenderAge;
+
+            // Physical Vitals & BMI
+            let vitalsArr = [];
+            if (user.height && user.weight) {
+                const hm = user.height / 100;
+                const bmi = (user.weight / (hm * hm)).toFixed(1);
+                vitalsArr.push(`${user.height}cm / ${user.weight}kg (BMI ${bmi})`);
+            } else if (user.weight) {
+                vitalsArr.push(`${user.weight} kg`);
+            }
+            if (user.bloodPressure) vitalsArr.push(`BP ${user.bloodPressure}`);
+            if (user.bloodSugar) vitalsArr.push(`Sugar ${user.bloodSugar}`);
+            document.getElementById('card-vitals').textContent = vitalsArr.length ? vitalsArr.join(' • ') : 'Not recorded';
+
+            document.getElementById('card-allergies').textContent = user.allergies || 'None declared';
+
+            // Load live consultations & notifications
+            const [, apptRes] = await Promise.all([
+                renderActiveNotifications(document.getElementById('notifications-feed')),
+                api.getMyAppointments(),
+            ]);
+
+            const appts = apptRes.appointments || [];
+            document.getElementById('stat-total').textContent = appts.length;
+            const upcomingAppts = appts.filter(a => ['pending', 'confirmed'].includes(a.status));
+            document.getElementById('stat-upcoming').textContent = upcomingAppts.length;
+            document.getElementById('stat-completed').textContent = appts.filter(a => a.status === 'completed').length;
+            document.getElementById('stat-cancelled').textContent = appts.filter(a => a.status === 'cancelled').length;
+
+            // Next Consultation Spotlight
+            if (upcomingAppts.length > 0) {
+                const nextAppt = upcomingAppts[0];
+                const spotLightEl = document.getElementById('next-consultation-spotlight');
+                const contentEl = document.getElementById('next-consultation-content');
+                spotLightEl.classList.remove('hidden');
+
+                const statusColor = nextAppt.status === 'confirmed' ? 'bg-[#0e927f]/15 text-[#0e927f] border-[#0e927f]/30' : 'bg-amber-50 text-amber-700 border-amber-200';
+                const formattedDate = new Date(nextAppt.appointmentDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+                contentEl.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-[#edf7f4] text-[#0e927f] font-extrabold text-xl flex items-center justify-center flex-shrink-0 border border-[#d6eae2]">
+                            Dr
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap mb-0.5">
+                                <span class="px-2 py-0.5 rounded-full text-[11px] font-bold uppercase border ${statusColor}">${nextAppt.status}</span>
+                                <span class="text-xs font-mono font-bold text-[#6c8680]">#${nextAppt.bookingRef}</span>
+                            </div>
+                            <h4 class="font-extrabold text-base text-[#082c2a]">${nextAppt.doctorName}</h4>
+                            <p class="text-xs text-[#556e68]">${nextAppt.hospitalName}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#f8fbf9] p-4 rounded-2xl border border-[#edf3f0]">
+                        <div class="text-xs">
+                            <span class="text-[#6c8680] block text-[11px]">Appointment Slot:</span>
+                            <strong class="text-[#082c2a] font-extrabold text-sm">${formattedDate}</strong>
+                            <p class="text-[#0e927f] font-bold">${nextAppt.timeSlot}</p>
+                        </div>
+                        <a href="patient-appointments.html" class="px-5 py-2.5 rounded-xl bg-[#082c2a] hover:bg-[#0e4844] text-white text-xs font-bold text-center transition-colors whitespace-nowrap">
+                            Manage Booking &rarr;
+                        </a>
+                    </div>
+                `;
+            }
+
+            // Recent Consultations list
+            const recentEl = document.getElementById('recent-appts');
+            if (appts.length === 0) {
+                recentEl.innerHTML = `
+                    <div class="py-10 text-center">
+                        <div class="w-12 h-12 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="font-bold text-sm text-[#082c2a]">No consultations booked yet</p>
+                        <p class="text-xs text-[#6c8680] mt-1 mb-4">You have not scheduled any doctor consultations so far.</p>
+                        <a href="find-doctors.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0e927f] text-white text-xs font-bold hover:bg-[#087866] transition-all">
+                            Find Verified Doctors ↗
+                        </a>
+                    </div>
+                `;
+            } else {
+                recentEl.innerHTML = appts.slice(0, 5).map(a => {
+                    const statusStyles = {
+                        confirmed: 'bg-[#0e927f]/15 text-[#0e927f] border-[#0e927f]/30',
+                        pending: 'bg-amber-50 text-amber-700 border-amber-200',
+                        completed: 'bg-sky-50 text-sky-700 border-sky-200',
+                        cancelled: 'bg-rose-50 text-rose-700 border-rose-200',
+                    };
+                    const badgeClass = statusStyles[a.status] || 'bg-slate-50 text-slate-700 border-slate-200';
+                    const formattedDate = new Date(a.appointmentDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                    return `
+                        <div class="p-4 rounded-2xl border border-[#edf3f0] bg-white hover:border-[#c8e6dc] hover:shadow-xs transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2.5 flex-wrap">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10.5px] font-extrabold uppercase border ${badgeClass}">${a.status}</span>
+                                    <span class="font-mono text-xs font-bold text-[#6c8680]">#${a.bookingRef}</span>
+                                    <span class="text-xs font-bold text-[#082c2a]">BDT ${a.consultationFee || 0}</span>
+                                </div>
+                                <h4 class="font-extrabold text-sm text-[#082c2a]">${a.doctorName}</h4>
+                                <p class="text-xs text-[#6c8680]">${a.hospitalName} &bull; ${formattedDate} at <strong>${a.timeSlot}</strong></p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <a href="patient-appointments.html" class="px-4 py-2 rounded-xl bg-[#edf7f4] hover:bg-[#d6f0e6] text-[#087866] text-xs font-bold transition-colors">
+                                    Details &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        })();
+    </script>
+</body>
+</html>

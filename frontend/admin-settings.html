@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Settings | HealiiX Healthcare</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-4xl w-full mx-auto space-y-6">
+                <!-- Navigation Breadcrumbs & Shortcuts -->
+                <div class="flex flex-wrap items-center justify-between gap-3 bg-white px-5 py-3 rounded-2xl border border-[#e1eae6] shadow-xs">
+                    <div class="flex items-center gap-2 text-xs font-bold text-[#6c8680]">
+                        <a href="./admin-dashboard.html" class="hover:text-[#0e927f] transition-colors">Admin Dashboard</a>
+                        <span>/</span>
+                        <a href="./admin-profile.html" class="hover:text-[#0e927f] transition-colors">Admin Profile</a>
+                        <span>/</span>
+                        <span class="text-[#082c2a]">Settings &amp; Security</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="./admin-profile.html" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#edf7f4] text-[#0e927f] hover:bg-[#daf1e8] transition-all">
+                            Admin Profile &rarr;
+                        </a>
+                        <a href="./admin-dashboard.html" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] transition-all">
+                            Dashboard &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <!-- Account Profile Settings -->
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Administrator Profile Settings</h2>
+                    <p class="text-xs text-[#6c8680] mb-6">Update administrator contact details and avatar (compressed to WebP)</p>
+                    <form id="adm-settings-form" class="space-y-4">
+                        <div class="flex items-center gap-4 pb-4 border-b border-[#edf3f0]">
+                            <img id="adm-avatar-img" class="w-16 h-16 rounded-full object-cover border-2 border-[#0e927f] hidden">
+                            <div id="adm-avatar-fb" class="w-16 h-16 rounded-full bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-extrabold text-xl">A</div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1">Admin Avatar (WebP)</label>
+                                <input type="file" id="adm-avatar-file" accept="image/*" class="text-xs text-[#556e68] file:mr-3 file:py-1.5 file:px-3.5 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#dcefe9] file:text-[#087866] cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Display Name *</label>
+                                <input type="text" id="as-name" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number</label>
+                                <input type="tel" id="as-phone" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                        </div>
+                        <button type="submit" id="as-save-btn" class="px-6 py-2.5 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs cursor-pointer">Save Settings ↗</button>
+                    </form>
+                </div>
+
+                <!-- Security / Change Password -->
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Security &amp; Password</h2>
+                    <p class="text-xs text-[#6c8680] mb-6">Update your Super Admin login password</p>
+                    <form id="adm-pwd-form" class="space-y-4 max-w-md">
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Current Password *</label>
+                            <input type="password" id="ap-cur" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">New Password *</label>
+                            <input type="password" id="ap-new" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Confirm New Password *</label>
+                            <input type="password" id="ap-conf" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <button type="submit" id="ap-save-btn" class="px-6 py-2.5 rounded-full bg-[#082c2a] hover:bg-[#0f4541] text-white font-bold text-xs cursor-pointer">Update Password ↗</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) return resolve('');
+                const r = new FileReader();
+                r.readAsDataURL(file);
+                r.onload = () => resolve(r.result);
+                r.onerror = reject;
+            });
+        }
+
+        (async () => {
+            const user = await initDashboardShell('admin', 'admin-settings.html', 'Settings & Security', 'Edit administrator account details and security credentials');
+            if (!user) return;
+
+            document.querySelectorAll('a[href^="./admin-"]').forEach(a => {
+                const target = a.getAttribute('href').replace(/^\.\//, '');
+                a.href = getAppPath(target);
+            });
+
+            document.getElementById('as-name').value = user.fullName || '';
+            document.getElementById('as-phone').value = user.phone || '';
+            if (user.avatar) {
+                document.getElementById('adm-avatar-img').src = user.avatar;
+                document.getElementById('adm-avatar-img').classList.remove('hidden');
+                document.getElementById('adm-avatar-fb').classList.add('hidden');
+            }
+
+            document.getElementById('adm-settings-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('as-save-btn');
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Saving...';
+                    const avatarImage = await fileToBase64(document.getElementById('adm-avatar-file').files[0]);
+                    const res = await api.updateProfile({
+                        fullName: document.getElementById('as-name').value.trim(),
+                        phone: document.getElementById('as-phone').value.trim(),
+                        avatarImage: avatarImage || undefined,
+                    });
+                    showAlert(res.message);
+                    setTimeout(() => location.reload(), 600);
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Save Settings ↗';
+                }
+            });
+
+            document.getElementById('adm-pwd-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('ap-save-btn');
+                try {
+                    btn.disabled = true;
+                    const res = await api.changePassword({
+                        currentPassword: document.getElementById('ap-cur').value,
+                        newPassword: document.getElementById('ap-new').value,
+                        confirmPassword: document.getElementById('ap-conf').value,
+                    });
+                    showAlert(res.message);
+                    e.target.reset();
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments | Patient Portal | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto space-y-6">
+                <!-- Alert Feedback -->
+                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all"></div>
+
+                <!-- KPI Status Strip -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs cursor-pointer hover:border-[#0e927f] transition-all" onclick="filterByTab('all')">
+                        <p class="text-[11px] font-bold text-[#6c8680] uppercase tracking-wider">All Bookings</p>
+                        <p id="cnt-all" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs cursor-pointer hover:border-amber-400 transition-all" onclick="filterByTab('upcoming')">
+                        <p class="text-[11px] font-bold text-amber-700 uppercase tracking-wider">Upcoming &amp; Pending</p>
+                        <p id="cnt-upcoming" class="font-extrabold text-2xl sm:text-3xl text-amber-600 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs cursor-pointer hover:border-[#0e927f] transition-all" onclick="filterByTab('completed')">
+                        <p class="text-[11px] font-bold text-[#0e927f] uppercase tracking-wider">Completed Visits</p>
+                        <p id="cnt-completed" class="font-extrabold text-2xl sm:text-3xl text-[#0e927f] mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl border border-[#e1eae6] shadow-xs cursor-pointer hover:border-rose-300 transition-all" onclick="filterByTab('cancelled')">
+                        <p class="text-[11px] font-bold text-rose-600 uppercase tracking-wider">Cancelled</p>
+                        <p id="cnt-cancelled" class="font-extrabold text-2xl sm:text-3xl text-rose-600 mt-1">0</p>
+                    </div>
+                </div>
+
+                <!-- Main Consultation Workspace Card -->
+                <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <!-- Header with Title, Search & Tabs -->
+                    <div class="p-5 sm:p-7 border-b border-[#edf3f0] space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="font-extrabold text-xl sm:text-2xl text-[#082c2a] tracking-tight">Consultation Appointments</h2>
+                                <p class="text-xs text-[#6c8680] mt-0.5">Track your care schedule, doctor confirmations, and consultation notes</p>
+                            </div>
+                            <a href="find-doctors.html" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold transition-all shadow-sm active:scale-[0.98] self-start sm:self-auto">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                                <span>Book New Appointment</span>
+                            </a>
+                        </div>
+
+                        <!-- Filter Controls Strip -->
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2">
+                            <!-- Status Tabs -->
+                            <div class="flex items-center gap-1.5 p-1 bg-[#edf5f1] rounded-2xl overflow-x-auto text-xs font-bold">
+                                <button type="button" class="tab-btn active px-4 py-2 rounded-xl bg-white text-[#082c2a] shadow-xs transition-all cursor-pointer whitespace-nowrap" data-tab="all">
+                                    All Consultations
+                                </button>
+                                <button type="button" class="tab-btn px-4 py-2 rounded-xl text-[#627a74] hover:text-[#082c2a] transition-all cursor-pointer whitespace-nowrap" data-tab="upcoming">
+                                    Upcoming &amp; Pending
+                                </button>
+                                <button type="button" class="tab-btn px-4 py-2 rounded-xl text-[#627a74] hover:text-[#082c2a] transition-all cursor-pointer whitespace-nowrap" data-tab="completed">
+                                    Completed
+                                </button>
+                                <button type="button" class="tab-btn px-4 py-2 rounded-xl text-[#627a74] hover:text-[#082c2a] transition-all cursor-pointer whitespace-nowrap" data-tab="cancelled">
+                                    Cancelled
+                                </button>
+                            </div>
+
+                            <!-- Search Input -->
+                            <div class="relative w-full md:w-72">
+                                <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6c8680]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <input type="search" id="appt-search" placeholder="Search doctor, hospital, ref..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] outline-none focus:bg-white focus:border-[#0e927f] transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appointments Cards Grid / List -->
+                    <div id="appts-list" class="divide-y divide-[#edf3f0] p-4 sm:p-6 space-y-4">
+                        <div class="py-12 text-center text-xs text-[#6c8680]">Loading consultations...</div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Rate & Review Doctor Modal -->
+    <div id="review-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#e1eae6] space-y-4">
+            <div class="flex items-center justify-between border-b border-[#edf3f0] pb-3">
+                <h3 class="font-extrabold text-xl text-[#082c2a]">Rate Your Consultation</h3>
+                <button type="button" id="close-review-x" class="text-[#6c8680] hover:text-[#082c2a] text-lg font-bold cursor-pointer">&times;</button>
+            </div>
+            <p id="review-doc-sub" class="text-xs text-[#6c8680]"></p>
+            
+            <form id="review-form" class="space-y-4">
+                <input type="hidden" id="rv-doc-id">
+                <input type="hidden" id="rv-ref">
+                
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Rating *</label>
+                    <select id="rv-rating" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm font-bold text-[#082c2a] outline-none focus:border-[#0e927f]">
+                        <option value="5">⭐⭐⭐⭐⭐ (5 / 5) — Excellent Care</option>
+                        <option value="4">⭐⭐⭐⭐ (4 / 5) — Very Good</option>
+                        <option value="3">⭐⭐⭐ (3 / 5) — Average Experience</option>
+                        <option value="2">⭐⭐ (2 / 5) — Fair / Could be Better</option>
+                        <option value="1">⭐ (1 / 5) — Poor Experience</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Written Feedback *</label>
+                    <textarea id="rv-comment" rows="3" required placeholder="Describe your consultation, doctor's attentiveness, and chamber environment..." class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] outline-none focus:border-[#0e927f]"></textarea>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-2">
+                    <button type="button" id="close-review" class="px-5 py-2.5 rounded-full text-xs font-bold text-[#556e68] hover:bg-[#edf5f1] transition-colors cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submit-review-btn" class="px-6 py-2.5 rounded-full text-xs font-bold bg-[#0e927f] hover:bg-[#087866] text-white transition-all shadow-sm cursor-pointer">
+                        Submit Review ↗
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        let allAppointments = [];
+        let activeTab = 'all';
+
+        const alertEl = document.getElementById('page-alert');
+        const reviewModal = document.getElementById('review-modal');
+
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-rose-50', 'text-rose-700', 'border-rose-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-rose-50', 'text-rose-700', 'border-rose-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        window.filterByTab = function(tabName) {
+            activeTab = tabName;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabName) {
+                    btn.classList.add('active', 'bg-white', 'text-[#082c2a]', 'shadow-xs');
+                    btn.classList.remove('text-[#627a74]');
+                } else {
+                    btn.classList.remove('active', 'bg-white', 'text-[#082c2a]', 'shadow-xs');
+                    btn.classList.add('text-[#627a74]');
+                }
+            });
+            renderAppointments();
+        };
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterByTab(btn.getAttribute('data-tab'));
+            });
+        });
+
+        document.getElementById('appt-search')?.addEventListener('input', () => {
+            renderAppointments();
+        });
+
+        function updateCounters() {
+            document.getElementById('cnt-all').textContent = allAppointments.length;
+            document.getElementById('cnt-upcoming').textContent = allAppointments.filter(a => ['pending', 'confirmed'].includes(a.status)).length;
+            document.getElementById('cnt-completed').textContent = allAppointments.filter(a => a.status === 'completed').length;
+            document.getElementById('cnt-cancelled').textContent = allAppointments.filter(a => a.status === 'cancelled').length;
+        }
+
+        function renderAppointments() {
+            const query = document.getElementById('appt-search')?.value.toLowerCase().trim() || '';
+
+            const filtered = allAppointments.filter(a => {
+                // Tab filter
+                if (activeTab === 'upcoming' && !['pending', 'confirmed'].includes(a.status)) return false;
+                if (activeTab === 'completed' && a.status !== 'completed') return false;
+                if (activeTab === 'cancelled' && a.status !== 'cancelled') return false;
+
+                // Search query filter
+                if (query) {
+                    const match = (
+                        (a.bookingRef || '').toLowerCase().includes(query) ||
+                        (a.doctorName || '').toLowerCase().includes(query) ||
+                        (a.hospitalName || '').toLowerCase().includes(query) ||
+                        (a.timeSlot || '').toLowerCase().includes(query)
+                    );
+                    if (!match) return false;
+                }
+                return true;
+            });
+
+            const listEl = document.getElementById('appts-list');
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="py-14 text-center">
+                        <div class="w-14 h-14 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h4 class="font-extrabold text-base text-[#082c2a]">No consultations found</h4>
+                        <p class="text-xs text-[#6c8680] mt-1 max-w-md mx-auto mb-5">
+                            ${query ? 'No consultations match your search keyword. Try clearing the search bar.' : 'You have no consultations listed in this tab category.'}
+                        </p>
+                        <a href="find-doctors.html" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0e927f] text-white text-xs font-bold hover:bg-[#087866] transition-all shadow-sm">
+                            Book Consultation ↗
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(a => {
+                const statusStyles = {
+                    confirmed: 'bg-[#0e927f]/15 text-[#0e927f] border-[#0e927f]/30',
+                    pending: 'bg-amber-50 text-amber-700 border-amber-200',
+                    completed: 'bg-sky-50 text-sky-700 border-sky-200',
+                    cancelled: 'bg-rose-50 text-rose-700 border-rose-200',
+                };
+                const badgeClass = statusStyles[a.status] || 'bg-slate-50 text-slate-700 border-slate-200';
+                const formattedDate = new Date(a.appointmentDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+                return `
+                    <div class="p-5 sm:p-6 rounded-2xl border border-[#edf3f0] bg-white hover:border-[#bde3d8] hover:shadow-xs transition-all flex flex-col md:flex-row md:items-center justify-between gap-5">
+                        <div class="space-y-2 flex-1">
+                            <div class="flex items-center gap-2.5 flex-wrap">
+                                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase border ${badgeClass}">
+                                    ${a.status}
+                                </span>
+                                <span class="font-mono text-xs font-bold text-[#6c8680]">#${a.bookingRef || 'REF'}</span>
+                                <span class="text-xs font-extrabold text-[#082c2a] bg-[#f8fbf9] px-2.5 py-0.5 rounded-md border border-[#edf3f0]">
+                                    Fee: BDT ${a.consultationFee || 0}
+                                </span>
+                            </div>
+
+                            <div class="flex items-start gap-3 pt-1">
+                                <div class="w-10 h-10 rounded-xl bg-[#edf7f4] text-[#0e927f] font-extrabold text-sm flex items-center justify-center flex-shrink-0 border border-[#d6eae2]">
+                                    Dr
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-base text-[#082c2a] leading-snug">${a.doctorName}</h3>
+                                    <p class="text-xs text-[#556e68] flex items-center gap-1 mt-0.5">
+                                        <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <span>${a.hospitalName}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 text-xs font-semibold text-[#0e927f] pt-1">
+                                <span class="flex items-center gap-1.5">
+                                    <svg class="w-4 h-4 text-[#0e927f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    <span>${formattedDate}</span>
+                                </span>
+                                <span>&bull;</span>
+                                <span>${a.timeSlot}</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-2 flex-wrap flex-shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[#edf3f0]">
+                            ${a.status === 'completed' ? `
+                                <button type="button" onclick="openReviewModal('${a.doctorId}', '${a.doctorName}', '${a.bookingRef}')" class="px-4 py-2 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5">
+                                    <span>Rate Doctor</span> ⭐
+                                </button>
+                            ` : ''}
+
+                            ${a.status === 'pending' ? `
+                                <button type="button" onclick="patientCancelAppt('${a._id}')" class="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-bold transition-colors cursor-pointer">
+                                    Cancel Booking
+                                </button>
+                            ` : ''}
+
+                            <a href="find-doctors.html" class="px-3.5 py-2 rounded-xl bg-[#edf7f4] hover:bg-[#daf1e8] text-[#087866] text-xs font-bold transition-colors">
+                                Chamber Info
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.openReviewModal = function(docId, docName, ref) {
+            document.getElementById('rv-doc-id').value = docId;
+            document.getElementById('rv-ref').value = ref;
+            document.getElementById('review-doc-sub').textContent = `Reviewing consultation with ${docName} (#${ref})`;
+            document.getElementById('rv-comment').value = '';
+            document.getElementById('rv-rating').value = '5';
+            reviewModal.classList.remove('hidden');
+            reviewModal.classList.add('flex');
+        };
+
+        function closeReviewModal() {
+            reviewModal.classList.add('hidden');
+            reviewModal.classList.remove('flex');
+        }
+
+        document.getElementById('close-review')?.addEventListener('click', closeReviewModal);
+        document.getElementById('close-review-x')?.addEventListener('click', closeReviewModal);
+
+        document.getElementById('review-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const doctorId = document.getElementById('rv-doc-id').value;
+            const appointmentRef = document.getElementById('rv-ref')?.value || '';
+            const rating = parseInt(document.getElementById('rv-rating').value, 10);
+            const comment = document.getElementById('rv-comment').value.trim();
+
+            const submitBtn = document.getElementById('submit-review-btn');
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                await api.createReview({ doctorId, appointmentRef, rating, comment });
+                closeReviewModal();
+                showAlert('Thank you! Your doctor review has been published.');
+                await loadAppointments();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Review ↗';
+            }
+        });
+
+        window.patientCancelAppt = async function(id) {
+            let reason = 'Cancelled by patient';
+            if (window.healiixPrompt) {
+                const input = await window.healiixPrompt({
+                    title: 'Cancel Appointment?',
+                    message: 'Are you sure you want to cancel this consultation booking? You may provide a reason for the physician:',
+                    placeholder: 'e.g. Schedule conflict / Feeling better',
+                    confirmText: 'Cancel Appointment'
+                });
+                if (input === null) return;
+                if (input.trim()) reason = input.trim();
+            } else if (window.healiixConfirm) {
+                const ok = await window.healiixConfirm({
+                    title: 'Cancel Appointment?',
+                    message: 'Are you sure you want to cancel this consultation booking?',
+                    confirmText: 'Cancel Appointment',
+                    type: 'danger'
+                });
+                if (!ok) return;
+            } else if (!confirm('Are you sure you want to cancel this consultation booking?')) {
+                return;
+            }
+            try {
+                await api.updateAppointmentStatus(id, 'cancelled', reason);
+                showAlert('Appointment cancelled successfully.');
+                await loadAppointments();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        async function loadAppointments() {
+            try {
+                const res = await api.getMyAppointments();
+                allAppointments = res?.appointments || [];
+                updateCounters();
+                renderAppointments();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        }
+
+        (async () => {
+            const user = await initDashboardShell('patient', 'patient-appointments.html', 'My Appointments', 'Manage your clinical appointments and rate completed doctor visits');
+            if (user) await loadAppointments();
+        })();
+    </script>
+</body>
+</html>

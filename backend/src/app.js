@@ -1,6 +1,14 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { serveStatic } from '@hono/node-server/serve-static';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import env from './config/env.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const FRONTEND_DIR = path.resolve(__dirname, '../../frontend');
 import authRoutes from './routes/auth.routes.js';
 import doctorRoutes from './routes/doctor.routes.js';
 import appointmentRoutes from './routes/appointment.routes.js';
@@ -8,6 +16,8 @@ import reviewRoutes from './routes/review.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
 import profileRoutes from './routes/profile.routes.js';
 import contactRoutes from './routes/contact.routes.js';
+import adminRoutes from './routes/admin.routes.js';
+import notificationRoutes from './routes/notification.routes.js';
 
 export const app = new Hono();
 
@@ -21,7 +31,7 @@ app.use('*', cors({
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
     exposeHeaders: ['Content-Length'],
-    maxAge: 600,
+    maxAge: env.isProduction ? 3600 : 0,
     credentials: true,
 }));
 
@@ -35,6 +45,10 @@ app.use('*', async (c, next) => {
 
 // Root & Healthcheck
 app.get('/', (c) => {
+    if ((c.req.header('accept') || '').includes('text/html')) {
+        const html = fs.readFileSync(path.join(FRONTEND_DIR, 'index.html'), 'utf8');
+        return c.html(html);
+    }
     return c.json({
         service: 'HealiiX Healthcare & Doctor Directory API',
         status: 'online',
@@ -42,6 +56,7 @@ app.get('/', (c) => {
         routes: {
             patientProfile: '/u/:username',
             doctorProfile: '/d/:username',
+            adminProfile: '/admin/profile',
             api: '/api',
         },
     });
@@ -51,17 +66,26 @@ app.get('/health', (c) => {
     return c.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
-// Direct profile URLs: /u/:username and /d/:username
-app.route('/', profileRoutes);
-
-// Mount under /api as well
-app.route('/api', profileRoutes);
+// Mount API routes under /api (Dedicated API Routers FIRST)
 app.route('/api/auth', authRoutes);
 app.route('/api/doctors', doctorRoutes);
 app.route('/api/appointments', appointmentRoutes);
 app.route('/api/reviews', reviewRoutes);
 app.route('/api/upload', uploadRoutes);
 app.route('/api/contact', contactRoutes);
+app.route('/api/admin', adminRoutes);
+app.route('/api/notifications', notificationRoutes);
+
+// Direct clean profile & vanity URLs: /u/:username, /d/:username, /admin/*
+app.route('/', profileRoutes);
+
+// Serve Frontend Static Files cleanly from root (/) and /frontend/* alias
+const relativeFrontendPath = path.relative(process.cwd(), FRONTEND_DIR).replace(/\\/g, '/') || './';
+app.use('/frontend/*', serveStatic({
+    root: relativeFrontendPath,
+    rewriteRequestPath: (p) => p.replace(/^\/frontend/, ''),
+}));
+app.use('/*', serveStatic({ root: relativeFrontendPath }));
 
 // 404 Fallback
 app.notFound((c) => {

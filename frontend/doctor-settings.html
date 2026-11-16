@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings | Doctor Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-4xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <!-- Clinical Profile Settings -->
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Clinical Profile Settings</h2>
+                    <p class="text-xs text-[#6c8680] mb-6">Manage your specialty bio, credentials, and WebP headshot shown to patients</p>
+
+                    <form id="doc-settings-form" class="space-y-4">
+                        <div class="flex items-center gap-4 pb-4 border-b border-[#edf3f0]">
+                            <img id="ds-avatar-img" class="w-16 h-16 rounded-full object-cover border-2 border-[#0e927f] hidden">
+                            <div id="ds-avatar-fb" class="w-16 h-16 rounded-full bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-extrabold text-xl">D</div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1">Profile Headshot (WebP)</label>
+                                <input type="file" id="ds-avatar-file" accept="image/*" class="text-xs text-[#556e68] file:mr-3 file:py-1.5 file:px-3.5 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#dcefe9] file:text-[#087866] cursor-pointer">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Full Clinical Name *</label>
+                                <input type="text" id="ds-name" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Username (Permanent)</label>
+                                <input type="text" id="ds-username" disabled class="w-full px-4 py-2.5 rounded-xl border border-[#e3ebe8] bg-[#f0f5f3] text-sm text-[#6c8680] cursor-not-allowed">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Designation</label>
+                                <input type="text" id="ds-designation" placeholder="e.g. Associate Professor & Senior Consultant" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Current Workplace</label>
+                                <input type="text" id="ds-workplace" placeholder="e.g. Dhaka Medical College Hospital" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Specialty *</label>
+                                <input type="text" id="ds-specialty" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Years of Experience</label>
+                                <input type="number" id="ds-exp" min="0" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Medical Degrees (comma separated)</label>
+                            <input type="text" id="ds-degrees" placeholder="MBBS, FCPS (Medicine), MD" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Clinical Bio</label>
+                            <textarea id="ds-about" rows="3" placeholder="Brief clinical background and patient care focus..." class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]"></textarea>
+                        </div>
+
+                        <button type="submit" id="ds-save-btn" class="px-6 py-2.5 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs cursor-pointer">Save Profile Settings ↗</button>
+                    </form>
+                </div>
+
+                <!-- Private Verification Documents (Protected In-Page Lightbox Only) -->
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                        <div>
+                            <h2 class="font-extrabold text-lg text-[#082c2a]">Submitted Verification Credentials</h2>
+                            <p class="text-xs text-[#6c8680]">Stored privately for HealiiX compliance audit (hidden from public profiles). Click any preview to zoom inside this page.</p>
+                        </div>
+                        <span id="ds-bmdc-badge" class="text-xs font-mono font-bold text-[#087866]">BMDC: ...</span>
+                    </div>
+                    <div id="ds-docs-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
+
+                <!-- Security / Change Password -->
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Change Password</h2>
+                    <p class="text-xs text-[#6c8680] mb-6">Update your practitioner portal password</p>
+                    <form id="doc-pwd-form" class="space-y-4 max-w-md">
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Current Password *</label>
+                            <input type="password" id="dp-cur" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">New Password *</label>
+                            <input type="password" id="dp-new" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Confirm New Password *</label>
+                            <input type="password" id="dp-conf" required class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+                        <button type="submit" class="px-6 py-2.5 rounded-full bg-[#082c2a] hover:bg-[#0f4541] text-white font-bold text-xs cursor-pointer">Update Password ↗</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) return resolve('');
+                const r = new FileReader();
+                r.readAsDataURL(file);
+                r.onload = () => resolve(r.result);
+                r.onerror = reject;
+            });
+        }
+
+        (async () => {
+            const user = await initDashboardShell('doctor', 'doctor-settings.html', 'Profile Settings', 'Edit clinical bio, credentials, avatar, and password');
+            if (!user) return;
+
+            const { doctor: doc } = await api.getMyDoctorProfile().catch(() => ({ doctor: null }));
+            if (doc) {
+                document.getElementById('ds-name').value = doc.name || user.fullName || '';
+                document.getElementById('ds-username').value = `@${doc.username || user.username}`;
+                document.getElementById('ds-designation').value = doc.designation || '';
+                document.getElementById('ds-workplace').value = doc.currentWorkplace || '';
+                document.getElementById('ds-specialty').value = doc.specialty || '';
+                document.getElementById('ds-exp').value = doc.experienceYears ?? 0;
+                document.getElementById('ds-degrees').value = (doc.degrees || []).join(', ');
+                document.getElementById('ds-about').value = doc.about || '';
+                document.getElementById('ds-bmdc-badge').textContent = `BMDC: ${doc.bmdcNumber || 'N/A'}`;
+
+                const avatar = doc.photoUrl || user.avatar;
+                if (avatar) {
+                    document.getElementById('ds-avatar-img').src = avatar;
+                    document.getElementById('ds-avatar-img').classList.remove('hidden');
+                    document.getElementById('ds-avatar-fb').classList.add('hidden');
+                } else {
+                    document.getElementById('ds-avatar-fb').textContent = (doc.name || 'D').charAt(0).toUpperCase();
+                }
+
+                const docsGrid = document.getElementById('ds-docs-grid');
+                const items = [
+                    { title: 'BMDC Registration Certificate', url: doc.bmdcCertImageUrl },
+                    { title: `Govt ID Front (${doc.govtIdType || 'NID / Passport / License'})`, url: doc.govtIdImageUrl },
+                ];
+                docsGrid.innerHTML = items.map(item => `
+                    <div class="p-4 rounded-2xl bg-[#f8fbf9] border border-[#e6efec]">
+                        <p class="text-xs font-bold text-[#082c2a] mb-2">${item.title}</p>
+                        ${item.url ? `
+                            <button type="button" data-zoom-url="${item.url}" data-zoom-title="${item.title}" class="w-full h-40 rounded-xl overflow-hidden border border-[#d7dfdb] bg-white group relative cursor-pointer">
+                                <img src="${item.url}" alt="${item.title}" oncontextmenu="return false;" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+                                <span class="absolute bottom-2 right-2 px-2.5 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold">Click to Zoom</span>
+                            </button>
+                        ` : `<div class="h-40 rounded-xl border border-dashed border-[#d7dfdb] flex items-center justify-center text-xs text-[#6c8680]">Not uploaded</div>`}
+                    </div>
+                `).join('');
+
+                docsGrid.querySelectorAll('[data-zoom-url]').forEach(btn => {
+                    btn.onclick = () => window.openImageLightbox(btn.dataset.zoomUrl, btn.dataset.zoomTitle);
+                });
+            }
+
+            document.getElementById('doc-settings-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('ds-save-btn');
+                try {
+                    btn.disabled = true;
+                    btn.textContent = 'Saving...';
+                    const profileImage = await fileToBase64(document.getElementById('ds-avatar-file').files[0]);
+                    const degrees = document.getElementById('ds-degrees').value.split(',').map(s => s.trim()).filter(Boolean);
+                    const res = await api.updateMyDoctorProfile({
+                        name: document.getElementById('ds-name').value.trim(),
+                        designation: document.getElementById('ds-designation').value.trim(),
+                        currentWorkplace: document.getElementById('ds-workplace').value.trim(),
+                        specialty: document.getElementById('ds-specialty').value.trim(),
+                        experienceYears: Number(document.getElementById('ds-exp').value || 0),
+                        degrees,
+                        about: document.getElementById('ds-about').value.trim(),
+                        profileImage: profileImage || undefined,
+                    });
+                    showAlert(res.message);
+                    setTimeout(() => location.reload(), 600);
+                } catch (err) {
+                    showAlert(err.message, true);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Save Profile Settings ↗';
+                }
+            });
+
+            document.getElementById('doc-pwd-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                try {
+                    const res = await api.changePassword({
+                        currentPassword: document.getElementById('dp-cur').value,
+                        newPassword: document.getElementById('dp-new').value,
+                        confirmPassword: document.getElementById('dp-conf').value,
+                    });
+                    showAlert(res.message);
+                    e.target.reset();
+                } catch (err) {
+                    showAlert(err.message, true);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
+

@@ -1,7 +1,9 @@
 import { Hono } from 'hono';
 import Doctor from '../models/Doctor.js';
+import User from '../models/User.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { sendDoctorApprovalStatusEmail } from '../config/mailer.js';
+import { compressAndUploadToWebP } from '../utils/imageCompressor.js';
 
 const doctor = new Hono();
 
@@ -20,7 +22,8 @@ doctor.get('/', async (c) => {
             limit = '20',
         } = c.req.query();
 
-        const filter = {};
+        // Public directory ONLY exposes verified doctors
+        const filter = { isVerified: true, verificationStatus: 'approved' };
 
         // Free-text search on name, specialty, or degrees
         if (q && q.trim()) {
@@ -67,6 +70,7 @@ doctor.get('/', async (c) => {
 
         const [doctors, total] = await Promise.all([
             Doctor.find(filter)
+                .select('-bmdcCertImageUrl -govtIdImageUrl -degreeCertImageUrl -email -phone -dateOfBirth')
                 .sort(sortOption)
                 .skip(skip)
                 .limit(limitNum)
@@ -86,11 +90,84 @@ doctor.get('/', async (c) => {
     }
 });
 
-// GET /api/doctors/:id - Single Doctor Details
+// GET /api/doctors/me/profile - Logged-in Doctor's own profile (for Doctor Dashboard)
+doctor.get('/me/profile', requireAuth, requireRole('doctor', 'admin'), async (c) => {
+    try {
+        const user = c.get('user');
+        const doc = await Doctor.findOne({ userId: user._id }).lean();
+        if (!doc) {
+            return c.json({ success: false, message: 'Doctor profile not found for this account.' }, 404);
+        }
+        return c.json({ success: true, doctor: doc });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// PUT /api/doctors/me/profile - Update Doctor Dashboard details, chambers, or WebP avatar
+doctor.put('/me/profile', requireAuth, requireRole('doctor', 'admin'), async (c) => {
+    try {
+        const user = c.get('user');
+        const body = await c.req.json();
+        const doc = await Doctor.findOne({ userId: user._id });
+
+        if (!doc) {
+            return c.json({ success: false, message: 'Doctor profile not found.' }, 404);
+        }
+
+        const {
+            name,
+            designation,
+            currentWorkplace,
+            specialty,
+            experienceYears,
+            about,
+            degrees,
+            chambers,
+            profileImage,
+        } = body;
+
+        if (name) {
+            doc.name = name.trim();
+            await User.findByIdAndUpdate(user._id, { fullName: doc.name });
+        }
+        if (designation !== undefined) doc.designation = designation;
+        if (currentWorkplace !== undefined) doc.currentWorkplace = currentWorkplace;
+        if (specialty) doc.specialty = specialty;
+        if (experienceYears !== undefined) doc.experienceYears = Number(experienceYears);
+        if (about !== undefined) doc.about = about;
+        if (Array.isArray(degrees)) doc.degrees = degrees;
+        if (Array.isArray(chambers)) doc.chambers = chambers;
+
+        if (profileImage) {
+            const url = await compressAndUploadToWebP(profileImage, {
+                folder: 'healiix_doctors/avatars',
+                maxWidth: 800,
+                quality: 75,
+            });
+            doc.photoUrl = url;
+            await User.findByIdAndUpdate(user._id, { avatar: url });
+        }
+
+        await doc.save();
+
+        return c.json({
+            success: true,
+            message: 'Doctor dashboard profile updated successfully.',
+            doctor: doc,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// GET /api/doctors/:id - Single Doctor Public Details (Private certificates stripped)
 doctor.get('/:id', async (c) => {
     try {
         const id = c.req.param('id');
-        const doc = await Doctor.findById(id).lean();
+        const doc = await Doctor.findById(id)
+            .select('-bmdcCertImageUrl -govtIdImageUrl -degreeCertImageUrl -email -phone -dateOfBirth')
+            .lean();
 
         if (!doc) {
             return c.json({ success: false, message: 'Doctor profile not found.' }, 404);

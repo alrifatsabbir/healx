@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments | Doctor Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <!-- Status Summary Strip -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-[#6c8680] uppercase">Total</p><p id="cnt-all" class="font-extrabold text-2xl text-[#082c2a]">0</p></div>
+                    <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-amber-700 uppercase">Pending</p><p id="cnt-pending" class="font-extrabold text-2xl text-amber-600">0</p></div>
+                    <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-[#0e927f] uppercase">Confirmed</p><p id="cnt-confirmed" class="font-extrabold text-2xl text-[#0e927f]">0</p></div>
+                    <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-sky-700 uppercase">Completed</p><p id="cnt-completed" class="font-extrabold text-2xl text-sky-600">0</p></div>
+                    <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-red-600 uppercase">Cancelled</p><p id="cnt-cancelled" class="font-extrabold text-2xl text-red-600">0</p></div>
+                </div>
+
+                <!-- Interactive Calendar + Patient Queue -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Monthly Calendar -->
+                    <div class="lg:col-span-5 bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6">
+                        <div class="flex items-center justify-between mb-5">
+                            <h2 id="cal-month-label" class="font-extrabold text-base text-[#082c2a]">Month Year</h2>
+                            <div class="flex items-center gap-1.5">
+                                <button type="button" id="cal-prev" class="w-8 h-8 rounded-full border border-[#d7dfdb] hover:bg-[#edf5f1] flex items-center justify-center text-xs font-bold cursor-pointer">←</button>
+                                <button type="button" id="cal-today" class="px-3 py-1.5 rounded-full bg-[#edf7f4] text-[#087866] text-xs font-bold hover:bg-[#daf1e8] cursor-pointer">Today</button>
+                                <button type="button" id="cal-next" class="w-8 h-8 rounded-full border border-[#d7dfdb] hover:bg-[#edf5f1] flex items-center justify-center text-xs font-bold cursor-pointer">→</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-7 text-center text-[11px] font-bold text-[#6c8680] uppercase mb-2">
+                            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                        </div>
+                        <div id="cal-grid" class="grid grid-cols-7 gap-1.5"></div>
+
+                        <div class="mt-5 pt-4 border-t border-[#edf3f0] flex items-center justify-between text-xs">
+                            <span id="selected-date-text" class="font-semibold text-[#556e68]">Showing all scheduled dates</span>
+                            <button type="button" id="clear-date-filter" class="hidden font-bold text-[#0e927f] hover:underline cursor-pointer">Show All Dates</button>
+                        </div>
+                    </div>
+
+                    <!-- Patient Queue List -->
+                    <div class="lg:col-span-7 bg-white rounded-3xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                        <div class="p-6 border-b border-[#edf3f0] flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <h2 class="font-extrabold text-base text-[#082c2a]">Patient Consultations</h2>
+                                <p class="text-xs text-[#6c8680]">Confirm, complete, or manage incoming patient visits</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <input type="search" id="appt-search" placeholder="Ref, patient, chamber..." class="px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f]">
+                                <select id="appt-status" class="px-3 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs font-bold outline-none">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="agenda-list" class="divide-y divide-[#edf3f0] max-h-[600px] overflow-y-auto"></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+
+        let allAppointments = [];
+        let viewDate = new Date();
+        let selectedDateKey = '';
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function toDateKey(d) {
+            const dt = new Date(d);
+            return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+        }
+
+        function updateSummaryStrip() {
+            document.getElementById('cnt-all').textContent = allAppointments.length;
+            document.getElementById('cnt-pending').textContent = allAppointments.filter(a => a.status === 'pending').length;
+            document.getElementById('cnt-confirmed').textContent = allAppointments.filter(a => a.status === 'confirmed').length;
+            document.getElementById('cnt-completed').textContent = allAppointments.filter(a => a.status === 'completed').length;
+            document.getElementById('cnt-cancelled').textContent = allAppointments.filter(a => a.status === 'cancelled').length;
+        }
+
+        function renderCalendar() {
+            const year = viewDate.getFullYear();
+            const month = viewDate.getMonth();
+            document.getElementById('cal-month-label').textContent = viewDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const todayKey = toDateKey(new Date());
+
+            const countByDay = {};
+            allAppointments.forEach(a => {
+                const k = toDateKey(a.appointmentDate);
+                countByDay[k] = (countByDay[k] || 0) + 1;
+            });
+
+            const cells = [];
+            for (let i = 0; i < firstDay; i++) cells.push('<div></div>');
+            for (let day = 1; day <= daysInMonth; day++) {
+                const key = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const cnt = countByDay[key] || 0;
+                const isSelected = selectedDateKey === key;
+                const isToday = todayKey === key;
+
+                cells.push(`
+                    <button type="button" data-date="${key}" class="h-11 rounded-xl flex flex-col items-center justify-center text-xs font-bold transition-all cursor-pointer relative
+                        ${isSelected ? 'bg-[#082c2a] text-white shadow' : isToday ? 'bg-[#edf7f4] text-[#087866] ring-1 ring-[#0e927f]' : 'hover:bg-[#f3f7f5] text-[#123b39]'}">
+                        <span>${day}</span>
+                        ${cnt > 0 ? `<span class="text-[9px] leading-none mt-0.5 ${isSelected ? 'text-[#8de0cb]' : 'text-[#0e927f]'}">${cnt}</span>` : ''}
+                    </button>
+                `);
+            }
+
+            const grid = document.getElementById('cal-grid');
+            grid.innerHTML = cells.join('');
+            grid.querySelectorAll('[data-date]').forEach(btn => {
+                btn.onclick = () => {
+                    selectedDateKey = selectedDateKey === btn.dataset.date ? '' : btn.dataset.date;
+                    document.getElementById('selected-date-text').textContent = selectedDateKey ? `Schedule for ${selectedDateKey}` : 'Showing all scheduled dates';
+                    document.getElementById('clear-date-filter').classList.toggle('hidden', !selectedDateKey);
+                    renderCalendar();
+                    renderAgenda();
+                };
+            });
+        }
+
+        function renderAgenda() {
+            const q = document.getElementById('appt-search').value.trim().toLowerCase();
+            const statusFilter = document.getElementById('appt-status').value;
+
+            const filtered = allAppointments.filter(a => {
+                if (selectedDateKey && toDateKey(a.appointmentDate) !== selectedDateKey) return false;
+                if (statusFilter && a.status !== statusFilter) return false;
+                if (q) {
+                    const hay = `${a.bookingRef} ${a.patientName || ''} ${a.patientPhone || ''} ${a.hospitalName || ''}`.toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                return true;
+            });
+
+            const listEl = document.getElementById('agenda-list');
+            if (filtered.length === 0) {
+                listEl.innerHTML = `<div class="p-10 text-center text-xs text-[#6c8680]">No appointments match the selected filter or date.</div>`;
+                return;
+            }
+
+            listEl.innerHTML = filtered.map(a => `
+                <div class="p-5 hover:bg-[#fbfdfc] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-3 text-xs">
+                            <span class="font-mono font-extrabold text-[#0e927f]">#${a.bookingRef}</span>
+                            <span class="font-bold uppercase ${a.status === 'cancelled' ? 'text-red-600' : a.status === 'pending' ? 'text-amber-600' : 'text-[#087866]'}">${a.status}</span>
+                            <span class="text-[#6c8680]">BDT ${a.consultationFee || 0}</span>
+                        </div>
+                        <h3 class="font-bold text-sm text-[#082c2a]">${a.patientName || 'Patient'}</h3>
+                        <p class="text-xs text-[#556e68]">${a.hospitalName} • ${new Date(a.appointmentDate).toDateString()} at <strong>${a.timeSlot}</strong></p>
+                        <p class="text-[11px] text-[#6c8680]">Phone: ${a.patientPhone || 'N/A'}${a.patientReason ? ` • Reason: ${a.patientReason}` : ''}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        ${a.status === 'pending' ? `<button data-act="confirmed" data-id="${a._id}" class="px-3.5 py-1.5 rounded-full bg-[#0e927f] text-white text-xs font-bold hover:bg-[#087866] cursor-pointer">Confirm</button>` : ''}
+                        ${['pending', 'confirmed'].includes(a.status) ? `<button data-act="completed" data-id="${a._id}" class="px-3.5 py-1.5 rounded-full bg-[#082c2a] text-white text-xs font-bold hover:bg-[#0f4541] cursor-pointer">Complete</button>` : ''}
+                        ${['pending', 'confirmed'].includes(a.status) ? `<button data-act="cancelled" data-id="${a._id}" class="px-3.5 py-1.5 rounded-full bg-red-50 text-red-600 text-xs font-bold hover:bg-red-100 cursor-pointer">Cancel</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            listEl.querySelectorAll('[data-act]').forEach(btn => {
+                btn.onclick = async () => {
+                    const status = btn.dataset.act;
+                    let reason = '';
+                    if (status === 'cancelled') {
+                        if (window.healiixPrompt) {
+                            reason = await window.healiixPrompt({
+                                title: 'Cancel Appointment',
+                                message: 'Provide an optional reason for cancellation that will be sent to the patient:',
+                                placeholder: 'e.g. Doctor unavailable due to surgery',
+                                confirmText: 'Confirm Cancellation'
+                            });
+                            if (reason === null) return;
+                        } else {
+                            reason = 'Cancelled by doctor';
+                        }
+                    } else if (status === 'confirmed') {
+                        if (window.healiixConfirm) {
+                            const ok = await window.healiixConfirm({
+                                title: 'Confirm Appointment?',
+                                message: 'Are you sure you want to confirm this consultation slot?',
+                                confirmText: 'Confirm Slot',
+                                type: 'success'
+                            });
+                            if (!ok) return;
+                        }
+                    }
+                    try {
+                        await api.updateAppointmentStatus(btn.dataset.id, status, reason);
+                        showAlert(`Appointment updated to ${status}.`);
+                        await loadAll();
+                    } catch (err) {
+                        showAlert(err.message, true);
+                    }
+                };
+            });
+        }
+
+        async function loadAll() {
+            const res = await api.getDoctorAppointments();
+            allAppointments = res.appointments || [];
+            updateSummaryStrip();
+            renderCalendar();
+            renderAgenda();
+        }
+
+        (async () => {
+            const user = await initDashboardShell('doctor', 'doctor-appointments.html', 'Patient Appointments', 'Monthly consultation calendar and queue actions');
+            if (!user) return;
+
+            document.getElementById('cal-prev').onclick = () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1); renderCalendar(); };
+            document.getElementById('cal-next').onclick = () => { viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1); renderCalendar(); };
+            document.getElementById('cal-today').onclick = () => { viewDate = new Date(); selectedDateKey = toDateKey(new Date()); renderCalendar(); renderAgenda(); };
+            document.getElementById('clear-date-filter').onclick = () => { selectedDateKey = ''; document.getElementById('clear-date-filter').classList.add('hidden'); document.getElementById('selected-date-text').textContent = 'Showing all scheduled dates'; renderCalendar(); renderAgenda(); };
+            document.getElementById('appt-search').addEventListener('input', renderAgenda);
+            document.getElementById('appt-status').addEventListener('change', renderAgenda);
+
+            await loadAll();
+        })();
+    </script>
+</body>
+</html>
+

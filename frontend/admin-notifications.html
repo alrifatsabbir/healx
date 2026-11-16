@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <!-- 2 Sub-Tabs strictly on Notifications page -->
+                <div class="inline-flex bg-white p-1.5 rounded-2xl border border-[#e1eae6] shadow-sm">
+                    <button type="button" id="subtab-send-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0e927f] text-white cursor-pointer transition-all">1. Send Notification</button>
+                    <button type="button" id="subtab-status-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#556e68] hover:text-[#082c2a] cursor-pointer transition-all">2. Notification Status</button>
+                </div>
+
+                <!-- SUBTAB 1: SEND NOTIFICATION -->
+                <section id="panel-send" class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8 max-w-2xl">
+                    <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Broadcast Platform Update</h2>
+                    <p class="text-xs text-[#6c8680] mb-6">Shown strictly to signed-in accounts. Automatically disappears after the max time-limit unless a user deletes it earlier.</p>
+
+                    <form id="notif-form" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Notification Title *</label>
+                            <input type="text" id="nf-title" required placeholder="e.g. New Telemedicine Features Live" class="w-full px-4 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Category</label>
+                                <select id="nf-type" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none">
+                                    <option value="announcement">Announcement</option>
+                                    <option value="update">Major Update</option>
+                                    <option value="important">Important Alert</option>
+                                    <option value="maintenance">Maintenance</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Target Audience</label>
+                                <select id="nf-audience" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none">
+                                    <option value="all">All Signed-in Accounts</option>
+                                    <option value="patients">Patients Only</option>
+                                    <option value="doctors">Doctors Only</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Max Visibility (Days) *</label>
+                                <input type="number" id="nf-days" required min="1" max="90" value="7" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm font-bold text-[#0e927f] outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Message Body *</label>
+                            <textarea id="nf-message" rows="4" required placeholder="Describe the major platform update or important notice..." class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]"></textarea>
+                        </div>
+
+                        <button type="submit" id="nf-submit-btn" class="px-7 py-3 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs sm:text-sm cursor-pointer shadow-sm">
+                            Publish Notification ↗
+                        </button>
+                    </form>
+                </section>
+
+                <!-- SUBTAB 2: NOTIFICATION STATUS -->
+                <section id="panel-status" class="hidden bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-[#edf3f0]">
+                        <h2 class="font-extrabold text-lg text-[#082c2a]">Broadcast Status &amp; Expiry Tracking</h2>
+                        <p class="text-xs text-[#6c8680]">Monitor active visibility windows, user dismissals, or pause notifications early</p>
+                    </div>
+                    <div id="notifs-status-list" class="divide-y divide-[#edf3f0]"></div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        const sendBtn = document.getElementById('subtab-send-btn');
+        const statusBtn = document.getElementById('subtab-status-btn');
+        const sendPanel = document.getElementById('panel-send');
+        const statusPanel = document.getElementById('panel-status');
+
+        sendBtn.addEventListener('click', () => {
+            sendPanel.classList.remove('hidden');
+            statusPanel.classList.add('hidden');
+            sendBtn.classList.add('bg-[#0e927f]', 'text-white');
+            sendBtn.classList.remove('text-[#556e68]');
+            statusBtn.classList.remove('bg-[#0e927f]', 'text-white');
+            statusBtn.classList.add('text-[#556e68]');
+        });
+
+        statusBtn.addEventListener('click', () => {
+            statusPanel.classList.remove('hidden');
+            sendPanel.classList.add('hidden');
+            statusBtn.classList.add('bg-[#0e927f]', 'text-white');
+            statusBtn.classList.remove('text-[#556e68]');
+            sendBtn.classList.remove('bg-[#0e927f]', 'text-white');
+            sendBtn.classList.add('text-[#556e68]');
+            loadNotificationStatuses();
+        });
+
+        document.getElementById('notif-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('nf-submit-btn');
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Publishing...';
+                const res = await api.sendAdminNotification({
+                    title: document.getElementById('nf-title').value.trim(),
+                    type: document.getElementById('nf-type').value,
+                    targetAudience: document.getElementById('nf-audience').value,
+                    durationDays: Number(document.getElementById('nf-days').value) || 7,
+                    message: document.getElementById('nf-message').value.trim(),
+                });
+                showAlert(res.message);
+                e.target.reset();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Publish Notification ↗';
+            }
+        });
+
+        async function loadNotificationStatuses() {
+            const res = await api.getAdminNotifications();
+            const list = res.notifications || [];
+            const container = document.getElementById('notifs-status-list');
+            if (list.length === 0) {
+                container.innerHTML = `<div class="p-10 text-center text-xs text-[#6c8680]">No broadcast notifications sent yet.</div>`;
+                return;
+            }
+            container.innerHTML = list.map(n => {
+                const stateLabel = n.isExpired ? 'Expired' : (n.isActive ? 'Live' : 'Paused');
+                const stateColor = n.isExpired ? 'text-[#6c8680]' : (n.isActive ? 'text-[#0e927f]' : 'text-amber-600');
+                return `
+                <div class="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-[#fbfdfc]">
+                    <div class="space-y-1 max-w-2xl">
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="font-extrabold uppercase ${stateColor}">${stateLabel}</span>
+                            <span class="text-[#6c8680]">Audience: <strong>${n.targetAudience}</strong></span>
+                            <span class="text-[#6c8680]">Limit: <strong>${n.durationDays} days</strong> (Expires ${new Date(n.expiresAt).toLocaleDateString()})</span>
+                        </div>
+                        <h3 class="font-bold text-base text-[#082c2a]">${n.title}</h3>
+                        <p class="text-xs text-[#556e68]">${n.message}</p>
+                        <p class="text-[11px] text-[#7e9892] pt-1">Read by ${n.readCount} user(s) &bull; Dismissed/Deleted by ${n.dismissedCount} user(s)</p>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        ${!n.isExpired ? `<button type="button" onclick="toggleNotif('${n._id}')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-[#c8dcd4] text-[#082c2a] hover:bg-[#edf5f1] cursor-pointer">${n.isActive ? 'Pause' : 'Resume'}</button>` : ''}
+                        <button type="button" onclick="deleteNotif('${n._id}')" class="px-3.5 py-1.5 rounded-full text-xs font-bold border border-red-200 text-red-600 hover:bg-red-50 cursor-pointer">Delete</button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        window.toggleNotif = async function(id) {
+            try {
+                const res = await api.toggleAdminNotification(id);
+                showAlert(res.message);
+                await loadNotificationStatuses();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        window.deleteNotif = async function(id) {
+            const confirmed = await window.healiixConfirm({
+                title: 'Delete Notification?',
+                message: 'Permanently delete this notification for all users?',
+                confirmText: 'Delete Notification',
+                type: 'danger',
+            });
+            if (!confirmed) return;
+            try {
+                const res = await api.deleteAdminNotification(id);
+                showAlert(res.message);
+                await loadNotificationStatuses();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        (async () => {
+            await initDashboardShell('admin', 'admin-notifications.html', 'Notifications', 'Broadcast timed announcements to logged-in users and monitor visibility status');
+        })();
+    </script>
+</body>
+</html>
+

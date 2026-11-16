@@ -5,16 +5,10 @@ body, button, input, select, textarea {
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Custom Thin Scrollbar - HealX Theme */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: #0e927f #f1f5f3;
-}
-
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {

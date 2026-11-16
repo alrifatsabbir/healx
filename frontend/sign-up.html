@@ -88,11 +88,23 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Password *</label>
-                        <input type="password" id="patient-password" required placeholder="Min 6 characters" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <div class="relative">
+                            <input type="password" id="patient-password" required placeholder="Min 6 characters" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <button type="button" data-toggle-target="patient-password" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                            </button>
+                        </div>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Confirm Password *</label>
-                        <input type="password" id="patient-confirm-password" required placeholder="Repeat password" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <div class="relative">
+                            <input type="password" id="patient-confirm-password" required placeholder="Repeat password" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <button type="button" data-toggle-target="patient-confirm-password" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -110,8 +122,8 @@
 
             <!-- PATIENT OTP VERIFICATION CARD -->
             <div id="patient-otp-section" class="hidden bg-[#f3f9f6] border border-[#d5ebe2] rounded-2xl p-6 text-center my-4">
-                <div class="w-12 h-12 rounded-full bg-[#daf1e8] text-[#0e927f] flex items-center justify-center mx-auto mb-3 text-xl">
-                    ✉️
+                <div class="w-12 h-12 rounded-full bg-[#daf1e8] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <h3 class="font-extrabold text-base text-[#082c2a] mb-1">Confirm Your Email Address</h3>
                 <p class="text-xs text-[#556e68] mb-4">
@@ -196,8 +208,8 @@
                 <!-- DOCTOR OTP VERIFICATION OVERLAY / CARD                           -->
                 <!-- ---------------------------------------------------------------- -->
                 <div id="doc-otp-section" class="hidden bg-[#f3f9f6] border border-[#d5ebe2] rounded-2xl p-6 text-center my-4">
-                    <div class="w-12 h-12 rounded-full bg-[#daf1e8] text-[#0e927f] flex items-center justify-center mx-auto mb-3 text-xl">
-                        ✉️
+                    <div class="w-12 h-12 rounded-full bg-[#daf1e8] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
                     <h3 class="font-extrabold text-base text-[#082c2a] mb-1">Verify Your Email</h3>
                     <p class="text-xs text-[#556e68] mb-4">
@@ -275,17 +287,24 @@
                         <img id="preview-profile-img" class="h-14 w-14 object-cover rounded-full mt-2 hidden border border-[#0e927f]">
                     </div>
 
-                    <!-- Image Upload 2 & 3: BMDC & Degree Certificate -->
+                    <!-- Image Upload 2 & 3: BMDC Certificate + NID/Passport/Driving License (Face Visible) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="border border-[#e1eae6] rounded-2xl p-3.5 bg-[#fbfdfc]">
                             <label class="block text-xs font-bold text-[#082c2a] mb-1">2. BMDC Certificate Image *</label>
                             <input type="file" id="doc-bmdc-img-file" required accept="image/*" class="w-full text-xs text-[#526a64] file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#edf5f1] file:text-[#082c2a] cursor-pointer">
-                            <span class="text-[10px] text-[#718b85] block mt-1">For BMDC credential audit</span>
+                            <span class="text-[10.5px] text-[#718b85] block mt-1.5">Required for BMDC registration audit</span>
                         </div>
-                        <div class="border border-[#e1eae6] rounded-2xl p-3.5 bg-[#fbfdfc]">
-                            <label class="block text-xs font-bold text-[#082c2a] mb-1">3. Medical Degree Certificate</label>
-                            <input type="file" id="doc-degree-img-file" accept="image/*" class="w-full text-xs text-[#526a64] file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#edf5f1] file:text-[#082c2a] cursor-pointer">
-                            <span class="text-[10px] text-[#718b85] block mt-1">MBBS/FCPS certification</span>
+                        <div class="border border-[#e1eae6] rounded-2xl p-3.5 bg-[#fbfdfc] space-y-2">
+                            <div class="flex items-center justify-between gap-2">
+                                <label class="block text-xs font-bold text-[#082c2a]">3. Govt ID Front (Face Visible) *</label>
+                                <select id="doc-govtid-type" class="text-[11px] font-bold text-[#082c2a] bg-white border border-[#d7dfdb] rounded-lg px-2 py-0.5 outline-none">
+                                    <option value="NID">NID</option>
+                                    <option value="Passport">Passport</option>
+                                    <option value="Driving License">Driving License</option>
+                                </select>
+                            </div>
+                            <input type="file" id="doc-govtid-img-file" required accept="image/*" class="w-full text-xs text-[#526a64] file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-[#edf5f1] file:text-[#082c2a] cursor-pointer">
+                            <span class="text-[10.5px] text-[#718b85] block">Front side showing your face clearly (Encrypted Admin-only)</span>
                         </div>
                     </div>
 
@@ -293,11 +312,23 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Password *</label>
-                            <input type="password" id="doc-password" required placeholder="Min 6 characters" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <div class="relative">
+                                <input type="password" id="doc-password" required placeholder="Min 6 characters" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                <button type="button" data-toggle-target="doc-password" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                    <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Confirm Password *</label>
-                            <input type="password" id="doc-confirm-password" required placeholder="Repeat password" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <div class="relative">
+                                <input type="password" id="doc-confirm-password" required placeholder="Repeat password" class="w-full pl-4 pr-11 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                                <button type="button" data-toggle-target="doc-confirm-password" class="toggle-password-btn absolute right-3 top-1/2 -translate-y-1/2 text-[#738a83] hover:text-[#0e927f] p-1.5 rounded-lg hover:bg-[#edf5f1] transition-colors cursor-pointer" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                    <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                    <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -342,6 +373,23 @@
         const otpSentEmail = document.getElementById('otp-sent-email');
         const docOtpVerifyBtn = document.getElementById('doc-otp-verify-btn');
         const docOtpResendBtn = document.getElementById('doc-otp-resend-btn');
+
+        // Password Show/Hide Toggle
+        document.querySelectorAll('.toggle-password-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-toggle-target');
+                const input = document.getElementById(targetId);
+                if (!input) return;
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                const eyeOpen = btn.querySelector('.eye-open');
+                const eyeClosed = btn.querySelector('.eye-closed');
+                if (eyeOpen && eyeClosed) {
+                    eyeOpen.classList.toggle('hidden', isPassword);
+                    eyeClosed.classList.toggle('hidden', !isPassword);
+                }
+            });
+        });
         const docStep2Form = document.getElementById('doc-step2-form');
         const stepBadge2 = document.getElementById('step-badge-2');
         const stepperLine = document.getElementById('stepper-line');
@@ -486,9 +534,9 @@
 
                 const res = await api.patientSignup({ ...pendingPatientPayload, otp });
 
-                showFeedback(`✓ Welcome to HealiiX, ${res.user.fullName}! Redirecting to home...`, false);
+                showFeedback(`✓ Welcome to HealiiX, ${res.user.fullName}! Redirecting to your Patient Dashboard...`, false);
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'patient-dashboard.html';
                 }, 1000);
             } catch (err) {
                 showFeedback(err.message || 'Invalid OTP or signup error.', true);
@@ -626,12 +674,13 @@
 
                 const profileFile = document.getElementById('doc-profile-img-file').files[0];
                 const bmdcFile = document.getElementById('doc-bmdc-img-file').files[0];
-                const degreeFile = document.getElementById('doc-degree-img-file').files[0];
+                const govtIdFile = document.getElementById('doc-govtid-img-file').files[0];
+                const govtIdType = document.getElementById('doc-govtid-type').value;
 
-                const [profileImage, bmdcCertImage, degreeCertImage] = await Promise.all([
+                const [profileImage, bmdcCertImage, govtIdImage] = await Promise.all([
                     fileToBase64(profileFile),
                     fileToBase64(bmdcFile),
-                    fileToBase64(degreeFile),
+                    fileToBase64(govtIdFile),
                 ]);
 
                 btn.innerHTML = '<span>Registering Doctor Profile in HealiiX...</span>';
@@ -644,15 +693,16 @@
                     chamberFee,
                     profileImage,
                     bmdcCertImage,
-                    degreeCertImage,
+                    govtIdType,
+                    govtIdImage,
                     password,
                     confirmPassword,
                 });
 
-                showFeedback(`✓ Registration complete! Welcome, Dr. ${res.user.fullName}! Redirecting to your public profile...`, false);
+                showFeedback(`✓ Registration complete! Welcome, ${res.user.fullName}! Redirecting to your Doctor Dashboard...`, false);
 
                 setTimeout(() => {
-                    window.location.href = res.user.profileUrl || 'login.html';
+                    window.location.href = 'doctor-dashboard.html';
                 }, 1200);
 
             } catch (err) {

@@ -13,29 +13,77 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
-    <!-- Header & Navigation -->
-    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
-            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+    <!-- Header & Navigation (Dark #082c2a theme with mr-scrappe layout) -->
+    <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] py-4 shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Brand Link (Image contains full logo + name) -->
+            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
             </a>
-            
-            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
-                <span class="menu-icon">☰</span>
-            </button>
-            
-            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
-                <a href="index.html" class="hover:text-white transition-colors">Home</a>
-                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
-                <a href="categories.html" class="text-white font-semibold border-b-2 border-[#0e927f] pb-0.5">Categories</a>
-                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+
+            <!-- Desktop Nav Links -->
+            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
+                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
+                <a class="text-[#34d399] font-bold" href="categories.html">Categories</a>
+                <a class="hover:text-white transition-colors" href="about.html">About</a>
+                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
+                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
             </nav>
-            
-            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
-                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">↗</span></a>
+
+            <!-- Desktop Actions -->
+            <div class="nav-actions hidden sm:flex items-center gap-4">
+                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
+                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Join HealiiX</span>
+                </a>
             </div>
+
+            <!-- Mobile Buttons -->
+            <div class="flex items-center gap-2.5 md:hidden">
+                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
+                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
+            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
+                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-1 text-[#34d399] font-bold">Categories</a>
+                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
+                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -49,7 +97,9 @@
 
                 <!-- Search category -->
                 <div class="max-w-xl mx-auto relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#78928b]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
                     <input type="text" id="category-search-input" placeholder="Search specialty, organ, or health condition (e.g., Heart, Skin, Child)..." class="w-full pl-11 pr-4 py-3.5 rounded-full border border-[#d7dfdb] bg-white text-sm text-[#082c2a] shadow-sm focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                 </div>
             </div>
@@ -57,166 +107,305 @@
 
         <!-- Categories Grid -->
         <section class="py-16">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="font-bold text-2xl text-[#082c2a]">All Specialties (12 Departments)</h2>
-                    <span class="text-xs text-[#738a83] font-medium">Click any category to view available doctors</span>
+            <div class="container w-[min(1360px,calc(100%-48px))] mx-auto">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <h2 class="font-bold text-2xl text-[#082c2a]">All Specialties (19 Clinical Departments)</h2>
+                        <p class="text-xs text-[#738a83] mt-1">Select any department to browse verified specialist doctors across Bangladesh</p>
+                    </div>
+                    <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#edf7f4] text-[#0e927f] border border-[#cce6dc] self-start sm:self-auto">155+ Verified Doctors Available</span>
                 </div>
 
-                <div id="categories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div id="categories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
                     
-                    <!-- Cardiology -->
+                    <!-- 1. Neurology & Neurosurgery -->
+                    <a href="find-doctors.html?category=Neurology%20%26%20Neurosurgery" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ede9fe] text-[#7c3aed] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Neurology &amp; Neurosurgery</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Brain stroke, nerve disorders, migraine, skull-base and endoscopic spine surgeries.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">25 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Pediatrics & Child Care -->
+                    <a href="find-doctors.html?category=Pediatrics%20%26%20Child%20Care" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#dbeafe] text-[#2563eb] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Pediatrics &amp; Child Care</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Newborn intensive care, infant nutrition, childhood infections, and pediatric surgery.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">17 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Plastic & Aesthetic Surgery -->
+                    <a href="find-doctors.html?category=Plastic%20%26%20Aesthetic%20Surgery" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#fdf2f8] text-[#db2777] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Plastic &amp; Aesthetic Surgery</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Burn management, reconstructive surgery, cosmetic enhancements, and hair restoration.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">14 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. Cardiology -->
                     <a href="find-doctors.html?category=Cardiology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#fee2e2] text-[#ef4444] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                ❤️
+                            <div class="w-12 h-12 rounded-xl bg-[#fee2e2] text-[#ef4444] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Cardiology</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Heart health, blood pressure management, ECG evaluation, and coronary care.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Chest Pain</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Hypertension</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Cardiology &amp; Heart Care</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Hypertension, heart attacks, coronary angioplasty, pacemaker care, and cardiovascular surgery.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">42+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">12 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Dermatology -->
+                    <!-- 5. Orthopedics & Trauma -->
+                    <a href="find-doctors.html?category=Orthopedics%20%26%20Trauma" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ecfdf5] text-[#059669] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Orthopedics &amp; Trauma</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Bone fractures, joint replacements, arthroscopy, sports injuries, and spine rehabilitation.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">11 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 6. General & Colorectal Surgery -->
+                    <a href="find-doctors.html?category=General%20%26%20Colorectal%20Surgery" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#e0f2fe] text-[#0284c7] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">General &amp; Colorectal Surgery</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Laparoscopic hernia, gallbladder stone, piles, fistula, fissure, and abdominal operations.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">10 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 7. Dentistry & Maxillofacial -->
+                    <a href="find-doctors.html?category=Dentistry%20%26%20Maxillofacial" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ccfbf1] text-[#0d9488] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Dentistry &amp; Maxillofacial</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Oral surgeries, dental implants, root canal treatments, jaw alignment, and smile aesthetics.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">9 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 8. Gynecology & Obstetrics -->
+                    <a href="find-doctors.html?category=Gynecology%20%26%20Obstetrics" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#fce7f3] text-[#db2777] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Gynecology &amp; Obstetrics</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Maternity care, safe deliveries, infertility evaluations, PCOS, and laparoscopic procedures.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">8 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 9. Endocrinology & Diabetes -->
+                    <a href="find-doctors.html?category=Endocrinology%20%26%20Diabetes" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#fef3c7] text-[#d97706] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Endocrinology &amp; Diabetes</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Diabetes therapy, thyroid gland disorders, metabolic health, and hormone imbalances.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">8 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 10. Urology & Andrology -->
+                    <a href="find-doctors.html?category=Urology%20%26%20Andrology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#e0e7ff] text-[#4f46e5] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Urology &amp; Andrology</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Urinary tract infections, kidney stones, prostate treatment, and male reproductive care.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">7 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 11. Medicine & Diabetology -->
+                    <a href="find-doctors.html?category=Medicine%20%26%20Diabetology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ecfeff] text-[#0891b2] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Medicine &amp; Diabetology</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Internal medicine, chronic illnesses, fever, seasonal viral infections, and chest diseases.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">6 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 12. Gastroenterology & Liver -->
+                    <a href="find-doctors.html?category=Gastroenterology%20%26%20Liver" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#fae8ff] text-[#c026d3] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Gastroenterology &amp; Liver</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Stomach ulcers, IBS, chronic liver disorders, hepatitis, endoscopy, and colonoscopy.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">5 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 13. Ophthalmology (Eye) -->
+                    <a href="find-doctors.html?category=Ophthalmology%20(Eye)" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-[#ccfbf1] text-[#0d9488] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Ophthalmology (Eye Care)</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Cataract phaco surgery, glaucoma checks, cornea disease, retina treatments, and glasses.</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
+                            <span class="text-[#0e927f] font-semibold">5 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+                        </div>
+                    </a>
+
+                    <!-- 14. Dermatology -->
                     <a href="find-doctors.html?category=Dermatology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#fef3c7] text-[#f59e0b] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                🧴
+                            <div class="w-12 h-12 rounded-xl bg-[#fef3c7] text-[#d97706] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Dermatology</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Skin disorders, acne treatment, allergy assessment, hair loss, and cosmetic care.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Acne</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Eczema</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Dermatology (Skin &amp; Hair)</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Acne, eczema, psoriasis, skin allergies, fungal infections, hair fall, and aesthetic lasers.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">35+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">4 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Pediatrics -->
-                    <a href="find-doctors.html?category=Pediatrics" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 15. ENT (Ear, Nose & Throat) -->
+                    <a href="find-doctors.html?category=ENT%20(Ear%2C%20Nose%20%26%20Throat)" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#dbeafe] text-[#3b82f6] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                👶
+                            <div class="w-12 h-12 rounded-xl bg-[#fee2e2] text-[#e11d48] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Pediatrics</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Infant care, child immunization, developmental milestones, and pediatric infections.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Fever</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Vaccine</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">ENT (Ear, Nose &amp; Throat)</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Sinusitis, hearing disorders, tonsillitis, nasal polyps, and endoscopic head-neck surgeries.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">48+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">4 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Neurology -->
-                    <a href="find-doctors.html?category=Neurology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 16. Oncology & Cancer Care -->
+                    <a href="find-doctors.html?category=Oncology%20%26%20Cancer%20Care" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#ede9fe] text-[#8b5cf6] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                🧠
+                            <div class="w-12 h-12 rounded-xl bg-[#f5f3ff] text-[#6d28d9] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Neurology</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Brain, spine, and nerve disorders. Migraines, tremors, strokes, and neuropathy.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Migraine</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Nerve Pain</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Oncology &amp; Cancer Care</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Surgical oncology, chemotherapy regimes, radiation planning, and tumor multidisciplinary care.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">28+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">4 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Orthopedics -->
-                    <a href="find-doctors.html?category=Orthopedic" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 17. Nephrology & Kidney -->
+                    <a href="find-doctors.html?category=Nephrology%20%26%20Kidney" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#ecfdf5] text-[#10b981] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                🦴
+                            <div class="w-12 h-12 rounded-xl bg-[#eff6ff] text-[#1d4ed8] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Orthopedics</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Bones, joints, arthritis, sports injuries, fracture management, and spine surgery.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Joint Pain</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Fractures</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Nephrology &amp; Kidney</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Chronic kidney disease, dialysis maintenance, proteinuria, and renal health monitoring.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">39+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">2 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Gynecology -->
-                    <a href="find-doctors.html?category=Gynecology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 18. Psychiatry & Mental Health -->
+                    <a href="find-doctors.html?category=Psychiatry%20%26%20Mental%20Health" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#fce7f3] text-[#ec4899] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                🌸
+                            <div class="w-12 h-12 rounded-xl bg-[#f5f5f4] text-[#44403c] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Gynecology</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Women's reproductive health, prenatal/pregnancy care, fertility, and PCOS treatment.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Pregnancy</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">PCOS</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Psychiatry &amp; Mental Health</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Anxiety, depression, sleep disorders, stress counselling, and neuropsychiatric care.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">50+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">2 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- General Medicine -->
-                    <a href="find-doctors.html?category=General Physician" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 19. General Physician -->
+                    <a href="find-doctors.html?category=General%20Physician" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#e0f2fe] text-[#0284c7] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                🩺
+                            <div class="w-12 h-12 rounded-xl bg-[#f0fdf4] text-[#15803d] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">General Medicine</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Comprehensive adult primary care, viral infections, diabetes, and preventive health.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Diabetes</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Flu & Fever</span>
-                            </div>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">General Physician</h3>
+                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">First-line health evaluations, family medicine, routine wellness, and specialist referrals.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">65+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
+                            <span class="text-[#0e927f] font-semibold">2 Verified Doctors</span>
+                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                         </div>
                     </a>
 
-                    <!-- Ophthalmology -->
-                    <a href="find-doctors.html?category=Ophthalmology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-[#ccfbf1] text-[#14b8a6] text-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                👁️
-                            </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Ophthalmology</h3>
-                            <p class="text-xs text-[#627a74] leading-relaxed mb-4">Vision correction, cataract consultations, glaucoma screening, and eye strain.</p>
-                            <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Blurry Vision</span>
-                                <span class="bg-[#f0f5f3] text-[#33504a] text-[11px] font-medium px-2 py-0.5 rounded-md">Cataract</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
-                            <span class="text-[#0e927f] font-semibold">24+ Doctors</span>
-                            <span class="text-[#8fa7a0] group-hover:translate-x-1 transition-transform">Explore →</span>
-                        </div>
-                    </a>
                 </div>
+            </div>
+        </section>
             </div>
         </section>
 
@@ -246,6 +435,7 @@
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
                     <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
                     <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="faq.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
                     <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
                 </div>
                 <div class="flex flex-col gap-3">
@@ -290,5 +480,6 @@
             primaryNav.classList.toggle('hidden');
         });
     </script>
+    <script type="module" src="./js/auth.js"></script>
 </body>
 </html>

@@ -12,30 +12,78 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
-    <!-- Header & Navigation -->
-    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)] transition-colors">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
-            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" width="120" height="30" class="h-12 w-auto object-contain rounded-md">
+<body class="bg-[#f8f8f4] text-[#123b39] pt-[72px] antialiased">
+    <!-- Header & Navigation (Dark #082c2a theme with mr-scrappe layout) -->
+    <header id="site-header" class="site-header fixed top-0 left-0 right-0 h-[72px] z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] flex items-center shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <!-- Brand Link (Image contains full logo + name) -->
+            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
             </a>
-            
-            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white text-lg hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
-                <span class="menu-icon">☰</span>
-            </button>
-            
-            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
-                <a href="index.html" class="hover:text-white transition-colors">Home</a>
-                <a href="find-doctors.html" class="text-white font-semibold border-b-2 border-[#0e927f] pb-0.5">Find Doctors</a>
-                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
-                <a href="about.html" class="hover:text-white transition-colors">About Us</a>
-                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+
+            <!-- Desktop Nav Links -->
+            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
+                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a class="text-[#34d399] font-bold" href="find-doctors.html">Find Doctors</a>
+                <a class="hover:text-white transition-colors" href="categories.html">Categories</a>
+                <a class="hover:text-white transition-colors" href="about.html">About</a>
+                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
+                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
             </nav>
-            
-            <div class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
-                <a href="login.html" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="sign-up.html" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] hover:-translate-y-0.5 hover:shadow-md transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">↗</span></a>
+
+            <!-- Desktop Actions -->
+            <div class="nav-actions hidden sm:flex items-center gap-4">
+                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
+                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Join HealiiX</span>
+                </a>
             </div>
+
+            <!-- Mobile Buttons -->
+            <div class="flex items-center gap-2.5 md:hidden">
+                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
+                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
+            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
+                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-1 text-[#34d399] font-bold">Find Doctors</a>
+                <a href="categories.html" class="py-1 hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
+                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -53,34 +101,55 @@
                 <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-[0_8px_30px_rgba(8,44,42,0.08)] border border-[#dcefe9]">
                     <form id="doctor-filter-form" class="grid grid-cols-1 md:grid-cols-12 gap-3">
                         <div class="md:col-span-5 relative">
-                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">🔍</span>
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0e927f]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            </span>
                             <input type="text" id="filter-search-input" placeholder="Doctor name, condition, or hospital..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                         </div>
                         <div class="md:col-span-3 relative">
-                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">📍</span>
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0e927f]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </span>
                             <select id="filter-location-select" class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
                                 <option value="">All Locations</option>
                                 <option value="Dhaka">Dhaka</option>
-                                <option value="Chattogram">Chattogram</option>
+                                <option value="Chattogram">Chattogram (Chittagong)</option>
                                 <option value="Sylhet">Sylhet</option>
                                 <option value="Rajshahi">Rajshahi</option>
                                 <option value="Khulna">Khulna</option>
+                                <option value="Barishal">Barishal</option>
+                                <option value="Rangpur">Rangpur</option>
+                                <option value="Mymensingh">Mymensingh</option>
+                                <option value="Bogura">Bogura (Bogra)</option>
+                                <option value="Cumilla">Cumilla (Comilla)</option>
+                                <option value="Cox's Bazar">Cox's Bazar</option>
                             </select>
                         </div>
                         <div class="md:col-span-3 relative">
-                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8fa7a0] text-base">🩺</span>
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#0e927f]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </span>
                             <select id="filter-category-select" class="w-full pl-10 pr-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
-                                <option value="">All Specialties</option>
-                                <option value="Cardiology">Cardiology (Heart)</option>
-                                <option value="Dermatology">Dermatology (Skin)</option>
-                                <option value="Pediatrics">Pediatrics (Child)</option>
-                                <option value="Neurology">Neurology (Brain/Nerve)</option>
-                                <option value="Orthopedic">Orthopedics (Bones)</option>
-                                <option value="Gynecology">Gynecology (Women's Health)</option>
-                                <option value="General Physician">General Medicine</option>
-                                <option value="Psychiatry">Psychiatry / Mental Health</option>
-                                <option value="Ophthalmology">Ophthalmology (Eye)</option>
-                                <option value="Nutritionist">Nutrition & Dietetics</option>
+                                <option value="">All Specialties (19 Categories)</option>
+                                <option value="Neurology & Neurosurgery">Neurology &amp; Neurosurgery</option>
+                                <option value="Pediatrics & Child Care">Pediatrics &amp; Child Care</option>
+                                <option value="Plastic & Aesthetic Surgery">Plastic &amp; Aesthetic Surgery</option>
+                                <option value="Cardiology">Cardiology &amp; Heart</option>
+                                <option value="Orthopedics & Trauma">Orthopedics &amp; Trauma</option>
+                                <option value="General & Colorectal Surgery">General &amp; Colorectal Surgery</option>
+                                <option value="Dentistry & Maxillofacial">Dentistry &amp; Maxillofacial</option>
+                                <option value="Gynecology & Obstetrics">Gynecology &amp; Obstetrics</option>
+                                <option value="Endocrinology & Diabetes">Endocrinology &amp; Diabetes</option>
+                                <option value="Urology & Andrology">Urology &amp; Andrology</option>
+                                <option value="Medicine & Diabetology">Medicine &amp; Diabetology</option>
+                                <option value="Gastroenterology & Liver">Gastroenterology &amp; Liver</option>
+                                <option value="Ophthalmology (Eye)">Ophthalmology (Eye Care)</option>
+                                <option value="Dermatology">Dermatology (Skin &amp; Hair)</option>
+                                <option value="ENT (Ear, Nose & Throat)">ENT (Ear, Nose &amp; Throat)</option>
+                                <option value="Oncology & Cancer Care">Oncology &amp; Cancer Care</option>
+                                <option value="Nephrology & Kidney">Nephrology &amp; Kidney</option>
+                                <option value="Psychiatry & Mental Health">Psychiatry &amp; Mental Health</option>
+                                <option value="General Physician">General Physician</option>
                             </select>
                         </div>
                         <div class="md:col-span-1">
@@ -94,76 +163,76 @@
         </section>
 
         <!-- Main Listing Section -->
-        <section class="py-12">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
-                <div class="flex flex-col lg:flex-row gap-8 items-start">
+        <section class="py-10">
+            <div class="container w-[min(1420px,calc(100%-32px))] mx-auto">
+                <div class="flex flex-col lg:flex-row gap-7 items-start">
                     
-                    <!-- Sidebar Filters -->
-                    <aside class="w-full lg:w-72 bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm flex-shrink-0">
-                        <div class="flex items-center justify-between pb-4 mb-4 border-b border-[#edf2ef]">
+                    <!-- Sidebar Filters (Refined Compact Layout) -->
+                    <aside class="w-full lg:w-[260px] bg-white rounded-2xl p-5 border border-[#e1eae6] shadow-sm flex-shrink-0 space-y-5">
+                        <div class="flex items-center justify-between pb-3.5 border-b border-[#edf2ef]">
                             <h2 class="font-bold text-base text-[#082c2a]">Filters</h2>
                             <button id="reset-filters-btn" class="text-xs text-[#0e927f] font-semibold hover:underline cursor-pointer">Reset All</button>
                         </div>
 
                         <!-- Availability Filter -->
-                        <div class="mb-6">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Availability</h3>
-                            <div class="space-y-2 text-sm text-[#35524c]">
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-2.5">Availability</h3>
+                            <div class="space-y-2 text-xs sm:text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="checkbox" name="availability" value="today" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Available Today
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="checkbox" name="availability" value="tomorrow" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Available Tomorrow
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="checkbox" name="availability" value="online" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Video Consultation
                                 </label>
                             </div>
                         </div>
 
                         <!-- Fee Range Filter -->
-                        <div class="mb-6">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Consultation Fee</h3>
-                            <div class="space-y-2 text-sm text-[#35524c]">
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                        <div class="pt-3 border-t border-[#edf2ef]">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-2.5">Consultation Fee</h3>
+                            <div class="space-y-2 text-xs sm:text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="radio" name="fee_range" value="all" checked class="text-[#0e927f] focus:ring-[#0e927f]"> Any Fee
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="radio" name="fee_range" value="under_1000" class="text-[#0e927f] focus:ring-[#0e927f]"> Under ৳1000
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="radio" name="fee_range" value="1000_1500" class="text-[#0e927f] focus:ring-[#0e927f]"> ৳1000 - ৳1500
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
-                                    <input type="radio" name="fee_range" value="above_1500" class="text-[#0e927f] focus:ring-[#0e927f]"> ৳1500 & Above
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
+                                    <input type="radio" name="fee_range" value="above_1500" class="text-[#0e927f] focus:ring-[#0e927f]"> ৳1500 &amp; Above
                                 </label>
                             </div>
                         </div>
 
                         <!-- Gender Filter -->
-                        <div class="mb-6">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Doctor Gender</h3>
-                            <div class="space-y-2 text-sm text-[#35524c]">
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                        <div class="pt-3 border-t border-[#edf2ef]">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-2.5">Doctor Gender</h3>
+                            <div class="space-y-2 text-xs sm:text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="checkbox" name="gender" value="male" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Male Doctor
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="checkbox" name="gender" value="female" class="rounded text-[#0e927f] focus:ring-[#0e927f]"> Female Doctor
                                 </label>
                             </div>
                         </div>
 
                         <!-- Rating Filter -->
-                        <div>
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-3">Rating</h3>
-                            <div class="space-y-2 text-sm text-[#35524c]">
-                                <label class="flex items-center gap-2.5 cursor-pointer">
-                                    <input type="radio" name="min_rating" value="4.8" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.8 & Above
+                        <div class="pt-3 border-t border-[#edf2ef]">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-[#798e88] mb-2.5">Minimum Rating</h3>
+                            <div class="space-y-2 text-xs sm:text-sm text-[#35524c]">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
+                                    <input type="radio" name="min_rating" value="4.8" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.8 &amp; Above
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
-                                    <input type="radio" name="min_rating" value="4.5" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.5 & Above
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
+                                    <input type="radio" name="min_rating" value="4.5" class="text-[#0e927f] focus:ring-[#0e927f]"> ⭐ 4.5 &amp; Above
                                 </label>
-                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                <label class="flex items-center gap-2.5 cursor-pointer hover:text-[#0e927f] transition-colors">
                                     <input type="radio" name="min_rating" value="all" checked class="text-[#0e927f] focus:ring-[#0e927f]"> All Ratings
                                 </label>
                             </div>
@@ -171,10 +240,10 @@
                     </aside>
 
                     <!-- Doctor Cards Results List -->
-                    <div class="flex-1 w-full">
+                    <div class="flex-1 w-full min-w-0">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                             <p class="text-sm text-[#5a746e] font-medium" id="results-count-text">Showing <strong class="text-[#082c2a]" id="results-count">0 verified doctors</strong> matching your criteria</p>
-                            <div class="flex items-center gap-2 text-sm">
+                            <div class="flex items-center gap-2 text-sm flex-shrink-0">
                                 <span class="text-[#798e88]">Sort by:</span>
                                 <select id="sort-select" class="border border-[#d7dfdb] bg-white rounded-lg px-3 py-1.5 text-xs text-[#082c2a] outline-none font-semibold cursor-pointer">
                                     <option value="recommended">Recommended</option>
@@ -185,12 +254,23 @@
                             </div>
                         </div>
 
-                        <!-- Doctors Grid -->
-                        <div id="doctors-listing-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- Doctors Grid (Wide & Roomy) -->
+                        <div id="doctors-listing-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7">
                             <!-- Dynamically loaded from backend API -->
                         </div>
-                        <div id="empty-doctors-state" class="mt-8 bg-white p-12 rounded-2xl text-center text-[#6d7f7b] border border-dashed border-[#d7dfdb]">
-                            <span class="text-3xl block mb-3">🩺</span>
+
+                        <!-- Pagination Controls (Interactive) -->
+                        <div id="pagination-wrapper" class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 bg-white rounded-2xl border border-[#e1eae6] shadow-2xs">
+                            <p class="text-xs font-semibold text-[#5a746e]" id="pagination-info">Showing 1 - 12 of 156 verified doctors</p>
+                            <div class="flex items-center gap-1.5 flex-wrap" id="pagination-buttons">
+                                <!-- Populated dynamically by renderDoctors() -->
+                            </div>
+                        </div>
+
+                        <div id="empty-doctors-state" class="mt-8 bg-white p-12 rounded-2xl text-center text-[#6d7f7b] border border-dashed border-[#d7dfdb] hidden">
+                            <span class="w-12 h-12 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </span>
                             <h3 class="font-bold text-xl text-[#082c2a] mb-2">No Doctors Listed Yet</h3>
                             <p class="text-sm text-[#6c8680]">Connecting to backend to fetch verified doctors...</p>
                         </div>
@@ -208,48 +288,62 @@
             <h2 id="booking-title" class="font-extrabold text-2xl sm:text-3xl text-[#082c2a] mb-2 tracking-tight">Book an appointment</h2>
             <p class="text-[#6d7f7b] text-sm mb-6 leading-relaxed">Confirm your appointment slot with verified specialists.</p>
             
+            <div id="booking-alert" class="hidden p-3 rounded-xl text-xs font-bold mb-3 border bg-red-50 text-red-700 border-red-200"></div>
+
             <form id="booking-form" class="flex flex-col gap-4">
+                <input type="hidden" id="selected-doctor-id">
+                <input type="hidden" id="selected-hospital-name">
+                <input type="hidden" id="selected-doctor-fee">
+
                 <label class="block text-xs font-bold text-[#082c2a]">
-                    <span class="block mb-1.5">Doctor</span>
+                    <span class="block mb-1.5">Doctor &amp; Specialty</span>
                     <input type="text" id="selected-doctor-input" readonly class="w-full border-[1.5px] border-[#d7dfdb] bg-[#f0f4f2] rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] font-semibold outline-none">
                 </label>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <label class="block text-xs font-bold text-[#082c2a]">
-                        <span class="block mb-1.5">Your Full Name</span>
-                        <input type="text" required placeholder="Patient name" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <span class="block mb-1.5">Your Full Name *</span>
+                        <input type="text" id="booking-patient-name" required placeholder="Patient full name" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                     </label>
                     <label class="block text-xs font-bold text-[#082c2a]">
-                        <span class="block mb-1.5">Phone Number</span>
-                        <input type="tel" required placeholder="017xxxxxxxx" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                        <span class="block mb-1.5">Phone Number *</span>
+                        <input type="tel" id="booking-patient-phone" required placeholder="017xxxxxxxx" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                     </label>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <label class="block text-xs font-bold text-[#082c2a]">
-                        <span class="block mb-1.5">Appointment Date</span>
+                        <span class="block mb-1.5">Appointment Date *</span>
                         <input type="date" required id="booking-date" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
                     </label>
                     <label class="block text-xs font-bold text-[#082c2a]">
-                        <span class="block mb-1.5">Preferred Slot</span>
-                        <select class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                            <option>Morning (10:00 AM - 12:00 PM)</option>
-                            <option>Afternoon (03:00 PM - 05:00 PM)</option>
-                            <option selected>Evening (06:00 PM - 08:30 PM)</option>
+                        <span class="block mb-1.5">Preferred Slot *</span>
+                        <select id="booking-slot" class="w-full border-[1.5px] border-[#d7dfdb] bg-white rounded-lg px-3.5 py-2.5 text-sm text-[#082c2a] focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+                            <option value="05:00 PM">05:00 PM</option>
+                            <option value="05:30 PM">05:30 PM</option>
+                            <option value="06:00 PM" selected>06:00 PM</option>
+                            <option value="07:00 PM">07:00 PM</option>
+                            <option value="08:00 PM">08:00 PM</option>
                         </select>
                     </label>
                 </div>
 
-                <button class="mt-3 py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] transition-all cursor-pointer border-0 flex items-center justify-center gap-2" type="submit">
+                <div class="p-3 bg-[#edf7f4] rounded-xl border border-[#cde9de] flex items-center justify-between text-xs text-[#082c2a]">
+                    <span>Consultation Fee:</span>
+                    <strong id="booking-fee-display" class="font-extrabold text-[#0e927f] text-sm">৳1000</strong>
+                </div>
+
+                <button id="btn-submit-booking" class="mt-1 py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white shadow-md hover:bg-[#087866] transition-all cursor-pointer border-0 flex items-center justify-center gap-2" type="submit">
                     Confirm Appointment <span aria-hidden="true">↗</span>
                 </button>
             </form>
 
             <div class="hidden bg-[#eef8f5] border-[1.5px] border-[#c3e7dc] rounded-2xl p-6 text-center mt-3" id="booking-success">
                 <div class="w-12 h-12 rounded-full bg-[#0e927f] text-white text-2xl flex items-center justify-center mx-auto mb-3.5">✓</div>
-                <h3 class="font-bold text-xl text-[#082c2a] mb-2">Appointment Confirmed!</h3>
-                <p class="text-[#49635d] text-sm mb-4">We sent booking details and SMS token to your mobile number.</p>
-                <button class="py-2 px-5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0" id="booking-done-btn" type="button">Done</button>
+                <h3 class="font-bold text-xl text-[#082c2a] mb-1">Appointment Confirmed!</h3>
+                <p class="text-[#49635d] text-xs mb-3">Booking reference: <strong id="booking-ref-display" class="font-mono text-sm text-[#0e927f] bg-white px-2 py-0.5 rounded border border-[#b8ded1]">REF-...</strong></p>
+                <p class="text-[#6c8680] text-xs mb-5">Your consultation details have been sent to your physician. You can inspect all bookings from your patient dashboard.</p>
+                <button class="py-2.5 px-6 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0" id="booking-done-btn" type="button">Done</button>
             </div>
         </div>
     </div>
@@ -268,6 +362,7 @@
                     <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
                     <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
                     <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="faq.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
                     <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
                 </div>
                 <div class="flex flex-col gap-3">
@@ -289,38 +384,39 @@
         </div>
     </footer>
 
-    <!-- Interactive script -->
-    <script>
-        // Modal & Booking
+    <!-- Interactive Dynamic Script -->
+    <script type="module">
+        import api from './js/api.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+        import './js/auth.js';
+
+        let allDoctors = [];
+        let currentPage = 1;
+        const pageSize = 12;
+
+        // Elements
+        const grid = document.getElementById('doctors-listing-grid');
+        const emptyState = document.getElementById('empty-doctors-state');
+        const countText = document.getElementById('results-count-text');
+        const countSpan = document.getElementById('results-count');
+        const searchInput = document.getElementById('filter-search-input');
+        const locSelect = document.getElementById('filter-location-select');
+        const catSelect = document.getElementById('filter-category-select');
+        const sortSelect = document.getElementById('sort-select');
+        const filterForm = document.getElementById('doctor-filter-form');
+        const resetBtn = document.getElementById('reset-filters-btn');
+        const paginationWrapper = document.getElementById('pagination-wrapper');
+        const paginationInfo = document.getElementById('pagination-info');
+        const paginationButtons = document.getElementById('pagination-buttons');
+
+        // Booking Modal Elements
         const modal = document.getElementById('booking-modal');
         const bookingForm = document.getElementById('booking-form');
         const bookingSuccess = document.getElementById('booking-success');
-        const docInput = document.getElementById('selected-doctor-input');
+        const bookingAlert = document.getElementById('booking-alert');
+        const btnSubmitBooking = document.getElementById('btn-submit-booking');
 
-        document.querySelectorAll('.book-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                docInput.value = btn.dataset.doctor;
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                bookingForm.classList.remove('hidden');
-                bookingSuccess.classList.add('hidden');
-            });
-        });
-
-        document.querySelectorAll('.modal-close, #booking-done-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            });
-        });
-
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            bookingForm.classList.add('hidden');
-            bookingSuccess.classList.remove('hidden');
-        });
-
-        // Set tomorrow as default date
+        // Set tomorrow as default booking date
         const dateInput = document.getElementById('booking-date');
         if (dateInput) {
             const tom = new Date();
@@ -329,66 +425,636 @@
             dateInput.value = tom.toISOString().split('T')[0];
         }
 
-        // Live Filter in Page
-        const filterForm = document.getElementById('doctor-filter-form');
-        const searchInput = document.getElementById('filter-search-input');
-        const locSelect = document.getElementById('filter-location-select');
-        const catSelect = document.getElementById('filter-category-select');
-        const cards = document.querySelectorAll('.doctor-card');
-        const countText = document.getElementById('results-count-text');
+        function showBookingAlert(msg) {
+            bookingAlert.textContent = msg;
+            bookingAlert.classList.remove('hidden');
+        }
 
-        function applyFilter() {
-            const query = (searchInput.value || '').toLowerCase().trim();
-            const location = (locSelect.value || '').toLowerCase();
-            const category = (catSelect.value || '').toLowerCase();
+        function hideBookingAlert() {
+            bookingAlert.classList.add('hidden');
+            bookingAlert.textContent = '';
+        }
 
-            let matched = 0;
-            cards.forEach(card => {
-                const name = (card.dataset.doctor || '').toLowerCase();
-                const spec = (card.dataset.specialty || '').toLowerCase();
-                const loc = (card.dataset.location || '').toLowerCase();
-                const cardText = card.textContent.toLowerCase();
+        // Render Interactive Pagination Controls
+        function renderPagination(totalItems, totalPages) {
+            if (!paginationWrapper || !paginationButtons || !paginationInfo) return;
 
-                const matchQ = !query || name.includes(query) || spec.includes(query) || cardText.includes(query);
-                const matchLoc = !location || loc.includes(location);
-                const matchCat = !category || spec.includes(category);
+            if (totalItems === 0 || totalPages <= 1) {
+                paginationWrapper.classList.add('hidden');
+                return;
+            }
 
-                if (matchQ && matchLoc && matchCat) {
-                    card.style.display = 'flex';
-                    matched++;
+            paginationWrapper.classList.remove('hidden');
+            const startIndex = (currentPage - 1) * pageSize + 1;
+            const endIndex = Math.min(currentPage * pageSize, totalItems);
+
+            paginationInfo.innerHTML = `Showing <strong class="text-[#082c2a] font-bold">${startIndex} - ${endIndex}</strong> of <strong class="text-[#082c2a] font-bold">${totalItems}</strong> verified specialists (Page ${currentPage} of ${totalPages})`;
+
+            // Generate Page Numbers Array with Ellipses
+            const pages = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+                pages.push(1);
+                if (currentPage > 3) pages.push('...');
+                
+                const start = Math.max(2, currentPage - 1);
+                const end = Math.min(totalPages - 1, currentPage + 1);
+                for (let i = start; i <= end; i++) {
+                    if (!pages.includes(i)) pages.push(i);
+                }
+
+                if (currentPage < totalPages - 2) pages.push('...');
+                if (!pages.includes(totalPages)) pages.push(totalPages);
+            }
+
+            // Build Buttons HTML
+            let html = `
+                <button type="button" class="btn-prev-page px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border ${currentPage === 1 ? 'border-slate-200 text-slate-300 bg-slate-50 cursor-not-allowed' : 'border-[#d2ded8] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer'}" ${currentPage === 1 ? 'disabled' : ''}>
+                    <span>&larr;</span> <span>Prev</span>
+                </button>
+            `;
+
+            pages.forEach(p => {
+                if (p === '...') {
+                    html += `<span class="px-2 py-1 text-slate-400 font-bold text-xs select-none">...</span>`;
                 } else {
-                    card.style.display = 'none';
+                    const isActive = p === currentPage;
+                    html += `
+                        <button type="button" class="btn-page-num w-9 h-9 rounded-xl text-xs font-black transition-all cursor-pointer border ${isActive ? 'bg-[#0e927f] border-[#0e927f] text-white shadow-sm' : 'bg-white border-[#d2ded8] text-[#082c2a] hover:bg-[#edf7f4]'}" data-page="${p}">
+                            ${p}
+                        </button>
+                    `;
                 }
             });
 
+            html += `
+                <button type="button" class="btn-next-page px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border ${currentPage === totalPages ? 'border-slate-200 text-slate-300 bg-slate-50 cursor-not-allowed' : 'border-[#d2ded8] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer'}" ${currentPage === totalPages ? 'disabled' : ''}>
+                    <span>Next</span> <span>&rarr;</span>
+                </button>
+            `;
+
+            paginationButtons.innerHTML = html;
+
+            // Hook pagination events
+            paginationButtons.querySelector('.btn-prev-page')?.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderDoctors();
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            paginationButtons.querySelector('.btn-next-page')?.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderDoctors();
+                    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+
+            paginationButtons.querySelectorAll('.btn-page-num').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetPage = Number(btn.dataset.page);
+                    if (targetPage && targetPage !== currentPage) {
+                        currentPage = targetPage;
+                        renderDoctors();
+                        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+
+        // Render Doctor Cards
+        function renderDoctors() {
+            const query = (searchInput.value || '').toLowerCase().trim();
+            const location = (locSelect.value || '').toLowerCase().trim();
+            const category = (catSelect.value || '').toLowerCase().trim();
+            const sortMode = sortSelect?.value || 'recommended';
+
+            // Selected Radio & Checkbox Filters
+            const selectedFee = document.querySelector('input[name="fee_range"]:checked')?.value || 'all';
+            const selectedRating = document.querySelector('input[name="min_rating"]:checked')?.value || 'all';
+            const checkedGenders = Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(cb => cb.value.toLowerCase());
+            const checkedAvailabilities = Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(cb => cb.value.toLowerCase());
+
+            let list = allDoctors.filter(d => {
+                // 1. Free text search
+                if (query) {
+                    const haystack = [
+                        d.name,
+                        d.specialty,
+                        d.designation,
+                        d.currentWorkplace,
+                        ...(d.degrees || []),
+                        ...(d.subSpecialties || []),
+                        ...(d.chambers || []).map(c => `${c.hospitalName} ${c.city} ${c.district} ${c.address}`),
+                    ].filter(Boolean).join(' ').toLowerCase();
+
+                    if (!haystack.includes(query)) return false;
+                }
+
+                // 2. Location filter (City, District or Chamber address)
+                if (location) {
+                    const locLower = location.toLowerCase();
+                    const isChattogram = locLower.includes('chattogram') || locLower.includes('chittagong');
+                    const isBogura = locLower.includes('bogura') || locLower.includes('bogra');
+                    const isCumilla = locLower.includes('cumilla') || locLower.includes('comilla');
+                    const isBarishal = locLower.includes('barishal') || locLower.includes('barisal');
+
+                    const hasLoc = (d.chambers || []).some(c => {
+                        const hay = `${c.city || ''} ${c.district || ''} ${c.address || ''} ${c.hospitalName || ''}`.toLowerCase();
+                        if (isChattogram) return hay.includes('chattogram') || hay.includes('chittagong');
+                        if (isBogura) return hay.includes('bogura') || hay.includes('bogra');
+                        if (isCumilla) return hay.includes('cumilla') || hay.includes('comilla');
+                        if (isBarishal) return hay.includes('barishal') || hay.includes('barisal');
+                        return hay.includes(locLower);
+                    });
+                    if (!hasLoc) return false;
+                }
+
+                // 3. Specialty filter with robust alias/discipline mapping
+                if (category) {
+                    const docSpec = (d.specialty || '').toLowerCase();
+                    const subSpecs = (d.subSpecialties || []).join(' ').toLowerCase();
+                    const catLower = category.toLowerCase();
+
+                    const matchesCategory = docSpec.includes(catLower) || 
+                                            subSpecs.includes(catLower) ||
+                                            (catLower.includes('neuro') && docSpec.includes('neuro')) ||
+                                            (catLower.includes('cardio') && (docSpec.includes('cardio') || docSpec.includes('cardiac'))) ||
+                                            (catLower.includes('child') && (docSpec.includes('pediatric') || docSpec.includes('child'))) ||
+                                            (catLower.includes('pediatric') && (docSpec.includes('pediatric') || docSpec.includes('child'))) ||
+                                            (catLower.includes('ortho') && docSpec.includes('ortho')) ||
+                                            (catLower.includes('gynae') && (docSpec.includes('gynae') || docSpec.includes('obstetric'))) ||
+                                            (catLower.includes('derma') && docSpec.includes('derma')) ||
+                                            (catLower.includes('eye') && (docSpec.includes('eye') || docSpec.includes('ophthalm'))) ||
+                                            (catLower.includes('dent') && (docSpec.includes('dent') || docSpec.includes('oral') || docSpec.includes('maxillo'))) ||
+                                            (catLower.includes('ent') && (docSpec.includes('ent') || docSpec.includes('throat') || docSpec.includes('ear'))) ||
+                                            (catLower.includes('urol') && docSpec.includes('urol')) ||
+                                            (catLower.includes('kidney') && (docSpec.includes('kidney') || docSpec.includes('nephro'))) ||
+                                            (catLower.includes('gastro') && (docSpec.includes('gastro') || docSpec.includes('liver'))) ||
+                                            (catLower.includes('colorectal') && (docSpec.includes('surgery') || docSpec.includes('colorectal') || docSpec.includes('piles'))) ||
+                                            (catLower.includes('plastic') && (docSpec.includes('plastic') || docSpec.includes('aesthetic'))) ||
+                                            (catLower.includes('cancer') && (docSpec.includes('cancer') || docSpec.includes('oncol'))) ||
+                                            (catLower.includes('diabetes') && (docSpec.includes('diabetes') || docSpec.includes('endocrine') || docSpec.includes('medicine'))) ||
+                                            (catLower.includes('psychiat') && (docSpec.includes('psychiat') || docSpec.includes('mental')));
+
+                    if (!matchesCategory) return false;
+                }
+
+                // 4. Availability Filter (today, tomorrow, online)
+                if (checkedAvailabilities.length > 0) {
+                    const dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+                    const now = new Date();
+                    const todayName = dayNames[now.getDay()];
+                    const tomorrowName = dayNames[(now.getDay() + 1) % 7];
+
+                    const matchesAvail = checkedAvailabilities.some(avail => {
+                        if (avail === 'today') {
+                            return (d.chambers || []).some(c => {
+                                const days = (Array.isArray(c.visitingDays) ? c.visitingDays : String(c.visitingDays || '').split(',')).map(x => String(x).toLowerCase());
+                                return days.some(day => day.includes(todayName));
+                            });
+                        }
+                        if (avail === 'tomorrow') {
+                            return (d.chambers || []).some(c => {
+                                const days = (Array.isArray(c.visitingDays) ? c.visitingDays : String(c.visitingDays || '').split(',')).map(x => String(x).toLowerCase());
+                                return days.some(day => day.includes(tomorrowName));
+                            });
+                        }
+                        if (avail === 'online') {
+                            return d.isOnlineAvailable || (d.chambers || []).some(c => (c.slots && c.slots.length > 0));
+                        }
+                        return false;
+                    });
+
+                    if (!matchesAvail) return false;
+                }
+
+                // 5. Gender filter
+                if (checkedGenders.length > 0) {
+                    const docGender = (d.gender || 'male').toLowerCase().trim();
+                    if (!checkedGenders.includes(docGender)) return false;
+                }
+
+                // 6. Rating filter (Unreviewed doctors have 0 rating)
+                if (selectedRating !== 'all') {
+                    const minR = parseFloat(selectedRating);
+                    const docR = (d.totalReviews > 0) ? (Number(d.rating) || 0) : 0;
+                    if (docR < minR) return false;
+                }
+
+                // 7. Fee filter
+                if (selectedFee !== 'all') {
+                    const minFee = (d.chambers && d.chambers.length > 0)
+                        ? Math.min(...d.chambers.map(c => c.fee || 1000))
+                        : 1000;
+
+                    if (selectedFee === 'under_1000' && minFee >= 1000) return false;
+                    if (selectedFee === '1000_1500' && (minFee < 1000 || minFee > 1500)) return false;
+                    if (selectedFee === 'above_1500' && minFee <= 1500) return false;
+                }
+
+                return true;
+            });
+
+            // Sorting
+            if (sortMode === 'rating') {
+                list.sort((a, b) => ((b.totalReviews > 0 ? b.rating : 0) || 0) - ((a.totalReviews > 0 ? a.rating : 0) || 0));
+            } else if (sortMode === 'experience') {
+                list.sort((a, b) => (b.experienceYears || 0) - (a.experienceYears || 0));
+            } else if (sortMode === 'fee_low') {
+                const getFee = doc => (doc.chambers && doc.chambers.length > 0) ? Math.min(...doc.chambers.map(c => c.fee || 1000)) : 1000;
+                list.sort((a, b) => getFee(a) - getFee(b));
+            }
+
+            // Update counter
             if (countText) {
-                countText.innerHTML = `Showing <strong class="text-[#082c2a]">${matched} verified doctor${matched === 1 ? '' : 's'}</strong> matching your criteria`;
+                countText.innerHTML = `Showing <strong class="text-[#082c2a]">${list.length} verified doctor${list.length === 1 ? '' : 's'}</strong> matching your criteria`;
+            }
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.querySelector('h3').textContent = allDoctors.length === 0 
+                    ? 'No Verified Doctors in Directory Yet' 
+                    : 'No Doctors Match These Filters';
+                emptyState.querySelector('p').textContent = allDoctors.length === 0
+                    ? 'Specialists will appear live as soon as their BMDC credentials are approved by admin.'
+                    : 'Try clearing search keywords or resetting filters to view all specialists.';
+                renderPagination(0, 0);
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // Pagination Slicing
+            const totalPages = Math.ceil(list.length / pageSize) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, list.length);
+            const pageDoctors = list.slice(startIndex, endIndex);
+
+            renderPagination(list.length, totalPages);
+
+            grid.innerHTML = pageDoctors.map(d => {
+                const primaryChamber = (d.chambers && d.chambers.length > 0) ? d.chambers[0] : {};
+                const profileUrl = CONFIG.PROFILE_PAGES.DOCTOR(d.username);
+                const feeDisplay = primaryChamber.fee ? `৳${primaryChamber.fee}` : '৳1,200';
+                const hospitalDisplay = primaryChamber.hospitalName || d.currentWorkplace || 'Specialized Clinic';
+                const locDisplay = primaryChamber.city ? `${primaryChamber.city}, ${primaryChamber.district || 'Bangladesh'}` : (primaryChamber.district || 'Dhaka, Bangladesh');
+                
+                let docName = (d.name || '').trim();
+                if (!docName) docName = 'Dr. Specialist';
+                else if (!/^(dr|prof|asst|assoc)\b/i.test(docName)) docName = 'Dr. ' + docName;
+                
+                const degreesList = (d.degrees && d.degrees.length > 0) ? d.degrees.join(', ') : 'MBBS';
+                const workplaceText = [d.designation, d.currentWorkplace].filter(Boolean).join(' at ') || 'Specialist Consultant';
+
+                const hasRating = d.totalReviews > 0 && d.rating > 0;
+                const ratingBadge = hasRating ? `★ ${Number(d.rating).toFixed(1)} (${d.totalReviews})` : `0/5 ★ (0)`;
+
+                return `
+                <div class="doctor-card bg-white rounded-3xl border border-[#e1eae6] shadow-sm hover:shadow-xl hover:border-[#0e927f]/60 transition-all flex flex-col justify-between overflow-hidden group w-full"
+                     data-doctor="${docName}"
+                     data-specialty="${d.specialty}"
+                     data-location="${primaryChamber.city || primaryChamber.district || ''}">
+                    
+                    <!-- Top Image Cover -->
+                    <div class="relative w-full h-60 sm:h-64 bg-[#edf5f2] overflow-hidden flex-shrink-0">
+                        ${d.photoUrl ? `
+                            <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        ` : `
+                            <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0b3a36] to-[#082c2a] text-white">
+                                <span class="text-6xl font-black text-[#8ce2d4]">${docName.charAt(0) || 'D'}</span>
+                                <span class="text-xs text-teal-200/80 mt-1 font-semibold uppercase tracking-wider">${d.specialty || 'Specialist'}</span>
+                            </div>
+                        `}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"></div>
+                        
+                        <!-- Badges on Image -->
+                        <div class="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+                            <span class="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/95 text-[#082c2a] shadow-md backdrop-blur-xs border border-white/40">
+                                <svg class="w-3.5 h-3.5 text-[#0e927f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                BMDC Verified
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-xs font-black px-3 py-1 rounded-full bg-white/95 ${hasRating ? 'text-amber-700' : 'text-slate-600'} shadow-md backdrop-blur-xs border border-white/40">
+                                ${ratingBadge}
+                            </span>
+                        </div>
+
+                        <!-- Doctor Name & Specialty overlay on Image -->
+                        <div class="absolute bottom-4 left-5 right-5 text-white pointer-events-none space-y-0.5 overflow-hidden">
+                            <span class="text-[11px] font-black uppercase tracking-wider text-teal-300 block drop-shadow-sm truncate" title="${d.specialty}">${d.specialty}</span>
+                            <h3 class="font-black text-xl text-white truncate drop-shadow-md" title="${docName}">${docName}</h3>
+                        </div>
+                    </div>
+
+                    <!-- Minimal Details Underneath Image (Clean consistent typography) -->
+                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2.5 overflow-hidden">
+                            <!-- Degrees & BMDC (Clean single row) -->
+                            <div class="flex items-center justify-between gap-2 text-xs overflow-hidden">
+                                <span class="font-bold text-[#0e927f] truncate flex-1 min-w-0" title="${degreesList}">${degreesList}</span>
+                                <span class="font-mono text-[11px] font-semibold bg-[#edf7f4] text-[#556e68] px-2 py-0.5 rounded-md border border-[#cbe5dc] flex-shrink-0">BMDC: ${d.bmdcNumber || 'Registered'}</span>
+                            </div>
+                            <!-- Designation / Hospital -->
+                            <p class="text-xs text-[#556e68] flex items-center gap-1.5 overflow-hidden" title="${workplaceText}">
+                                <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                <span class="truncate">${workplaceText}</span>
+                            </p>
+                        </div>
+
+                        <!-- Minimal Location & Fee Info (Text only, NO maps link as requested) -->
+                        <div class="pt-3 border-t border-[#edf3f0] flex items-center justify-between gap-3 text-xs">
+                            <span class="flex items-center gap-1.5 text-[#556e68] truncate" title="${locDisplay}">
+                                <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <strong class="text-[#082c2a] truncate font-semibold">${locDisplay}</strong>
+                            </span>
+                            <span class="font-black text-sm sm:text-base text-[#0e927f] flex-shrink-0">${feeDisplay}</span>
+                        </div>
+
+                        <!-- Action: Profile Button Only (Call for serial removed as requested) -->
+                        <div>
+                            <a href="${profileUrl}" target="_blank" class="w-full py-2.5 px-4 text-center rounded-xl text-xs sm:text-sm font-bold bg-[#0e927f] hover:bg-[#087866] text-white shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span>View Profile</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // Hook Book Visit buttons
+            grid.querySelectorAll('.btn-book-doctor').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const name = btn.dataset.name;
+                    const spec = btn.dataset.specialty;
+                    const hosp = btn.dataset.hospital;
+                    const fee = btn.dataset.fee;
+                    let slots = [];
+                    try { slots = JSON.parse(btn.dataset.slots); } catch (_) { slots = ['05:00 PM', '06:00 PM', '07:00 PM']; }
+
+                    document.getElementById('selected-doctor-id').value = id;
+                    document.getElementById('selected-doctor-input').value = `${name} (${spec})`;
+                    document.getElementById('selected-hospital-name').value = hosp;
+                    document.getElementById('selected-doctor-fee').value = fee;
+                    document.getElementById('booking-fee-display').textContent = `৳${fee}`;
+
+                    // Populate slot dropdown
+                    const slotSelect = document.getElementById('booking-slot');
+                    slotSelect.innerHTML = slots.map(s => `<option value="${s}">${s}</option>`).join('');
+
+                    // Pre-fill patient details if logged in
+                    const user = api.getCurrentUser();
+                    if (user) {
+                        if (user.fullName) document.getElementById('booking-patient-name').value = user.fullName;
+                        if (user.phone) document.getElementById('booking-patient-phone').value = user.phone;
+                    }
+
+                    hideBookingAlert();
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    bookingForm.classList.remove('hidden');
+                    bookingSuccess.classList.add('hidden');
+                });
+            });
+        }
+
+        // Fetch Doctors from Backend API (Load all verified specialists into memory)
+        async function fetchDoctors() {
+            try {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center flex flex-col items-center justify-center">
+                        <div class="w-10 h-10 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin"></div>
+                        <span class="text-xs text-[#6c8680] mt-3 font-semibold">Loading verified doctors...</span>
+                    </div>
+                `;
+                const res = await api.getDoctors({ limit: 300 });
+                allDoctors = res.doctors || [];
+
+                // Parse URL Query Params on Initial Load (?category=..., ?q=..., ?location=...)
+                const urlParams = new URLSearchParams(window.location.search);
+                const initCategory = urlParams.get('category') || urlParams.get('specialty') || urlParams.get('dept');
+                const initQuery = urlParams.get('q') || urlParams.get('query') || urlParams.get('search');
+                const initLocation = urlParams.get('location') || urlParams.get('city') || urlParams.get('district');
+
+                // 1. Resolve Category / Specialty Selection
+                if (initCategory && catSelect) {
+                    const cleanInit = initCategory.trim().toLowerCase();
+                    let matchedValue = null;
+
+                    // Match exact value first (skip option 0 / empty value)
+                    for (let opt of catSelect.options) {
+                        if (!opt.value) continue;
+                        if (opt.value.toLowerCase() === cleanInit) {
+                            matchedValue = opt.value;
+                            break;
+                        }
+                    }
+
+                    // Match substring or textContent (skip empty value)
+                    if (!matchedValue) {
+                        for (let opt of catSelect.options) {
+                            if (!opt.value) continue;
+                            const ov = opt.value.toLowerCase();
+                            const ot = (opt.textContent || '').toLowerCase();
+                            if (ov.includes(cleanInit) || cleanInit.includes(ov) || ot.includes(cleanInit)) {
+                                matchedValue = opt.value;
+                                break;
+                            }
+                        }
+                    }
+
+                    // Common alias keywords
+                    if (!matchedValue) {
+                        if (cleanInit.includes('cardio') || cleanInit.includes('heart')) matchedValue = 'Cardiology';
+                        else if (cleanInit.includes('neuro') || cleanInit.includes('brain') || cleanInit.includes('spine')) matchedValue = 'Neurology & Neurosurgery';
+                        else if (cleanInit.includes('pediatric') || cleanInit.includes('child')) matchedValue = 'Pediatrics & Child Care';
+                        else if (cleanInit.includes('derma') || cleanInit.includes('skin') || cleanInit.includes('hair')) matchedValue = 'Dermatology';
+                        else if (cleanInit.includes('ortho') || cleanInit.includes('bone') || cleanInit.includes('joint') || cleanInit.includes('trauma')) matchedValue = 'Orthopedics & Trauma';
+                        else if (cleanInit.includes('gynae') || cleanInit.includes('women') || cleanInit.includes('obstetric')) matchedValue = 'Gynecology & Obstetrics';
+                        else if (cleanInit.includes('psychiat') || cleanInit.includes('mental')) matchedValue = 'Psychiatry & Mental Health';
+                        else if (cleanInit.includes('eye') || cleanInit.includes('ophthalm')) matchedValue = 'Ophthalmology (Eye)';
+                        else if (cleanInit.includes('ent') || cleanInit.includes('ear') || cleanInit.includes('throat') || cleanInit.includes('nose')) matchedValue = 'ENT (Ear, Nose & Throat)';
+                        else if (cleanInit.includes('dent') || cleanInit.includes('tooth') || cleanInit.includes('maxillo')) matchedValue = 'Dentistry & Maxillofacial';
+                        else if (cleanInit.includes('urol') || cleanInit.includes('andro')) matchedValue = 'Urology & Andrology';
+                        else if (cleanInit.includes('kidney') || cleanInit.includes('nephro')) matchedValue = 'Nephrology & Kidney';
+                        else if (cleanInit.includes('gastro') || cleanInit.includes('liver') || cleanInit.includes('stomach')) matchedValue = 'Gastroenterology & Liver';
+                        else if (cleanInit.includes('cancer') || cleanInit.includes('oncol') || cleanInit.includes('tumor')) matchedValue = 'Oncology & Cancer Care';
+                        else if (cleanInit.includes('diabetes') || cleanInit.includes('endocrine') || cleanInit.includes('hormone')) matchedValue = 'Endocrinology & Diabetes';
+                        else if (cleanInit.includes('plastic') || cleanInit.includes('aesthetic') || cleanInit.includes('cosmetic')) matchedValue = 'Plastic & Aesthetic Surgery';
+                        else if (cleanInit.includes('colorectal') || cleanInit.includes('piles')) matchedValue = 'General & Colorectal Surgery';
+                        else if (cleanInit.includes('medicine') || cleanInit.includes('general practice')) matchedValue = 'Medicine & Diabetology';
+                        else if (cleanInit.includes('general physician')) matchedValue = 'General Physician';
+                    }
+
+                    if (matchedValue) {
+                        catSelect.value = matchedValue;
+                    } else if (searchInput && !searchInput.value) {
+                        searchInput.value = initCategory;
+                    }
+                }
+
+                // 2. Resolve Search Query
+                if (initQuery && searchInput) {
+                    searchInput.value = initQuery.trim();
+                }
+
+                // 3. Resolve Location Selection
+                if (initLocation && locSelect) {
+                    const cleanLoc = initLocation.trim().toLowerCase();
+                    let matchedLoc = null;
+
+                    for (let opt of locSelect.options) {
+                        if (!opt.value) continue;
+                        const ov = opt.value.toLowerCase();
+                        const ot = (opt.textContent || '').toLowerCase();
+                        if (ov === cleanLoc || ot.includes(cleanLoc) || cleanLoc.includes(ov)) {
+                            matchedLoc = opt.value;
+                            break;
+                        }
+                    }
+
+                    // Alias checks for location
+                    if (!matchedLoc) {
+                        if (cleanLoc.includes('chittagong') || cleanLoc.includes('chattogram')) matchedLoc = 'Chattogram';
+                        else if (cleanLoc.includes('bogra') || cleanLoc.includes('bogura')) matchedLoc = 'Bogura';
+                        else if (cleanLoc.includes('comilla') || cleanLoc.includes('cumilla')) matchedLoc = 'Cumilla';
+                        else if (cleanLoc.includes('barisal') || cleanLoc.includes('barishal')) matchedLoc = 'Barishal';
+                        else if (cleanLoc.includes('dhaka')) matchedLoc = 'Dhaka';
+                        else if (cleanLoc.includes('sylhet')) matchedLoc = 'Sylhet';
+                        else if (cleanLoc.includes('khulna')) matchedLoc = 'Khulna';
+                        else if (cleanLoc.includes('rajshahi')) matchedLoc = 'Rajshahi';
+                        else if (cleanLoc.includes('rangpur')) matchedLoc = 'Rangpur';
+                        else if (cleanLoc.includes('mymensingh')) matchedLoc = 'Mymensingh';
+                        else if (cleanLoc.includes('cox')) matchedLoc = "Cox's Bazar";
+                    }
+
+                    if (matchedLoc) {
+                        locSelect.value = matchedLoc;
+                    } else {
+                        // Custom district or city (e.g. Gazipur, Feni, Jessore, etc.)
+                        const customOpt = document.createElement('option');
+                        customOpt.value = initLocation.trim();
+                        customOpt.textContent = initLocation.trim();
+                        locSelect.appendChild(customOpt);
+                        locSelect.value = initLocation.trim();
+                    }
+                }
+
+                currentPage = 1;
+                renderDoctors();
+            } catch (err) {
+                console.error('[find-doctors] Failed to fetch doctors:', err);
+                grid.innerHTML = `
+                    <div class="col-span-full bg-red-50 p-8 rounded-2xl text-center text-xs text-red-600 border border-red-200">
+                        Failed to connect to directory: ${err.message}. Please verify the backend server is running.
+                    </div>
+                `;
             }
         }
 
-        filterForm.addEventListener('submit', (e) => {
+        // Event Listeners for Filters (Reset to Page 1 on any filter change)
+        filterForm?.addEventListener('submit', (e) => { e.preventDefault(); currentPage = 1; renderDoctors(); });
+        searchInput?.addEventListener('input', () => { currentPage = 1; renderDoctors(); });
+        locSelect?.addEventListener('change', () => { currentPage = 1; renderDoctors(); });
+        catSelect?.addEventListener('change', () => { currentPage = 1; renderDoctors(); });
+        sortSelect?.addEventListener('change', () => { currentPage = 1; renderDoctors(); });
+
+        document.querySelectorAll('input[name="fee_range"], input[name="min_rating"], input[name="gender"], input[name="availability"]').forEach(el => {
+            el.addEventListener('change', () => { currentPage = 1; renderDoctors(); });
+        });
+
+        resetBtn?.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            if (locSelect) locSelect.value = '';
+            if (catSelect) catSelect.value = '';
+            if (sortSelect) sortSelect.value = 'recommended';
+            document.querySelectorAll('input[name="gender"]').forEach(cb => { cb.checked = false; });
+            document.querySelectorAll('input[name="availability"]').forEach(cb => { cb.checked = false; });
+            const defaultFee = document.querySelector('input[name="fee_range"][value="all"]');
+            if (defaultFee) defaultFee.checked = true;
+            const defaultRating = document.querySelector('input[name="min_rating"][value="all"]');
+            if (defaultRating) defaultRating.checked = true;
+            currentPage = 1;
+            renderDoctors();
+        });
+
+        // Booking Modal Dismiss
+        document.querySelectorAll('.modal-close, #booking-done-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            });
+        });
+
+        // Booking Form Submit Handler
+        bookingForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            applyFilter();
+            hideBookingAlert();
+
+            const doctorId = document.getElementById('selected-doctor-id').value;
+            const patientName = document.getElementById('booking-patient-name').value.trim();
+            const patientPhone = document.getElementById('booking-patient-phone').value.trim();
+            const appointmentDate = document.getElementById('booking-date').value;
+            const timeSlot = document.getElementById('booking-slot').value;
+            const hospitalName = document.getElementById('selected-hospital-name').value;
+            const consultationFee = Number(document.getElementById('selected-doctor-fee').value) || 1000;
+
+            if (!doctorId || !appointmentDate || !timeSlot || !patientName || !patientPhone) {
+                showBookingAlert('Please fill in all required fields.');
+                return;
+            }
+
+            const origText = btnSubmitBooking.innerHTML;
+            try {
+                btnSubmitBooking.disabled = true;
+                btnSubmitBooking.innerHTML = `<span>Scheduling...</span>`;
+
+                const res = await api.bookAppointment({
+                    doctorId,
+                    appointmentDate,
+                    timeSlot,
+                    patientName,
+                    patientPhone,
+                    hospitalName,
+                    consultationFee,
+                });
+
+                const ref = res.appointment?.bookingRef || res.bookingRef || 'HEAL-CONFIRMED';
+                document.getElementById('booking-ref-display').textContent = ref;
+
+                bookingForm.classList.add('hidden');
+                bookingSuccess.classList.remove('hidden');
+            } catch (err) {
+                showBookingAlert(err.message || 'Failed to book appointment. Please try again.');
+            } finally {
+                btnSubmitBooking.disabled = false;
+                btnSubmitBooking.innerHTML = origText;
+            }
         });
 
-        searchInput.addEventListener('input', applyFilter);
-        locSelect.addEventListener('change', applyFilter);
-        catSelect.addEventListener('change', applyFilter);
-
-        document.getElementById('reset-filters-btn').addEventListener('click', () => {
-            searchInput.value = '';
-            locSelect.value = '';
-            catSelect.value = '';
-            applyFilter();
-        });
-
-        // Mobile Nav
-        const menuToggle = document.querySelector('.menu-toggle');
-        const primaryNav = document.getElementById('primary-nav');
+        // Mobile Nav Hamburger
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
         menuToggle?.addEventListener('click', () => {
-            primaryNav.classList.toggle('hidden');
+            const isClosed = mobilePanel?.classList.toggle('hidden');
+            if (iconOpen && iconClose) {
+                iconOpen.classList.toggle('hidden', !isClosed);
+                iconClose.classList.toggle('hidden', isClosed);
+            }
         });
+
+        // Initial Load
+        fetchDoctors();
     </script>
-    <script type="module" src="./js/auth.js"></script>
 </body>
 </html>

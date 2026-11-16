@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Directory | Admin Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+            <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
+                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
+
+                <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-[#edf3f0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h2 class="font-extrabold text-lg text-[#082c2a]">Registered Patients</h2>
+                            <p class="text-xs text-[#6c8680]">Full CRUD management: create, inspect, update, suspend, or remove patients</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <input type="search" id="search-patients" placeholder="Search name, @username, phone..." class="px-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs sm:text-sm outline-none focus:border-[#0e927f]">
+                            <button type="button" id="open-add-patient" class="px-4 py-2.5 rounded-full bg-[#0e927f] text-white text-xs font-bold hover:bg-[#087866] cursor-pointer">+ Add Patient</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead class="bg-[#f8fbf9] text-[11px] uppercase tracking-wider text-[#6c8680] border-b border-[#edf3f0]">
+                                <tr>
+                                    <th class="px-6 py-3.5">Patient</th>
+                                    <th class="px-6 py-3.5">Handle</th>
+                                    <th class="px-6 py-3.5">Phone / DOB</th>
+                                    <th class="px-6 py-3.5">Bookings</th>
+                                    <th class="px-6 py-3.5">Status</th>
+                                    <th class="px-6 py-3.5 text-right">CRUD Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patients-tbody" class="divide-y divide-[#edf3f0]"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Create / Edit Patient Modal -->
+    <div id="patient-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#e1eae6]">
+            <h3 id="pm-title" class="font-extrabold text-xl text-[#082c2a] mb-4">Add New Patient</h3>
+            <form id="patient-crud-form" class="space-y-3.5">
+                <input type="hidden" id="pm-id">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Full Name *</label>
+                        <input type="text" id="pm-name" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Username *</label>
+                        <input type="text" id="pm-username" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Email *</label>
+                        <input type="email" id="pm-email" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Phone *</label>
+                        <input type="tel" id="pm-phone" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Date of Birth *</label>
+                        <input type="date" id="pm-dob" required class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                    <div id="pm-password-wrap">
+                        <label class="block text-xs font-bold text-[#082c2a] mb-1">Initial Password *</label>
+                        <input type="password" id="pm-password" placeholder="Min 6 chars" class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm outline-none focus:border-[#0e927f]">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-3">
+                    <button type="button" id="close-patient-modal" class="px-4 py-2 rounded-full text-xs font-bold text-[#556e68] hover:bg-[#edf5f1] cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] cursor-pointer">Save Patient Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell } from './js/dashboard-layout.js';
+        import { CONFIG, getAppPath } from './js/config.js';
+
+        let patients = [];
+        const alertEl = document.getElementById('page-alert');
+        const modal = document.getElementById('patient-modal');
+
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function renderPatients() {
+            const tbody = document.getElementById('patients-tbody');
+            if (patients.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-xs text-[#6c8680]">No registered patients found.</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = patients.map(p => `
+                <tr class="hover:bg-[#fbfdfc]">
+                    <td class="px-6 py-4">
+                        <p class="font-bold text-[#082c2a]">${p.fullName}</p>
+                        <p class="text-[11px] text-[#6c8680]">${p.email}</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="${CONFIG.PROFILE_PAGES.PATIENT(p.username)}" target="_blank" class="font-mono text-xs text-[#0e927f] hover:underline">@${p.username}</a>
+                    </td>
+                    <td class="px-6 py-4 text-xs text-[#556e68]">
+                        <p>${p.phone}</p>
+                        <p class="text-[11px] text-[#8da59f]">${p.dateOfBirth ? new Date(p.dateOfBirth).toLocaleDateString() : '-'}</p>
+                    </td>
+                    <td class="px-6 py-4 font-bold text-xs text-[#082c2a]">${p.appointmentCount || 0}</td>
+                    <td class="px-6 py-4 text-xs font-bold ${p.isActive ? 'text-[#0e927f]' : 'text-red-600'}">${p.isActive ? 'Active' : 'Suspended'}</td>
+                    <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                        <button type="button" onclick="editPatient('${p._id}')" class="text-xs font-bold text-[#082c2a] hover:text-[#0e927f] cursor-pointer">Edit</button>
+                        <button type="button" onclick="togglePatient('${p._id}', ${!p.isActive})" class="text-xs font-bold ${p.isActive ? 'text-amber-600' : 'text-[#0e927f]'} hover:underline cursor-pointer">${p.isActive ? 'Suspend' : 'Activate'}</button>
+                        <button type="button" onclick="deletePatient('${p._id}', '${p.username}')" class="text-xs font-bold text-red-600 hover:underline cursor-pointer">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function fetchPatients(query = '') {
+            const res = await api.getAdminPatients(query);
+            patients = res.patients || [];
+            renderPatients();
+        }
+
+        document.getElementById('search-patients')?.addEventListener('input', (e) => {
+            fetchPatients(e.target.value.trim());
+        });
+
+        document.getElementById('open-add-patient')?.addEventListener('click', () => {
+            document.getElementById('pm-title').textContent = 'Add New Patient';
+            document.getElementById('patient-crud-form').reset();
+            document.getElementById('pm-id').value = '';
+            document.getElementById('pm-password-wrap').classList.remove('hidden');
+            document.getElementById('pm-password').required = true;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+
+        window.editPatient = function(id) {
+            const p = patients.find(x => x._id === id);
+            if (!p) return;
+            document.getElementById('pm-title').textContent = `Edit Patient: ${p.fullName}`;
+            document.getElementById('pm-id').value = p._id;
+            document.getElementById('pm-name').value = p.fullName;
+            document.getElementById('pm-username').value = p.username;
+            document.getElementById('pm-email').value = p.email;
+            document.getElementById('pm-phone').value = p.phone || '';
+            document.getElementById('pm-dob').value = p.dateOfBirth ? new Date(p.dateOfBirth).toISOString().split('T')[0] : '';
+            document.getElementById('pm-password-wrap').classList.add('hidden');
+            document.getElementById('pm-password').required = false;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        document.getElementById('close-patient-modal')?.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+
+        document.getElementById('patient-crud-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('pm-id').value;
+            const payload = {
+                fullName: document.getElementById('pm-name').value.trim(),
+                username: document.getElementById('pm-username').value.trim(),
+                email: document.getElementById('pm-email').value.trim(),
+                phone: document.getElementById('pm-phone').value.trim(),
+                dateOfBirth: document.getElementById('pm-dob').value,
+            };
+            try {
+                if (id) {
+                    const res = await api.updateAdminPatient(id, payload);
+                    showAlert(res.message);
+                } else {
+                    payload.password = document.getElementById('pm-password').value;
+                    const res = await api.createAdminPatient(payload);
+                    showAlert(res.message);
+                }
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                await fetchPatients();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        });
+
+        window.togglePatient = async function(id, isActive) {
+            try {
+                const res = await api.updateAdminPatient(id, { isActive });
+                showAlert(res.message);
+                await fetchPatients();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        window.deletePatient = async function(id, username) {
+            const confirmed = await window.healiixConfirm({
+                title: 'Delete Patient Record?',
+                message: `Permanently delete patient @${username} and all their appointments & health records? This cannot be undone.`,
+                confirmText: 'Delete Permanently',
+                type: 'danger',
+            });
+            if (!confirmed) return;
+            try {
+                const res = await api.deleteAdminPatient(id);
+                showAlert(res.message);
+                await fetchPatients();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        };
+
+        (async () => {
+            const user = await initDashboardShell('admin', 'admin-patients.html', 'Patient Directory', 'Create, update, suspend, and manage all registered patients');
+            if (user) await fetchPatients();
+        })();
+    </script>
+</body>
+</html>
+

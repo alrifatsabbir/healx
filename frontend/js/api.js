@@ -139,6 +139,15 @@ export const api = {
         return this.request(CONFIG.ENDPOINTS.AUTH.ME, { method: 'GET' });
     },
 
+    async updateProfile(profileData) {
+        const res = await this.request(CONFIG.ENDPOINTS.AUTH.PROFILE, {
+            method: 'PUT',
+            body: JSON.stringify(profileData),
+        });
+        if (res.user) this.setCurrentUser(res.user);
+        return res;
+    },
+
     // Public Profiles
     async getPatientProfile(username) {
         return this.request(CONFIG.PROFILE_URLS.PATIENT(username), { method: 'GET' });
@@ -153,6 +162,17 @@ export const api = {
         const query = new URLSearchParams(params).toString();
         const url = query ? `${CONFIG.ENDPOINTS.DOCTORS.LIST}?${query}` : CONFIG.ENDPOINTS.DOCTORS.LIST;
         return this.request(url, { method: 'GET' });
+    },
+
+    async getMyDoctorProfile() {
+        return this.request(CONFIG.ENDPOINTS.DOCTORS.ME_PROFILE, { method: 'GET' });
+    },
+
+    async updateMyDoctorProfile(data) {
+        return this.request(CONFIG.ENDPOINTS.DOCTORS.ME_PROFILE, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
     },
 
     async getDoctorById(id) {
@@ -171,12 +191,171 @@ export const api = {
         return this.request(CONFIG.ENDPOINTS.APPOINTMENTS.MY, { method: 'GET' });
     },
 
+    async getDoctorAppointments() {
+        return this.request(CONFIG.ENDPOINTS.APPOINTMENTS.DOCTOR, { method: 'GET' });
+    },
+
+    async updateAppointmentStatus(id, status, cancelledReason = '') {
+        return this.request(CONFIG.ENDPOINTS.APPOINTMENTS.UPDATE_STATUS(id), {
+            method: 'POST',
+            body: JSON.stringify({ status, cancelledReason }),
+        });
+    },
+
+    async changePassword(data) {
+        return this.request(CONFIG.ENDPOINTS.AUTH.CHANGE_PASSWORD, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+    },
+
+    // ---------------- NOTIFICATIONS API ----------------
+    async getMyNotifications() {
+        return this.request(CONFIG.ENDPOINTS.NOTIFICATIONS.MY, { method: 'GET' });
+    },
+
+    async markNotificationRead(id) {
+        return this.request(CONFIG.ENDPOINTS.NOTIFICATIONS.READ(id), { method: 'POST' });
+    },
+
+    async dismissNotification(id) {
+        return this.request(CONFIG.ENDPOINTS.NOTIFICATIONS.DISMISS(id), { method: 'DELETE' });
+    },
+
+    // ---------------- ADMIN API ----------------
+    async getAdminStats() {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.STATS, { method: 'GET' });
+    },
+
+    async getAdminAnalytics() {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.ANALYTICS, { method: 'GET' });
+    },
+
+    async getAdminPatients(q = '') {
+        const url = q ? `${CONFIG.ENDPOINTS.ADMIN.PATIENTS}?q=${encodeURIComponent(q)}` : CONFIG.ENDPOINTS.ADMIN.PATIENTS;
+        return this.request(url, { method: 'GET' });
+    },
+
+    async createAdminPatient(data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.PATIENTS, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async updateAdminPatient(id, data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.PATIENT_BY_ID(id), {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async deleteAdminPatient(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.PATIENT_BY_ID(id), { method: 'DELETE' });
+    },
+
+    async getAdminDoctors(status = '', q = '') {
+        const params = new URLSearchParams();
+        if (status) params.set('status', status);
+        if (q) params.set('q', q);
+        const qs = params.toString();
+        return this.request(qs ? `${CONFIG.ENDPOINTS.ADMIN.DOCTORS}?${qs}` : CONFIG.ENDPOINTS.ADMIN.DOCTORS, { method: 'GET' });
+    },
+
+    async updateAdminDoctor(id, data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.DOCTOR_BY_ID(id), {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async deleteAdminDoctor(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.DOCTOR_BY_ID(id), { method: 'DELETE' });
+    },
+
+    async verifyDoctor(id, status, reason = '') {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.VERIFY_DOCTOR(id), {
+            method: 'POST',
+            body: JSON.stringify({ status, reason }),
+        });
+    },
+
+    async getAdminUsers(role = '') {
+        const url = role ? `${CONFIG.ENDPOINTS.ADMIN.USERS}?role=${encodeURIComponent(role)}` : CONFIG.ENDPOINTS.ADMIN.USERS;
+        return this.request(url, { method: 'GET' });
+    },
+
+    async toggleUserStatus(id, isActive) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.USER_STATUS(id), {
+            method: 'POST',
+            body: JSON.stringify({ isActive }),
+        });
+    },
+
+    async getAdminAppointments(params = {}) {
+        const qs = new URLSearchParams(params).toString();
+        return this.request(qs ? `${CONFIG.ENDPOINTS.ADMIN.APPOINTMENTS}?${qs}` : CONFIG.ENDPOINTS.ADMIN.APPOINTMENTS, { method: 'GET' });
+    },
+
+    async sendAdminEmail(data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.EMAIL_SEND, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async getEmailLogs(status = '', q = '') {
+        const params = new URLSearchParams();
+        if (status) params.set('status', status);
+        if (q) params.set('q', q);
+        const qs = params.toString();
+        return this.request(qs ? `${CONFIG.ENDPOINTS.ADMIN.EMAIL_LOGS}?${qs}` : CONFIG.ENDPOINTS.ADMIN.EMAIL_LOGS, { method: 'GET' });
+    },
+
+    async sendAdminNotification(data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.NOTIFICATIONS, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async getAdminNotifications() {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.NOTIFICATIONS, { method: 'GET' });
+    },
+
+    async toggleAdminNotification(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.NOTIFICATION_TOGGLE(id), { method: 'POST' });
+    },
+
+    async deleteAdminNotification(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.NOTIFICATION_DELETE(id), { method: 'DELETE' });
+    },
+
     // ---------------- REVIEWS API ----------------
     async addReview(reviewData) {
         return this.request(CONFIG.ENDPOINTS.REVIEWS.CREATE, {
             method: 'POST',
             body: JSON.stringify(reviewData),
         });
+    },
+
+    async createReview(reviewData) {
+        return this.addReview(reviewData);
+    },
+
+    async getMyReviews() {
+        return this.request(CONFIG.ENDPOINTS.REVIEWS.MY, { method: 'GET' });
+    },
+
+    async updateReview(id, data) {
+        return this.request(CONFIG.ENDPOINTS.REVIEWS.UPDATE(id), {
+            method: 'PUT',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async deleteReview(id) {
+        return this.request(CONFIG.ENDPOINTS.REVIEWS.DELETE(id), { method: 'DELETE' });
     },
 
     async getDoctorReviews(doctorId) {

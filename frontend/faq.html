@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Frequently Asked Questions about HealiiX - Bangladesh's hybrid doctor directory and verified healthcare appointment platform.">
+    <title>Frequently Asked Questions | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth Native Accordion Animation */
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary svg { transform: rotate(45deg); }
+        .faq-tab-btn.active {
+            background-color: #082c2a;
+            color: #ffffff;
+            border-color: #082c2a;
+        }
+    </style>
+</head>
+<body class="bg-[#fbfdfc] text-[#123b39] pt-[76px] antialiased">
+    <!-- Header & Navigation -->
+    <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] py-4 shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
+                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
+                <a class="hover:text-white transition-colors" href="categories.html">Categories</a>
+                <a class="hover:text-white transition-colors" href="about.html">About</a>
+                <a class="text-[#34d399] font-bold" href="faq.html">FAQ</a>
+                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
+            </nav>
+
+            <!-- Desktop Actions -->
+            <div class="nav-actions hidden sm:flex items-center gap-4">
+                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
+                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98]" href="sign-up.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Join HealiiX</span>
+                </a>
+            </div>
+
+            <!-- Mobile Buttons -->
+            <div class="flex items-center gap-2.5 md:hidden">
+                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
+                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
+            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
+                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-1 hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-1 text-[#34d399] font-bold">FAQ</a>
+                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
+                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="min-h-screen">
+        <!-- Minimal Hero Header -->
+        <section class="py-16 sm:py-24 border-b border-[#e7eee9]">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+                <span class="text-[11px] uppercase tracking-[0.22em] font-extrabold text-[#0e927f] block mb-3">Help &amp; Knowledge</span>
+                <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-black text-[#082c2a] tracking-tight leading-tight">
+                    Frequently Asked Questions
+                </h1>
+                <p class="text-sm sm:text-base text-[#5a746e] leading-relaxed mt-3.5 max-w-xl mx-auto">
+                    Simple, transparent answers about appointments, BMDC-verified credentials, chamber directions, and platform services.
+                </p>
+
+                <!-- Clean Minimal Search Bar -->
+                <div class="mt-8 max-w-lg mx-auto relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#8ca39d]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="search" id="faq-search-input" placeholder="Search a topic or question..." class="w-full pl-11 pr-10 py-3 rounded-full border border-[#d5deda] bg-white text-sm text-[#082c2a] placeholder-[#95aaa3] outline-none focus:border-[#0e927f] focus:ring-3 focus:ring-[#0e927f]/10 transition-all">
+                    <button type="button" id="faq-search-clear" class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#edf4f1] hover:bg-[#dfebe7] text-[#55716a] text-xs font-bold items-center justify-center cursor-pointer transition-colors" title="Clear">✕</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minimal Category Tabs (Understated Pill Navigation) -->
+        <section class="py-6 border-b border-[#edf3f0] sticky top-[76px] bg-[#fbfdfc]/95 backdrop-blur-md z-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="faq-category-pills">
+                    <button type="button" data-faq-tab="all" class="faq-tab-btn active px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-transparent">All Questions</button>
+                    <button type="button" data-faq-tab="general" class="faq-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-[#d8e3df] text-[#55716a] hover:text-[#082c2a] hover:bg-[#edf5f2]">General</button>
+                    <button type="button" data-faq-tab="patients" class="faq-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-[#d8e3df] text-[#55716a] hover:text-[#082c2a] hover:bg-[#edf5f2]">Patients &amp; Appointments</button>
+                    <button type="button" data-faq-tab="doctors" class="faq-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-[#d8e3df] text-[#55716a] hover:text-[#082c2a] hover:bg-[#edf5f2]">Doctors &amp; BMDC</button>
+                    <button type="button" data-faq-tab="chambers" class="faq-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-[#d8e3df] text-[#55716a] hover:text-[#082c2a] hover:bg-[#edf5f2]">Chambers &amp; Maps</button>
+                    <button type="button" data-faq-tab="safety" class="faq-tab-btn px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors whitespace-nowrap cursor-pointer border border-[#d8e3df] text-[#55716a] hover:text-[#082c2a] hover:bg-[#edf5f2]">Privacy &amp; Safety</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clean Accordion Section (Divide-Y Minimalist Layout) -->
+        <section class="py-12 sm:py-16">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+                
+                <div class="divide-y divide-[#e1eae5]" id="faq-accordion-list">
+                    
+                    <!-- 1. General: What is HealiiX -->
+                    <details class="faq-item py-6 transition-colors group" data-category="general" open>
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>What is HealiiX and how does the Hybrid Model work?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed space-y-2">
+                            <p>HealiiX is a <strong>Hybrid Healthcare Platform</strong> designed specifically for Bangladesh. It serves both as an automated online appointment booking system and as a verified open doctor directory.</p>
+                            <p>Patients who want instant appointment scheduling can book visiting time slots on the website. Patients who prefer offline convenience can use the direct <strong>Call for Serial</strong> phone number and follow live Google Maps directions to the chamber.</p>
+                        </div>
+                    </details>
+
+                    <!-- 2. General: Is it free? -->
+                    <details class="faq-item py-6 transition-colors group" data-category="general">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Is HealiiX free for patients to use?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p><strong>Yes, 100% free for patients.</strong> There are no registration fees or service charges to search doctors, check visiting hours, or submit appointment bookings. Patients only pay the doctor's standard consultation fee directly at the chamber.</p>
+                        </div>
+                    </details>
+
+                    <!-- 3. General: Coverage across 64 districts -->
+                    <details class="faq-item py-6 transition-colors group" data-category="general">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Does HealiiX cover doctors across all districts of Bangladesh?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Yes. HealiiX covers verified practitioners across all 64 districts. You can search by your specific city or district (e.g. Dhaka, Chittagong, Sylhet, Rajshahi, Bogura, Barishal, Khulna, etc.) on the Find Doctors page to locate specialists close to home.</p>
+                        </div>
+                    </details>
+
+                    <!-- 4. Patients: How to book -->
+                    <details class="faq-item py-6 transition-colors group" data-category="patients">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>How do I book an appointment online?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed space-y-1.5">
+                            <p>1. Open <strong>Find Doctors</strong> and search by specialty, doctor name, or city.</p>
+                            <p>2. Click <strong>View Profile ↗</strong> on your chosen specialist.</p>
+                            <p>3. In the sidebar, select your chamber location, preferred date, and time slot.</p>
+                            <p>4. Fill in patient name, phone number, and brief notes, then click <strong>Confirm Appointment</strong>.</p>
+                        </div>
+                    </details>
+
+                    <!-- 5. Patients: Direct Call for serial -->
+                    <details class="faq-item py-6 transition-colors group" data-category="patients">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Can I call the chamber directly to book a serial?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Yes. Every doctor profile provides a direct <strong>Call for Serial</strong> button and the official chamber phone number so you or family members can book over a direct phone call.</p>
+                        </div>
+                    </details>
+
+                    <!-- 6. Patients: Cancellation -->
+                    <details class="faq-item py-6 transition-colors group" data-category="patients">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>How do I cancel or reschedule an appointment?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Sign in to your patient account and view <strong>My Appointments</strong>. You can cancel or reschedule any upcoming consultation before the scheduled visiting hour.</p>
+                        </div>
+                    </details>
+
+                    <!-- 7. Doctors: BMDC Verification -->
+                    <details class="faq-item py-6 transition-colors group" data-category="doctors">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>How does HealiiX verify doctor credentials?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed space-y-2">
+                            <p>Each registered doctor must provide an official <strong>Bangladesh Medical & Dental Council (BMDC) Registration Number</strong>, degree certificates (FCPS, MD, MS, etc.), and institutional identity.</p>
+                            <p>HealiiX administrators cross-verify every profile against official medical records before activating the public <strong>BMDC Verified Specialist</strong> shield badge.</p>
+                        </div>
+                    </details>
+
+                    <!-- 8. Doctors: How to Join -->
+                    <details class="faq-item py-6 transition-colors group" data-category="doctors">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>How can a doctor join and create a profile?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Click <a href="sign-up.html" class="text-[#0e927f] font-semibold underline">Join as Doctor</a>, choose the Doctor account type, enter your BMDC number, specialty, and chamber locations. Our verification team reviews submissions within 12–24 hours.</p>
+                        </div>
+                    </details>
+
+                    <!-- 9. Doctors: Certificate Privacy -->
+                    <details class="faq-item py-6 transition-colors group" data-category="doctors">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Are doctor government ID and medical certificates public?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p><strong>No. Government ID files and degree certificate images are strictly confidential.</strong> Only the verified BMDC registration number and educational qualifications appear on the public profile. Sensitive documents are only accessible to administrators.</p>
+                        </div>
+                    </details>
+
+                    <!-- 10. Chambers: Google Maps -->
+                    <details class="faq-item py-6 transition-colors group" data-category="chambers">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>How do Google Maps directions work for chambers?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Every chamber on a doctor's profile features an interactive live Google Map embed and a <strong>Directions App ↗</strong> link that opens turnkey turn-by-turn navigation on your mobile device.</p>
+                        </div>
+                    </details>
+
+                    <!-- 11. Chambers: Multiple Locations -->
+                    <details class="faq-item py-6 transition-colors group" data-category="chambers">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Can a doctor have multiple chambers with different schedules?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Yes. Doctors can configure multiple chambers across different hospitals or diagnostic centers, each with independent visiting days, hours, fees, and contact numbers.</p>
+                        </div>
+                    </details>
+
+                    <!-- 12. Safety: Privacy -->
+                    <details class="faq-item py-6 transition-colors group" data-category="safety">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>Is patient medical information kept confidential?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p>Yes. Patient profiles and appointment records are protected by strict access control. Only the patient, the consulted physician, and authorized system administrators can access appointment details.</p>
+                        </div>
+                    </details>
+
+                    <!-- 13. Safety: Emergencies -->
+                    <details class="faq-item py-6 transition-colors group" data-category="safety">
+                        <summary class="flex items-center justify-between gap-4 font-bold text-base sm:text-lg text-[#082c2a] cursor-pointer select-none list-none group-hover:text-[#0e927f] transition-colors">
+                            <span>What should I do during a medical emergency?</span>
+                            <span class="w-6 h-6 rounded-full bg-[#f0f6f3] text-[#082c2a] flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                            </span>
+                        </summary>
+                        <div class="mt-3.5 pr-8 text-sm text-[#506c66] leading-relaxed">
+                            <p class="text-[#842e2e] bg-[#fdf2f2] p-3 rounded-xl border border-[#fbd5d5]">HealiiX is designed for planned outpatient specialist visits. In case of an emergency, please immediately call <strong>999</strong> or visit the nearest hospital emergency room.</p>
+                        </div>
+                    </details>
+
+                </div>
+
+                <!-- Empty State -->
+                <div id="faq-empty-state" class="hidden text-center py-16 text-[#6c8680]">
+                    <p class="font-bold text-base text-[#082c2a]">No questions matched your search.</p>
+                    <p class="text-xs mt-1">Try another keyword or reach out directly to our support team.</p>
+                    <button type="button" id="faq-reset-search-btn" class="mt-4 px-4 py-2 rounded-full text-xs font-bold bg-[#0e927f] text-white hover:bg-[#087866] transition-colors cursor-pointer">Reset Search</button>
+                </div>
+
+                <!-- Minimal Support Link Underneath -->
+                <div class="mt-16 pt-8 border-t border-[#e1eae5] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-[#5a746e]">
+                    <span>Still have an unanswered question?</span>
+                    <a href="contact.html" class="inline-flex items-center gap-1.5 font-bold text-[#0e927f] hover:underline">
+                        <span>Contact Patient Support</span>
+                        <span>&rarr;</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#062321] text-[#d7e8e2] pt-14 pb-8 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row justify-between gap-10">
+            <div>
+                <a class="flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
+                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX" width="160" height="38" class="object-contain">
+                </a>
+                <p class="text-[#89aaa1] max-w-[260px] text-xs mt-3 leading-relaxed">Verified BMDC medical directory and online healthcare appointments across Bangladesh.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 text-xs">
+                <div class="flex flex-col gap-2.5">
+                    <strong class="text-white uppercase tracking-wider font-bold mb-1">Explore</strong>
+                    <a href="find-doctors.html" class="text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
+                    <a href="categories.html" class="text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
+                    <a href="faq.html" class="text-[#34d399] font-bold">FAQ</a>
+                </div>
+                <div class="flex flex-col gap-2.5">
+                    <strong class="text-white uppercase tracking-wider font-bold mb-1">Support</strong>
+                    <a href="about.html" class="text-[#89aaa1] hover:text-white transition-colors">About Us</a>
+                    <a href="contact.html" class="text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
+                    <a href="sign-up.html" class="text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+                </div>
+                <div class="flex flex-col gap-2.5 col-span-2 sm:col-span-1">
+                    <strong class="text-white uppercase tracking-wider font-bold mb-1">Security</strong>
+                    <span class="text-[#89aaa1]">BMDC Verified Platform</span>
+                    <span class="text-[#89aaa1]">HIPAA / Private Records</span>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-[11px] text-[#6b9187]">
+            <span>© 2026 HealiiX Health Inc. All rights reserved.</span>
+            <span>Registered BMDC Healthcare Directory.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="./js/auth.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        menuToggle?.addEventListener('click', () => {
+            const isHidden = mobilePanel.classList.contains('hidden');
+            if (isHidden) {
+                mobilePanel.classList.remove('hidden');
+                iconOpen?.classList.add('hidden');
+                iconClose?.classList.remove('hidden');
+            } else {
+                mobilePanel.classList.add('hidden');
+                iconOpen?.classList.remove('hidden');
+                iconClose?.classList.add('hidden');
+            }
+        });
+
+        // FAQ Live Search & Category Filtering
+        const searchInput = document.getElementById('faq-search-input');
+        const clearBtn = document.getElementById('faq-search-clear');
+        const items = Array.from(document.querySelectorAll('.faq-item'));
+        const emptyState = document.getElementById('faq-empty-state');
+        const resetBtn = document.getElementById('faq-reset-search-btn');
+        const categoryPills = document.querySelectorAll('.faq-tab-btn');
+
+        let currentCategory = 'all';
+
+        function filterFaq() {
+            const query = (searchInput?.value || '').trim().toLowerCase();
+            let visibleCount = 0;
+
+            if (query) {
+                clearBtn?.classList.remove('hidden');
+                clearBtn?.classList.add('flex');
+            } else {
+                clearBtn?.classList.add('hidden');
+                clearBtn?.classList.remove('flex');
+            }
+
+            items.forEach(item => {
+                const itemCat = item.dataset.category;
+                const text = item.textContent.toLowerCase();
+
+                const matchesCat = (currentCategory === 'all') || (itemCat === currentCategory);
+                const matchesQuery = !query || text.includes(query);
+
+                if (matchesCat && matchesQuery) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                    if (query.length > 1) {
+                        item.setAttribute('open', 'true');
+                    }
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (emptyState) {
+                emptyState.classList.toggle('hidden', visibleCount > 0);
+            }
+        }
+
+        searchInput?.addEventListener('input', filterFaq);
+
+        clearBtn?.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            filterFaq();
+            searchInput?.focus();
+        });
+
+        resetBtn?.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            currentCategory = 'all';
+            categoryPills.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.faqTab === 'all');
+            });
+            filterFaq();
+        });
+
+        categoryPills.forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.faqTab;
+                categoryPills.forEach(b => {
+                    b.classList.toggle('active', b === btn);
+                });
+                filterFaq();
+            });
+        });
+    </script>
+</body>
+</html>

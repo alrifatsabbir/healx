@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Doctor Reviews | Patient Panel | HealiiX</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f7f5] text-[#123b39] min-h-screen antialiased">
+    <div class="flex min-h-screen">
+        <aside id="dashboard-sidebar"></aside>
+        <div class="flex-1 flex flex-col min-w-0">
+            <header id="dashboard-header"></header>
+
+            <main class="p-6 sm:p-8 flex-1 max-w-5xl w-full mx-auto space-y-8">
+                <!-- Page Banner -->
+                <div class="bg-gradient-to-r from-[#082c2a] via-[#0b3a36] to-[#0f4d47] rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg border border-[#16504a]">
+                    <div class="absolute -right-12 -top-12 w-64 h-64 bg-teal-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider text-teal-200 border border-white/10 mb-2">
+                                <span class="text-amber-300">★</span>
+                                Verified Feedback Center
+                            </div>
+                            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">My Doctor Reviews</h1>
+                            <p class="text-xs sm:text-sm text-teal-100/80 mt-1 max-w-xl">
+                                Manage the ratings and clinical experience reviews you've submitted for your physicians.
+                            </p>
+                        </div>
+                        <a id="btn-browse-specs" href="./find-doctors.html" class="px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold text-xs transition-colors flex items-center gap-2 flex-shrink-0">
+                            <span>Browse Specialists</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all duration-300"></div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-white rounded-3xl p-5 border border-[#e1eae6] shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-[#edf6f3] text-[#0e927f] flex items-center justify-center font-black text-xl">
+                            📝
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#6c8680] font-semibold">Total Reviews</p>
+                            <h3 id="stat-total-reviews" class="text-2xl font-black text-[#082c2a] mt-0.5">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-5 border border-[#e1eae6] shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center font-black text-xl">
+                            ★
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#6c8680] font-semibold">5-Star Praises</p>
+                            <h3 id="stat-five-stars" class="text-2xl font-black text-[#082c2a] mt-0.5">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-5 border border-[#e1eae6] shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-xl">
+                            ⭐
+                        </div>
+                        <div>
+                            <p class="text-xs text-[#6c8680] font-semibold">Avg Rating Given</p>
+                            <h3 id="stat-avg-rating" class="text-2xl font-black text-[#082c2a] mt-0.5">0.0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reviews Feed -->
+                <div class="bg-white rounded-3xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
+                    <div class="flex items-center justify-between pb-5 border-b border-[#edf3f0] mb-6">
+                        <div>
+                            <h2 class="text-base sm:text-lg font-black text-[#082c2a]">Published Reviews</h2>
+                            <p class="text-xs text-[#6c8680] mt-0.5">Your honest reviews help thousands of patients discover verified medical care.</p>
+                        </div>
+                        <button id="btn-refresh" class="px-3 py-1.5 rounded-xl border border-[#d6ebe2] bg-[#f0f8f5] hover:bg-[#e2f3ed] text-xs font-bold text-[#0e927f] transition-colors flex items-center gap-1.5 cursor-pointer">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            <span>Refresh</span>
+                        </button>
+                    </div>
+
+                    <div id="reviews-container" class="space-y-4">
+                        <div class="py-12 flex flex-col items-center justify-center text-center">
+                            <div class="w-10 h-10 border-3 border-[#0e927f] border-t-transparent rounded-full animate-spin"></div>
+                            <span class="text-xs text-[#6c8680] mt-3">Loading your reviews...</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Edit Review Modal -->
+    <div id="edit-review-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-[#e1eae6] shadow-2xl relative">
+            <div class="flex items-center justify-between pb-4 border-b border-[#edf3f0] mb-5">
+                <div>
+                    <h3 class="font-extrabold text-lg text-[#082c2a]">Edit Doctor Review</h3>
+                    <p id="edit-doctor-name" class="text-xs text-[#6c8680] mt-0.5"></p>
+                </div>
+                <button type="button" id="btn-close-edit-modal" class="w-8 h-8 rounded-full bg-[#f0f5f3] hover:bg-[#e2ece7] text-[#556e68] flex items-center justify-center cursor-pointer">
+                    ✕
+                </button>
+            </div>
+
+            <form id="edit-review-form" class="space-y-5">
+                <input type="hidden" id="edit-review-id">
+
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-2">Overall Consultation Rating *</label>
+                    <div id="edit-star-picker" class="flex items-center gap-2">
+                        <button type="button" data-val="1" class="star-pick-btn text-2xl text-slate-300 hover:text-amber-400 transition-colors">★</button>
+                        <button type="button" data-val="2" class="star-pick-btn text-2xl text-slate-300 hover:text-amber-400 transition-colors">★</button>
+                        <button type="button" data-val="3" class="star-pick-btn text-2xl text-slate-300 hover:text-amber-400 transition-colors">★</button>
+                        <button type="button" data-val="4" class="star-pick-btn text-2xl text-slate-300 hover:text-amber-400 transition-colors">★</button>
+                        <button type="button" data-val="5" class="star-pick-btn text-2xl text-slate-300 hover:text-amber-400 transition-colors">★</button>
+                        <span id="edit-star-label" class="text-xs font-bold text-amber-500 ml-2">5 Stars - Excellent</span>
+                    </div>
+                    <input type="hidden" id="edit-rating-input" value="5">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Your Clinical Experience &amp; Feedback *</label>
+                    <textarea id="edit-comment-input" rows="4" required class="w-full px-4 py-3 rounded-2xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs text-[#082c2a] focus:bg-white focus:border-[#0e927f] outline-none"></textarea>
+                </div>
+
+                <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#edf3f0]">
+                    <button type="button" id="btn-cancel-edit" class="px-5 py-2.5 rounded-xl border border-[#d7dfdb] text-xs font-bold text-[#556e68] hover:bg-slate-50 cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="submit" id="btn-save-edit" class="px-6 py-2.5 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold shadow cursor-pointer">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import api from './js/api.js';
+        import { initDashboardShell, getAppPath } from './js/dashboard-layout.js';
+
+        let myReviews = [];
+
+        const alertEl = document.getElementById('page-alert');
+        function showAlert(msg, isError = false) {
+            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
+            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
+            alertEl.textContent = msg;
+            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => alertEl.classList.add('hidden'), 5000);
+        }
+
+        function renderStars(rating) {
+            const count = Math.round(rating);
+            let s = '';
+            for (let i = 1; i <= 5; i++) {
+                s += `<span class="${i <= count ? 'text-amber-400' : 'text-slate-200'}">★</span>`;
+            }
+            return s;
+        }
+
+        function setEditStarPicker(val) {
+            document.getElementById('edit-rating-input').value = val;
+            const labels = {
+                1: '1 Star - Needs Improvement',
+                2: '2 Stars - Fair',
+                3: '3 Stars - Good',
+                4: '4 Stars - Very Good',
+                5: '5 Stars - Excellent',
+            };
+            document.getElementById('edit-star-label').textContent = labels[val] || `${val} Stars`;
+
+            document.querySelectorAll('#edit-star-picker .star-pick-btn').forEach(btn => {
+                const bVal = Number(btn.dataset.val);
+                if (bVal <= val) {
+                    btn.classList.add('text-amber-400');
+                    btn.classList.remove('text-slate-300');
+                } else {
+                    btn.classList.remove('text-amber-400');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+        }
+
+        async function loadReviews() {
+            const container = document.getElementById('reviews-container');
+            try {
+                const res = await api.getMyReviews();
+                myReviews = res.reviews || [];
+
+                // Update Stats
+                document.getElementById('stat-total-reviews').textContent = myReviews.length;
+                const fiveStars = myReviews.filter(r => r.rating === 5).length;
+                document.getElementById('stat-five-stars').textContent = fiveStars;
+
+                const avg = myReviews.length 
+                    ? (myReviews.reduce((sum, r) => sum + r.rating, 0) / myReviews.length).toFixed(1)
+                    : '0.0';
+                document.getElementById('stat-avg-rating').textContent = avg;
+
+                if (myReviews.length === 0) {
+                    container.innerHTML = `
+                        <div class="py-16 text-center flex flex-col items-center justify-center">
+                            <div class="w-16 h-16 rounded-3xl bg-[#f0f7f4] border border-[#dbece4] flex items-center justify-center text-[#0e927f] text-2xl mb-3">
+                                🩺
+                            </div>
+                            <h3 class="text-sm font-black text-[#082c2a]">No Reviews Submitted Yet</h3>
+                            <p class="text-xs text-[#6c8680] mt-1 max-w-sm">After you complete an appointment with any physician, you can rate and review your experience here.</p>
+                            <a href="${getAppPath('patient-appointments.html')}" class="mt-4 px-5 py-2.5 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-bold text-xs transition-colors">
+                                View Completed Consultations ↗
+                            </a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = myReviews.map(r => {
+                    const doc = r.doctorId || {};
+                    const docName = doc.fullName || 'Specialist Physician';
+                    const docSpec = doc.specialization || 'Clinical Specialist';
+                    const docChamber = doc.chambers && doc.chambers[0] ? doc.chambers[0].hospitalName : '';
+                    const dateFormatted = new Date(r.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+
+                    return `
+                        <div class="p-5 sm:p-6 rounded-2xl border border-[#e4ece8] bg-[#fbfdfc] hover:border-[#bde3d5] transition-all flex flex-col sm:flex-row sm:items-start justify-between gap-5">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-[#edf6f3] text-[#0e927f] flex items-center justify-center font-black text-lg flex-shrink-0 border border-[#d6ebe2]">
+                                    ${doc.photoUrl ? `<img src="${doc.photoUrl}" class="w-full h-full object-cover rounded-2xl">` : (docName.charAt(0) || 'D')}
+                                </div>
+                                <div class="space-y-1.5">
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h3 class="font-extrabold text-sm text-[#082c2a]">${docName}</h3>
+                                        <span class="text-[11px] font-semibold text-[#0e927f] bg-[#eef7f4] px-2.5 py-0.5 rounded-lg border border-[#cbe8dc]">${docSpec}</span>
+                                        ${r.appointmentRef ? `<span class="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Ref #${r.appointmentRef}</span>` : ''}
+                                    </div>
+                                    <p class="text-[11px] text-[#6c8680]">${docChamber ? `${docChamber} • ` : ''}Reviewed on ${dateFormatted}</p>
+                                    
+                                    <div class="flex items-center gap-2 pt-1">
+                                        <div class="text-base tracking-widest">${renderStars(r.rating)}</div>
+                                        <span class="text-xs font-black text-[#082c2a]">${r.rating}.0</span>
+                                        <span class="text-[11px] text-[#869e98]">${r.isVerifiedVisit ? '• Verified Visit' : ''}</span>
+                                    </div>
+
+                                    <p class="text-xs text-[#344d47] leading-relaxed pt-2 max-w-2xl bg-[#f5f9f7] p-3.5 rounded-xl border border-[#e4ece8]">
+                                        "${r.comment}"
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex sm:flex-col items-center sm:items-end gap-2 flex-shrink-0 pt-2 sm:pt-0">
+                                <button type="button" data-edit-id="${r._id}" class="btn-edit-rev px-3.5 py-1.5 rounded-xl border border-[#d4e5de] bg-white hover:bg-[#edf6f3] text-xs font-bold text-[#082c2a] transition-colors cursor-pointer flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5 text-[#0e927f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                                    <span>Edit</span>
+                                </button>
+                                <button type="button" data-delete-id="${r._id}" class="btn-del-rev px-3.5 py-1.5 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-xs font-bold text-red-600 transition-colors cursor-pointer flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                    <span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                // Hook Edit buttons
+                container.querySelectorAll('.btn-edit-rev').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.dataset.editId;
+                        const r = myReviews.find(x => x._id === id);
+                        if (!r) return;
+                        document.getElementById('edit-review-id').value = r._id;
+                        document.getElementById('edit-doctor-name').textContent = `Reviewing: ${r.doctorId?.fullName || r.patientName}`;
+                        document.getElementById('edit-comment-input').value = r.comment;
+                        setEditStarPicker(r.rating);
+                        document.getElementById('edit-review-modal').classList.remove('hidden');
+                        document.getElementById('edit-review-modal').classList.add('flex');
+                    });
+                });
+
+                // Hook Delete buttons
+                container.querySelectorAll('.btn-del-rev').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const id = btn.dataset.deleteId;
+                        if (window.healiixConfirm) {
+                            const ok = await window.healiixConfirm({
+                                title: 'Delete Doctor Review?',
+                                message: 'Are you sure you want to delete this doctor review? This will also update the doctor\'s public average rating.',
+                                confirmText: 'Delete Review',
+                                type: 'danger'
+                            });
+                            if (!ok) return;
+                        } else if (!confirm('Are you sure you want to delete this doctor review? This will also update the doctor\'s public average rating.')) {
+                            return;
+                        }
+                        try {
+                            btn.disabled = true;
+                            btn.textContent = 'Deleting...';
+                            const res = await api.deleteReview(id);
+                            showAlert(res.message || 'Review deleted successfully.');
+                            await loadReviews();
+                        } catch (err) {
+                            showAlert(err.message, true);
+                        }
+                    });
+                });
+
+            } catch (err) {
+                container.innerHTML = `
+                    <div class="py-8 text-center text-xs text-red-600 bg-red-50 rounded-2xl border border-red-200">
+                        Failed to load reviews: ${err.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Close Modal
+        function closeEditModal() {
+            document.getElementById('edit-review-modal').classList.add('hidden');
+            document.getElementById('edit-review-modal').classList.remove('flex');
+        }
+        document.getElementById('btn-close-edit-modal').addEventListener('click', closeEditModal);
+        document.getElementById('btn-cancel-edit').addEventListener('click', closeEditModal);
+
+        // Star picker click
+        document.querySelectorAll('#edit-star-picker .star-pick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setEditStarPicker(Number(btn.dataset.val));
+            });
+        });
+
+        // Submit Edit Form
+        document.getElementById('edit-review-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('edit-review-id').value;
+            const rating = Number(document.getElementById('edit-rating-input').value);
+            const comment = document.getElementById('edit-comment-input').value.trim();
+
+            const saveBtn = document.getElementById('btn-save-edit');
+            try {
+                saveBtn.disabled = true;
+                saveBtn.textContent = 'Saving...';
+                const res = await api.updateReview(id, { rating, comment });
+                closeEditModal();
+                showAlert(res.message || 'Review updated successfully!');
+                await loadReviews();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Changes';
+            }
+        });
+
+        (async () => {
+            const btnBrowse = document.getElementById('btn-browse-specs');
+            if (btnBrowse) btnBrowse.href = getAppPath('find-doctors.html');
+
+            const user = await initDashboardShell('patient', 'patient-reviews.html', 'My Reviews', 'Manage your ratings and doctor reviews');
+            if (!user) return;
+
+            await loadReviews();
+
+            document.getElementById('btn-refresh').addEventListener('click', async () => {
+                await loadReviews();
+            });
+        })();
+    </script>
+</body>
+</html>
