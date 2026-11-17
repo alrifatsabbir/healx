@@ -118,33 +118,28 @@ app.get('/api/diagnostic', async (c) => {
 // Diagnostic email test endpoint to verify SMTP directly on Render
 app.get('/api/test-email', async (c) => {
     const to = c.req.query('to') || 'alrifat2004@gmail.com';
+    const host = c.req.query('host') || process.env.MAILER_HOST || 'spinosaurus.dnsextra.com';
     const port = Number(c.req.query('port')) || Number(process.env.MAILER_PORT) || 465;
     const secure = port === 465;
     const nodemailer = (await import('nodemailer')).default;
     
     const t = nodemailer.createTransport({
-        host: process.env.MAILER_HOST || 'spinosaurus.dnsextra.com',
+        host: host,
         port: port,
         secure: secure,
         auth: {
-            user: process.env.MAILER_USER,
-            pass: process.env.MAILER_PASSWORD,
+            user: process.env.MAILER_USER || 'dummy@gmail.com',
+            pass: process.env.MAILER_PASSWORD || 'dummy',
         },
-        connectionTimeout: 8000,
+        connectionTimeout: 5000,
         tls: { rejectUnauthorized: false },
     });
 
     try {
         await t.verify();
-        const info = await t.sendMail({
-            from: process.env.MAIL_FROM || process.env.MAILER_USER,
-            to: to,
-            subject: 'HealiiX Render Test',
-            text: 'This is a live test email from HealiiX backend on Render.',
-        });
-        return c.json({ success: true, messageId: info.messageId, port });
+        return c.json({ success: true, message: `Connected to ${host}:${port}` });
     } catch (err) {
-        return c.json({ success: false, error: err.message, code: err.code, port }, 500);
+        return c.json({ success: false, host, port, error: err.message, code: err.code }, 500);
     }
 });
 
