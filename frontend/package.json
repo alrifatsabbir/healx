@@ -1,0 +1,10 @@
+{
+  "name": "healx-frontend",
+  "version": "1.0.0",
+  "description": "HealiiX frontend — static site + Vercel serverless functions",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^10.6.0"
+  }
+}
