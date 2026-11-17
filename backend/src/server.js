@@ -1,3 +1,4 @@
+import './polyfill.js';
 import { serve } from '@hono/node-server';
 import env from './config/env.js';
 import app from './app.js';
