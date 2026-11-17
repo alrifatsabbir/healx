@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find the right doctor for you with HealiiX, an online doctor directory and appointment booking platform built around better care.">
     <meta name="theme-color" content="#082c2a">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="HealiiX, HealiiX website, healix, healix website, HealiiX find care, HealiiX find doctor, HealiiX book appointment">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="author" content="HealiiX, alrifatsabbir">
+    <meta property="og:image" content="./assets/images/icon.png">
+    <meta property="og:site_name" content="https://healiix.vercel.app">
+    <meta property="og:title" content="HealiiX | Find Care That Fits Your Life">
+    <meta property="og:description" content="Find the right doctor for you with HealiiX, an online doctor directory and appointment booking platform built around better" />
+    <meta property="og:url" content="https://healiix.vercel.app">
+    <meta property="twitter:image" content="./assets/images/icon.png">
+    <meta name="twitter:card" content="Find the right doctor for you with HealiiX, an online doctor directory and appointment booking platform built around better">
+    <meta name="twitter:site" content="@alrifatsabbir">
+    <meta name="twitter:title" content="HealiiX | Find Care That Fits Your Life">
+    <meta name="twitter:description" content="Find the right doctor for you with HealiiX, an online doctor directory and appointment booking platform built around better">
     <title>HealiiX | Find Care That Fits Your Life</title>
     <link rel="icon" href="./assets/images/icon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
@@ -731,69 +745,76 @@
                     const ratingBadge = hasRating ? `★ ${Number(d.rating).toFixed(1)} (${d.totalReviews})` : `0/5 ★ (0)`;
 
                     return `
-                    <div class="doctor-card bg-white rounded-3xl border border-[#e1eae6] shadow-sm hover:shadow-xl hover:border-[#0e927f]/60 transition-all flex flex-col justify-between overflow-hidden group w-[300px] sm:w-[340px] flex-shrink-0 snap-start"
+                    <div class="doctor-card doctor-card-reference bg-[#eef2f0] rounded-[24px] p-3 border border-[#e5ebe8] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col group w-[300px] sm:w-[340px] flex-shrink-0 snap-start"
                          data-doctor="${docName}"
                          data-specialties="${d.specialty}"
                          data-location="${primaryChamber.city || primaryChamber.district || ''}">
                         
                         <!-- Top Image Cover -->
-                        <div class="relative w-full h-60 sm:h-64 bg-[#edf5f2] overflow-hidden flex-shrink-0">
+                        <div class="relative w-full h-64 sm:h-[272px] bg-[#dbe7e3] rounded-[14px] overflow-hidden flex-shrink-0">
                             ${d.photoUrl ? `
-                                <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
                             ` : `
                                 <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0b3a36] to-[#082c2a] text-white">
                                     <span class="text-6xl font-black text-[#8ce2d4]">${docName.charAt(0) || 'D'}</span>
                                     <span class="text-xs text-teal-200/80 mt-1 font-semibold uppercase tracking-wider">${d.specialty || 'Specialist'}</span>
                                 </div>
                             `}
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none"></div>
+                            <div class="hidden"></div>
                             
                             <!-- Badges on Image -->
-                            <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                                <span class="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/95 text-[#082c2a] shadow-md backdrop-blur-xs border border-white/40">
+                            <div class="absolute top-0 left-1 right-2 flex items-start justify-between pointer-events-none">
+                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-r-lg rounded-bl-lg bg-[#f7faf8]/95 text-[#123b39] shadow-sm backdrop-blur-sm border border-white/70">
                                     <svg class="w-3.5 h-3.5 text-[#0e927f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                    BMDC Verified
+                                    verified
                                 </span>
-                                <span class="inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-white/95 ${hasRating ? 'text-amber-700' : 'text-slate-600'} shadow-md backdrop-blur-xs border border-white/40">
+                                <span class="hidden">
                                     ${ratingBadge}
                                 </span>
                             </div>
 
                             <!-- Doctor Name & Specialty overlay on Image -->
-                            <div class="absolute bottom-3 left-4 right-4 text-white pointer-events-none space-y-0.5 overflow-hidden">
-                                <span class="text-[10px] font-black uppercase tracking-wider text-teal-300 block drop-shadow-sm truncate" title="${d.specialty}">${d.specialty}</span>
-                                <h3 class="font-black text-lg text-white truncate drop-shadow-md" title="${docName}">${docName}</h3>
+                            <div class="hidden">
+                                <span>${d.specialty}</span>
+                                <h3>${docName}</h3>
                             </div>
                         </div>
 
                         <!-- Minimal Details Underneath Image (Consistent Typography) -->
-                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="px-0.5 pt-4 pb-0.5 flex flex-1 flex-col space-y-3">
+                            <div class="flex items-center justify-between gap-3">
+                                <h3 class="font-extrabold text-[21px] leading-tight text-[#123b39] truncate" title="${docName}">${docName}</h3>
+                                <span class="inline-flex items-center gap-1 text-sm font-medium text-[#123b39] flex-shrink-0">
+                                    <span class="text-base leading-none">★</span>
+                                    ${hasRating ? `${Number(d.rating).toFixed(1)}/5.0` : '0.0/5.0'}
+                                </span>
+                            </div>
                             <div class="space-y-2.5 overflow-hidden">
                                 <div class="flex items-center justify-between gap-2 text-xs overflow-hidden">
-                                    <span class="font-bold text-[#0e927f] truncate flex-1 min-w-0" title="${degreesList}">${degreesList}</span>
-                                    <span class="font-mono text-[11px] font-semibold bg-[#edf7f4] text-[#556e68] px-2 py-0.5 rounded-md border border-[#cbe5dc] flex-shrink-0">BMDC: ${d.bmdcNumber || 'Registered'}</span>
+                                    <span class="font-normal text-[12px] leading-[1.45] text-[#8a9591] truncate flex-1 min-w-0" title="${degreesList}">${degreesList}${d.specialty ? `, ${d.specialty}` : ''}</span>
+                                    <span class="hidden">BMDC: ${d.bmdcNumber || 'Registered'}</span>
                                 </div>
-                                <p class="text-xs text-[#556e68] flex items-center gap-1.5 overflow-hidden" title="${workplaceText}">
+                                <p class="hidden" title="${workplaceText}">
                                     <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                                     <span class="truncate">${workplaceText}</span>
                                 </p>
                             </div>
 
                             <!-- Minimal Location & Fee Info (Text only, NO map link) -->
-                            <div class="pt-3 border-t border-[#edf3f0] flex items-center justify-between gap-3 text-xs">
-                                <span class="flex items-center gap-1.5 text-[#556e68] truncate" title="${locDisplay}">
+                            <div class="hidden">
+                                <span class="hidden" title="${locDisplay}">
                                     <svg class="w-3.5 h-3.5 text-[#0e927f] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                     <strong class="text-[#082c2a] truncate font-semibold">${locDisplay}</strong>
                                 </span>
-                                <span class="font-black text-sm text-[#0e927f] flex-shrink-0">${feeDisplay}</span>
+                                <span>${feeDisplay}</span>
                             </div>
 
                             <!-- Action: Profile Button Only (Call for serial removed) -->
-                            <div>
-                                <a href="${profileUrl}" target="_blank" class="w-full py-2.5 px-4 text-center rounded-xl text-xs font-bold bg-[#0e927f] hover:bg-[#087866] text-white shadow-xs transition-colors flex items-center justify-center gap-1.5">
+                            <div class="flex items-center gap-3">
+                                <a href="${profileUrl}" target="_blank" class="flex-1 min-w-0 py-3 px-4 text-center rounded-[12px] text-sm font-semibold bg-[#063b38] hover:bg-[#0b4b47] active:scale-[0.98] text-white transition-all flex items-center justify-center">
                                     <span>View Profile</span>
-                                    <span>↗</span>
                                 </a>
+                                <span class="text-[17px] font-medium text-[#123b39] flex-shrink-0">${feeDisplay}</span>
                             </div>
                         </div>
                     </div>

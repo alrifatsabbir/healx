@@ -73,7 +73,10 @@ auth.post('/patient/send-otp', async (c) => {
             step1Data: { name, username, email },
         });
 
-        await sendPatientVerificationOtpEmail({ to: email, name, otp: otpCode });
+        // Dispatch OTP email asynchronously so slow SMTP handshakes never freeze the user UI
+        sendPatientVerificationOtpEmail({ to: email, name, otp: otpCode }).catch((err) => {
+            console.error(`[Mailer Warning] Failed sending patient OTP to ${email}:`, err.message);
+        });
 
         return c.json({
             success: true,
@@ -261,11 +264,13 @@ auth.post('/doctor/step-1', async (c) => {
             },
         });
 
-        // Send OTP email
-        await sendDoctorOtpEmail({
+        // Send OTP email asynchronously so slow SMTP handshakes never freeze the user UI
+        sendDoctorOtpEmail({
             to: normalizedEmail,
             doctorName: resolvedName,
             otp: otpCode,
+        }).catch((err) => {
+            console.error(`[Mailer Warning] Failed sending doctor OTP to ${normalizedEmail}:`, err.message);
         });
 
         return c.json({
@@ -708,10 +713,13 @@ auth.post('/forgot-password', async (c) => {
             purpose: 'password_reset',
         });
 
-        await sendPasswordResetOtpEmail({
+        // Dispatch Password Reset OTP asynchronously
+        sendPasswordResetOtpEmail({
             to: user.email,
             name: user.fullName,
             otp: otpCode,
+        }).catch((err) => {
+            console.error(`[Mailer Warning] Failed sending password reset OTP to ${user.email}:`, err.message);
         });
 
         return c.json({
