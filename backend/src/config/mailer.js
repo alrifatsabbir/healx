@@ -214,7 +214,7 @@ async function dispatchMail({ to, subject, html, text, replyTo, templateType = '
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    from: process.env.MAIL_FROM || 'HealiiX <onboarding@resend.dev>',
+                    from: process.env.RESEND_FROM || 'HealiiX <onboarding@resend.dev>',
                     to: Array.isArray(to) ? to : [to],
                     subject,
                     html,
