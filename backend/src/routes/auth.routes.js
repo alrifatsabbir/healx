@@ -73,6 +73,10 @@ auth.post('/patient/send-otp', async (c) => {
             step1Data: { name, username, email },
         });
 
+        console.log(`[AUTH OTP] ==========================================`);
+        console.log(`[AUTH OTP] Patient Signup OTP for ${email}: ${otpCode}`);
+        console.log(`[AUTH OTP] ==========================================`);
+
         // Dispatch OTP email asynchronously so slow SMTP handshakes never freeze the user UI
         sendPatientVerificationOtpEmail({ to: email, name, otp: otpCode }).catch((err) => {
             console.error(`[Mailer Warning] Failed sending patient OTP to ${email}:`, err.message);
@@ -263,6 +267,10 @@ auth.post('/doctor/step-1', async (c) => {
                 dateOfBirth: new Date(dateOfBirth),
             },
         });
+
+        console.log(`[AUTH OTP] ==========================================`);
+        console.log(`[AUTH OTP] Doctor Signup OTP for ${normalizedEmail}: ${otpCode}`);
+        console.log(`[AUTH OTP] ==========================================`);
 
         // Send OTP email asynchronously so slow SMTP handshakes never freeze the user UI
         sendDoctorOtpEmail({
