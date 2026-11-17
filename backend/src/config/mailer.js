@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import env from './env.js';
@@ -11,23 +12,22 @@ const EMAIL_LOGO_PATH = path.resolve(__dirname, '../assets/healiix-email-logo.pn
 const LOGO_CID = 'healiix-logo@alrifatsabbir.me';
 const APP_BASE_URL = env.FRONTEND_URL;
 
-let transporter = null;
+// ─── Bridge config ────────────────────────────────────────────────────────────
+// When MAIL_BRIDGE_URL is set (production on Render), all mail is routed through
+// the Vercel serverless bridge which has unrestricted SMTP access.
+// In local dev the classic nodemailer transporter is used directly.
+const BRIDGE_URL    = process.env.MAIL_BRIDGE_URL;   // e.g. https://healiix.vercel.app/api/send-mail
+const BRIDGE_SECRET = process.env.MAIL_BRIDGE_SECRET; // shared secret — set on both Render & Vercel
+
+let _localTransporter = null;
 let isEtherealFallback = false;
 
-export async function getTransporter() {
-    if (process.env.DISABLE_MAIL === 'true') {
-        return {
-            sendMail: async (options) => {
-                console.log(`[Mailer] Suppressed email to ${options?.to} (DISABLE_MAIL is set to true)`);
-                return { messageId: 'suppressed-disable-mail-flag', response: 'Mail server suppressed' };
-            },
-        };
-    }
-
-    if (transporter) return transporter;
+// ─── Local-dev transporter (used only when MAIL_BRIDGE_URL is not set) ───────
+async function getLocalTransporter() {
+    if (_localTransporter) return _localTransporter;
 
     if (process.env.MAILER_HOST && process.env.MAILER_USER && process.env.MAILER_PASSWORD) {
-        transporter = nodemailer.createTransport({
+        _localTransporter = nodemailer.createTransport({
             host: process.env.MAILER_HOST,
             port: Number(process.env.MAILER_PORT) || 465,
             secure: process.env.MAILER_SECURE === 'true' || Number(process.env.MAILER_PORT) === 465,
@@ -41,36 +41,33 @@ export async function getTransporter() {
             connectionTimeout: 8000,
             greetingTimeout: 5000,
             socketTimeout: 12000,
-            tls: {
-                rejectUnauthorized: false,
-            },
+            tls: { rejectUnauthorized: false },
         });
-        console.log(`[Mailer] Connected to ${process.env.MAILER_HOST}:${process.env.MAILER_PORT} (${process.env.MAILER_USER})`);
+        console.log(`[Mailer] Local SMTP connected to ${process.env.MAILER_HOST}:${process.env.MAILER_PORT}`);
     } else if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-        transporter = nodemailer.createTransport({
+        _localTransporter = nodemailer.createTransport({
             service: process.env.EMAIL_SERVICE || 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
+            auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
         });
-        console.log(`[Mailer] Mail Service (${process.env.EMAIL_SERVICE || 'gmail'}) connected as ${process.env.EMAIL_USER}`);
+        console.log(`[Mailer] Gmail connected as ${process.env.EMAIL_USER}`);
     } else {
         const testAccount = await nodemailer.createTestAccount();
-        transporter = nodemailer.createTransport({
+        _localTransporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
             port: 587,
             secure: false,
-            auth: {
-                user: testAccount.user,
-                pass: testAccount.pass,
-            },
+            auth: { user: testAccount.user, pass: testAccount.pass },
         });
         isEtherealFallback = true;
         console.log('[Mailer] Using Ethereal Dev Test Account (no live mailer credentials configured)');
     }
 
-    return transporter;
+    return _localTransporter;
+}
+
+// Keep getTransporter exported — existing code that imports it still works
+export async function getTransporter() {
+    return getLocalTransporter();
 }
 
 function getFromAddress() {
@@ -199,40 +196,96 @@ function renderButton(text, href) {
     </table>`;
 }
 
+// ─── Core dispatch — routes to Vercel bridge in prod, local SMTP in dev ──────
 async function dispatchMail({ to, subject, html, text, replyTo, templateType = 'transactional', sentBy = 'system' }) {
+    if (process.env.DISABLE_MAIL === 'true') {
+        console.log(`[Mailer] Suppressed email to ${to} (DISABLE_MAIL=true)`);
+        return true;
+    }
+
     const toAddress = Array.isArray(to) ? to.join(', ') : String(to);
     const refId = crypto.randomUUID();
+    const domain = (process.env.MAIL_FROM || 'alrifatsabbir.me').split('@')[1] || 'alrifatsabbir.me';
 
     try {
-        const mail = await getTransporter();
-        const from = getFromAddress();
-        const domain = (process.env.MAIL_FROM || 'alrifatsabbir.me').split('@')[1] || 'alrifatsabbir.me';
+        let messageId;
 
-        const info = await mail.sendMail({
-            from,
-            to,
-            replyTo: replyTo || process.env.MAIL_FROM || 'healiix@alrifatsabbir.me',
-            subject,
-            text,
-            html,
-            messageId: `<${refId}@${domain}>`,
-            attachments: [
-                {
+        if (BRIDGE_URL && BRIDGE_SECRET) {
+            // ── Production: forward to Vercel bridge ──────────────────────────
+            // The logo image is read and base64-encoded so it can be sent over HTTP
+            let logoAttachment = null;
+            try {
+                const logoData = fs.readFileSync(EMAIL_LOGO_PATH);
+                logoAttachment = {
                     filename: 'healiix-logo.png',
-                    path: EMAIL_LOGO_PATH,
+                    content: logoData.toString('base64'),
+                    encoding: 'base64',
                     cid: LOGO_CID,
                     contentDisposition: 'inline',
-                },
-            ],
-            headers: {
-                'X-Entity-Ref-ID': refId,
-                'X-Auto-Response-Suppress': 'OOF, AutoReply',
-            },
-        });
+                };
+            } catch (_) {
+                // logo file not critical — continue without it
+            }
 
-        console.log(`[Email] "${subject}" sent to ${toAddress} (${info.messageId})`);
-        if (isEtherealFallback) {
-            console.log(` 🔗 [Ethereal Preview]: ${nodemailer.getTestMessageUrl(info)}`);
+            const payload = {
+                to,
+                subject,
+                html,
+                text,
+                replyTo: replyTo || process.env.MAIL_FROM || 'healiix@alrifatsabbir.me',
+                messageId: `<${refId}@${domain}>`,
+                attachments: logoAttachment ? [logoAttachment] : [],
+            };
+
+            const bridgeRes = await fetch(BRIDGE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Mail-Bridge-Secret': BRIDGE_SECRET,
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await bridgeRes.json();
+
+            if (!bridgeRes.ok) {
+                throw new Error(result.message || `Bridge responded with ${bridgeRes.status}`);
+            }
+
+            messageId = result.messageId || refId;
+            console.log(`[Email] "${subject}" sent via Vercel bridge to ${toAddress} (${messageId})`);
+        } else {
+            // ── Local dev: send directly via nodemailer ───────────────────────
+            const mail = await getLocalTransporter();
+            const from = getFromAddress();
+
+            const info = await mail.sendMail({
+                from,
+                to,
+                replyTo: replyTo || process.env.MAIL_FROM || 'healiix@alrifatsabbir.me',
+                subject,
+                text,
+                html,
+                messageId: `<${refId}@${domain}>`,
+                attachments: [
+                    {
+                        filename: 'healiix-logo.png',
+                        path: EMAIL_LOGO_PATH,
+                        cid: LOGO_CID,
+                        contentDisposition: 'inline',
+                    },
+                ],
+                headers: {
+                    'X-Entity-Ref-ID': refId,
+                    'X-Auto-Response-Suppress': 'OOF, AutoReply',
+                },
+            });
+
+            messageId = info.messageId || refId;
+            console.log(`[Email] "${subject}" sent directly to ${toAddress} (${messageId})`);
+            if (isEtherealFallback) {
+                console.log(` 🔗 [Ethereal Preview]: ${nodemailer.getTestMessageUrl(info)}`);
+            }
         }
 
         EmailLog.create({
@@ -240,7 +293,7 @@ async function dispatchMail({ to, subject, html, text, replyTo, templateType = '
             subject,
             templateType,
             status: 'sent',
-            messageId: info.messageId || refId,
+            messageId,
             sentBy,
         }).catch(() => {});
 

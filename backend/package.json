@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node --max-old-space-size=512 --wasm-max-mem-pages=1024 src/server.js",
+    "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed:admin": "node src/seed/adminSeed.js"
   },
@@ -16,7 +16,7 @@
     "healthcare",
     "doctor-directory"
   ],
-  "author": "HealiiX Team",
+  "author": "HealiiX",
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^2.1.6",

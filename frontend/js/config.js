@@ -6,7 +6,7 @@ const SERVICE_URLS = {
     },
     PROD: {
         // Set your live deployed Backend & AI Bot domains here before deploying Frontend
-        BACKEND: 'https://healiix.alrifatsabbir.me',
+        BACKEND: 'https://healx-hzkt.onrender.com',
         AI_BOT: 'https://ai.healiix.alrifatsabbir.me',
     },
 };
@@ -68,6 +68,8 @@ export const CONFIG = {
             PROFILE: `${API_BASE_URL}/api/auth/profile`,
             CHANGE_PASSWORD: `${API_BASE_URL}/api/auth/change-password`,
         },
+        // Contact uses the Vercel serverless relay in production (api/send-mail.js → Render → SMTP).
+        // In local dev it falls back to calling Render directly (no relay overhead).
         CONTACT: `${API_BASE_URL}/api/contact`,
         NOTIFICATIONS: {
             MY: `${API_BASE_URL}/api/notifications/my`,
