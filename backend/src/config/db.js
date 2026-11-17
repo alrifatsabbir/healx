@@ -23,6 +23,7 @@ dotenv.config({
 });
 
 let cachedConnection = null;
+let connectionPromise = null;
 
 export async function connectDB() {
     const uri = process.env.MONGODB_URI;
@@ -35,19 +36,29 @@ export async function connectDB() {
         return cachedConnection;
     }
 
+    if (connectionPromise) {
+        return connectionPromise;
+    }
+
     try {
-        cachedConnection = await mongoose.connect(uri, {
+        connectionPromise = mongoose.connect(uri, {
             serverSelectionTimeoutMS: 5000,
             connectTimeoutMS: 5000,
             socketTimeoutMS: 10000,
             family: 4,
             bufferCommands: false,
         });
+        cachedConnection = await connectionPromise;
         console.log(`[Database] MongoDB Atlas Connected`);
         return cachedConnection;
     } catch (error) {
+        connectionPromise = null;
         console.error('[Database] MongoDB Connection Error:', error.message);
         throw error;
+    } finally {
+        if (mongoose.connection.readyState !== 1) {
+            connectionPromise = null;
+        }
     }
 }
 
