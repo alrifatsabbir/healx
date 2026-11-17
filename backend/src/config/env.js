@@ -30,7 +30,7 @@ function extractOrigin(urlStr) {
 export const env = {
     NODE_ENV,
     isProduction,
-    PORT: Number(process.env.PORT) || 5000,
+    PORT: process.env.PORT ? (isNaN(Number(process.env.PORT)) ? process.env.PORT : Number(process.env.PORT)) : 5000,
 
     // Active Resolved URLs based on NODE_ENV
     FRONTEND_URL: (isProduction && process.env.FRONTEND_URL_PROD)

@@ -12,14 +12,15 @@ async function bootstrap() {
         // Ensure Super Admin is seeded
         // await seedAdmin();
 
-        // Start Hono Node Server (Listening on 0.0.0.0 for Cloud Hosting like Render)
-        serve({
-            fetch: app.fetch,
-            port: env.PORT,
-            hostname: '0.0.0.0',
-        }, (info) => {
+        // Start Hono Node Server (Compatible with cPanel Passenger Sockets, Cloud Hosting, and Localhost)
+        const isSocket = typeof env.PORT === 'string' && isNaN(Number(env.PORT));
+        const serverOptions = isSocket
+            ? { fetch: app.fetch, port: env.PORT }
+            : { fetch: app.fetch, port: env.PORT, hostname: '0.0.0.0' };
+
+        serve(serverOptions, (info) => {
             console.log(`=========================================================`);
-            console.log(` 🩺 HealiiX Backend Server running on port ${info.port}`);
+            console.log(` 🩺 HealiiX Backend Server running on ${info.port || env.PORT}`);
             console.log(` 🌐 Mode:            ${env.NODE_ENV.toUpperCase()}`);
             console.log(` 🔗 Backend API:     ${env.BACKEND_URL}/api`);
             console.log(` 🖥️ Frontend App:    ${env.FRONTEND_URL}`);
