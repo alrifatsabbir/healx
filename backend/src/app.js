@@ -115,6 +115,39 @@ app.get('/api/diagnostic', async (c) => {
     });
 });
 
+// Diagnostic email test endpoint to verify SMTP directly on Render
+app.get('/api/test-email', async (c) => {
+    const to = c.req.query('to') || 'alrifat2004@gmail.com';
+    const port = Number(c.req.query('port')) || Number(process.env.MAILER_PORT) || 465;
+    const secure = port === 465;
+    const nodemailer = (await import('nodemailer')).default;
+    
+    const t = nodemailer.createTransport({
+        host: process.env.MAILER_HOST || 'spinosaurus.dnsextra.com',
+        port: port,
+        secure: secure,
+        auth: {
+            user: process.env.MAILER_USER,
+            pass: process.env.MAILER_PASSWORD,
+        },
+        connectionTimeout: 8000,
+        tls: { rejectUnauthorized: false },
+    });
+
+    try {
+        await t.verify();
+        const info = await t.sendMail({
+            from: process.env.MAIL_FROM || process.env.MAILER_USER,
+            to: to,
+            subject: 'HealiiX Render Test',
+            text: 'This is a live test email from HealiiX backend on Render.',
+        });
+        return c.json({ success: true, messageId: info.messageId, port });
+    } catch (err) {
+        return c.json({ success: false, error: err.message, code: err.code, port }, 500);
+    }
+});
+
 app.get('/health', (c) => {
     return c.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
