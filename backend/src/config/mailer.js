@@ -30,10 +30,19 @@ export async function getTransporter() {
         transporter = nodemailer.createTransport({
             host: process.env.MAILER_HOST,
             port: Number(process.env.MAILER_PORT) || 465,
-            secure: process.env.MAILER_SECURE === 'true',
+            secure: process.env.MAILER_SECURE === 'true' || Number(process.env.MAILER_PORT) === 465,
             auth: {
                 user: process.env.MAILER_USER,
                 pass: process.env.MAILER_PASSWORD,
+            },
+            pool: true,
+            maxConnections: 5,
+            maxMessages: 100,
+            connectionTimeout: 8000,
+            greetingTimeout: 5000,
+            socketTimeout: 12000,
+            tls: {
+                rejectUnauthorized: false,
             },
         });
         console.log(`[Mailer] Connected to ${process.env.MAILER_HOST}:${process.env.MAILER_PORT} (${process.env.MAILER_USER})`);
@@ -271,10 +280,7 @@ export async function sendAdminCustomEmail({ to, subject, badge = 'Notice', head
         sentBy,
     });
 }
-
-// ============================================================================
 // 1. ACCOUNT & AUTHENTICATION EMAILS
-// ============================================================================
 
 export async function sendPatientVerificationOtpEmail({ to, name, otp }) {
     const html = buildEmailLayout({
@@ -353,10 +359,7 @@ export async function sendPasswordChangedEmail({ to, name }) {
 
     return dispatchMail({ to, subject: 'Security notice: Your HealiiX password was updated', html, text });
 }
-
-// ============================================================================
 // 2. DOCTOR ONBOARDING & VERIFICATION EMAILS
-// ============================================================================
 
 export async function sendDoctorOtpEmail({ to, doctorName, otp }) {
     const html = buildEmailLayout({
@@ -452,9 +455,7 @@ export async function sendDoctorApprovalStatusEmail({ to, doctorName, username, 
     });
 }
 
-// ============================================================================
 // 3. APPOINTMENT & CONSULTATION EMAILS
-// ============================================================================
 
 export async function sendAppointmentEmail({ to, patientName, doctorName, bookingRef, date, slot, hospitalName, fee }) {
     const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
@@ -535,9 +536,7 @@ export async function sendAppointmentStatusEmail({ to, patientName, doctorName, 
     return dispatchMail({ to, subject: `Appointment ${label} [${bookingRef}] - HealiiX`, html, text });
 }
 
-// ============================================================================
 // 4. CONTACT & SUPPORT EMAILS
-// ============================================================================
 
 export async function sendContactInquiryEmail({ name, email, subject = 'General Inquiry', message }) {
     const adminEmail = getAdminInbox();

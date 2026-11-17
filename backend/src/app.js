@@ -74,7 +74,7 @@ app.get('/', (c) => {
     });
 });
 
-// Diagnostic endpoint to inspect Vercel environment
+// Diagnostic endpoint to inspect environment
 app.get('/api/diagnostic', async (c) => {
     const hasUri = !!process.env.MONGODB_URI;
     const uriPrefix = process.env.MONGODB_URI ? process.env.MONGODB_URI.substring(0, 20) + '...' : 'MISSING';
@@ -92,6 +92,17 @@ app.get('/api/diagnostic', async (c) => {
         dbError = err.message;
     }
 
+    const mailerInfo = {
+        hasMailerHost: !!process.env.MAILER_HOST,
+        mailerHost: process.env.MAILER_HOST || 'NOT SET',
+        mailerPort: process.env.MAILER_PORT || 'NOT SET',
+        hasMailerUser: !!process.env.MAILER_USER,
+        mailerUser: process.env.MAILER_USER ? process.env.MAILER_USER.substring(0, 6) + '...' : 'NOT SET',
+        hasMailerPass: !!process.env.MAILER_PASSWORD,
+        hasEmailUser: !!process.env.EMAIL_USER,
+        disableMail: process.env.DISABLE_MAIL || 'false',
+    };
+
     return c.json({
         timestamp: new Date().toISOString(),
         hasUri,
@@ -100,6 +111,7 @@ app.get('/api/diagnostic', async (c) => {
         hasCloudinary,
         dbStatus,
         dbError,
+        mailer: mailerInfo,
     });
 });
 
