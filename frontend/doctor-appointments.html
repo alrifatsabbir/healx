@@ -31,8 +31,6 @@
         <div class="flex-1 flex flex-col min-w-0">
             <header id="dashboard-header"></header>
             <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
-                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
-
                 <!-- Status Summary Strip -->
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                     <div class="bg-white p-4 rounded-2xl border border-[#e1eae6]"><p class="text-[11px] font-bold text-[#6c8680] uppercase">Total</p><p id="cnt-all" class="font-extrabold text-2xl text-[#082c2a]">0</p></div>
@@ -99,13 +97,7 @@
         let viewDate = new Date();
         let selectedDateKey = '';
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function toDateKey(d) {
             const dt = new Date(d);

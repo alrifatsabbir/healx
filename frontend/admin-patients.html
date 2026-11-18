@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,6 @@
         <div class="flex-1 flex flex-col min-w-0">
             <header id="dashboard-header"></header>
             <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
-                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
 
                 <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-[#edf3f0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -115,15 +114,9 @@
         import { CONFIG, getAppPath } from './js/config.js';
 
         let patients = [];
-        const alertEl = document.getElementById('page-alert');
         const modal = document.getElementById('patient-modal');
 
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function renderPatients() {
             const tbody = document.getElementById('patients-tbody');

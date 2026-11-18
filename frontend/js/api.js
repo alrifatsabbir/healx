@@ -312,6 +312,10 @@ export const api = {
         return this.request(qs ? `${CONFIG.ENDPOINTS.ADMIN.EMAIL_LOGS}?${qs}` : CONFIG.ENDPOINTS.ADMIN.EMAIL_LOGS, { method: 'GET' });
     },
 
+    async deleteEmailLog(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.EMAIL_LOG_DELETE(id), { method: 'DELETE' });
+    },
+
     async sendAdminNotification(data) {
         return this.request(CONFIG.ENDPOINTS.ADMIN.NOTIFICATIONS, {
             method: 'POST',

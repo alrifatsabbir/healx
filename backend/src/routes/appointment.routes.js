@@ -65,6 +65,8 @@ appointment.post('/book', async (c) => {
             patientId,
             doctorId: doctor._id,
             doctorName: doctor.name,
+            doctorUsername: doctor.username || '',
+            doctorPhoto: doctor.photoUrl || '',
             hospitalName: hospitalName || (doctor.chambers[0]?.hospitalName || 'Main Chamber'),
             appointmentDate: new Date(appointmentDate),
             timeSlot,
@@ -125,6 +127,21 @@ appointment.get('/my', requireAuth, async (c) => {
         const appointments = await Appointment.find({
             $or: [{ patientId: user._id }, { patientEmail: user.email }, { patientPhone: user.phone }],
         }).sort({ appointmentDate: -1 }).lean();
+
+        // Backfill doctorUsername / doctorPhoto for legacy appointments created before these fields existed
+        const needsBackfill = appointments.filter(a => (!a.doctorUsername || !a.doctorPhoto) && a.doctorId);
+        if (needsBackfill.length) {
+            const ids = [...new Set(needsBackfill.map(a => a.doctorId.toString()))];
+            const doctors = await Doctor.find({ _id: { $in: ids } }).select('_id username photoUrl').lean();
+            const docMap = Object.fromEntries(doctors.map(d => [d._id.toString(), d]));
+            for (const a of appointments) {
+                const d = docMap[a.doctorId?.toString()];
+                if (d) {
+                    if (!a.doctorUsername) a.doctorUsername = d.username || '';
+                    if (!a.doctorPhoto) a.doctorPhoto = d.photoUrl || '';
+                }
+            }
+        }
 
         return c.json({
             success: true,

@@ -96,6 +96,7 @@ export const CONFIG = {
             APPOINTMENTS: `${API_BASE_URL}/api/admin/appointments`,
             EMAIL_SEND: `${API_BASE_URL}/api/admin/emails/send`,
             EMAIL_LOGS: `${API_BASE_URL}/api/admin/emails/logs`,
+            EMAIL_LOG_DELETE: (id) => `${API_BASE_URL}/api/admin/emails/logs/${id}`,
             NOTIFICATIONS: `${API_BASE_URL}/api/admin/notifications`,
             NOTIFICATION_TOGGLE: (id) => `${API_BASE_URL}/api/admin/notifications/${id}/toggle`,
             NOTIFICATION_DELETE: (id) => `${API_BASE_URL}/api/admin/notifications/${id}`,

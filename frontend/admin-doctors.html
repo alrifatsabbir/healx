@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,6 @@
         <div class="flex-1 flex flex-col min-w-0">
             <header id="dashboard-header"></header>
             <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
-                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
 
                 <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-[#edf3f0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -127,16 +126,10 @@
         let currentPage = 1;
         const pageSize = 20;
 
-        const alertEl = document.getElementById('page-alert');
         const viewModal = document.getElementById('doc-view-modal');
         const editModal = document.getElementById('doc-edit-modal');
 
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function renderPagination(totalItems, totalPages) {
             const paginationWrapper = document.getElementById('pagination-wrapper');
@@ -282,7 +275,7 @@
             const d = doctors.find(x => x._id === id);
             if (!d) return;
             document.getElementById('dvm-name').textContent = d.name;
-            document.getElementById('dvm-sub').textContent = `BMDC: ${d.bmdcNumber} • ${d.specialty} • @${d.username}`;
+            document.getElementById('dvm-sub').textContent = `BMDC: ${d.bmdcNumber} â€¢ ${d.specialty} â€¢ @${d.username}`;
 
             const idFront = d.govtIdImageUrl || d.degreeCertImageUrl || '';
             const idLabel = d.govtIdImageUrl ? `${d.govtIdType || 'Govt ID'} Front (Face Visible)` : 'Verification Certificate';
@@ -300,19 +293,19 @@
                         <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
                             <p class="text-[11px] font-bold text-[#556e68] mb-2">Doctor Photo</p>
                             ${d.photoUrl
-                                ? `<img src="${d.photoUrl}" onclick="openImageLightbox('${d.photoUrl}', '${d.name} — Profile Photo')" class="w-full h-44 object-cover rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                ? `<img src="${d.photoUrl}" onclick="openImageLightbox('${d.photoUrl}', '${d.name} â€” Profile Photo')" class="w-full h-44 object-cover rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
                                 : `<p class="text-xs text-[#6c8680] py-8 text-center">No Photo</p>`}
                         </div>
                         <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
                             <p class="text-[11px] font-bold text-[#556e68] mb-2">BMDC Certificate</p>
                             ${d.bmdcCertImageUrl
-                                ? `<img src="${d.bmdcCertImageUrl}" onclick="openImageLightbox('${d.bmdcCertImageUrl}', '${d.name} — BMDC Certificate (${d.bmdcNumber})')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                ? `<img src="${d.bmdcCertImageUrl}" onclick="openImageLightbox('${d.bmdcCertImageUrl}', '${d.name} â€” BMDC Certificate (${d.bmdcNumber})')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
                                 : `<p class="text-xs text-[#6c8680] py-8 text-center">Not uploaded (scrapped directory specialist)</p>`}
                         </div>
                         <div class="border border-[#e1eae6] rounded-2xl p-3 bg-[#fbfdfc] flex flex-col justify-between">
                             <p class="text-[11px] font-bold text-[#556e68] mb-2">${idLabel}</p>
                             ${idFront
-                                ? `<img src="${idFront}" onclick="openImageLightbox('${idFront}', '${d.name} — ${idLabel}')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
+                                ? `<img src="${idFront}" onclick="openImageLightbox('${idFront}', '${d.name} â€” ${idLabel}')" class="w-full h-44 object-contain rounded-lg border border-[#d7dfdb] cursor-zoom-in bg-white hover:opacity-90 transition-opacity">`
                                 : `<p class="text-xs text-[#6c8680] py-8 text-center">Not uploaded</p>`}
                         </div>
                     </div>

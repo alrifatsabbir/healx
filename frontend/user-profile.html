@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -25,32 +25,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f3f7f5] text-[#123b39] pt-[76px] min-h-screen flex flex-col justify-between antialiased">
+<body class="bg-[#f3f7f5] text-[#123b39] pt-[72px] min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- Header & Navigation -->
-    <header class="site-header fixed top-0 inset-x-0 h-[76px] bg-[#082c2a] text-[#eaf6f2] z-50 shadow-[0_10px_24px_rgba(6,37,33,0.18)]">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto h-full flex items-center justify-between gap-6 lg:gap-11">
-            <a class="brand flex items-center gap-3 font-extrabold text-[23px] tracking-tight text-white hover:opacity-90 transition-opacity" href="./index.html" id="nav-brand" aria-label="HealiiX home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" width="120" height="30" class="h-11 w-auto object-contain rounded-md">
+    <!-- Standard HealiiX Navbar -->
+    <header id="site-header" class="site-header fixed top-0 left-0 right-0 h-[72px] z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] flex items-center shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
             </a>
 
-            <button class="menu-toggle hidden max-[850px]:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 border border-white/20 text-white hover:bg-white/20 transition-colors ml-auto cursor-pointer" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-            </button>
-
-            <nav id="primary-nav" class="primary-nav hidden min-[851px]:flex items-center gap-7 text-sm text-[#b9d1cc] font-medium flex-1 max-[850px]:absolute max-[850px]:top-[76px] max-[850px]:inset-x-0 max-[850px]:bg-[#082c2a] max-[850px]:flex-col max-[850px]:p-6 max-[850px]:gap-4 max-[850px]:shadow-2xl max-[850px]:border-t max-[850px]:border-white/10" aria-label="Primary navigation">
-                <a href="./index.html" id="nav-home" class="hover:text-white transition-colors">Home</a>
-                <a href="./find-doctors.html" id="nav-find" class="hover:text-white transition-colors">Find Doctors</a>
-                <a href="./categories.html" id="nav-cats" class="hover:text-white transition-colors">Specialties</a>
-                <a href="./about.html" id="nav-about" class="hover:text-white transition-colors">About Us</a>
-                <a href="./faq.html" id="nav-faq" class="hover:text-white transition-colors">FAQ</a>
-                <a href="./contact.html" id="nav-contact" class="hover:text-white transition-colors">Contact</a>
+            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
+                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </a>
+                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
+                <a class="hover:text-white transition-colors" href="categories.html">Categories</a>
+                <a class="hover:text-white transition-colors" href="about.html">About</a>
+                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
+                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
             </nav>
 
-            <div id="nav-auth-slot" class="nav-actions hidden min-[851px]:flex items-center gap-4 text-sm">
-                <a href="./login.html" id="nav-login" class="sign-in-btn bg-transparent border-0 text-[#b9d1cc] font-semibold text-sm hover:text-white transition-colors px-3 py-2 cursor-pointer">Sign in</a>
-                <a href="./sign-up.html" id="nav-signup" class="button button-small button-light inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full font-bold text-xs bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer border-0">Join HealiiX <span aria-hidden="true">&rarr;</span></a>
+            <div class="nav-actions hidden sm:flex items-center gap-4">
+                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
+                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] transition-all active:scale-[0.98]" href="sign-up.html">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span>Join HealiiX</span>
+                </a>
             </div>
+
+            <div class="flex items-center gap-2.5 md:hidden">
+                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg" href="login.html">Sign In</a>
+                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
+            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
+                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-1 hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
+                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                </div>
+            </nav>
         </div>
     </header>
 
@@ -98,43 +125,11 @@
     <script type="module">
         import api from './js/api.js';
         import { getAppPath, CONFIG } from './js/config.js';
+        import './js/auth.js';
 
         const loadingEl = document.getElementById('profile-loading');
         const errorEl = document.getElementById('profile-error');
         const contentEl = document.getElementById('profile-content');
-
-        function setupNavLinks() {
-            document.getElementById('nav-brand').href = getAppPath('index.html');
-            document.getElementById('nav-home').href = getAppPath('index.html');
-            document.getElementById('nav-find').href = getAppPath('find-doctors.html');
-            document.getElementById('nav-cats').href = getAppPath('categories.html');
-            document.getElementById('nav-about').href = getAppPath('about.html');
-            document.getElementById('nav-contact').href = getAppPath('contact.html');
-            document.getElementById('nav-login').href = getAppPath('login.html');
-            document.getElementById('nav-signup').href = getAppPath('sign-up.html');
-            document.getElementById('err-home-btn').href = getAppPath('index.html');
-            document.getElementById('ft-find').href = getAppPath('find-doctors.html');
-            document.getElementById('ft-contact').href = getAppPath('contact.html');
-
-            const currentUser = api.getCurrentUser();
-            const authSlot = document.getElementById('nav-auth-slot');
-            if (currentUser && authSlot) {
-                let dashUrl = getAppPath('patient-dashboard.html');
-                if (currentUser.role === 'admin') dashUrl = getAppPath('admin-dashboard.html');
-                else if (currentUser.role === 'doctor') dashUrl = getAppPath('doctor-dashboard.html');
-
-                authSlot.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <a href="${dashUrl}" class="flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-bold transition-all">
-                            <span class="w-6 h-6 rounded-full bg-[#0e927f] text-white flex items-center justify-center text-[11px] font-black">
-                                ${(currentUser.fullName || currentUser.username || 'U').charAt(0).toUpperCase()}
-                            </span>
-                            <span>Dashboard ↗</span>
-                        </a>
-                    </div>
-                `;
-            }
-        }
 
         function calculateAge(dobString) {
             if (!dobString) return null;
@@ -146,8 +141,6 @@
         }
 
         async function loadPatientProfile() {
-            setupNavLinks();
-
             // Detect username from URL path (/u/:username) or query param (?u=username)
             const match = window.location.pathname.match(/\/u\/([^/]+)/);
             const username = match ? decodeURIComponent(match[1]) : new URLSearchParams(window.location.search).get('u');
@@ -159,7 +152,7 @@
                 return;
             }
 
-            // Privacy Gate: If not authenticated, prompt to sign in immediately
+            // Privacy Gate: must be logged in
             if (!api.getToken()) {
                 loadingEl.classList.add('hidden');
                 contentEl.innerHTML = `
@@ -167,7 +160,7 @@
                         <div class="w-16 h-16 rounded-3xl bg-amber-50 text-amber-600 flex items-center justify-center text-3xl mx-auto border border-amber-200">🔒</div>
                         <h2 class="font-black text-2xl text-[#082c2a]">Confidential Health Record</h2>
                         <p class="text-xs sm:text-sm text-[#556e68] leading-relaxed">
-                            Patient health profiles are strictly confidential. Under platform privacy rules, this record is only accessible by the patient themselves, registered doctors, and administrators.
+                            Patient health profiles are strictly confidential. This record is only accessible by the patient themselves, registered doctors, and administrators.
                         </p>
                         <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
                             <a href="${getAppPath('login.html')}" class="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-black text-xs transition-all shadow-md">
@@ -183,25 +176,60 @@
                 return;
             }
 
+            // Verify session and get the logged-in user's role
+            let loggedUser = null;
+            try {
+                const me = await api.getProfile();
+                loggedUser = me?.user || null;
+            } catch (_) {
+                // token expired or invalid
+                api.setToken(null);
+                api.setCurrentUser(null);
+                loadingEl.classList.add('hidden');
+                contentEl.innerHTML = `
+                    <div class="bg-white rounded-3xl p-10 text-center border border-[#e1eae6] shadow-sm max-w-lg mx-auto space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl font-black mx-auto border border-amber-200">!</div>
+                        <h2 class="font-black text-xl text-[#082c2a]">Session Expired</h2>
+                        <p class="text-xs text-[#556e68]">Please sign in again to view this profile.</p>
+                        <a href="${getAppPath('login.html')}" class="inline-block mt-2 px-6 py-3 rounded-full bg-[#0e927f] text-white font-black text-xs hover:bg-[#087866] transition-all">Sign In &rarr;</a>
+                    </div>
+                `;
+                contentEl.classList.remove('hidden');
+                return;
+            }
+
+            // Role gate: only self, doctor, or admin may view
+            const isSelf   = loggedUser?.role === 'patient' && loggedUser?.username === username;
+            const isDoctor = loggedUser?.role === 'doctor';
+            const isAdmin  = loggedUser?.role === 'admin';
+
+            if (!isSelf && !isDoctor && !isAdmin) {
+                loadingEl.classList.add('hidden');
+                contentEl.innerHTML = `
+                    <div class="bg-white rounded-3xl p-10 text-center border border-[#e1eae6] shadow-sm max-w-lg mx-auto space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl font-black mx-auto border border-red-200">🔒</div>
+                        <h2 class="font-black text-xl text-[#082c2a]">Access Restricted</h2>
+                        <p class="text-xs text-[#556e68] leading-relaxed">Patient health records are private. Only the patient themselves, verified doctors, and administrators can access them.</p>
+                        <a href="${getAppPath('index.html')}" class="inline-block mt-2 px-6 py-3 rounded-full bg-[#0e927f] text-white font-black text-xs hover:bg-[#087866] transition-all">Return Home &rarr;</a>
+                    </div>
+                `;
+                contentEl.classList.remove('hidden');
+                return;
+            }
+
+            // Fetch the profile (backend also enforces the same role check)
             try {
                 const res = await api.getPatientProfile(username);
                 const profile = res.profile;
 
-                // Check session role & identity
-                let loggedUser = null;
+                // Fetch own appointments if viewing own profile
                 let appointments = [];
-                try {
-                    const me = await api.getProfile();
-                    loggedUser = me?.user || null;
-                    if (loggedUser?.role === 'patient' && loggedUser?.username === profile.username) {
-                        const apptRes = await api.getMyAppointments().catch(() => ({ appointments: [] }));
-                        appointments = apptRes.appointments || [];
-                    }
-                } catch (_) {}
+                if (isSelf) {
+                    const apptRes = await api.getMyAppointments().catch(() => ({ appointments: [] }));
+                    appointments = apptRes.appointments || [];
+                }
 
-                const isOwn = loggedUser && loggedUser.username === profile.username;
-                const isDoctor = loggedUser && loggedUser.role === 'doctor';
-                const isAdmin = loggedUser && loggedUser.role === 'admin';
+                const isOwn = isSelf;
                 const displayName = profile.name || 'Patient';
                 const memberSince = profile.memberSince ? new Date(profile.memberSince).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Verified Member';
                 const age = calculateAge(profile.dateOfBirth);
@@ -491,7 +519,7 @@
                             </p>
                             <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
                                 <a href="${getAppPath('patient-dashboard.html')}" class="w-full sm:w-auto px-6 py-3 rounded-full bg-[#0e927f] hover:bg-[#087866] text-white font-black text-xs transition-all shadow-md">
-                                    My Patient Dashboard ↗
+                                    My Patient Dashboard &#x2197;
                                 </a>
                                 <a href="${getAppPath('find-doctors.html')}" class="w-full sm:w-auto px-5 py-3 rounded-full bg-[#f0f5f3] hover:bg-[#e2eae6] text-[#082c2a] font-bold text-xs transition-all">
                                     Find Doctors
@@ -507,10 +535,6 @@
                 errorEl.classList.remove('hidden');
             }
         }
-
-        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-            document.getElementById('primary-nav')?.classList.toggle('hidden');
-        });
 
         loadPatientProfile();
     </script>

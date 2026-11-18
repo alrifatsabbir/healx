@@ -352,7 +352,7 @@
                     <button type="button" data-carousel-next aria-label="Next doctors" class="w-10 h-10 rounded-full border border-[#c8d6d1] bg-white text-[#082c2a] flex items-center justify-center text-base hover:bg-[#dcefe9] hover:border-[#0e927f] hover:-translate-y-0.5 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">→</button>
                 </div>
 
-                <div class="empty-state mt-10 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb] hidden" id="empty-state">
+                <div class="empty-state mt-12 bg-white p-10 rounded-[18px] text-center text-[#6d7f7b] text-[15px] border border-dashed border-[#d7dfdb] hidden" id="empty-state">
                     <span class="w-12 h-12 rounded-2xl bg-[#edf7f4] text-[#0e927f] flex items-center justify-center mx-auto mb-3">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </span>
@@ -753,7 +753,7 @@
                         <!-- Top Image Cover -->
                         <div class="relative w-full h-64 sm:h-[272px] bg-[#dbe7e3] rounded-[14px] overflow-hidden flex-shrink-0">
                             ${d.photoUrl ? `
-                                <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                                <img src="${d.photoUrl}" alt="${docName}" class="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-500">
                             ` : `
                                 <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0b3a36] to-[#082c2a] text-white">
                                     <span class="text-6xl font-black text-[#8ce2d4]">${docName.charAt(0) || 'D'}</span>
@@ -764,7 +764,7 @@
                             
                             <!-- Badges on Image -->
                             <div class="absolute top-0 left-1 right-2 flex items-start justify-between pointer-events-none">
-                                <span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-r-lg rounded-bl-lg bg-[#f7faf8]/95 text-[#123b39] shadow-sm backdrop-blur-sm border border-white/70">
+                                <span class="inline-flex items-center mt-2 ml-1 gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-r-lg rounded-l-lg bg-[#f7faf8]/95 text-[#123b39] shadow-sm backdrop-blur-sm border border-white/70">
                                     <svg class="w-3.5 h-3.5 text-[#0e927f]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                     verified
                                 </span>
@@ -783,8 +783,8 @@
                         <!-- Minimal Details Underneath Image (Consistent Typography) -->
                         <div class="px-0.5 pt-4 pb-0.5 flex flex-1 flex-col space-y-3">
                             <div class="flex items-center justify-between gap-3">
-                                <h3 class="font-extrabold text-[21px] leading-tight text-[#123b39] truncate" title="${docName}">${docName}</h3>
-                                <span class="inline-flex items-center gap-1 text-sm font-medium text-[#123b39] flex-shrink-0">
+                                <h3 class="font-extrabold manrope text-[21px] leading-tight text-[#123b39] truncate" title="${docName}">${docName}</h3>
+                                <span class="inline-flex manrope items-center gap-1 text-sm font-medium text-[#123b39] flex-shrink-0">
                                     <span class="text-base leading-none">★</span>
                                     ${hasRating ? `${Number(d.rating).toFixed(1)}/5.0` : '0.0/5.0'}
                                 </span>

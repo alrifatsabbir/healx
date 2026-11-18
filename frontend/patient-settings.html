@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -53,8 +53,6 @@
                     </div>
                 </div>
 
-                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all duration-300"></div>
-
                 <!-- Main Form Grid -->
                 <form id="patient-settings-form" class="space-y-8">
                     <!-- SECTION 1: Personal & Contact Details -->
@@ -75,7 +73,7 @@
                             <div class="relative group">
                                 <img id="ps-avatar-img" class="w-20 h-20 rounded-2xl object-cover border-2 border-[#0e927f] shadow-sm hidden">
                                 <div id="ps-avatar-fb" class="w-20 h-20 rounded-2xl bg-[#edf5f1] text-[#0e927f] flex items-center justify-center font-black text-2xl border-2 border-dashed border-[#cbe3da]">P</div>
-                                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#0e927f] text-white flex items-center justify-center text-[10px] shadow" title="Cloudinary WebP Compressed">⚡</span>
+                                <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#0e927f] text-white flex items-center justify-center text-[10px] shadow" title="Cloudinary WebP Compressed">&#x26A1;</span>
                             </div>
                             <div class="space-y-1.5 flex-1">
                                 <label class="block text-xs font-black text-[#082c2a]">Profile Avatar (Cloudinary WebP)</label>
@@ -172,7 +170,7 @@
                         <div class="bg-[#f8fbf9] p-5 rounded-2xl border border-[#e6efeb] space-y-4">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xs font-black text-[#082c2a] uppercase tracking-wider flex items-center gap-1.5">
-                                    <span>⚖️</span>
+                                    <span>&#x2696;&#xFE0F;</span>
                                     <span>B. Physical Vitals &amp; BMI Calculator</span>
                                 </h3>
                                 <div id="bmi-status-badge" class="hidden text-xs font-bold px-3 py-1 rounded-full border"></div>
@@ -346,14 +344,7 @@
         import api from './js/api.js';
         import { initDashboardShell } from './js/dashboard-layout.js';
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function calculateAge(dobString) {
             if (!dobString) return '';
@@ -384,16 +375,16 @@
             let classes = [];
 
             if (bmi < 18.5) {
-                text = `BMI ${bmi} • Underweight`;
+                text = `BMI ${bmi} \u2022 Underweight`;
                 classes = ['bg-blue-50', 'text-blue-700', 'border-blue-200'];
             } else if (bmi <= 24.9) {
-                text = `BMI ${bmi} • Normal / Healthy`;
+                text = `BMI ${bmi} \u2022 Normal / Healthy`;
                 classes = ['bg-emerald-50', 'text-emerald-700', 'border-emerald-200'];
             } else if (bmi <= 29.9) {
-                text = `BMI ${bmi} • Overweight`;
+                text = `BMI ${bmi} \u2022 Overweight`;
                 classes = ['bg-amber-50', 'text-amber-700', 'border-amber-200'];
             } else {
-                text = `BMI ${bmi} • Obese`;
+                text = `BMI ${bmi} \u2022 Obese`;
                 classes = ['bg-red-50', 'text-red-700', 'border-red-200'];
             }
 
@@ -433,6 +424,15 @@
         });
 
         (async () => {
+            // Pre-fill immediately from cached user (available instantly, no network wait)
+            const cached = api.getCurrentUser();
+            if (cached) {
+                document.getElementById('ps-name').value = cached.fullName || '';
+                document.getElementById('ps-phone').value = cached.phone || '';
+                if (cached.username) document.getElementById('ps-username').value = `@${cached.username}`;
+                if (cached.email) document.getElementById('ps-email').value = cached.email;
+            }
+
             const user = await initDashboardShell('patient', 'patient-settings.html', 'Health Profile & Settings', 'Manage your personal medical record and account security');
             if (!user) return;
 

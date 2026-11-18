@@ -23,6 +23,9 @@ body, button, input, select, textarea {
 ::-webkit-scrollbar-thumb:hover {
     background: #087866;
 }
+.manrope{
+    font-family: 'Manrope';
+}
 
 /* Infinite Marquee - Right to Left 100% Seamless Loop (Zero Blink) */
 @keyframes marquee-scroll {

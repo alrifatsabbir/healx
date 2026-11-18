@@ -20,6 +20,14 @@ const appointmentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    doctorUsername: {
+        type: String,
+        default: '',
+    },
+    doctorPhoto: {
+        type: String,
+        default: '',
+    },
     hospitalName: {
         type: String,
         default: 'Main Consultation Chamber',

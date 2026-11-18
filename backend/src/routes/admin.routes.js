@@ -483,8 +483,8 @@ admin.post('/emails/send', async (c) => {
 admin.get('/emails/logs', async (c) => {
     try {
         const { status, q } = c.req.query();
-        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-        const filter = { createdAt: { $gte: thirtyDaysAgo } };
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const filter = { createdAt: { $gte: sevenDaysAgo } };
 
         if (status && ['sent', 'failed'].includes(status)) filter.status = status;
         if (q && q.trim()) {
@@ -494,10 +494,21 @@ admin.get('/emails/logs', async (c) => {
 
         const logs = await EmailLog.find(filter)
             .sort({ createdAt: -1 })
-            .limit(200)
+            .limit(500)
             .lean();
 
         return c.json({ success: true, count: logs.length, logs });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+admin.delete('/emails/logs/:id', async (c) => {
+    try {
+        const id = c.req.param('id');
+        const log = await EmailLog.findByIdAndDelete(id);
+        if (!log) return c.json({ success: false, message: 'Email log not found.' }, 404);
+        return c.json({ success: true, message: 'Email log deleted.' });
     } catch (err) {
         return c.json({ success: false, message: err.message }, 500);
     }

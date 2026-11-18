@@ -196,6 +196,7 @@ auth.post('/patient/signup', async (c) => {
                 email: user.email,
                 role: user.role,
                 phone: user.phone,
+                dateOfBirth: user.dateOfBirth,
                 profileUrl: `/u/${user.username}`,
             },
         }, 201);

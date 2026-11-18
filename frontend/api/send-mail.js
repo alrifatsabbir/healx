@@ -2,8 +2,8 @@
  * Vercel Serverless SMTP Bridge  —  /api/send-mail
  *
  * WHY THIS EXISTS:
- *   Render hobby plan blocks all outbound SMTP connections (ports 465, 587).
- *   Vercel serverless functions have no such restriction.
+ *   Render hobby plan blocks all outbound SMTP connections (ports 25,465, 587).
+ *   Vercel serverless functions have no such restriction. (only block ports 25)
  *   So Render handles all business logic, but instead of calling nodemailer
  *   directly it POSTs the mail payload here, and THIS function opens the
  *   actual SMTP connection and sends the email.
@@ -48,17 +48,17 @@ function getTransporter() {
 }
 
 export default async function handler(req, res) {
-    // ── Only POST ────────────────────────────────────────────────────────────
+    // ── Only POST ────────────────
     if (req.method !== 'POST') {
         return res.status(405).json({ success: false, message: 'Method not allowed' });
     }
 
-    // ── Shared-secret auth ───────────────────────────────────────────────────
+    // ── Shared-secret auth ───────────
     if (!BRIDGE_SECRET || req.headers['x-mail-bridge-secret'] !== BRIDGE_SECRET) {
         return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
-    // ── SMTP config must be present ──────────────────────────────────────────
+    // ── SMTP config must be present ────
     if (!MAILER_HOST || !MAILER_USER || !MAILER_PASSWORD) {
         console.error('[send-mail] SMTP env vars not configured on Vercel');
         return res.status(500).json({ success: false, message: 'Mail service not configured' });

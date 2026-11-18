@@ -35,7 +35,7 @@ const emailLogSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 60 * 60 * 24 * 30, // Auto-expire after exactly 30 days
+        expires: 60 * 60 * 24 * 7, // Auto-expire after 7 days
     },
 });
 

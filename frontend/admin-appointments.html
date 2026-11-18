@@ -32,7 +32,6 @@
             <header id="dashboard-header"></header>
             <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto space-y-6">
                 <!-- Alert Banner -->
-                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all"></div>
 
                 <!-- KPI Status Cards -->
                 <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
@@ -169,13 +168,7 @@
         let viewDate = new Date();
         let selectedDateKey = ''; // Format: YYYY-MM-DD
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-rose-50', 'text-rose-700', 'border-rose-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-rose-50', 'text-rose-700', 'border-rose-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function toDateKey(d) {
             if (!d) return '';

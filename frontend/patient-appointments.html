@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,6 @@
             <header id="dashboard-header"></header>
             <main class="p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto space-y-6">
                 <!-- Alert Feedback -->
-                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all"></div>
 
                 <!-- KPI Status Strip -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
@@ -120,11 +119,11 @@
                 <div>
                     <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Rating *</label>
                     <select id="rv-rating" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm font-bold text-[#082c2a] outline-none focus:border-[#0e927f]">
-                        <option value="5">⭐⭐⭐⭐⭐ (5 / 5) — Excellent Care</option>
-                        <option value="4">⭐⭐⭐⭐ (4 / 5) — Very Good</option>
-                        <option value="3">⭐⭐⭐ (3 / 5) — Average Experience</option>
-                        <option value="2">⭐⭐ (2 / 5) — Fair / Could be Better</option>
-                        <option value="1">⭐ (1 / 5) — Poor Experience</option>
+                        <option value="5">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50; (5 / 5) &mdash; Excellent Care</option>
+                        <option value="4">&#x2B50;&#x2B50;&#x2B50;&#x2B50; (4 / 5) &mdash; Very Good</option>
+                        <option value="3">&#x2B50;&#x2B50;&#x2B50; (3 / 5) &mdash; Average Experience</option>
+                        <option value="2">&#x2B50;&#x2B50; (2 / 5) &mdash; Fair / Could be Better</option>
+                        <option value="1">&#x2B50; (1 / 5) &mdash; Poor Experience</option>
                     </select>
                 </div>
                 
@@ -138,7 +137,7 @@
                         Cancel
                     </button>
                     <button type="submit" id="submit-review-btn" class="px-6 py-2.5 rounded-full text-xs font-bold bg-[#0e927f] hover:bg-[#087866] text-white transition-all shadow-sm cursor-pointer">
-                        Submit Review ↗
+                        Submit Review &#x2197;
                     </button>
                 </div>
             </form>
@@ -153,15 +152,9 @@
         let allAppointments = [];
         let activeTab = 'all';
 
-        const alertEl = document.getElementById('page-alert');
         const reviewModal = document.getElementById('review-modal');
 
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-rose-50', 'text-rose-700', 'border-rose-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-rose-50', 'text-rose-700', 'border-rose-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         window.filterByTab = function(tabName) {
             activeTab = tabName;
@@ -229,7 +222,7 @@
                             ${query ? 'No consultations match your search keyword. Try clearing the search bar.' : 'You have no consultations listed in this tab category.'}
                         </p>
                         <a href="find-doctors.html" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#0e927f] text-white text-xs font-bold hover:bg-[#087866] transition-all shadow-sm">
-                            Book Consultation ↗
+                            Book Consultation &#x2197;
                         </a>
                     </div>
                 `;
@@ -286,7 +279,7 @@
                         <div class="flex items-center gap-2 flex-wrap flex-shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-[#edf3f0]">
                             ${a.status === 'completed' ? `
                                 <button type="button" onclick="openReviewModal('${a.doctorId}', '${a.doctorName}', '${a.bookingRef}')" class="px-4 py-2 rounded-xl bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5">
-                                    <span>Rate Doctor</span> ⭐
+                                    <span>Rate Doctor</span> &#x2B50;
                                 </button>
                             ` : ''}
 
@@ -296,7 +289,7 @@
                                 </button>
                             ` : ''}
 
-                            <a href="find-doctors.html" class="px-3.5 py-2 rounded-xl bg-[#edf7f4] hover:bg-[#daf1e8] text-[#087866] text-xs font-bold transition-colors">
+                            <a href="${a.doctorUsername ? `doctor-profile.html?d=${encodeURIComponent(a.doctorUsername)}` : 'find-doctors.html'}" class="px-3.5 py-2 rounded-xl bg-[#edf7f4] hover:bg-[#daf1e8] text-[#087866] text-xs font-bold transition-colors">
                                 Chamber Info
                             </a>
                         </div>
@@ -342,7 +335,7 @@
                 showAlert(err.message, true);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Review ↗';
+                submitBtn.textContent = 'Submit Review \u2197';
             }
         });
 

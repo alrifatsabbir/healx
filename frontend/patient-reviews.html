@@ -53,7 +53,6 @@
                     </div>
                 </div>
 
-                <div id="page-alert" class="hidden p-4 rounded-2xl text-xs font-semibold border transition-all duration-300"></div>
 
                 <!-- Stats Overview -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -164,14 +163,7 @@
 
         let myReviews = [];
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function renderStars(rating) {
             const count = Math.round(rating);

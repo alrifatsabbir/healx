@@ -50,8 +50,6 @@
                     </div>
                 </div>
 
-                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
-
                 <!-- Account Profile Settings -->
                 <div class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
                     <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Administrator Profile Settings</h2>
@@ -108,13 +106,7 @@
         import { initDashboardShell } from './js/dashboard-layout.js';
         import { CONFIG, getAppPath } from './js/config.js';
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         function fileToBase64(file) {
             return new Promise((resolve, reject) => {

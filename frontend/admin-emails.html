@@ -31,7 +31,6 @@
         <div class="flex-1 flex flex-col min-w-0">
             <header id="dashboard-header"></header>
             <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
-                <div id="page-alert" class="hidden p-4 rounded-xl text-xs font-semibold border"></div>
 
                 <!-- 2 Sub-Tabs strictly on Emails page -->
                 <div class="inline-flex bg-white p-1.5 rounded-2xl border border-[#e1eae6] shadow-sm">
@@ -117,12 +116,12 @@
                     </div>
                 </section>
 
-                <!-- SUBTAB 2: EMAIL LOGS (LAST 30 DAYS) -->
+                <!-- SUBTAB 2: EMAIL LOGS (LAST 7 DAYS) -->
                 <section id="panel-logs" class="hidden bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-[#edf3f0] flex flex-wrap items-center justify-between gap-4">
                         <div>
-                            <h2 class="font-extrabold text-lg text-[#082c2a]">Outbound Email Logs (Last 30 Days)</h2>
-                            <p class="text-xs text-[#6c8680]">Tracks all system OTPs, booking confirmations, password resets, and admin dispatches</p>
+                            <h2 class="font-extrabold text-lg text-[#082c2a]">Outbound Email Logs <span class="text-sm font-semibold text-[#6c8680]">(Last 7 Days)</span></h2>
+                            <p class="text-xs text-[#6c8680]">Tracks all system OTPs, booking confirmations, password resets, and admin dispatches. Logs expire automatically after 7 days.</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-3">
                             <input type="search" id="search-logs" placeholder="Filter recipient or subject..." class="px-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f]">
@@ -143,10 +142,17 @@
                                     <th class="px-6 py-3.5">Sender</th>
                                     <th class="px-6 py-3.5">Status</th>
                                     <th class="px-6 py-3.5">Dispatched At</th>
+                                    <th class="px-6 py-3.5 text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="logs-tbody" class="divide-y divide-[#edf3f0]"></tbody>
                         </table>
+                    </div>
+
+                    <!-- Pagination bar -->
+                    <div id="logs-pagination" class="hidden px-6 py-4 border-t border-[#edf3f0] flex flex-wrap items-center justify-between gap-3">
+                        <span id="logs-page-info" class="text-xs text-[#6c8680]"></span>
+                        <div id="logs-page-btns" class="flex items-center gap-1.5"></div>
                     </div>
                 </section>
             </main>
@@ -186,13 +192,7 @@
             },
         };
 
-        const alertEl = document.getElementById('page-alert');
-        function showAlert(msg, isError = false) {
-            alertEl.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'border-red-200', 'bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]');
-            alertEl.classList.add(...(isError ? ['bg-red-50', 'text-red-700', 'border-red-200'] : ['bg-[#eef8f5]', 'text-[#0e927f]', 'border-[#c8e6dc]']));
-            alertEl.textContent = msg;
-            setTimeout(() => alertEl.classList.add('hidden'), 5000);
-        }
+        function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
         // Sub-Tab Switcher
         const sendBtn = document.getElementById('subtab-send-btn');
@@ -266,18 +266,42 @@
             }
         });
 
+        let allLogs = [];
+        let logsPage = 1;
+        const LOGS_PAGE_SIZE = 20;
+
         async function loadLogs() {
             const status = document.getElementById('filter-log-status').value;
             const q = document.getElementById('search-logs').value.trim();
-            const res = await api.getEmailLogs(status, q);
-            const logs = res.logs || [];
+            try {
+                const res = await api.getEmailLogs(status, q);
+                allLogs = res.logs || [];
+                logsPage = 1;
+                renderLogsPage();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        }
+
+        function renderLogsPage() {
             const tbody = document.getElementById('logs-tbody');
-            if (logs.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-xs text-[#6c8680]">No email logs found in the last 30 days.</td></tr>`;
+            const paginationEl = document.getElementById('logs-pagination');
+            const pageInfo = document.getElementById('logs-page-info');
+            const pageBtns = document.getElementById('logs-page-btns');
+
+            if (allLogs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-10 text-center text-xs text-[#6c8680]">No email logs found in the last 7 days.</td></tr>`;
+                paginationEl.classList.add('hidden');
                 return;
             }
-            tbody.innerHTML = logs.map(l => `
-                <tr class="hover:bg-[#fbfdfc]">
+
+            const totalPages = Math.ceil(allLogs.length / LOGS_PAGE_SIZE);
+            if (logsPage > totalPages) logsPage = totalPages;
+            const start = (logsPage - 1) * LOGS_PAGE_SIZE;
+            const page = allLogs.slice(start, start + LOGS_PAGE_SIZE);
+
+            tbody.innerHTML = page.map(l => `
+                <tr class="hover:bg-[#fbfdfc]" data-log-id="${l._id}">
                     <td class="px-6 py-4 font-semibold text-xs text-[#082c2a]">${l.to}</td>
                     <td class="px-6 py-4 text-xs text-[#3b5751]">
                         <p class="font-bold text-[#082c2a]">${l.subject}</p>
@@ -286,8 +310,59 @@
                     <td class="px-6 py-4 text-xs text-[#556e68]">${l.sentBy || 'system'}</td>
                     <td class="px-6 py-4 text-xs font-bold uppercase ${l.status === 'sent' ? 'text-[#0e927f]' : 'text-red-600'}">${l.status}</td>
                     <td class="px-6 py-4 text-xs text-[#6c8680]">${new Date(l.createdAt).toLocaleString()}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button type="button" data-del-log="${l._id}" class="px-3 py-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 text-[11px] font-bold transition-colors cursor-pointer">Delete</button>
+                    </td>
                 </tr>
             `).join('');
+
+            // Wire delete buttons
+            tbody.querySelectorAll('[data-del-log]').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.dataset.delLog;
+                    const confirmed = await window.healiixConfirm({
+                        title: 'Delete Email Log?',
+                        message: 'Permanently remove this log entry? This cannot be undone.',
+                        confirmText: 'Delete',
+                        type: 'danger',
+                    });
+                    if (!confirmed) return;
+                    try {
+                        await api.deleteEmailLog(id);
+                        allLogs = allLogs.filter(l => l._id !== id);
+                        showAlert('Log entry deleted.');
+                        renderLogsPage();
+                    } catch (err) {
+                        showAlert(err.message, true);
+                    }
+                });
+            });
+
+            // Pagination controls
+            pageInfo.textContent = `Showing ${start + 1}–${Math.min(start + LOGS_PAGE_SIZE, allLogs.length)} of ${allLogs.length} log${allLogs.length !== 1 ? 's' : ''}`;
+
+            if (totalPages <= 1) {
+                paginationEl.classList.add('hidden');
+                return;
+            }
+            paginationEl.classList.remove('hidden');
+
+            const btnClass = (active) => active
+                ? 'w-8 h-8 rounded-lg text-xs font-bold bg-[#0e927f] text-white shadow-xs cursor-pointer'
+                : 'w-8 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer';
+
+            let btns = `<button class="${logsPage === 1 ? 'opacity-40 cursor-not-allowed ' : ''}px-3 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer" id="logs-prev">← Prev</button>`;
+            for (let p = 1; p <= totalPages; p++) {
+                btns += `<button class="${btnClass(p === logsPage)}" data-logs-page="${p}">${p}</button>`;
+            }
+            btns += `<button class="${logsPage === totalPages ? 'opacity-40 cursor-not-allowed ' : ''}px-3 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer" id="logs-next">Next →</button>`;
+            pageBtns.innerHTML = btns;
+
+            pageBtns.querySelector('#logs-prev')?.addEventListener('click', () => { if (logsPage > 1) { logsPage--; renderLogsPage(); } });
+            pageBtns.querySelector('#logs-next')?.addEventListener('click', () => { if (logsPage < totalPages) { logsPage++; renderLogsPage(); } });
+            pageBtns.querySelectorAll('[data-logs-page]').forEach(b => {
+                b.addEventListener('click', () => { logsPage = Number(b.dataset.logsPage); renderLogsPage(); });
+            });
         }
 
         document.getElementById('search-logs')?.addEventListener('input', loadLogs);
