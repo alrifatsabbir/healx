@@ -25,41 +25,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f8f8f4] text-[#123b39] pt-[72px] min-h-screen flex flex-col justify-between antialiased">
+<body class="bg-[#f8f8f4] text-[#123b39] min-h-screen flex flex-col justify-between antialiased">
 
-    <!-- Header & Navigation (Standard HealiiX Nav with User Avatar Support) -->
-    <header id="site-header" class="site-header fixed top-0 left-0 right-0 h-[72px] z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] flex items-center shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <a class="flex items-center group hover:opacity-90 transition-opacity" href="./index.html" id="nav-brand" aria-label="HealiiX Home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
+        <!-- Header & Navigation with Morphing Scroll Animation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
             </a>
 
-            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
-                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="./index.html" id="nav-home">
+            <!-- Desktop Nav Links -->
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </a>
-                <a class="text-[#34d399] font-bold" href="./find-doctors.html" id="nav-find">Find Doctors</a>
-                <a class="hover:text-white transition-colors" href="./categories.html" id="nav-cats">Categories</a>
-                <a class="hover:text-white transition-colors" href="./about.html" id="nav-about">About</a>
-                <a class="hover:text-white transition-colors" href="./faq.html" id="nav-faq">FAQ</a>
-                <a class="hover:text-white transition-colors" href="./contact.html" id="nav-contact">Contact</a>
-            </nav>
-
-            <div class="nav-actions hidden sm:flex items-center gap-4">
-                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="./login.html" id="nav-login">Sign In</a>
-                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="./sign-up.html" id="nav-signup">
-                    <span>Join HealiiX</span>
-                </a>
+                <a href="find-doctors.html" class="text-[#34d399] font-bold">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
             </div>
+
+            <!-- Right Buttons / Actions (Clear gap between Contact and Sign In) -->
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <!-- Mobile Menu Hamburger Button -->
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Dropdown Card -->
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg text-[#34d399] font-bold bg-white/5">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
+                </div>
+            </nav>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 py-8 sm:py-12">
-        <div class="container w-[min(1180px,calc(100%-32px))] mx-auto">
+    <main class="flex-1">
+        <!-- Executive Clinical Backdrop Banner (Full-Width Header) -->
+        <section class="relative w-full h-[220px] sm:h-[240px] lg:h-[260px] bg-gradient-to-b from-[#041917] via-[#062523] to-[#041a18] overflow-hidden flex flex-col justify-between">
+            <!-- Subtle Radial Gradient & Clean Geometry (No Stock Photos) -->
+            <div class="absolute inset-0 bg-[radial-gradient(#0e927f_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
+            <div class="absolute -right-20 -top-20 w-80 h-80 bg-[#0e927f]/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute left-1/4 -bottom-20 w-80 h-80 bg-[#92f07f]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Top spacer for fixed transparent navbar -->
+            <div class="h-24 sm:h-28"></div>
+
+            <!-- Breadcrumbs & Medical Registry Status Bar -->
+            <div class="relative z-10 max-w-[1180px] w-[calc(100%-32px)] mx-auto mb-12 sm:mb-14 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-2 text-xs text-[#89AAA1] font-semibold">
+                    <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                    <span class="text-white/20">/</span>
+                    <a href="find-doctors.html" class="hover:text-white transition-colors">Specialists Directory</a>
+                    <span class="text-white/20">/</span>
+                    <span class="text-[#92F07F] font-bold" id="top-banner-doc-name">Specialist Profile</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Profile Cards Container (Docked smoothly over Executive Banner) -->
+        <div class="container w-[min(1180px,calc(100%-32px))] mx-auto relative z-20 -mt-8 sm:-mt-10 pb-16">
+        </section>
+
+        <!-- Main Profile Cards Container (Docked smoothly over Executive Banner) -->
+        <div class="container w-[min(1180px,calc(100%-32px))] mx-auto relative z-20 -mt-8 sm:-mt-10 pb-16">
 
             <!-- Loading State -->
             <div id="doc-loading" class="bg-white rounded-3xl p-16 text-center border border-[#e1eae6] shadow-sm flex flex-col items-center justify-center space-y-4">
@@ -86,17 +152,59 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#062321] text-[#d7e8e2] py-8 border-t border-white/5">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#7da398]">
-            <span>&copy; 2026 HealiiX Healthcare Platform. Verified BMDC Medical Directory.</span>
-            <div class="flex items-center gap-4">
-                <a href="./find-doctors.html" id="ft-find" class="text-teal-200 hover:text-white transition-colors">Find Doctors</a>
-                <span class="text-white/20">&bull;</span>
-                <a href="./faq.html" id="ft-faq" class="text-teal-200 hover:text-white transition-colors">FAQ</a>
-                <span class="text-white/20">&bull;</span>
-                <a href="./contact.html" id="ft-contact" class="text-teal-200 hover:text-white transition-colors">Support &amp; Helpline</a>
+        <!-- Footer -->
+    <footer id="footer" class="w-full bg-[#062321] text-white rounded-t-[36px] pt-16 sm:pt-24 pb-12 px-6 sm:px-12 lg:px-16">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left: Giant Healiix Logo -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="text-6xl sm:text-8xl lg:text-[110px] font-black tracking-tight leading-none">
+                    <span class="text-[#557069]">Healii</span><span class="text-[#92F07F]">X</span>
+                </div>
+                <p class="text-xs sm:text-sm text-[#89AAA1] max-w-sm leading-relaxed">
+                    Making the path to better care feel more human, accessible, and transparent for everyone.
+                </p>
             </div>
+
+            <!-- Right: 3 Columns -->
+            <div class="lg:col-span-6 grid grid-cols-3 gap-6 sm:gap-10 pt-4">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright & Verification Line -->
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
+            <span>© 2026 HealiiX Health Inc. Better care, together.</span>
+            <span>All credentials verified with authorized medical boards.</span>
         </div>
     </footer>
 
@@ -150,6 +258,9 @@
                 else if (!/^(dr|prof|asst|assoc)\b/i.test(displayName)) displayName = `Dr. ${displayName}`;
 
                 document.title = `${displayName} — ${doc.specialty} | HealiiX`;
+
+                const topBannerDocName = document.getElementById('top-banner-doc-name');
+                if (topBannerDocName) topBannerDocName.textContent = displayName;
 
                 const chambers = doc.chambers || [];
                 const defaultFee = chambers[0]?.fee || 1200;
@@ -680,6 +791,8 @@
 
         loadDoctorProfile();
     </script>
+    <script src="./js/navbar.js"></script>
     <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
 </body>
 </html>

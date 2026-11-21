@@ -1,11 +1,68 @@
+// Global Search & Quick Filter functions accessible from inline HTML event handlers
+window.applySearch = function() {
+    const term = (document.querySelector('#search-specialty')?.value || document.querySelector('#search-input')?.value || '').trim();
+    const loc = (document.querySelector('#search-location')?.value || document.querySelector('#location-input')?.value || '').trim();
+    const params = new URLSearchParams();
+    if (term) params.set('q', term);
+    if (loc) params.set('location', loc);
+    const queryStr = params.toString();
+    const targetPage = (typeof window !== 'undefined' && window.getAppPath) 
+        ? window.getAppPath('find-doctors.html') 
+        : 'find-doctors.html';
+    window.location.href = queryStr ? `${targetPage}?${queryStr}` : targetPage;
+};
+
+window.quickFilter = function(term) {
+    const targetPage = (typeof window !== 'undefined' && window.getAppPath) 
+        ? window.getAppPath('find-doctors.html') 
+        : 'find-doctors.html';
+    if (term) {
+        window.location.href = `${targetPage}?category=${encodeURIComponent(term)}`;
+    } else {
+        window.location.href = targetPage;
+    }
+};
+
+// Global Open Booking Modal helper
+window.openBooking = function(doctorName, fee) {
+    const bookingDoctorSelect = document.getElementById('booking-doctor-select');
+    const bookingModal = document.getElementById('booking-modal');
+    const bookingForm = document.getElementById('booking-form');
+    const bookingSuccess = document.getElementById('form-success');
+    
+    if (bookingForm) bookingForm.hidden = false;
+    if (bookingSuccess) bookingSuccess.hidden = true;
+
+    if (bookingDoctorSelect && doctorName) {
+        let found = false;
+        for (let opt of bookingDoctorSelect.options) {
+            if (opt.value.toLowerCase().includes(doctorName.toLowerCase()) || doctorName.toLowerCase().includes(opt.value.toLowerCase())) {
+                bookingDoctorSelect.value = opt.value;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            const newOpt = new Option(doctorName, doctorName, true, true);
+            bookingDoctorSelect.add(newOpt);
+            bookingDoctorSelect.value = doctorName;
+        }
+    }
+    if (bookingModal) {
+        bookingModal.classList.remove('hidden');
+        bookingModal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const menuToggle = document.querySelector('.menu-toggle');
     const menuIcon = document.querySelector('.menu-icon');
     const nav = document.querySelector('.primary-nav');
     const searchForm = document.querySelector('#doctor-search');
-    const searchInput = document.querySelector('#search-input');
-    const locationInput = document.querySelector('#location-input');
+    const searchInput = document.querySelector('#search-input') || document.querySelector('#search-specialty');
+    const locationInput = document.querySelector('#location-input') || document.querySelector('#search-location');
     const feedback = document.querySelector('#search-feedback');
     const clearSearchBtn = document.querySelector('#clear-search');
     const doctorCards = [...document.querySelectorAll('.doctor-card')];
@@ -66,9 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update pagination dots
         heroDots.forEach((dot, i) => {
             if (i === heroCurrentIndex) {
-                dot.className = 'hero-dot w-3 h-3 rounded-full bg-[#0e927f] transition-all cursor-pointer border-0 p-0 shadow-sm';
+                dot.className = 'hero-dot w-2.5 h-2.5 rounded-full bg-[#0E927F] transition-all cursor-pointer border-0 p-0 shadow-sm';
             } else {
-                dot.className = 'hero-dot w-3 h-3 rounded-full bg-[#bcd1cb] hover:bg-[#0e927f] transition-all cursor-pointer border-0 p-0';
+                dot.className = 'hero-dot w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-[#0E927F] transition-all cursor-pointer border-0 p-0';
             }
         });
     }
@@ -85,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function startHeroTimer() {
             heroTimer = setInterval(() => {
                 goToHeroSlide(heroCurrentIndex + 1);
-            }, 3500); 
+            }, 4500); 
         }
 
         function resetHeroTimer() {
@@ -99,56 +156,15 @@ document.addEventListener('DOMContentLoaded', () => {
         startHeroTimer();
     }
 
-
-    // --- Modern Navbar Scroll & Mobile Menu (Matches mr-scrappe style) ---
-    const siteHeader = document.getElementById('site-header') || document.querySelector('.site-header');
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle') || menuToggle;
-    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-    const menuIconOpen = document.getElementById('menu-icon-open');
-    const menuIconClose = document.getElementById('menu-icon-close');
-
-    if (siteHeader) {
-        const updateNavbarScroll = () => {
-            const isScrolled = (window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0) > 15;
-            const isMenuOpen = mobileMenuPanel && !mobileMenuPanel.classList.contains('hidden');
-
-            if (isScrolled || isMenuOpen) {
-                siteHeader.classList.remove('py-4');
-                siteHeader.classList.add('py-3', 'bg-[#082c2a]/95', 'backdrop-blur-md', 'border-b', 'border-white/10', 'shadow-[0_10px_24px_rgba(6,37,33,0.22)]');
-            } else {
-                siteHeader.classList.remove('py-3', 'bg-[#082c2a]/95', 'backdrop-blur-md', 'border-b', 'border-white/10', 'shadow-[0_10px_24px_rgba(6,37,33,0.22)]');
-                siteHeader.classList.add('py-4', 'bg-[#082c2a]');
+    // --- Hero 24/7 AI Bot Trigger Launcher ---
+    const heroAiBotTrigger = document.getElementById('hero-ai-bot-trigger');
+    if (heroAiBotTrigger) {
+        heroAiBotTrigger.addEventListener('click', () => {
+            const botToggle = document.getElementById('ai-bot-toggle-btn') || document.querySelector('.ai-bot-toggle');
+            if (botToggle) {
+                botToggle.click();
             }
-        };
-
-        window.addEventListener('scroll', updateNavbarScroll, { passive: true });
-        updateNavbarScroll();
-
-        if (mobileMenuToggle && mobileMenuPanel) {
-            mobileMenuToggle.addEventListener('click', () => {
-                const isCurrentlyHidden = mobileMenuPanel.classList.contains('hidden');
-                if (isCurrentlyHidden) {
-                    mobileMenuPanel.classList.remove('hidden');
-                    menuIconOpen?.classList.add('hidden');
-                    menuIconClose?.classList.remove('hidden');
-                } else {
-                    mobileMenuPanel.classList.add('hidden');
-                    menuIconOpen?.classList.remove('hidden');
-                    menuIconClose?.classList.add('hidden');
-                }
-                updateNavbarScroll();
-            });
-
-            // Close mobile menu when any link inside is clicked
-            mobileMenuPanel.querySelectorAll('a').forEach((link) => {
-                link.addEventListener('click', () => {
-                    mobileMenuPanel.classList.add('hidden');
-                    menuIconOpen?.classList.remove('hidden');
-                    menuIconClose?.classList.add('hidden');
-                    updateNavbarScroll();
-                });
-            });
-        }
+        });
     }
 
     // --- Modal Management (Pure Tailwind) ---

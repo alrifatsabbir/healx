@@ -26,226 +26,347 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
-    <!-- Header & Navigation (Dark #082c2a theme with mr-scrappe layout) -->
-    <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] py-4 shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <!-- Brand Link (Image contains full logo + name) -->
-            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
+<body class="bg-[#f8f8f4] text-[#123b39] antialiased">
+        <!-- Header & Navigation with Morphing Scroll Animation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
-                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </a>
-                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
-                <a class="hover:text-white transition-colors" href="categories.html">Categories</a>
-                <a class="hover:text-white transition-colors" href="about.html">About</a>
-                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
-                <a class="text-[#34d399] font-bold" href="contact.html">Contact</a>
-            </nav>
-
-            <!-- Desktop Actions -->
-            <div class="nav-actions hidden sm:flex items-center gap-4">
-                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
-                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                    </svg>
-                    <span>Join HealiiX</span>
-                </a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="text-[#34d399] font-bold">Contact</a>
             </div>
 
-            <!-- Mobile Buttons -->
-            <div class="flex items-center gap-2.5 md:hidden">
-                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
-                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
-                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Right Buttons / Actions (Clear gap between Contact and Sign In) -->
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <!-- Mobile Menu Hamburger Button -->
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" x2="20" y1="12" y2="12"></line>
                         <line x1="4" x2="20" y1="6" y2="6"></line>
                         <line x1="4" x2="20" y1="18" y2="18"></line>
                     </svg>
-                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
-        </div>
+        </nav>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
-            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
-                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
+        <!-- Mobile Menu Dropdown Card -->
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                     <span>Home</span>
                 </a>
-                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
-                <a href="categories.html" class="py-1 hover:text-white transition-colors">Categories</a>
-                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
-                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
-                <a href="contact.html" class="py-1 text-[#34d399] font-bold">Contact</a>
-                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
-                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
-                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg text-[#34d399] font-bold bg-white/5">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
                 </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Page Header -->
-        <section class="bg-[#edf5f1] py-14 border-b border-[#dcebe6]">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto max-w-3xl">
-                <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Support & Enquiries</p>
-                <h1 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] tracking-tight leading-tight mb-4">We're Here Whenever You Need Us</h1>
-                <p class="text-base text-[#556e68] leading-relaxed">Have questions about booking an appointment, doctor credentials, or technical issues? Our team is available 7 days a week.</p>
+        <!-- 1. TOP IMMERSIVE COVER HERO (45-50% Viewport Cover with contact.avif & dark scrim for navbar legibility) -->
+        <section class="relative w-full h-[450px] sm:h-[490px] lg:h-[520px] flex flex-col justify-between overflow-hidden bg-[#06201e]">
+            <!-- Full Bleed Cover Background Image -->
+            <img src="./assets/images/contact.avif" alt="Contact HealiiX Support" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.92]">
+            
+            <!-- Dark Scrim Gradient for Navbar Legibility & Editorial Contrast -->
+            <div class="absolute inset-0 bg-gradient-to-b from-[#041917]/90 via-[#072624]/65 to-[#051c1a]/95"></div>
+
+            <!-- Top spacer for fixed navbar -->
+            <div class="h-24 sm:h-28"></div>
+
+            <!-- Centered Editorial Content (Dormiway Inspired Style) -->
+            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center my-auto">
+                <span class="inline-block text-[11px] sm:text-xs font-bold text-[#92F07F] tracking-[0.25em] uppercase mb-3 drop-shadow-sm">
+                    DIRECT SUPPORT &bull; 7 DAYS A WEEK &bull; WE LISTEN
+                </span>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.15] mb-4 drop-shadow-md">
+                    We're here whenever <br>
+                    <span class="font-bold text-white">you need us.</span>
+                </h1>
+                <p class="text-xs sm:text-sm text-[#c8e2da] max-w-xl mx-auto leading-relaxed font-normal drop-shadow-sm">
+                    Have questions about booking appointments, doctor credentials, or hospital chambers? Our support team responds with care and clarity.
+                </p>
+            </div>
+
+            <!-- Bottom Sub-bar with Key Help Metrics -->
+            <div class="relative z-10 pb-16 sm:pb-20 flex items-center justify-center gap-4 sm:gap-8 text-xs text-[#9bbdad] font-semibold">
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> 24/7 Helpline Active</span>
+                <span class="text-white/20">&bull;</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> 2-4 Hr Response Time</span>
+                <span class="text-white/20">&bull;</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> Dhaka Campus HQ</span>
             </div>
         </section>
 
-        <!-- Main Content -->
-        <section class="py-16">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                    
-                    <!-- Contact Form Column -->
-                    <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#e1eae6] shadow-sm">
-                        <h2 class="font-bold text-2xl text-[#082c2a] mb-2">Send us a message</h2>
-                        <p class="text-xs sm:text-sm text-[#6c8680] mb-8 leading-relaxed">Fill out the form below and an appointment coordinator will respond within 2-4 hours.</p>
-
-                        <form id="contact-form" class="space-y-4">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Full Name *</label>
-                                    <input type="text" id="contact-name" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Email Address *</label>
-                                    <input type="email" id="contact-email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Phone Number *</label>
-                                    <input type="tel" id="contact-phone" required placeholder="017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Subject / Department</label>
-                                    <select id="contact-subject" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all cursor-pointer">
-                                        <option>Appointment Scheduling & Rescheduling</option>
-                                        <option>Doctor Profile Verification / Onboarding</option>
-                                        <option>Technical / Account Issue</option>
-                                        <option>Feedback & Suggestions</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold text-[#082c2a] mb-1.5">Your Message *</label>
-                                <textarea id="contact-message" rows="5" required placeholder="How can we assist you today?" class="w-full px-4 py-3 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-sm text-[#082c2a] focus:bg-white focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all"></textarea>
-                            </div>
-
-                            <button type="submit" id="contact-submit-btn" class="w-full py-3.5 px-6 rounded-full font-bold text-sm bg-[#0e927f] text-white hover:bg-[#087866] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-60">
-                                <span>Send Message</span> <span>↗</span>
-                            </button>
-                        </form>
-
-                        <div id="contact-success" class="mt-6 p-4 rounded-xl bg-[#eef8f5] border border-[#c3e7dc] text-[#082c2a] text-sm text-center hidden">
-                            <span class="font-bold text-[#0e927f] block mb-1">✓ Message Sent Successfully!</span>
-                            Thank you for reaching out. We will respond promptly.
-                        </div>
+        <!-- 2. FLOATING INFO CARDS (Overlapping Cover Banner smoothly) -->
+        <section class="relative z-20 -mt-10 sm:-mt-12 px-4 sm:px-6 lg:px-8 max-w-[1320px] mx-auto mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Direct Hotline -->
+                <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-[0_16px_45px_rgba(4,25,23,0.12)] border border-[#D6EAE2] flex items-start gap-4 group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-[#EDF7F4] text-[#0E927F] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                     </div>
-
-                    <!-- Direct Info Cards Column -->
-                    <div class="lg:col-span-5 space-y-6">
-                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Direct Help Desk</h3>
-                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-3">For urgent appointment changes or immediate assistance:</p>
-                                    <p class="text-sm font-bold text-[#0e927f]">+880 1800-HEALX (43259)</p>
-                                    <p class="text-xs text-[#738a83] mt-1">Everyday 8:00 AM - 10:00 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Email Inquiries</h3>
-                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-3">Send prescriptions or business queries directly:</p>
-                                    <p class="text-sm font-semibold text-[#082c2a]">Patient Support: <a href="mailto:care@healiix.health" class="text-[#0e927f] hover:underline">care@healiix.health</a></p>
-                                    <p class="text-sm font-semibold text-[#082c2a] mt-1">Doctor Desk: <a href="mailto:doctors@healiix.health" class="text-[#0e927f] hover:underline">doctors@healiix.health</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-6 rounded-2xl border border-[#e1eae6] shadow-sm">
-                            <div class="flex items-start gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-[#dcefe9] text-[#0e927f] flex items-center justify-center flex-shrink-0">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-base text-[#082c2a] mb-1">Dhaka Headquarters</h3>
-                                    <p class="text-xs text-[#6c8680] leading-relaxed mb-2">Level 7, Health Tech Tower, Road 11, Banani, Dhaka-1213, Bangladesh</p>
-                                    <span class="inline-block text-[11px] font-semibold text-[#0e927f] bg-[#eef8f5] px-2.5 py-1 rounded-md">Visiting Hours: Sun - Thu (9 AM - 6 PM)</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#6F8983] uppercase tracking-wider block mb-1">CALL HELPDESK</span>
+                        <a href="tel:+8801688525596" class="text-base sm:text-lg font-black text-[#082C2A] hover:text-[#0E927F] transition-colors block">+880 1688525596</a>
+                        <p class="text-xs text-[#556E68] mt-1">Available 7 days, 8:00 AM – 10:00 PM</p>
                     </div>
                 </div>
+
+                <!-- Card 2: Email Desk -->
+                <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-[0_16px_45px_rgba(4,25,23,0.12)] border border-[#D6EAE2] flex items-start gap-4 group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-[#EDF7F4] text-[#0E927F] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#6F8983] uppercase tracking-wider block mb-1">EMAIL SUPPORT</span>
+                        <a href="mailto:healiix@alrifatsabbir.me" class="text-sm sm:text-base font-bold text-[#082C2A] hover:text-[#0E927F] transition-colors block">healiix@alrifatsabbir.me</a>
+                        <p class="text-xs text-[#556E68] mt-1">Physician Desk: <a href="mailto:info@alrifatsabbir.me" class="text-[#0E927F] hover:underline">info@alrifatsabbir.me</a></p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Main Campus Office -->
+                <div class="bg-white rounded-3xl p-6 sm:p-7 shadow-[0_16px_45px_rgba(4,25,23,0.12)] border border-[#D6EAE2] flex items-start gap-4 group hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-[#EDF7F4] text-[#0E927F] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-[#6F8983] uppercase tracking-wider block mb-1">CAMPUS LOCATION</span>
+                        <p class="text-sm font-bold text-[#082C2A]">WUB Main Campus</p>
+                        <p class="text-xs text-[#556E68] mt-1">Sector 17/H, Uttara, Dhaka-1230</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 3. MAIN CONTACT FORM & DETAILS SECTION -->
+        <section class="px-4 sm:px-8 lg:px-12 mb-20 max-w-[1320px] mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
+                
+                <!-- Contact Form Column -->
+                <div class="lg:col-span-7 bg-white p-8 sm:p-12 rounded-[32px] border border-[#D6EAE2] shadow-sm">
+                    <div class="inline-flex items-center gap-2 bg-[#E0EEE9] text-[#0E927F] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-[#0E927F]"></span>
+                        SEND US A NOTE
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-[#082C2A] tracking-tight mb-2">
+                        How can we help you today?
+                    </h2>
+                    <p class="text-xs sm:text-sm text-[#556E68] mb-8 leading-relaxed font-medium">
+                        Fill out the details below and an appointment coordinator will respond within 2-4 hours.
+                    </p>
+
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082C2A] mb-1.5">Full Name *</label>
+                                <input type="text" id="contact-name" required placeholder="e.g. Tanvir Hossain" class="w-full px-4 py-3 rounded-xl border border-[#D7DFDB] bg-[#F8FBF9] text-sm text-[#082C2A] focus:bg-white focus:border-[#0E927F] focus:ring-2 focus:ring-[#0E927F]/20 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082C2A] mb-1.5">Email Address *</label>
+                                <input type="email" id="contact-email" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-[#D7DFDB] bg-[#F8FBF9] text-sm text-[#082C2A] focus:bg-white focus:border-[#0E927F] focus:ring-2 focus:ring-[#0E927F]/20 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#082C2A] mb-1.5">Phone Number *</label>
+                                <input type="tel" id="contact-phone" required placeholder="017xxxxxxxx" class="w-full px-4 py-3 rounded-xl border border-[#D7DFDB] bg-[#F8FBF9] text-sm text-[#082C2A] focus:bg-white focus:border-[#0E927F] focus:ring-2 focus:ring-[#0E927F]/20 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#082C2A] mb-1.5">Inquiry Topic</label>
+                                <select id="contact-subject" class="w-full px-4 py-3 rounded-xl border border-[#D7DFDB] bg-[#F8FBF9] text-sm text-[#082C2A] focus:bg-white focus:border-[#0E927F] focus:ring-2 focus:ring-[#0E927F]/20 outline-none transition-all cursor-pointer font-medium">
+                                    <option>Appointment Scheduling &amp; Rescheduling</option>
+                                    <option>Doctor Profile Verification / Onboarding</option>
+                                    <option>Technical / Account Assistance</option>
+                                    <option>General Feedback &amp; Suggestions</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-[#082C2A] mb-1.5">Your Message *</label>
+                            <textarea id="contact-message" rows="5" required placeholder="Describe what you need assistance with..." class="w-full px-4 py-3 rounded-xl border border-[#D7DFDB] bg-[#F8FBF9] text-sm text-[#082C2A] focus:bg-white focus:border-[#0E927F] focus:ring-2 focus:ring-[#0E927F]/20 outline-none transition-all"></textarea>
+                        </div>
+
+                        <button type="submit" id="contact-submit-btn" class="w-full py-4 px-6 rounded-full font-black text-xs uppercase tracking-wider bg-[#92F07F] hover:bg-[#7fe06a] text-[#082C2A] transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-60 active:scale-95">
+                            <span>Send Message</span>
+                            <span class="text-sm font-bold">&rarr;</span>
+                        </button>
+                    </form>
+
+                    <div id="contact-success" class="mt-6 p-4 rounded-2xl bg-[#EEF8F5] border border-[#C3E7DC] text-[#082C2A] text-xs text-center hidden">
+                        <span class="font-bold text-[#0E927F] text-sm block mb-1">✓ Message Sent Successfully!</span>
+                        Thank you for reaching out. A coordinator will get back to you shortly.
+                    </div>
+                </div>
+
+                <!-- Right Side: Office Info & FAQs Quick Pill -->
+                <div class="lg:col-span-5 space-y-6">
+                    
+                    <div class="bg-[#EEF2F0] rounded-[32px] p-8 border border-[#E5EBE8]">
+                        <h3 class="font-extrabold text-xl text-[#082C2A] mb-3">Visiting Hours &amp; Guidelines</h3>
+                        <p class="text-xs text-[#556E68] leading-relaxed mb-6 font-medium">
+                            Patients and medical partners are welcome to visit our campus innovation lab for in-person credentialing, system demos, or partnership meetings.
+                        </p>
+
+                        <div class="space-y-4 text-xs font-semibold text-[#082C2A]">
+                            <div class="flex items-center justify-between pb-3 border-b border-[#D6EAE2]">
+                                <span class="text-[#556E68]">Saturday – Thursday</span>
+                                <span>9:00 AM – 6:00 PM</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-3 border-b border-[#D6EAE2]">
+                                <span class="text-[#556E68]">Friday</span>
+                                <span class="text-[#0E927F]">Online Support Only</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[#556E68]">National Holidays</span>
+                                <span class="text-[#0E927F]">AI Triage 24/7 Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#E0EEE9] rounded-[32px] p-8 border border-[#D6EAE2] space-y-3">
+                        <span class="text-xs font-bold text-[#0E927F] uppercase tracking-wider block">LOOKING FOR FAST ANSWERS?</span>
+                        <h4 class="font-extrabold text-lg text-[#082C2A]">Explore our Knowledge Base</h4>
+                        <p class="text-xs text-[#556E68] leading-relaxed">
+                            Find clear guides about booking cancellations, BM&amp;DC numbers, payment policies, and tele-consultation slots.
+                        </p>
+                        <div class="pt-2">
+                            <a href="faq.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#082C2A] hover:text-[#0E927F] transition-colors">
+                                <span>Browse Frequently Asked Questions</span>
+                                <span>&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. LOCATION & INTERACTIVE MAP SECTION (World University of Bangladesh - WUB) -->
+        <section class="px-4 sm:px-8 lg:px-12 mb-24 max-w-[1320px] mx-auto">
+            <div class="bg-white rounded-[36px] p-6 sm:p-10 lg:p-12 border border-[#D6EAE2] shadow-sm">
+                
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                    <div>
+                        <div class="inline-flex items-center gap-2 bg-[#E0EEE9] text-[#0E927F] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2 shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-[#0E927F]"></span>
+                            OUR PHYSICAL LOCATION
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#082C2A] tracking-tight">
+                            World University of Bangladesh (WUB)
+                        </h2>
+                        <p class="text-xs sm:text-sm text-[#556E68] mt-1 font-medium">
+                            Avenue 6 &amp; Lake Drive Road, Sector 17/H, Uttara, Dhaka-1230, Bangladesh
+                        </p>
+                    </div>
+
+                    <a href="https://maps.google.com/?q=World+University+of+Bangladesh" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-[#082C2A] hover:bg-[#0E927F] text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-2xs self-start sm:self-auto flex-shrink-0">
+                        <span>Open in Google Maps</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+
+                <!-- Google Maps Embed Container -->
+                <div class="w-full h-[400px] sm:h-[480px] lg:h-[540px] rounded-3xl overflow-hidden border border-[#D6EAE2] shadow-md bg-[#EDF2EE]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14596.693070931315!2d90.36812063610756!3d23.84798030274192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b779be3745%3A0xe201c48b96e1868a!2sWorld%20University%20of%20Bangladesh%20(WUB)!5e0!3m2!1sen!2sbd!4v1795201755408!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="World University of Bangladesh Location Map"></iframe>
+                </div>
+
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#062321] text-[#d7e8e2] pt-16 pb-8">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
-            <div>
-                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
-                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX" width="170" height="40" class="object-contain">
-                </a>
-                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
+        <!-- Footer -->
+    <footer id="footer" class="w-full bg-[#062321] text-white rounded-t-[36px] pt-16 sm:pt-24 pb-12 px-6 sm:px-12 lg:px-16">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left: Giant Healiix Logo -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="text-6xl sm:text-8xl lg:text-[110px] font-black tracking-tight leading-none">
+                    <span class="text-[#557069]">Healii</span><span class="text-[#92F07F]">X</span>
+                </div>
+                <p class="text-xs sm:text-sm text-[#89AAA1] max-w-sm leading-relaxed">
+                    Making the path to better care feel more human, accessible, and transparent for everyone.
+                </p>
             </div>
-            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
-                <div class="flex flex-col gap-3">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
-                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
-                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
-                    <a href="faq.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
-                    <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+
+            <!-- Right: 3 Columns -->
+            <div class="lg:col-span-6 grid grid-cols-3 gap-6 sm:gap-10 pt-4">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
                 </div>
-                <div class="flex flex-col gap-3">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
-                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About Us</a>
-                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
-                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
                 </div>
-                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
-                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
                 </div>
+
             </div>
+
         </div>
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+
+        <!-- Bottom Copyright & Verification Line -->
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
             <span>© 2026 HealiiX Health Inc. Better care, together.</span>
-            <span>All medical credentials verified with BMDC.</span>
+            <span>All credentials verified with authorized medical boards.</span>
         </div>
     </footer>
 
@@ -271,8 +392,9 @@
                 await api.sendContactMessage({
                     name,
                     email,
+                    phone,
                     subject,
-                    message: `Phone: ${phone}\n\n${message}`,
+                    message,
                 });
                 contactForm.reset();
                 contactSuccess.classList.remove('hidden');
@@ -290,5 +412,8 @@
             primaryNav.classList.toggle('hidden');
         });
     </script>
+    <script src="./js/navbar.js"></script>
+    <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import Doctor from '../models/Doctor.js';
 import Appointment from '../models/Appointment.js';
 import Review from '../models/Review.js';
 import EmailLog from '../models/EmailLog.js';
+import ContactMessage from '../models/ContactMessage.js';
 import Notification from '../models/Notification.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
 import { sendDoctorApprovalStatusEmail, sendAdminCustomEmail } from '../config/mailer.js';
@@ -451,8 +452,147 @@ admin.get('/appointments', async (c) => {
 });
 
 // ============================================================================
-// 5. EMAILS CENTER (SEND DIRECT / PRE-TEMPLATES + 30-DAY EMAIL LOGS)
+// 5. EMAILS & INBOUND CONTACT INQUIRIES CENTER
 // ============================================================================
+
+// 5.1 Inbound Contact Inquiries (from Contact Us page)
+admin.get('/contacts', async (c) => {
+    try {
+        const { status, q, page = 1, limit = 20 } = c.req.query();
+        const filter = {};
+
+        if (status && status !== 'all' && ['unread', 'read', 'replied', 'archived'].includes(status)) {
+            filter.status = status;
+        }
+
+        if (q && q.trim()) {
+            const regex = new RegExp(q.trim(), 'i');
+            filter.$or = [
+                { name: regex },
+                { email: regex },
+                { phone: regex },
+                { subject: regex },
+                { message: regex },
+            ];
+        }
+
+        const pageNum = Math.max(1, parseInt(page, 10) || 1);
+        const limitNum = Math.max(1, Math.min(100, parseInt(limit, 10) || 20));
+        const skip = (pageNum - 1) * limitNum;
+
+        const [totalCount, unreadCount, messages] = await Promise.all([
+            ContactMessage.countDocuments(filter),
+            ContactMessage.countDocuments({ status: 'unread' }),
+            ContactMessage.find(filter)
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limitNum)
+                .lean(),
+        ]);
+
+        return c.json({
+            success: true,
+            count: totalCount,
+            unreadCount,
+            page: pageNum,
+            totalPages: Math.ceil(totalCount / limitNum),
+            messages,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+admin.get('/contacts/:id', async (c) => {
+    try {
+        const id = c.req.param('id');
+        const msg = await ContactMessage.findById(id);
+        if (!msg) return c.json({ success: false, message: 'Contact message not found.' }, 404);
+
+        if (msg.status === 'unread') {
+            msg.status = 'read';
+            await msg.save();
+        }
+
+        return c.json({ success: true, message: msg });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+const handleContactStatus = async (c) => {
+    try {
+        const id = c.req.param('id');
+        const { status } = await c.req.json();
+        if (!['unread', 'read', 'replied', 'archived'].includes(status)) {
+            return c.json({ success: false, message: 'Invalid status value.' }, 400);
+        }
+
+        const msg = await ContactMessage.findByIdAndUpdate(id, { status }, { new: true });
+        if (!msg) return c.json({ success: false, message: 'Contact message not found.' }, 404);
+
+        return c.json({ success: true, message: `Status updated to ${status}.`, contact: msg });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+};
+
+admin.patch('/contacts/:id/status', handleContactStatus);
+admin.post('/contacts/:id/status', handleContactStatus);
+
+admin.post('/contacts/:id/reply', async (c) => {
+    try {
+        const id = c.req.param('id');
+        const currentAdmin = c.get('user');
+        const { replyMessage, replySubject, badge = 'Care Desk' } = await c.req.json();
+
+        if (!replyMessage || !replyMessage.trim()) {
+            return c.json({ success: false, message: 'Reply message cannot be empty.' }, 400);
+        }
+
+        const contact = await ContactMessage.findById(id);
+        if (!contact) return c.json({ success: false, message: 'Contact message not found.' }, 404);
+
+        const finalSubject = (replySubject || `Re: ${contact.subject}`).trim();
+
+        await sendAdminCustomEmail({
+            to: contact.email,
+            subject: finalSubject,
+            heading: finalSubject,
+            message: replyMessage.trim(),
+            badge,
+            sentBy: currentAdmin.email,
+        });
+
+        contact.status = 'replied';
+        contact.replySubject = finalSubject;
+        contact.replyMessage = replyMessage.trim();
+        contact.repliedAt = new Date();
+        contact.repliedBy = currentAdmin.email || currentAdmin.fullName || 'Admin';
+        await contact.save();
+
+        return c.json({
+            success: true,
+            message: `Reply dispatched successfully to ${contact.email}.`,
+            contact,
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+admin.delete('/contacts/:id', async (c) => {
+    try {
+        const id = c.req.param('id');
+        const msg = await ContactMessage.findByIdAndDelete(id);
+        if (!msg) return c.json({ success: false, message: 'Contact message not found.' }, 404);
+        return c.json({ success: true, message: 'Contact message deleted successfully.' });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// 5.2 Direct Email Sender
 admin.post('/emails/send', async (c) => {
     try {
         const currentAdmin = c.get('user');

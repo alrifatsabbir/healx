@@ -56,6 +56,17 @@ export const api = {
         return res;
     },
 
+    // Strictly Administrator Portal Login
+    async adminLogin(identifier, password) {
+        const res = await this.request(CONFIG.ENDPOINTS.AUTH.ADMIN_LOGIN, {
+            method: 'POST',
+            body: JSON.stringify({ identifier, password }),
+        });
+        if (res.token) this.setToken(res.token);
+        if (res.user) this.setCurrentUser(res.user);
+        return res;
+    },
+
     async checkUsername(username) {
         return this.request(CONFIG.ENDPOINTS.AUTH.CHECK_USERNAME(username), { method: 'GET' });
     },
@@ -302,6 +313,39 @@ export const api = {
             method: 'POST',
             body: JSON.stringify(data),
         });
+    },
+
+    // Inbound Contact Inquiries (Admin)
+    async getAdminContacts(status = '', q = '', page = 1, limit = 20) {
+        const params = new URLSearchParams();
+        if (status) params.set('status', status);
+        if (q) params.set('q', q);
+        if (page) params.set('page', page);
+        if (limit) params.set('limit', limit);
+        const qs = params.toString();
+        return this.request(qs ? `${CONFIG.ENDPOINTS.ADMIN.CONTACTS}?${qs}` : CONFIG.ENDPOINTS.ADMIN.CONTACTS, { method: 'GET' });
+    },
+
+    async getAdminContactById(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.CONTACT_DETAIL(id), { method: 'GET' });
+    },
+
+    async updateAdminContactStatus(id, status) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.CONTACT_STATUS(id), {
+            method: 'POST',
+            body: JSON.stringify({ status }),
+        });
+    },
+
+    async replyAdminContact(id, data) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.CONTACT_REPLY(id), {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    },
+
+    async deleteAdminContact(id) {
+        return this.request(CONFIG.ENDPOINTS.ADMIN.CONTACT_DELETE(id), { method: 'DELETE' });
     },
 
     async getEmailLogs(status = '', q = '') {

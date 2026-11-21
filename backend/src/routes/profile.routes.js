@@ -37,7 +37,11 @@ profileRoutes.get('/admin/profile', (c) => {
 });
 
 // Clean redirects for admin navigation aliases to prevent 404s
-profileRoutes.get('/admin', (c) => c.redirect('/admin-dashboard.html'));
+// /admin route now directly opens the dedicated Admin Login portal
+profileRoutes.get('/admin', (c) => c.redirect('/admin-login.html'));
+profileRoutes.get('/admin/', (c) => c.redirect('/admin-login.html'));
+profileRoutes.get('/admin/login', (c) => c.redirect('/admin-login.html'));
+profileRoutes.get('/admin-login', (c) => c.redirect('/admin-login.html'));
 profileRoutes.get('/admin/dashboard', (c) => c.redirect('/admin-dashboard.html'));
 profileRoutes.get('/admin/admin-dashboard.html', (c) => c.redirect('/admin-dashboard.html'));
 profileRoutes.get('/admin-dashboard', (c) => c.redirect('/admin-dashboard.html'));

@@ -56,6 +56,7 @@ export const CONFIG = {
     ENDPOINTS: {
         AUTH: {
             LOGIN: `${API_BASE_URL}/api/auth/login`,
+            ADMIN_LOGIN: `${API_BASE_URL}/api/auth/admin-login`,
             CHECK_USERNAME: (username) => `${API_BASE_URL}/api/auth/check-username/${username}`,
             PATIENT_SEND_OTP: `${API_BASE_URL}/api/auth/patient/send-otp`,
             PATIENT_SIGNUP: `${API_BASE_URL}/api/auth/patient/signup`,
@@ -94,6 +95,11 @@ export const CONFIG = {
             USERS: `${API_BASE_URL}/api/admin/users`,
             USER_STATUS: (id) => `${API_BASE_URL}/api/admin/users/${id}/status`,
             APPOINTMENTS: `${API_BASE_URL}/api/admin/appointments`,
+            CONTACTS: `${API_BASE_URL}/api/admin/contacts`,
+            CONTACT_DETAIL: (id) => `${API_BASE_URL}/api/admin/contacts/${id}`,
+            CONTACT_STATUS: (id) => `${API_BASE_URL}/api/admin/contacts/${id}/status`,
+            CONTACT_REPLY: (id) => `${API_BASE_URL}/api/admin/contacts/${id}/reply`,
+            CONTACT_DELETE: (id) => `${API_BASE_URL}/api/admin/contacts/${id}`,
             EMAIL_SEND: `${API_BASE_URL}/api/admin/emails/send`,
             EMAIL_LOGS: `${API_BASE_URL}/api/admin/emails/logs`,
             EMAIL_LOG_DELETE: (id) => `${API_BASE_URL}/api/admin/emails/logs/${id}`,
@@ -115,6 +121,14 @@ export const CONFIG = {
             DOCTOR_REVIEWS: (doctorId) => `${API_BASE_URL}/api/reviews/doctor/${doctorId}`,
         },
         UPLOAD: `${API_BASE_URL}/api/upload/image`,
+        BOT: {
+            CHAT: `${AI_BOT_BASE_URL}/chat`,
+            BACKEND_CHAT: `${API_BASE_URL}/api/bot/chat`,
+            HEALTH: `${AI_BOT_BASE_URL}/health`,
+            BACKEND_HEALTH: `${API_BASE_URL}/api/bot/health`,
+            SUGGESTIONS: `${AI_BOT_BASE_URL}/suggestions`,
+            BACKEND_SUGGESTIONS: `${API_BASE_URL}/api/bot/suggestions`,
+        },
     },
 };
 

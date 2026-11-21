@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Portal Sign In | HealiiX Console</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#051c1a] text-white min-h-screen flex flex-col justify-between antialiased selection:bg-[#0e927f] selection:text-white relative overflow-x-hidden">
+    
+    <!-- Background Ambient Glow & Grid -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#0e927f]/20 rounded-full blur-[128px]"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-[#92f07f]/15 rounded-full blur-[140px]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(#0e927f_1px,transparent_1px)] [background-size:32px_32px] opacity-10"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="relative z-10 p-6 sm:px-10">
+        <div class="max-w-[1240px] mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group" aria-label="HealiiX Home">
+                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX" class="h-9 sm:h-10 w-auto object-contain transition-opacity group-hover:opacity-90">
+            </a>
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[#89AAA1] text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-[#92f07f] animate-pulse"></span>
+                    Secure Admin Gateway
+                </span>
+                <a href="index.html" class="text-xs sm:text-[13px] font-semibold text-[#89AAA1] hover:text-white transition-colors flex items-center gap-1.5">
+                    &larr; Public Site
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Admin Authentication Card -->
+    <main class="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-6 my-4">
+        <div class="w-full max-w-[460px] bg-[#072624]/90 backdrop-blur-xl rounded-[32px] p-8 sm:p-10 border border-white/10 shadow-[0_24px_70px_rgba(0,0,0,0.5)]">
+            
+            <!-- Admin Shield Badge Header -->
+            <div class="mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#0e927f]/20 border border-[#0e927f]/40 text-[#92f07f] mb-4 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <div class="inline-block px-3 py-0.5 rounded-full bg-[#92f07f]/15 border border-[#92f07f]/30 text-[#92f07f] text-[10px] font-extrabold uppercase tracking-widest mb-2">
+                    Authorized Personnel Only
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
+                    Admin Portal Sign In
+                </h1>
+                <p class="text-xs text-[#89AAA1] leading-relaxed">
+                    Enter master administrative credentials to access doctor verifications, audit logs, and directory controls.
+                </p>
+            </div>
+
+            <!-- Feedback Notice Container -->
+            <div id="login-feedback" class="mb-4 p-3.5 rounded-2xl text-xs font-semibold hidden"></div>
+
+            <!-- Admin Sign In Form -->
+            <form id="admin-login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-[#c8e2da] mb-1.5">Admin Email or Username *</label>
+                    <div class="relative">
+                        <input type="text" id="admin-identifier" required placeholder="admin@healiix.com or @admin" autocomplete="username" class="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder:text-[#557069] focus:bg-white/10 focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/30 outline-none transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-bold text-[#c8e2da]">Password *</label>
+                        <span class="text-[11px] text-[#557069] select-none">Encrypted</span>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="admin-password" required placeholder="••••••••" autocomplete="current-password" class="w-full pl-4 pr-11 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder:text-[#557069] focus:bg-white/10 focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/30 outline-none transition-all">
+                        <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#89AAA1] hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer" aria-label="Toggle password visibility">
+                            <svg class="eye-open w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            <svg class="eye-closed w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 pt-1">
+                    <input type="checkbox" id="remember-admin" class="rounded border-white/20 bg-white/5 text-[#0e927f] focus:ring-[#0e927f] cursor-pointer" checked>
+                    <label for="remember-admin" class="text-xs text-[#89AAA1] cursor-pointer select-none">Remember this authenticated session</label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider bg-[#92F07F] hover:bg-[#7fe06a] text-[#082C2A] transition-all cursor-pointer shadow-lg shadow-[#92F07F]/10 flex items-center justify-center gap-2 mt-4 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span id="btn-text">Sign In to Admin Console</span>
+                    <span id="btn-arrow" class="text-sm font-bold">&rarr;</span>
+                </button>
+            </form>
+
+            <!-- Security Footer Note -->
+            <div class="mt-8 pt-6 border-t border-white/10 text-center">
+                <p class="text-[11px] text-[#557069] leading-relaxed">
+                    Security notice: All administrative sessions are strictly monitored, IP-logged, and protected under HealiiX platform security policies.
+                </p>
+                <div class="mt-4">
+                    <a href="login.html" class="text-xs text-[#89AAA1] hover:text-[#92F07F] transition-colors font-semibold">
+                        Not an admin? Go to Patient / Doctor Sign In &rarr;
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 p-6 text-center text-xs text-[#557069]">
+        &copy; 2026 HealiiX Healthcare Platform &bull; Administrative Systems Control &bull; Confidential
+    </footer>
+
+    <!-- Script Integration -->
+    <script type="module">
+        import api from './js/api.js';
+        import { getAppPath } from './js/config.js';
+
+        // 1. Auto-redirect if already authenticated as Admin
+        const cached = api.getCurrentUser();
+        const token = api.getToken();
+        if (cached && cached.role === 'admin' && token) {
+            window.location.replace(getAppPath('admin-dashboard.html'));
+        }
+
+        const form = document.getElementById('admin-login-form');
+        const identifierInput = document.getElementById('admin-identifier');
+        const pwdInput = document.getElementById('admin-password');
+        const toggleBtn = document.getElementById('toggle-pwd-btn');
+        const feedback = document.getElementById('login-feedback');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+
+        // Toggle password show/hide
+        toggleBtn.addEventListener('click', () => {
+            const isPassword = pwdInput.type === 'password';
+            pwdInput.type = isPassword ? 'text' : 'password';
+            const eyeOpen = toggleBtn.querySelector('.eye-open');
+            const eyeClosed = toggleBtn.querySelector('.eye-closed');
+            if (eyeOpen && eyeClosed) {
+                eyeOpen.classList.toggle('hidden', isPassword);
+                eyeClosed.classList.toggle('hidden', !isPassword);
+            }
+        });
+
+        function showFeedback(msg, isError = false) {
+            feedback.classList.remove('hidden', 'bg-red-500/10', 'text-red-300', 'border-red-500/30', 'bg-[#0e927f]/15', 'text-[#92f07f]', 'border-[#0e927f]/30');
+            feedback.classList.add('border');
+            if (isError) {
+                feedback.classList.add('bg-red-500/10', 'text-red-300', 'border-red-500/30');
+            } else {
+                feedback.classList.add('bg-[#0e927f]/15', 'text-[#92f07f]', 'border-[#0e927f]/30');
+            }
+            feedback.textContent = msg;
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const identifier = identifierInput.value.trim();
+            const password = pwdInput.value;
+
+            if (!identifier || !password) {
+                showFeedback('Please provide both administrative identifier and password.', true);
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                btnText.textContent = 'Verifying admin security...';
+
+                const res = await api.adminLogin(identifier, password);
+
+                showFeedback(`✓ Access Granted. Welcome, ${res.user.fullName || res.user.username}. Launching Admin Console...`, false);
+
+                setTimeout(() => {
+                    window.location.href = getAppPath('admin-dashboard.html');
+                }, 700);
+            } catch (err) {
+                showFeedback(err.message || 'Authentication failed. Please verify credentials.', true);
+            } finally {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Sign In to Admin Console';
+            }
+        });
+    </script>
+</body>
+</html>

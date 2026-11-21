@@ -1,0 +1,23 @@
+{
+  "name": "healiix-ai-bot",
+  "version": "1.0.0",
+  "description": "HealiiX Medical Assistant & AI Bot Service powered by Google Gemini",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "healiix",
+    "ai-bot",
+    "gemini",
+    "healthcare",
+    "triage"
+  ],
+  "author": "HealiiX",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

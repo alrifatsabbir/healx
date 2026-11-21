@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Security Policy & Architecture - Learn how HealiiX implements clinical-grade encryption, credential protection, and vulnerability management.">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Security Policy | HealiiX Health</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#fbfdfc] text-[#123b39] antialiased flex flex-col min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
+            </a>
+
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Header Banner -->
+    <section class="relative pt-32 pb-16 px-6 bg-gradient-to-b from-[#082C2A] to-[#0d3b38] text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,146,127,0.25),transparent_60%)]"></div>
+        <div class="relative max-w-4xl mx-auto text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#92F07F] text-xs font-bold uppercase tracking-wider">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Enterprise Clinical Security & Architecture</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Security Policy</h1>
+            <p class="text-sm sm:text-base text-[#BCD1CB] max-w-2xl mx-auto leading-relaxed">
+                How HealiiX safeguards patient health records, protects doctor credentials, and ensures continuous service resilience across Bangladesh.
+            </p>
+            <div class="pt-2 text-xs text-[#89AAA1] flex items-center justify-center gap-3 font-semibold">
+                <span>SOC 2 Type II Principles &bull; TLS 1.3 Certified &bull; Cloudflare Protected</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-12 flex-1">
+        
+        <!-- Key Security Pillars Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+            <div class="bg-white p-6 rounded-2xl border border-[#e2ece7] shadow-xs space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-[#E0EEE9] text-[#0E927F] flex items-center justify-center font-bold text-lg mb-3">
+                    🔐
+                </div>
+                <h3 class="font-extrabold text-sm text-[#082C2A]">Cryptographic Transit</h3>
+                <p class="text-xs text-[#526a64] leading-relaxed">
+                    All browser-to-server traffic is forced over TLS 1.3 with strict HTTP Strict Transport Security (HSTS) headers.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-[#e2ece7] shadow-xs space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-[#E0EEE9] text-[#0E927F] flex items-center justify-center font-bold text-lg mb-3">
+                    🛡️
+                </div>
+                <h3 class="font-extrabold text-sm text-[#082C2A]">Strict Role Access</h3>
+                <p class="text-xs text-[#526a64] leading-relaxed">
+                    Granular RBAC ensures patients only see their own appointments, doctors access only booked patients, and admins manage verification.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-[#e2ece7] shadow-xs space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-[#E0EEE9] text-[#0E927F] flex items-center justify-center font-bold text-lg mb-3">
+                    ⚡
+                </div>
+                <h3 class="font-extrabold text-sm text-[#082C2A]">Payload Sanitization</h3>
+                <p class="text-xs text-[#526a64] leading-relaxed">
+                    Zero raw Base64 image storage in our database. All doctor certificates and photos are processed into WebP through dedicated media pipelines.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Sticky Navigation Index -->
+            <aside class="hidden lg:block lg:col-span-4">
+                <div class="sticky top-28 bg-white p-5 rounded-2xl border border-[#e2ece7] shadow-xs space-y-3">
+                    <p class="text-xs font-bold text-[#082C2A] uppercase tracking-wider mb-2">Security Architecture</p>
+                    <nav class="space-y-1.5 text-xs font-medium text-[#526a64]">
+                        <a href="#data-encryption" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">1. Encryption at Rest &amp; Transit</a>
+                        <a href="#auth-defense" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">2. Authentication &amp; Token Security</a>
+                        <a href="#credential-audit" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">3. Doctor BMDC Verification Protocol</a>
+                        <a href="#infrastructure" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">4. Database &amp; Cluster Safeguards</a>
+                        <a href="#media-pipeline" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">5. Image &amp; Media Sanitization</a>
+                        <a href="#vulnerability-reporting" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">6. Responsible Vulnerability Disclosure</a>
+                    </nav>
+                    <div class="pt-4 border-t border-[#edf3f0]">
+                        <div class="p-3 rounded-xl bg-[#E0EEE9]/60 text-[11px] text-[#082C2A] leading-relaxed">
+                            <strong>Security Vulnerability?</strong><br>
+                            Notify our incident response team immediately at <a href="mailto:healiix@alrifatsabbir.me" class="text-[#0E927F] font-bold underline">healiix@alrifatsabbir.me</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Security Prose -->
+            <article class="lg:col-span-8 space-y-10 text-sm leading-relaxed text-[#35524c]">
+                
+                <!-- 1. Encryption -->
+                <section id="data-encryption" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">1</span>
+                        <span>Encryption at Rest &amp; Transit</span>
+                    </h2>
+                    <p>
+                        HealiiX enforces cryptographic controls across the entire data lifecycle. All client interactions with our API gateways and frontend clients are strictly encrypted over TLS 1.3 using modern cipher suites.
+                    </p>
+                    <p>
+                        At rest, sensitive patient data and appointment records are persisted on MongoDB Atlas clusters with hardware-accelerated <strong>AES-256 volume encryption</strong>. Production backups are continuously encrypted and geographically redundant.
+                    </p>
+                </section>
+
+                <!-- 2. Authentication -->
+                <section id="auth-defense" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">2</span>
+                        <span>Authentication &amp; Token Security</span>
+                    </h2>
+                    <p>
+                        User passwords are protected using <strong>bcrypt adaptive hashing with a minimum of 10 rounds</strong>. Password reset requests mandate time-limited, single-use 6-digit numeric OTPs dispatched over secured transactional email nodes.
+                    </p>
+                    <div class="p-4 rounded-xl bg-[#F8F8F4] border border-[#e4ece8] text-xs text-[#082C2A] space-y-1">
+                        <p class="font-bold">Key Token Security Protections:</p>
+                        <p>&bull; High-entropy JSON Web Tokens (JWT) signed with secret keys.</p>
+                        <p>&bull; Automatic token expiration requiring re-authentication.</p>
+                        <p>&bull; Dedicated administrator login routes with strict role enforcement to eliminate privilege escalation vectors.</p>
+                    </div>
+                </section>
+
+                <!-- 3. Doctor Verification Protocol -->
+                <section id="credential-audit" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">3</span>
+                        <span>Doctor BMDC Verification Protocol</span>
+                    </h2>
+                    <p>
+                        Protecting patients from unqualified or fraudulent medical practitioners is a core principle of HealiiX. Before any doctor profile is activated:
+                    </p>
+                    <ol class="list-decimal pl-5 space-y-1.5 text-xs sm:text-sm text-[#46635d]">
+                        <li>The practitioner&rsquo;s <strong>BMDC registration number</strong> is checked against official Bangladesh medical records.</li>
+                        <li>High-resolution scans of the BMDC practicing certificate and government-issued national ID are manually inspected by the HealiiX Medical Board verification desk.</li>
+                        <li>Chamber contact lines are verified to ensure physical clinical presence.</li>
+                        <li>Only verified profiles receive the public <em>Verified Practitioner</em> badge.</li>
+                    </ol>
+                </section>
+
+                <!-- 4. Infrastructure -->
+                <section id="infrastructure" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">4</span>
+                        <span>Database &amp; Cluster Safeguards</span>
+                    </h2>
+                    <p>
+                        Production database instances run in isolated Virtual Private Clouds (VPC) with automated IP allowlists. Direct public database access is strictly prohibited.
+                    </p>
+                    <p>
+                        Our application backends implement automated rate limiting and request body parsers to defend against DDoS attacks, slowloris exploits, and automated brute-force credential stuffing.
+                    </p>
+                </section>
+
+                <!-- 5. Media Pipeline -->
+                <section id="media-pipeline" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">5</span>
+                        <span>Image &amp; Media Sanitization Pipeline</span>
+                    </h2>
+                    <p>
+                        To eliminate image-borne exploits (e.g. steganography, embedded malicious scripts, and oversized buffer overruns), HealiiX enforces a strict pipeline:
+                    </p>
+                    <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-[#46635d]">
+                        <li>All user-uploaded avatars and certificate documents are stripped of EXIF metadata.</li>
+                        <li>Images are aggressively re-encoded into optimized WebP formats before cloud storage.</li>
+                        <li>Database schemas strictly reject raw Base64 data strings to keep database query footprints lean and safe.</li>
+                    </ul>
+                </section>
+
+                <!-- 6. Responsible Disclosure -->
+                <section id="vulnerability-reporting" class="space-y-3 bg-gradient-to-br from-[#082C2A] to-[#0E927F] text-white p-6 sm:p-8 rounded-2xl shadow-sm">
+                    <h2 class="text-xl font-bold flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-white/20 text-[#92F07F] text-xs font-extrabold flex items-center justify-center">6</span>
+                        <span>Responsible Vulnerability Disclosure</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-[#BCD1CB]">
+                        We welcome security researchers and ethical hackers who assist in keeping HealiiX secure. If you discover a potential vulnerability, please report it responsibly:
+                    </p>
+                    <div class="pt-2 space-y-2 text-xs text-[#E0EEE9]">
+                        <p>&bull; Email full details and proof-of-concept steps to: <a href="mailto:healiix@alrifatsabbir.me" class="text-[#92F07F] underline font-bold">healiix@alrifatsabbir.me</a></p>
+                        <p>&bull; Please allow us a reasonable window (48&ndash;72 hours) to reproduce and remediate the issue before public disclosure.</p>
+                        <p>&bull; Do not access or alter any live patient data or doctor credentials during testing.</p>
+                    </div>
+                </section>
+
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="w-full bg-[#062321] text-white rounded-t-[36px] pt-16 sm:pt-24 pb-12 px-6 sm:px-12 lg:px-16">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left: Giant Healiix Logo -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="text-6xl sm:text-8xl lg:text-[110px] font-black tracking-tight leading-none">
+                    <span class="text-[#557069]">Healii</span><span class="text-[#92F07F]">X</span>
+                </div>
+                <p class="text-xs sm:text-sm text-[#89AAA1] max-w-sm leading-relaxed">
+                    Making the path to better care feel more human, accessible, and transparent for everyone.
+                </p>
+            </div>
+
+            <!-- Right: 3 Columns -->
+            <div class="lg:col-span-6 grid grid-cols-3 gap-6 sm:gap-10 pt-4">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright & Verification Line -->
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
+            <span>© 2026 HealiiX Health Inc. Better care, together.</span>
+            <span>All credentials verified with authorized medical boards.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/navbar.js"></script>
+    <script type="module" src="./js/auth.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        menuToggle?.addEventListener('click', () => {
+            const isHidden = mobilePanel.classList.contains('hidden');
+            if (isHidden) {
+                mobilePanel.classList.remove('hidden');
+                iconOpen?.classList.add('hidden');
+                iconClose?.classList.remove('hidden');
+            } else {
+                mobilePanel.classList.add('hidden');
+                iconOpen?.classList.remove('hidden');
+                iconClose?.classList.add('hidden');
+            }
+        });
+    </script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
+</body>
+</html>

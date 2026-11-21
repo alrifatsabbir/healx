@@ -24,7 +24,7 @@ const NAV_BY_ROLE = {
         { href: 'admin-doctors.html', label: 'Doctor Directory', icon: ICONS.doctors },
         { href: 'admin-verifications.html', label: 'Doctor Verification', icon: ICONS.verify },
         { href: 'admin-appointments.html', label: 'All Appointments', icon: ICONS.calendar },
-        { href: 'admin-emails.html', label: 'Emails & Logs', icon: ICONS.email },
+        { href: 'admin-emails.html', label: 'Emails & Inquiries', icon: ICONS.email },
         { href: 'admin-notifications.html', label: 'Notifications', icon: ICONS.bell },
         { href: 'admin-settings.html', label: 'Settings & Security', icon: ICONS.settings },
     ],
@@ -520,7 +520,7 @@ function renderShell(user, expectedRole, activeHref, pageHeading, pageSubheading
         sidebarEl.querySelector('#shell-logout-btn')?.addEventListener('click', () => {
             api.setToken(null);
             api.setCurrentUser(null);
-            window.location.href = getAppPath('login.html');
+            window.location.href = getAppPath(expectedRole === 'admin' ? 'admin-login.html' : 'login.html');
         });
 
         // Restore initial collapsed state
@@ -575,12 +575,16 @@ export async function initDashboardShell(expectedRole, activeHref, pageHeading, 
     } catch (_) {
         api.setToken(null);
         api.setCurrentUser(null);
-        window.location.href = getAppPath('login.html');
+        window.location.href = getAppPath(expectedRole === 'admin' ? 'admin-login.html' : 'login.html');
         return null;
     }
 
     const user = meRes.user;
     if (user.role !== expectedRole) {
+        if (expectedRole === 'admin') {
+            window.location.href = getAppPath('admin-login.html');
+            return null;
+        }
         if (user.role === 'admin') window.location.href = getAppPath('admin-dashboard.html');
         else if (user.role === 'doctor') window.location.href = getAppPath('doctor-dashboard.html');
         else window.location.href = getAppPath('patient-dashboard.html');

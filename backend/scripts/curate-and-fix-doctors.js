@@ -121,7 +121,7 @@ function classifySpecialty(doc) {
         if (/\b(psychiat\w*|mental health|counseling|neuropsychiatry)\b/i.test(text)) return 'Psychiatry & Mental Health';
         if (/\b(oncol\w*|cancer|tumor|radiotherapy|radiation)\b/i.test(text)) return 'Oncology & Cancer Care';
         if (/\b(endocrine|endocrinol\w*|thyroid|hormone|hormonal|diabetologist|diabetes)\b/i.test(text)) return 'Endocrinology & Diabetes';
-        if (/\b(internal medicine|rheumatol\w*|chest disease|respiratory|pulmonol\w*)\b/i.test(text)) return 'Medicine & Diabetology';
+        if (/\b(internal medicine|medicine|rheumatol\w*|chest disease|respiratory|pulmonol\w*)\b/i.test(text)) return 'Medicine';
         return null;
     }
 

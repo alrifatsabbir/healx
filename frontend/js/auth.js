@@ -1,5 +1,6 @@
 import api from './api.js';
 import { CONFIG, getAppPath } from './config.js';
+import './ai-bot-widget.js';
 
 function getDashboardUrls(user) {
     if (!user) return { dashboard: getAppPath('login.html'), profile: getAppPath('login.html') };
@@ -22,12 +23,12 @@ function syncPrimaryNav(user) {
 function renderDesktopActions(container, user) {
     if (!user) {
         container.innerHTML = `
-            <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
-            <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+            <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                 </svg>
-                <span>Join HealiiX</span>
+                <span>Join Healiix</span>
             </a>
         `;
         return;
@@ -42,8 +43,8 @@ function renderDesktopActions(container, user) {
         : `<div class="w-8 h-8 rounded-full bg-[#0e927f] text-white font-extrabold text-xs flex items-center justify-center">${initial}</div>`;
 
     container.innerHTML = `
-        <a href="${dashboard}" class="flex items-center gap-1.5 px-3.5 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] transition-all active:scale-[0.98]">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <a href="${dashboard}" class="flex items-center gap-1.5 px-3.5 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="3" width="7" height="7"></rect>
                 <rect x="14" y="3" width="7" height="7"></rect>
                 <rect x="14" y="14" width="7" height="7"></rect>
@@ -127,19 +128,61 @@ function renderMobileActions(user) {
     if (!authSection) return;
 
     if (!user) {
+        authSection.className = 'border-t border-white/10 pt-3 flex items-center justify-between w-full';
         authSection.innerHTML = `
-            <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
-            <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+            <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+            <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-full transition-all">Join Healiix</a>
         `;
         return;
     }
 
     const { dashboard, profile } = getDashboardUrls(user);
+    const initial = (user.fullName || user.username || 'U').charAt(0).toUpperCase();
+    const userAvatar = user.avatar || user.photoUrl || user.image;
+    const roleLabel = user.role === 'admin' ? 'Admin' : (user.role === 'doctor' ? 'Doctor' : 'Patient');
+    const dashboardLabel = user.role === 'admin' ? 'Admin Panel' : (user.role === 'doctor' ? 'Doctor Dashboard' : 'Dashboard');
+
+    const avatarHtml = userAvatar
+        ? `
+            <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 shadow-xs border border-[#0E927F] relative">
+                <img src="${userAvatar}" alt="${user.fullName || user.username}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="hidden w-full h-full bg-[#0E927F] text-white items-center justify-center font-bold text-xs">${initial}</div>
+            </div>
+        `
+        : `
+            <div class="w-8 h-8 rounded-full bg-[#0E927F] text-white flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs">
+                ${initial}
+            </div>
+        `;
+
+    authSection.className = 'border-t border-white/10 pt-3 flex flex-col gap-2 w-full';
     authSection.innerHTML = `
-        <div class="text-xs text-[#8cb3aa] font-semibold pb-1">Signed in as <strong class="text-white">${user.fullName || user.username}</strong></div>
-        <a href="${profile}" class="py-1.5 hover:text-white transition-colors text-sm font-semibold text-[#d7ebe6] block">Profile</a>
-        <a href="${dashboard}" class="py-1.5 hover:text-white transition-colors text-sm font-bold text-[#34d399] block">${user.role === 'admin' ? 'Admin Dashboard' : (user.role === 'doctor' ? 'Doctor Dashboard' : 'Dashboard')}</a>
-        <button type="button" class="healiix-mobile-logout py-2 text-left text-sm font-semibold text-red-300 hover:text-red-200 bg-transparent border-0 cursor-pointer w-full">Logout</button>
+        <div class="flex items-center justify-between bg-white/5 rounded-xl px-3 py-2 border border-white/10 mb-1">
+            <div class="flex items-center gap-2.5 overflow-hidden">
+                ${avatarHtml}
+                <div class="truncate">
+                    <p class="text-[10px] text-[#8cb3aa] leading-none uppercase tracking-wider font-bold mb-0.5">Signed In As</p>
+                    <p class="text-xs font-extrabold text-white truncate leading-tight">${user.fullName || user.username}</p>
+                </div>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#34d399]/20 text-[#34d399] border border-[#34d399]/30 uppercase flex-shrink-0">
+                ${roleLabel}
+            </span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <a href="${profile}" class="py-2 px-3 text-center rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10 flex items-center justify-center gap-1.5">
+                <span>👤</span>
+                <span>Profile</span>
+            </a>
+            <a href="${dashboard}" class="py-2 px-3 text-center rounded-xl bg-[#0E927F] hover:bg-[#0b7c6c] text-xs font-bold text-white transition-all shadow-xs flex items-center justify-center gap-1.5">
+                <span>⚡</span>
+                <span>${dashboardLabel}</span>
+            </a>
+        </div>
+        <button type="button" class="healiix-mobile-logout w-full mt-1 py-2 px-3 text-center rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-300 text-xs font-bold transition-all border border-red-500/20 cursor-pointer flex items-center justify-center gap-1.5">
+            <span>🚪</span>
+            <span>Sign Out</span>
+        </button>
     `;
 
     authSection.querySelector('.healiix-mobile-logout')?.addEventListener('click', () => {

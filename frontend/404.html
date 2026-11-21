@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="404 - Page Not Found | HealiiX Healthcare & Doctor Directory">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404 - Page Not Found | HealiiX Health</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .radar-pulse-ring {
+            animation: radar 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+        }
+        @keyframes radar {
+            0% { transform: scale(0.9); opacity: 0.8; }
+            50% { transform: scale(1.35); opacity: 0.15; }
+            100% { transform: scale(1.75); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-[#fbfdfc] text-[#123b39] antialiased flex flex-col min-h-screen">
+
+    <!-- Header & Navigation with Morphing Scroll Animation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <!-- Right Buttons / Actions -->
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <!-- Mobile Menu Hamburger Button -->
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Dropdown Card -->
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. EMERALD CANOPY HERO SPACE (Guarantees 100% Navbar Contrast & Premium Aesthetic) -->
+    <section class="relative bg-gradient-to-b from-[#051F1D] via-[#082C2A] to-[#0B3B37] text-white pt-32 sm:pt-36 pb-20 sm:pb-28 px-4 sm:px-6 overflow-hidden">
+        <!-- Ambient Decorative Radials -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,146,127,0.32),transparent_55%)] pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-[#92F07F]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative max-w-4xl mx-auto text-center space-y-6">
+            
+            <!-- Animated Clinical Pulse & 404 Badge -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[#92F07F] text-xs font-extrabold uppercase tracking-widest border border-white/15 shadow-lg animate-fade-in-down">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#92F07F] animate-ping"></span>
+                <span>Clinical Route Not Found &bull; Code 404</span>
+            </div>
+
+            <!-- Stylized Dual-Tone 404 Graphic with ECG Trace -->
+            <div class="relative max-w-md mx-auto my-4 py-2 flex flex-col items-center justify-center animate-fade-in">
+                <!-- Large 404 Typographic Backdrop -->
+                <div class="text-7xl sm:text-9xl font-extrabold tracking-tighter text-white/10 select-none font-mono">
+                    404
+                </div>
+
+                <!-- Floating Center Clinical Icon & Radar Pulse -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="relative w-28 h-28 flex items-center justify-center">
+                        <div class="absolute inset-0 rounded-full bg-[#0E927F]/25 radar-pulse-ring"></div>
+                        <div class="absolute inset-2 rounded-full bg-[#92F07F]/20 radar-pulse-ring" style="animation-delay: 0.8s;"></div>
+                        <div class="relative w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#082C2A] to-[#0E927F] p-0.5 shadow-2xl border border-white/25 flex items-center justify-center animate-heartbeat">
+                            <div class="w-full h-full rounded-[14px] bg-[#082C2A] flex items-center justify-center text-white">
+                                <svg class="w-10 h-10 text-[#92F07F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Heading & Diagnosis Subtitle -->
+            <div class="space-y-3 max-w-2xl mx-auto animate-fade-in-up">
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                    This Medical Record is <span class="text-[#92F07F]">Out of Range</span>
+                </h1>
+                <p class="text-sm sm:text-base text-[#BCD1CB] leading-relaxed">
+                    The requested URL or doctor profile couldn't be located. It may have been relocated, rescheduled, or temporarily archived. Let's get you back to verified care.
+                </p>
+            </div>
+
+            <!-- Direct Care Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4 max-w-xl mx-auto animate-fade-in-up delay-200">
+                <a href="index.html" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-[#E0EEE9] text-[#082C2A] text-xs sm:text-sm font-extrabold shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover-lift">
+                    <svg class="w-4 h-4 text-[#0E927F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Back to Home</span>
+                </a>
+
+                <a href="find-doctors.html" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-[#0E927F]/30 transition-all active:scale-[0.98] flex items-center justify-center gap-2 hover-lift">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Find Doctors Directory</span>
+                </a>
+
+                <button type="button" onclick="window.healiixBot?.openBot ? window.healiixBot.openBot() : document.getElementById('healiix-bot-toggle-btn')?.click();" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-[#92F07F] text-xs sm:text-sm font-extrabold border border-white/20 backdrop-blur-md shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer hover-lift">
+                    <svg class="w-4 h-4 text-[#92F07F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                        <circle cx="12" cy="5" r="2"></circle>
+                        <path d="M12 7v4"></path>
+                        <line x1="8" y1="16" x2="8" y2="16"></line>
+                        <line x1="16" y1="16" x2="16" y2="16"></line>
+                    </svg>
+                    <span>Launch AI Triage Bot</span>
+                </button>
+            </div>
+
+            <!-- Embedded Live Quick Search directly on 404 page -->
+            <div class="pt-6 max-w-lg mx-auto">
+                <form action="find-doctors.html" method="GET" class="relative flex items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-full p-1.5 shadow-xl transition-all focus-within:border-[#92F07F] focus-within:bg-white/15">
+                    <div class="pl-4 pr-2 text-[#92F07F]">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <input type="text" name="q" placeholder="Search doctor, hospital, or specialty..." class="w-full bg-transparent text-xs sm:text-sm text-white placeholder-[#89AAA1] focus:outline-none pr-3">
+                    <button type="submit" class="px-4 py-2 rounded-full bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold transition-all whitespace-nowrap cursor-pointer">
+                        Search
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 2. QUICK RECOVERY DIRECTORY & SPECIALTY CARDS -->
+    <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 -mt-8 sm:-mt-12 mb-16 relative z-10 w-full">
+        
+        <!-- Popular Departments Grid -->
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-[#e2ece7] shadow-xl space-y-6 reveal-on-scroll">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#eef4f1] pb-4">
+                <div>
+                    <h2 class="text-base sm:text-lg font-extrabold text-[#082C2A]">Verified Clinical Specialties</h2>
+                    <p class="text-xs text-[#526a64]">Direct access to accredited practitioner chambers across Bangladesh</p>
+                </div>
+                <a href="categories.html" class="text-xs font-bold text-[#0E927F] hover:text-[#082C2A] transition-colors flex items-center gap-1">
+                    <span>View all 40+ departments</span>
+                    <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                <a href="find-doctors.html?category=Cardiology" class="p-4 rounded-2xl bg-[#F8F8F4] hover:bg-[#E0EEE9] border border-[#e3ece8] transition-all hover-lift group flex flex-col justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                        ❤️
+                    </div>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-extrabold text-[#082C2A]">Cardiology</h3>
+                        <p class="text-[11px] text-[#55716a]">Heart & Vascular</p>
+                    </div>
+                </a>
+
+                <a href="find-doctors.html?category=Neurology" class="p-4 rounded-2xl bg-[#F8F8F4] hover:bg-[#E0EEE9] border border-[#e3ece8] transition-all hover-lift group flex flex-col justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                        🧠
+                    </div>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-extrabold text-[#082C2A]">Neurology</h3>
+                        <p class="text-[11px] text-[#55716a]">Brain & Nerve Care</p>
+                    </div>
+                </a>
+
+                <a href="find-doctors.html?category=Pediatrics" class="p-4 rounded-2xl bg-[#F8F8F4] hover:bg-[#E0EEE9] border border-[#e3ece8] transition-all hover-lift group flex flex-col justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                        👶
+                    </div>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-extrabold text-[#082C2A]">Pediatrics</h3>
+                        <p class="text-[11px] text-[#55716a]">Child & Newborn</p>
+                    </div>
+                </a>
+
+                <a href="find-doctors.html?category=Dermatology" class="p-4 rounded-2xl bg-[#F8F8F4] hover:bg-[#E0EEE9] border border-[#e3ece8] transition-all hover-lift group flex flex-col justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-white shadow-xs flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+                        🧴
+                    </div>
+                    <div>
+                        <h3 class="text-xs sm:text-sm font-extrabold text-[#082C2A]">Dermatology</h3>
+                        <p class="text-[11px] text-[#55716a]">Skin & Allergies</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Helpful Troubleshooting Diagnostic Card -->
+            <div class="p-4 rounded-2xl bg-[#E0EEE9]/40 border border-[#0E927F]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-[#082C2A]">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">💡</span>
+                    <div>
+                        <p class="font-bold">Looking for a specific doctor by username?</p>
+                        <p class="text-[#526a64]">Doctors have vanity links formatted like <code class="bg-white px-1.5 py-0.5 rounded text-[#0E927F] font-bold">/d/doctorusername</code></p>
+                    </div>
+                </div>
+                <a href="find-doctors.html" class="px-4 py-2 rounded-xl bg-[#082C2A] text-white font-bold hover:bg-[#0E927F] transition-colors whitespace-nowrap">
+                    Search by Name &rarr;
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Emergency 999 Hotline Banner -->
+        <div class="mt-8 text-center text-xs text-[#526a64] flex flex-col sm:flex-row items-center justify-center gap-2">
+            <span>Experiencing an acute medical crisis or chest pain?</span>
+            <a href="tel:999" class="font-bold text-red-600 hover:text-red-700 hover:underline flex items-center gap-1">
+                <span>Call Bangladesh Emergency Services 999 immediately</span>
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Standard Site Footer -->
+    <footer class="bg-[#082C2A] text-white pt-16 pb-12 px-6 sm:px-12 mt-auto border-t border-white/10">
+        <div class="max-w-[1320px] mx-auto flex flex-col lg:flex-row justify-between gap-12">
+            
+            <div class="space-y-4 max-w-sm">
+                <a href="index.html" class="inline-block">
+                    <img src="./assets/images/healx-logo-bg-black.png" alt="HealiiX" class="h-10 w-auto object-contain">
+                </a>
+                <p class="text-xs text-[#89AAA1] leading-relaxed">
+                    Connecting verified doctors, clinics, and patients across Bangladesh with transparent fees and real-time appointment booking.
+                </p>
+                <div class="pt-2 text-xs text-[#89AAA1] flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                    <span>All services operational</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 text-sm">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">PATIENTS</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a Doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
+            <span>© 2026 HealiiX Health Inc. Better care, together.</span>
+            <span>All credentials verified with authorized medical boards.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./js/navbar.js"></script>
+    <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
+</body>
+</html>

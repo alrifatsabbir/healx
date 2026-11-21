@@ -49,3 +49,522 @@ body, button, input, select, textarea {
 .marquee-container:hover .animate-marquee {
     animation-play-state: paused;
 }
+
+/* Morphing Navigation (Full-width at top-0 -> Floating capsule on scroll) */
+.nav-morph-transition {
+    transition: max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                padding 0.45s ease;
+    will-change: max-width, height, background-color, border-radius, box-shadow;
+}
+
+#site-header {
+    transition: top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.4s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease,
+                padding 0.45s ease;
+    will-change: top, background-color, padding;
+}
+
+#site-header.header-unscrolled {
+    top: 0px !important;
+    padding-top: 14px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+#site-header.header-scrolled {
+    top: 14px !important;
+    padding-top: 0px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+#capsule-nav.nav-unscrolled {
+    max-width: 80rem !important; /* max-w-7xl */
+    height: 72px !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    border: none !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+#capsule-nav.nav-scrolled {
+    max-width: 850px !important;
+    height: 60px !important;
+    background-color: rgba(8, 44, 42, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 16px 36px rgba(4, 22, 20, 0.35) !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+#capsule-nav.nav-scrolled #nav-join-btn {
+    border-radius: 9999px !important;
+}
+
+#capsule-nav.nav-scrolled #nav-logo {
+    height: 32px !important;
+}
+
+#capsule-nav.nav-unscrolled #nav-logo {
+    height: 38px !important;
+}
+
+@media (max-width: 640px) {
+    #site-header.header-scrolled {
+        top: 8px !important;
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+    #capsule-nav.nav-scrolled {
+        height: 52px !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    #capsule-nav.nav-scrolled #nav-logo {
+        height: 28px !important;
+    }
+}
+
+/* Concentric Orbit Circles for Feature Stats Section (Rotating Orbits) */
+@keyframes orbit-spin-clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes orbit-spin-counter {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.orbit-circle-1 {
+    width: min(540px, 92vw);
+    height: min(540px, 92vw);
+    border: 1.5px dashed rgba(14, 146, 127, 0.3);
+    animation: orbit-spin-clockwise 50s linear infinite;
+    will-change: transform;
+    pointer-events: none;
+}
+
+.orbit-circle-2 {
+    width: min(780px, 130vw);
+    height: min(780px, 130vw);
+    border: 1.5px dashed rgba(14, 146, 127, 0.2);
+    animation: orbit-spin-counter 75s linear infinite;
+    will-change: transform;
+    pointer-events: none;
+}
+
+.orbit-circle-3 {
+    width: min(1040px, 165vw);
+    height: min(1040px, 165vw);
+    border: 1px dashed rgba(14, 146, 127, 0.12);
+    animation: orbit-spin-clockwise 105s linear infinite;
+    will-change: transform;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   GLOBAL HEALTHCARE ANIMATIONS, TRANSITIONS & MICRO-INTERACTIONS
+   ========================================================================== */
+
+/* Universal Interactive Transitions */
+a, button, input, select, textarea {
+    transition: color 0.22s ease,
+                background-color 0.22s ease,
+                border-color 0.22s ease,
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.22s ease;
+}
+
+/* Doctor Slider / Carousel Smooth Slide */
+#doctor-cards-grid {
+    transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+/* Explore by Specialty Smooth Translation */
+.specialty-row {
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.specialty-row .specialty-name {
+    display: inline-block;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+    will-change: transform;
+}
+.specialty-row:hover .specialty-name {
+    transform: translateX(8px);
+    color: #0e927f;
+}
+.specialty-row .specialty-arrow {
+    display: inline-block;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+    will-change: transform;
+}
+.specialty-row:hover .specialty-arrow {
+    transform: translate(3px, -3px);
+    color: #0e927f;
+}
+
+/* Smooth FAQ Accordion Expansion */
+.faq-accordion-item {
+    overflow: hidden;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.faq-accordion-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.32s ease,
+                margin-top 0.32s ease;
+    will-change: max-height, opacity;
+}
+.faq-accordion-item.faq-open .faq-accordion-body {
+    opacity: 1;
+    margin-top: 0.875rem;
+}
+.faq-accordion-item .faq-icon-rotator {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, color 0.25s ease;
+    will-change: transform;
+}
+.faq-accordion-item.faq-open .faq-icon-rotator {
+    transform: rotate(45deg);
+    background-color: #0e927f;
+    color: #ffffff;
+}
+
+/* AI Bot Panel Blossom Transition */
+#ai-bot-panel {
+    transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+#ai-bot-panel.bot-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(0.92) translateY(20px) !important;
+    pointer-events: none !important;
+}
+#ai-bot-panel.bot-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+/* 1. Floating Keyframes */
+@keyframes float-slow {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes float-subtle {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-5px) rotate(0.4deg);
+    }
+}
+
+@keyframes float-horizontal {
+    0%, 100% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(6px);
+    }
+}
+
+.animate-float {
+    animation: float-slow 4s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-float-subtle {
+    animation: float-subtle 6s ease-in-out infinite;
+    will-change: transform;
+}
+
+.animate-float-delayed {
+    animation: float-slow 4.5s ease-in-out 1.2s infinite;
+    will-change: transform;
+}
+
+/* 2. Medical Pulse & Heartbeat Keyframes */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(14, 146, 127, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 0 14px rgba(14, 146, 127, 0);
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.08);
+    }
+    28% {
+        transform: scale(1);
+    }
+    42% {
+        transform: scale(1.12);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2.5s infinite;
+}
+
+.animate-heartbeat {
+    animation: heartbeat 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    transform-origin: center center;
+}
+
+/* 3. Fade In, Fade Away & Sliding Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Stagger Delay Utility Classes */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* 4. Interactive Card Elevations & Smooth Hover */
+.hover-lift {
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s ease;
+    will-change: transform, box-shadow;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px -8px rgba(8, 44, 42, 0.14),
+                0 6px 14px -4px rgba(8, 44, 42, 0.08);
+}
+
+/* Subtle Shimmer for Highlighting */
+@keyframes shimmer-slide {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.animate-shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
+    animation: shimmer-slide 3s infinite;
+}
+
+/* 5. Scroll Reveal Utilities (IntersectionObserver driven) */
+.reveal, .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-24px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.is-revealed {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1) !important;
+}
+
+/* ==========================================================================
+   GLOBAL BRANDED PRELOADER / PAGE TRANSITION LOADER
+   ========================================================================== */
+#healiix-page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #0B3A37 0%, #082C2A 70%, #051A18 100%);
+    color: #ffffff;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+#healiix-page-loader.loader-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(1.02) translateY(-6px) !important;
+    pointer-events: none !important;
+}
+
+/* Animated ECG Heartbeat Trace on Loader */
+@keyframes ecg-draw {
+    0% {
+        stroke-dashoffset: 300;
+        opacity: 0.3;
+    }
+    40% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+    80% {
+        stroke-dashoffset: -300;
+        opacity: 0.8;
+    }
+    100% {
+        stroke-dashoffset: -300;
+        opacity: 0.2;
+    }
+}
+
+.ecg-line {
+    stroke-dasharray: 300;
+    animation: ecg-draw 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes loader-bar-anim {
+    0% {
+        width: 8%;
+        transform: translateX(-20%);
+    }
+    50% {
+        width: 65%;
+        transform: translateX(30%);
+    }
+    100% {
+        width: 98%;
+        transform: translateX(100%);
+    }
+}
+
+.loader-progress-bar {
+    animation: loader-bar-anim 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

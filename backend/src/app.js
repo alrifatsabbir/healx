@@ -20,6 +20,7 @@ import profileRoutes from './routes/profile.routes.js';
 import contactRoutes from './routes/contact.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
+import botRoutes from './routes/bot.routes.js';
 
 export const app = new Hono();
 
@@ -157,6 +158,7 @@ app.route('/api/upload', uploadRoutes);
 app.route('/api/contact', contactRoutes);
 app.route('/api/admin', adminRoutes);
 app.route('/api/notifications', notificationRoutes);
+app.route('/api/bot', botRoutes);
 
 // Direct clean profile & vanity URLs: /u/:username, /d/:username, /admin/*
 app.route('/', profileRoutes);
@@ -171,8 +173,19 @@ if (fs.existsSync(FRONTEND_DIR)) {
     app.use('/*', serveStatic({ root: relativeFrontendPath }));
 }
 
-// 404 Fallback
+// 404 Fallback - Smart Content Negotiation (HTML 404 page for all non-API web navigation, JSON for API)
 app.notFound((c) => {
+    const isApi = c.req.path.startsWith('/api/');
+    const isGet = c.req.method === 'GET';
+
+    if (!isApi && isGet && fs.existsSync(FRONTEND_DIR)) {
+        const notFoundPath = path.join(FRONTEND_DIR, '404.html');
+        if (fs.existsSync(notFoundPath)) {
+            const html = fs.readFileSync(notFoundPath, 'utf8');
+            return c.html(html, 404);
+        }
+    }
+
     return c.json({
         success: false,
         message: `Endpoint ${c.req.path} not found on this server.`,

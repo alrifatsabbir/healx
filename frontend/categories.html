@@ -26,96 +26,140 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f8f8f4] text-[#123b39] pt-[76px] antialiased">
-    <!-- Header & Navigation (Dark #082c2a theme with mr-scrappe layout) -->
-    <header id="site-header" class="site-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#082c2a] text-[#eaf6f2] py-4 shadow-[0_4px_20px_rgba(6,37,33,0.12)]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <!-- Brand Link (Image contains full logo + name) -->
-            <a class="flex items-center group hover:opacity-90 transition-opacity" href="index.html" aria-label="HealiiX Home">
-                <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-10 w-auto object-contain">
+<body class="bg-[#f8f8f4] text-[#123b39] antialiased">
+    <!-- Header & Navigation with Morphing Scroll Animation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav id="primary-nav" class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b9d1cc]">
-                <a class="text-[#b9d1cc] hover:text-white transition-colors p-1 flex items-center" title="Home" href="index.html">
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                 </a>
-                <a class="hover:text-white transition-colors" href="find-doctors.html">Find Doctors</a>
-                <a class="text-[#34d399] font-bold" href="categories.html">Categories</a>
-                <a class="hover:text-white transition-colors" href="about.html">About</a>
-                <a class="hover:text-white transition-colors" href="faq.html">FAQ</a>
-                <a class="hover:text-white transition-colors" href="contact.html">Contact</a>
-            </nav>
-
-            <!-- Desktop Actions -->
-            <div class="nav-actions hidden sm:flex items-center gap-4">
-                <a class="px-4 py-2 text-sm font-bold text-[#b9d1cc] hover:text-white transition-colors" href="login.html">Sign In</a>
-                <a class="flex items-center gap-1.5 px-4 py-2 bg-[#0e927f] hover:bg-[#087866] text-white text-xs font-bold rounded-lg shadow-[0_4px_12px_rgba(14,146,127,0.35)] hover:shadow-[0_6px_16px_rgba(14,146,127,0.45)] transition-all active:scale-[0.98]" href="sign-up.html">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                    </svg>
-                    <span>Join HealiiX</span>
-                </a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="text-[#34d399] font-bold">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
             </div>
 
-            <!-- Mobile Buttons -->
-            <div class="flex items-center gap-2.5 md:hidden">
-                <a class="mobile-signin-btn px-3 py-1.5 bg-[#0e927f] text-white text-xs font-bold rounded-lg shadow-xs" href="login.html">Sign In</a>
-                <button id="mobile-menu-toggle" type="button" class="p-2 text-[#b9d1cc] hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
-                    <svg id="menu-icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Right Buttons / Actions (Clear gap between Contact and Sign In) -->
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <!-- Mobile Menu Hamburger Button -->
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" x2="20" y1="12" y2="12"></line>
                         <line x1="4" x2="20" y1="6" y2="6"></line>
                         <line x1="4" x2="20" y1="18" y2="18"></line>
                     </svg>
-                    <svg id="menu-icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </div>
-        </div>
+        </nav>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu-panel" class="hidden md:hidden bg-[#082c2a] border-b border-white/10 px-5 py-4 space-y-3 shadow-2xl mt-3.5">
-            <nav class="flex flex-col gap-3 text-base font-semibold text-[#b9d1cc]">
-                <a href="index.html" class="py-1 hover:text-white transition-colors flex items-center gap-2">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
+        <!-- Mobile Menu Dropdown Card -->
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:bg-white/5 hover:text-white flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
                     <span>Home</span>
                 </a>
-                <a href="find-doctors.html" class="py-1 hover:text-white transition-colors">Find Doctors</a>
-                <a href="categories.html" class="py-1 text-[#34d399] font-bold">Categories</a>
-                <a href="about.html" class="py-1 hover:text-white transition-colors">About</a>
-                <a href="faq.html" class="py-1 hover:text-white transition-colors">FAQ</a>
-                <a href="contact.html" class="py-1 hover:text-white transition-colors">Contact</a>
-                <div id="mobile-auth-section" class="border-t border-white/10 pt-2">
-                    <a href="login.html" class="py-2 hover:text-white transition-colors font-bold text-white block">Sign In &rarr;</a>
-                    <a href="sign-up.html" class="py-1.5 text-xs font-bold text-[#34d399] hover:underline block">Create an Account &rarr;</a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg hover:bg-white/5 hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg text-[#34d399] font-bold bg-white/5">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:bg-white/5 hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:bg-white/5 hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg hover:bg-white/5 hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
                 </div>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="bg-[#edf5f1] py-14 lg:py-20 border-b border-[#dcebe6]">
-            <div class="container w-[min(1180px,calc(100%-48px))] mx-auto text-center max-w-3xl">
-                <p class="eyebrow inline-block text-[11.5px] uppercase tracking-[0.18em] font-bold text-[#0e927f] mb-3">Healthcare Specialties</p>
-                <h1 class="font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#082c2a] tracking-tight leading-tight mb-4">Explore Care by Medical Category</h1>
-                <p class="text-base sm:text-lg text-[#556e68] leading-relaxed mb-8">From routine wellness check-ups to complex sub-specialty surgeries, browse clinical departments and find the exact expert you need.</p>
+        <!-- 1. TOP IMMERSIVE COVER HERO (45-50% Viewport Cover with patients.avif & dark scrim for navbar legibility) -->
+        <section class="relative w-full h-[450px] sm:h-[500px] lg:h-[540px] flex flex-col justify-between overflow-hidden bg-[#06201e]">
+            <!-- Full Bleed Cover Background Image -->
+            <img src="./assets/images/patients.avif" alt="Healthcare Specialties on HealiiX" class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.92]">
+            
+            <!-- Dark Scrim Gradient for Navbar Legibility & Editorial Contrast -->
+            <div class="absolute inset-0 bg-gradient-to-b from-[#041917]/90 via-[#072624]/65 to-[#051c1a]/95"></div>
 
-                <!-- Search category -->
-                <div class="max-w-xl mx-auto relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#78928b]">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    </span>
-                    <input type="text" id="category-search-input" placeholder="Search specialty, organ, or health condition (e.g., Heart, Skin, Child)..." class="w-full pl-11 pr-4 py-3.5 rounded-full border border-[#d7dfdb] bg-white text-sm text-[#082c2a] shadow-sm focus:border-[#0e927f] focus:ring-2 focus:ring-[#0e927f]/20 outline-none transition-all">
+            <!-- Top spacer for fixed navbar -->
+            <div class="h-24 sm:h-28"></div>
+
+            <!-- Centered Editorial Content (Dormiway Inspired Style) -->
+            <div class="relative z-10 max-w-4xl mx-auto px-6 text-center my-auto">
+                <span class="inline-block text-[11px] sm:text-xs font-bold text-[#92F07F] tracking-[0.25em] uppercase mb-3 drop-shadow-sm">
+                    HEALTHCARE SPECIALTIES &bull; 19 CLINICAL DEPARTMENTS
+                </span>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.15] mb-4 drop-shadow-md">
+                    Explore care by specialty, <br>
+                    <span class="font-bold text-white">organized for your needs.</span>
+                </h1>
+                <p class="text-xs sm:text-sm text-[#c8e2da] max-w-xl mx-auto leading-relaxed font-normal drop-shadow-sm">
+                    From routine wellness check-ups to complex surgical procedures, browse clinical departments and connect with verified specialists across 64 districts.
+                </p>
+            </div>
+
+            <!-- Bottom Sub-bar with Key Metrics -->
+            <div class="relative z-10 pb-16 sm:pb-20 flex items-center justify-center gap-4 sm:gap-8 text-xs text-[#9bbdad] font-semibold">
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> 19 Specialties</span>
+                <span class="text-white/20">&bull;</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> 150+ Verified Doctors</span>
+                <span class="text-white/20">&bull;</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#92F07F]"></span> 100% BMDC Registered</span>
+            </div>
+        </section>
+
+        <!-- 2. FLOATING SEARCH BAR (Smoothly overlapping the bottom of the cover banner) -->
+        <section class="relative z-20 -mt-10 sm:-mt-12 px-4 sm:px-6 lg:px-8 max-w-[860px] mx-auto mb-10">
+            <div class="bg-white rounded-2xl sm:rounded-full p-2.5 sm:p-3.5 shadow-[0_16px_45px_rgba(4,25,23,0.18)] border border-[#D6EAE2] flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#EDF7F4] flex items-center justify-center text-[#0E927F] flex-shrink-0 ml-1 sm:ml-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                 </div>
+                <div class="text-left flex-1 min-w-0 pr-2">
+                    <span class="block text-[10px] font-bold text-[#6F8983] uppercase tracking-wider">FIND SPECIALTY OR CONDITION</span>
+                    <input type="text" id="category-search-input" placeholder="Search specialty, organ, or condition (e.g. Heart, Skin, Child, Kidney)..." class="w-full text-xs sm:text-sm font-semibold text-[#082C2A] placeholder-[#9BB3AD] bg-transparent focus:outline-none">
+                </div>
+                <div class="hidden sm:flex items-center text-xs font-semibold text-[#79978f] bg-[#f0f6f4] px-3.5 py-1.5 rounded-full mr-1 flex-shrink-0">
+                    19 Categories
+                </div>
+            </div>
+
+            <!-- Quick Filter Pill Tags -->
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-2 pt-1 text-xs font-semibold">
+                <span class="text-[#6F8983] text-[11px] font-bold uppercase tracking-wider mr-1">Popular:</span>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="cardiology">Cardiology</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="pediatric">Pediatrics</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="neurology">Neurology</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="gynecology">Gynecology</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="dermatology">Dermatology</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="surgery">Surgery</button>
+                <button type="button" class="quick-cat-tag bg-white hover:bg-[#082C2A] hover:text-white text-[#082C2A] px-3.5 py-1 rounded-full border border-[#D6EAE2] transition-all cursor-pointer shadow-2xs" data-filter="orthopedic">Orthopedics</button>
             </div>
         </section>
 
@@ -282,13 +326,13 @@
                         </div>
                     </a>
 
-                    <!-- 11. Medicine & Diabetology -->
-                    <a href="find-doctors.html?category=Medicine%20%26%20Diabetology" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
+                    <!-- 11. Medicine -->
+                    <a href="find-doctors.html?category=Medicine" class="category-card group bg-white rounded-2xl p-6 border border-[#e1eae6] shadow-sm hover:shadow-md hover:border-[#0e927f] hover:-translate-y-1 transition-all flex flex-col justify-between">
                         <div>
                             <div class="w-12 h-12 rounded-xl bg-[#ecfeff] text-[#0891b2] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6m-7 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
-                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Medicine &amp; Diabetology</h3>
+                            <h3 class="font-bold text-lg text-[#082c2a] mb-1.5 group-hover:text-[#0e927f] transition-colors">Medicine</h3>
                             <p class="text-xs text-[#627a74] leading-relaxed mb-4">Internal medicine, chronic illnesses, fever, seasonal viral infections, and chest diseases.</p>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-[#f0f4f2] text-xs">
@@ -435,39 +479,59 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#062321] text-[#d7e8e2] pt-16 pb-8">
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto footer-grid flex flex-col lg:flex-row justify-between gap-12">
-            <div>
-                <a class="brand footer-brand flex items-center gap-2.5 font-extrabold text-2xl text-white" href="index.html">
-                    <img src="./assets/images/healx-logo-bg-white.png" alt="HealiiX" width="170" height="40" class="object-contain">
-                </a>
-                <p class="text-[#89aaa1] max-w-[260px] text-[13.5px] mt-4 leading-relaxed">Making verified healthcare simple, transparent, and accessible across Bangladesh.</p>
+        <!-- Footer -->
+    <footer id="footer" class="w-full bg-[#062321] text-white rounded-t-[36px] pt-16 sm:pt-24 pb-12 px-6 sm:px-12 lg:px-16">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left: Giant Healiix Logo -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="text-6xl sm:text-8xl lg:text-[110px] font-black tracking-tight leading-none">
+                    <span class="text-[#557069]">Healii</span><span class="text-[#92F07F]">X</span>
+                </div>
+                <p class="text-xs sm:text-sm text-[#89AAA1] max-w-sm leading-relaxed">
+                    Making the path to better care feel more human, accessible, and transparent for everyone.
+                </p>
             </div>
-            <div class="footer-links grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12">
-                <div class="flex flex-col gap-3">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Explore</strong>
-                    <a href="find-doctors.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Find Doctors</a>
-                    <a href="categories.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Specialties</a>
-                    <a href="faq.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">FAQ</a>
-                    <a href="index.html#how-it-works" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">How it works</a>
+
+            <!-- Right: 3 Columns -->
+            <div class="lg:col-span-6 grid grid-cols-3 gap-6 sm:gap-10 pt-4">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
                 </div>
-                <div class="flex flex-col gap-3">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Company</strong>
-                    <a href="about.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">About Us</a>
-                    <a href="contact.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Contact Support</a>
-                    <a href="sign-up.html" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Join as Doctor</a>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
                 </div>
-                <div class="flex flex-col gap-3 col-span-2 sm:col-span-1">
-                    <strong class="text-white text-xs uppercase tracking-wider font-bold mb-1">Legal</strong>
-                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-[13px] text-[#89aaa1] hover:text-white transition-colors">Terms of Service</a>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
                 </div>
+
             </div>
+
         </div>
-        <div class="container w-[min(1180px,calc(100%-48px))] mx-auto border-t border-[#1a4842] mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-[#6b9187]">
+
+        <!-- Bottom Copyright & Verification Line -->
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
             <span>© 2026 HealiiX Health Inc. Better care, together.</span>
-            <span>All medical credentials verified with BMDC.</span>
+            <span>All credentials verified with authorized medical boards.</span>
         </div>
     </footer>
 
@@ -488,12 +552,26 @@
             });
         });
 
+        // Quick Category Tag Pills
+        document.querySelectorAll('.quick-cat-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                const query = (tag.dataset.filter || '').trim();
+                if (searchInput) {
+                    searchInput.value = query;
+                    searchInput.dispatchEvent(new Event('input'));
+                    document.getElementById('categories-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
         const menuToggle = document.querySelector('.menu-toggle');
         const primaryNav = document.getElementById('primary-nav');
         menuToggle?.addEventListener('click', () => {
             primaryNav.classList.toggle('hidden');
         });
     </script>
+    <script src="./js/navbar.js"></script>
     <script type="module" src="./js/auth.js"></script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
 </body>
 </html>

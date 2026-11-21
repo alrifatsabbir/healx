@@ -5,6 +5,20 @@
       "maxDuration": 15
     }
   },
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin-login.html" },
+    { "source": "/admin/", "destination": "/admin-login.html" },
+    { "source": "/admin-login", "destination": "/admin-login.html" },
+    { "source": "/admin/dashboard", "destination": "/admin-dashboard.html" },
+    { "source": "/admin/profile", "destination": "/admin-profile.html" },
+    { "source": "/admin/settings", "destination": "/admin-settings.html" },
+    { "source": "/admin/emails", "destination": "/admin-emails.html" },
+    { "source": "/admin/appointments", "destination": "/admin-appointments.html" },
+    { "source": "/admin/doctors", "destination": "/admin-doctors.html" },
+    { "source": "/admin/patients", "destination": "/admin-patients.html" },
+    { "source": "/admin/verifications", "destination": "/admin-verifications.html" },
+    { "source": "/admin/notifications", "destination": "/admin-notifications.html" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",

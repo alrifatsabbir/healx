@@ -17,7 +17,7 @@
     <meta name="twitter:site" content="@alrifatsabbir">
     <meta name="twitter:title" content="HealiiX | Find Care That Fits Your Life">
     <meta name="twitter:description" content="Find the right doctor for you with HealiiX, an online doctor directory and appointment booking platform built around better">
-    <title>Emails Center | Admin Panel | HealiiX</title>
+    <title>Emails &amp; Inquiries Center | Admin Panel | HealiiX</title>
     <link rel="icon" href="./assets/images/icon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,14 +32,70 @@
             <header id="dashboard-header"></header>
             <main class="p-6 sm:p-8 flex-1 max-w-6xl w-full mx-auto space-y-6">
 
-                <!-- 2 Sub-Tabs strictly on Emails page -->
-                <div class="inline-flex bg-white p-1.5 rounded-2xl border border-[#e1eae6] shadow-sm">
-                    <button type="button" id="subtab-send-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0e927f] text-white cursor-pointer transition-all">1. Send Email</button>
-                    <button type="button" id="subtab-logs-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#556e68] hover:text-[#082c2a] cursor-pointer transition-all">2. Email Logs (Last 30 Days)</button>
+                <!-- 3 Sub-Tabs: Inbound Inquiries, Compose & Send, Outbound Logs -->
+                <div class="inline-flex flex-wrap bg-white p-1.5 rounded-2xl border border-[#e1eae6] shadow-sm gap-1">
+                    <button type="button" id="subtab-inbox-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#0e927f] text-white cursor-pointer transition-all flex items-center gap-2">
+                        <span>1. Inbound Inquiries</span>
+                        <span id="unread-inbox-badge" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black bg-[#92F07F] text-[#082C2A]">0</span>
+                    </button>
+                    <button type="button" id="subtab-send-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#556e68] hover:text-[#082c2a] cursor-pointer transition-all">
+                        2. Compose &amp; Send
+                    </button>
+                    <button type="button" id="subtab-logs-btn" class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-[#556e68] hover:text-[#082c2a] cursor-pointer transition-all">
+                        3. Outbound Logs
+                    </button>
                 </div>
 
-                <!-- SUBTAB 1: COMPOSE & SEND EMAIL WITH PRE-TEMPLATES -->
-                <section id="panel-send" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- SUBTAB 1: INBOUND INQUIRIES / CONTACT MESSAGES (FROM CONTACT PAGE) -->
+                <section id="panel-inbox" class="bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-[#edf3f0] flex flex-wrap items-center justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-1">
+                                <h2 class="font-extrabold text-lg text-[#082c2a]">Inbound Contact Inquiries</h2>
+                                <span id="inbox-header-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#e0eee9] text-[#0e927f]">0 Messages</span>
+                            </div>
+                            <p class="text-xs text-[#6c8680]">Messages received from patients and visitors via the website Contact page. Inspect, change status, or reply directly.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <input type="search" id="search-inbox" placeholder="Search name, email, subject..." class="px-4 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f] w-48 sm:w-60">
+                            <select id="filter-inbox-status" class="px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs font-bold outline-none cursor-pointer">
+                                <option value="all">All Status</option>
+                                <option value="unread">Unread Only</option>
+                                <option value="read">Read</option>
+                                <option value="replied">Replied</option>
+                            </select>
+                            <button type="button" id="refresh-inbox-btn" class="p-2 rounded-xl border border-[#d7dfdb] hover:bg-[#edf7f4] text-[#082c2a] transition-colors cursor-pointer" title="Refresh Messages">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead class="bg-[#f8fbf9] text-[11px] uppercase tracking-wider text-[#6c8680] border-b border-[#edf3f0]">
+                                <tr>
+                                    <th class="px-6 py-3.5">Sender</th>
+                                    <th class="px-6 py-3.5">Subject &amp; Excerpt</th>
+                                    <th class="px-6 py-3.5">Status</th>
+                                    <th class="px-6 py-3.5">Received At</th>
+                                    <th class="px-6 py-3.5 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inbox-tbody" class="divide-y divide-[#edf3f0]">
+                                <tr><td colspan="5" class="px-6 py-12 text-center text-xs text-[#6c8680]">Loading messages...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Inbound Pagination bar -->
+                    <div id="inbox-pagination" class="hidden px-6 py-4 border-t border-[#edf3f0] flex flex-wrap items-center justify-between gap-3">
+                        <span id="inbox-page-info" class="text-xs text-[#6c8680]"></span>
+                        <div id="inbox-page-btns" class="flex items-center gap-1.5"></div>
+                    </div>
+                </section>
+
+                <!-- SUBTAB 2: COMPOSE & SEND EMAIL WITH PRE-TEMPLATES                  -->
+                <section id="panel-send" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     <div class="lg:col-span-7 bg-white rounded-2xl border border-[#e1eae6] shadow-sm p-6 sm:p-8">
                         <h2 class="font-extrabold text-lg text-[#082c2a] mb-1">Compose Direct Email</h2>
                         <p class="text-xs text-[#6c8680] mb-6">Sent through your authenticated HealiiX mailer with branded responsive layout</p>
@@ -116,7 +172,7 @@
                     </div>
                 </section>
 
-                <!-- SUBTAB 2: EMAIL LOGS (LAST 7 DAYS) -->
+                <!-- SUBTAB 3: EMAIL LOGS (LAST 7 DAYS)                                 -->
                 <section id="panel-logs" class="hidden bg-white rounded-2xl border border-[#e1eae6] shadow-sm overflow-hidden">
                     <div class="p-6 border-b border-[#edf3f0] flex flex-wrap items-center justify-between gap-4">
                         <div>
@@ -149,13 +205,100 @@
                         </table>
                     </div>
 
-                    <!-- Pagination bar -->
+                    <!-- Logs Pagination bar -->
                     <div id="logs-pagination" class="hidden px-6 py-4 border-t border-[#edf3f0] flex flex-wrap items-center justify-between gap-3">
                         <span id="logs-page-info" class="text-xs text-[#6c8680]"></span>
                         <div id="logs-page-btns" class="flex items-center gap-1.5"></div>
                     </div>
                 </section>
             </main>
+        </div>
+    </div>
+
+    <!-- INQUIRY INSPECT & REPLY MODAL                                       -->
+    <div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full border border-[#d6eae2] shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-[#eef4f1] flex items-center justify-between bg-[#fbfdfc]">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-[#e0eee9] text-[#0e927f] flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-base text-[#082c2a]" id="modal-sender-name">Sender Name</h3>
+                        <p class="text-[11px] text-[#6c8680]" id="modal-received-date">Received date</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="modal-status-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase">Unread</span>
+                    <button type="button" id="modal-close-btn" class="p-1.5 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors cursor-pointer" aria-label="Close modal">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto space-y-5 flex-1">
+                <!-- Contact Metadata Card -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 rounded-2xl bg-[#f8fbf9] border border-[#edf3f0] text-xs">
+                    <div>
+                        <span class="text-[#6c8680] block text-[10px] uppercase font-bold tracking-wider mb-0.5">Email Address</span>
+                        <a id="modal-sender-email" href="#" class="font-bold text-[#082c2a] hover:text-[#0e927f] hover:underline transition-colors block truncate"></a>
+                    </div>
+                    <div>
+                        <span class="text-[#6c8680] block text-[10px] uppercase font-bold tracking-wider mb-0.5">Phone Number</span>
+                        <span id="modal-sender-phone" class="font-bold text-[#082c2a] block">Not provided</span>
+                    </div>
+                </div>
+
+                <!-- Subject & Message Content -->
+                <div>
+                    <span class="text-[#6c8680] block text-[10px] uppercase font-bold tracking-wider mb-1">Subject / Inquiry Topic</span>
+                    <h4 id="modal-subject" class="font-extrabold text-sm text-[#082c2a] mb-2"></h4>
+                    <span class="text-[#6c8680] block text-[10px] uppercase font-bold tracking-wider mb-1">Message Content</span>
+                    <div id="modal-message" class="p-4 rounded-2xl bg-[#f7fbf9] border border-[#e1ede8] text-xs text-[#123b39] leading-relaxed whitespace-pre-line font-medium"></div>
+                </div>
+
+                <!-- Previous Reply History (If already replied) -->
+                <div id="modal-previous-reply" class="hidden p-4 rounded-2xl bg-[#edf7f4] border border-[#c3e7dc] space-y-1.5 text-xs">
+                    <div class="flex items-center justify-between text-[#0e927f] font-bold text-[11px]">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-[#0e927f]"></span>
+                            <span>Replied by <strong id="modal-replied-by">Admin</strong></span>
+                        </span>
+                        <span id="modal-replied-date" class="font-normal text-[#556e68]"></span>
+                    </div>
+                    <p id="modal-reply-content" class="text-[#082c2a] whitespace-pre-line mt-1 font-medium"></p>
+                </div>
+
+                <!-- Quick Reply Form -->
+                <form id="modal-reply-form" class="space-y-3 pt-3 border-t border-[#edf3f0]">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-[#082c2a]">Send Branded Reply</span>
+                        <button type="button" id="modal-switch-compose-btn" class="text-[11px] font-bold text-[#0e927f] hover:underline cursor-pointer">
+                            Open in Full Template Compose &rarr;
+                        </button>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-[#6c8680] mb-1">Reply Subject</label>
+                        <input type="text" id="modal-reply-subject" required class="w-full px-3.5 py-2 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f] text-[#082c2a]">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-[#6c8680] mb-1">Reply Message *</label>
+                        <textarea id="modal-reply-body" rows="4" required placeholder="Type your response to this patient/inquirer..." class="w-full px-3.5 py-2.5 rounded-xl border border-[#d7dfdb] bg-[#f8fbf9] text-xs outline-none focus:border-[#0e927f] text-[#082c2a]"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 pt-1">
+                        <div class="flex items-center gap-2">
+                            <button type="button" id="modal-toggle-unread-btn" class="px-3 py-2 rounded-xl border border-[#d7dfdb] hover:bg-[#edf7f4] text-[11px] font-bold text-[#082c2a] transition-colors cursor-pointer">Mark as Unread</button>
+                            <button type="button" id="modal-delete-btn" class="px-3 py-2 rounded-xl border border-red-200 hover:bg-red-50 text-[11px] font-bold text-red-600 transition-colors cursor-pointer">Delete</button>
+                        </div>
+                        <button type="submit" id="modal-send-reply-btn" class="px-5 py-2.5 rounded-xl bg-[#0e927f] hover:bg-[#0b7c6c] text-white text-xs font-bold transition-all shadow-xs cursor-pointer flex items-center gap-1.5">
+                            <span>Send Reply</span>
+                            <span>↗</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -194,31 +337,368 @@
 
         function showAlert(msg, isError = false) { window.healiixToast(msg, isError); }
 
-        // Sub-Tab Switcher
+        // SUB-TAB CONTROLLER (1. Inbound Inquiries, 2. Compose & Send, 3. Logs)
+        const inboxBtn = document.getElementById('subtab-inbox-btn');
         const sendBtn = document.getElementById('subtab-send-btn');
         const logsBtn = document.getElementById('subtab-logs-btn');
+
+        const inboxPanel = document.getElementById('panel-inbox');
         const sendPanel = document.getElementById('panel-send');
         const logsPanel = document.getElementById('panel-logs');
 
-        sendBtn.addEventListener('click', () => {
-            sendPanel.classList.remove('hidden');
-            logsPanel.classList.add('hidden');
-            sendBtn.classList.add('bg-[#0e927f]', 'text-white');
-            sendBtn.classList.remove('text-[#556e68]');
-            logsBtn.classList.remove('bg-[#0e927f]', 'text-white');
-            logsBtn.classList.add('text-[#556e68]');
+        function switchTab(target) {
+            [inboxPanel, sendPanel, logsPanel].forEach(p => p.classList.add('hidden'));
+            [inboxBtn, sendBtn, logsBtn].forEach(b => {
+                b.classList.remove('bg-[#0e927f]', 'text-white');
+                b.classList.add('text-[#556e68]');
+            });
+
+            if (target === 'inbox') {
+                inboxPanel.classList.remove('hidden');
+                inboxBtn.classList.add('bg-[#0e927f]', 'text-white');
+                inboxBtn.classList.remove('text-[#556e68]');
+                loadInbox();
+            } else if (target === 'send') {
+                sendPanel.classList.remove('hidden');
+                sendBtn.classList.add('bg-[#0e927f]', 'text-white');
+                sendBtn.classList.remove('text-[#556e68]');
+            } else if (target === 'logs') {
+                logsPanel.classList.remove('hidden');
+                logsBtn.classList.add('bg-[#0e927f]', 'text-white');
+                logsBtn.classList.remove('text-[#556e68]');
+                loadLogs();
+            }
+        }
+
+        inboxBtn.addEventListener('click', () => switchTab('inbox'));
+        sendBtn.addEventListener('click', () => switchTab('send'));
+        logsBtn.addEventListener('click', () => switchTab('logs'));
+
+        // TAB 1: INBOUND CONTACT INQUIRIES LOGIC
+        let currentMessages = [];
+        let inboxPage = 1;
+        const INBOX_PAGE_SIZE = 15;
+        let activeMessage = null;
+
+        async function loadInbox() {
+            const status = document.getElementById('filter-inbox-status').value;
+            const q = document.getElementById('search-inbox').value.trim();
+            const tbody = document.getElementById('inbox-tbody');
+
+            try {
+                const res = await api.getAdminContacts(status, q, inboxPage, INBOX_PAGE_SIZE);
+                currentMessages = res.messages || [];
+
+                // Update unread badges
+                const unread = res.unreadCount || 0;
+                const badgeEl = document.getElementById('unread-inbox-badge');
+                if (unread > 0) {
+                    badgeEl.textContent = `${unread} unread`;
+                    badgeEl.classList.remove('hidden');
+                } else {
+                    badgeEl.classList.add('hidden');
+                }
+
+                document.getElementById('inbox-header-badge').textContent = `${res.count || 0} Total Messages`;
+                renderInboxTable(res);
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-xs text-red-600">Error loading inquiries: ${err.message}</td></tr>`;
+            }
+        }
+
+        function renderInboxTable(meta) {
+            const tbody = document.getElementById('inbox-tbody');
+            const paginationEl = document.getElementById('inbox-pagination');
+            const pageInfo = document.getElementById('inbox-page-info');
+            const pageBtns = document.getElementById('inbox-page-btns');
+
+            if (!currentMessages || currentMessages.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-12 text-center text-xs text-[#6c8680]">No contact inquiries found matching criteria.</td></tr>`;
+                paginationEl.classList.add('hidden');
+                return;
+            }
+
+            tbody.innerHTML = currentMessages.map(m => {
+                const isUnread = m.status === 'unread';
+                const isReplied = m.status === 'replied';
+                const statusBadge = isUnread
+                    ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-[#e0eee9] text-[#0e927f]"><span class="w-2 h-2 rounded-full bg-[#0e927f] animate-pulse"></span>Unread</span>`
+                    : isReplied
+                    ? `<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-[#edf7f4] text-[#087866]">✓ Replied</span>`
+                    : `<span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-600">Read</span>`;
+
+                const phoneBadge = m.phone ? `<span class="text-[10px] text-[#0e927f] font-semibold block">${m.phone}</span>` : '';
+                const cleanExcerpt = (m.message || '').replace(/Phone:\s*[^\n\r]+[\n\r]*/i, '').trim();
+
+                return `
+                    <tr class="hover:bg-[#fbfdfc] cursor-pointer transition-colors ${isUnread ? 'bg-[#f4faf7]/60' : ''}" data-msg-id="${m._id}">
+                        <td class="px-6 py-4">
+                            <p class="font-extrabold text-xs text-[#082c2a]">${m.name}</p>
+                            <a href="mailto:${m.email}" class="text-[11px] text-[#556e68] hover:text-[#0e927f] hover:underline" onclick="event.stopPropagation()">${m.email}</a>
+                            ${phoneBadge}
+                        </td>
+                        <td class="px-6 py-4 max-w-sm">
+                            <p class="font-bold text-xs text-[#082c2a] truncate">${m.subject || 'General Inquiry'}</p>
+                            <p class="text-[11px] text-[#6c8680] truncate mt-0.5">${cleanExcerpt}</p>
+                        </td>
+                        <td class="px-6 py-4">${statusBadge}</td>
+                        <td class="px-6 py-4 text-xs text-[#6c8680] whitespace-nowrap">${new Date(m.createdAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}</td>
+                        <td class="px-6 py-4 text-right whitespace-nowrap" onclick="event.stopPropagation()">
+                            <div class="inline-flex items-center gap-1.5">
+                                <button type="button" data-view-id="${m._id}" class="px-3 py-1.5 rounded-lg bg-[#0e927f] hover:bg-[#0b7c6c] text-white text-[11px] font-bold transition-all shadow-2xs cursor-pointer">
+                                    View &amp; Reply
+                                </button>
+                                <button type="button" data-toggle-id="${m._id}" data-status="${m.status}" class="p-1.5 rounded-lg border border-[#d7dfdb] hover:bg-[#edf7f4] text-[#082c2a] text-[11px] transition-colors cursor-pointer" title="${isUnread ? 'Mark as Read' : 'Mark as Unread'}">
+                                    ${isUnread 
+                                        ? `<svg class="w-3.5 h-3.5 text-[#0e927f]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>`
+                                        : `<svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`}
+                                </button>
+                                <button type="button" data-del-id="${m._id}" class="p-1.5 rounded-lg border border-red-200 text-red-500 hover:bg-red-50 text-[11px] transition-colors cursor-pointer" title="Delete">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Wire row click & action buttons
+            tbody.querySelectorAll('tr[data-msg-id]').forEach(tr => {
+                tr.addEventListener('click', () => openInquiryModal(tr.dataset.msgId));
+            });
+
+            tbody.querySelectorAll('[data-view-id]').forEach(b => {
+                b.addEventListener('click', () => openInquiryModal(b.dataset.viewId));
+            });
+
+            tbody.querySelectorAll('[data-toggle-id]').forEach(b => {
+                b.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = b.dataset.toggleId;
+                    const nextStatus = b.dataset.status === 'unread' ? 'read' : 'unread';
+                    try {
+                        await api.updateAdminContactStatus(id, nextStatus);
+                        showAlert(`Marked as ${nextStatus}`);
+                        loadInbox();
+                    } catch (err) {
+                        showAlert(err.message, true);
+                    }
+                });
+            });
+
+            tbody.querySelectorAll('[data-del-id]').forEach(b => {
+                b.addEventListener('click', async () => {
+                    const id = b.dataset.delId;
+                    const confirmed = await window.healiixConfirm({
+                        title: 'Delete Message?',
+                        message: 'Permanently remove this contact inquiry from database?',
+                        confirmText: 'Delete',
+                        type: 'danger',
+                    });
+                    if (!confirmed) return;
+                    try {
+                        await api.deleteAdminContact(id);
+                        showAlert('Inquiry deleted.');
+                        loadInbox();
+                    } catch (err) {
+                        showAlert(err.message, true);
+                    }
+                });
+            });
+
+            // Pagination Controls
+            const totalCount = meta.count || currentMessages.length;
+            const totalPages = meta.totalPages || 1;
+            pageInfo.textContent = `Showing ${(inboxPage - 1) * INBOX_PAGE_SIZE + 1}–${Math.min(inboxPage * INBOX_PAGE_SIZE, totalCount)} of ${totalCount} inquiries`;
+
+            if (totalPages <= 1) {
+                paginationEl.classList.add('hidden');
+                return;
+            }
+            paginationEl.classList.remove('hidden');
+
+            const btnClass = (active) => active
+                ? 'w-8 h-8 rounded-lg text-xs font-bold bg-[#0e927f] text-white shadow-xs cursor-pointer'
+                : 'w-8 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer';
+
+            let btns = `<button class="${inboxPage === 1 ? 'opacity-40 cursor-not-allowed ' : ''}px-3 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer" id="inbox-prev">← Prev</button>`;
+            for (let p = 1; p <= totalPages; p++) {
+                btns += `<button class="${btnClass(p === inboxPage)}" data-inbox-page="${p}">${p}</button>`;
+            }
+            btns += `<button class="${inboxPage === totalPages ? 'opacity-40 cursor-not-allowed ' : ''}px-3 h-8 rounded-lg text-xs font-bold border border-[#d7dfdb] bg-white text-[#082c2a] hover:bg-[#edf7f4] cursor-pointer" id="inbox-next">Next →</button>`;
+            pageBtns.innerHTML = btns;
+
+            pageBtns.querySelector('#inbox-prev')?.addEventListener('click', () => { if (inboxPage > 1) { inboxPage--; loadInbox(); } });
+            pageBtns.querySelector('#inbox-next')?.addEventListener('click', () => { if (inboxPage < totalPages) { inboxPage++; loadInbox(); } });
+            pageBtns.querySelectorAll('[data-inbox-page]').forEach(b => {
+                b.addEventListener('click', () => { inboxPage = Number(b.dataset.inboxPage); loadInbox(); });
+            });
+        }
+
+        // MODAL VIEW & DIRECT REPLY LOGIC
+        const inquiryModal = document.getElementById('inquiry-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        async function openInquiryModal(id) {
+            try {
+                const res = await api.getAdminContactById(id);
+                activeMessage = res.message;
+                if (!activeMessage) return;
+
+                document.getElementById('modal-sender-name').textContent = activeMessage.name || 'Anonymous';
+                document.getElementById('modal-received-date').textContent = new Date(activeMessage.createdAt).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' });
+                
+                const emailEl = document.getElementById('modal-sender-email');
+                emailEl.textContent = activeMessage.email;
+                emailEl.href = `mailto:${activeMessage.email}`;
+
+                document.getElementById('modal-sender-phone').textContent = activeMessage.phone || 'Not provided';
+                document.getElementById('modal-subject').textContent = activeMessage.subject || 'General Inquiry';
+                
+                const cleanMsg = (activeMessage.message || '').replace(/Phone:\s*[^\n\r]+[\n\r]*/i, '').trim();
+                document.getElementById('modal-message').textContent = cleanMsg;
+
+                // Status Pill
+                const pill = document.getElementById('modal-status-pill');
+                if (activeMessage.status === 'replied') {
+                    pill.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase bg-[#edf7f4] text-[#087866]';
+                    pill.textContent = 'Replied';
+                } else if (activeMessage.status === 'unread') {
+                    pill.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase bg-[#e0eee9] text-[#0e927f]';
+                    pill.textContent = 'Unread';
+                } else {
+                    pill.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-gray-100 text-gray-700';
+                    pill.textContent = 'Read';
+                }
+
+                // Previous reply section
+                const prevReplyBox = document.getElementById('modal-previous-reply');
+                if (activeMessage.status === 'replied' && activeMessage.replyMessage) {
+                    prevReplyBox.classList.remove('hidden');
+                    document.getElementById('modal-replied-by').textContent = activeMessage.repliedBy || 'Admin';
+                    document.getElementById('modal-replied-date').textContent = activeMessage.repliedAt ? new Date(activeMessage.repliedAt).toLocaleString() : '';
+                    document.getElementById('modal-reply-content').textContent = activeMessage.replyMessage;
+                } else {
+                    prevReplyBox.classList.add('hidden');
+                }
+
+                // Pre-fill reply form
+                document.getElementById('modal-reply-subject').value = activeMessage.replySubject || `Re: ${activeMessage.subject || 'Inquiry'}`;
+                document.getElementById('modal-reply-body').value = '';
+
+                // Toggle status button text
+                const toggleBtn = document.getElementById('modal-toggle-unread-btn');
+                if (toggleBtn) {
+                    toggleBtn.textContent = activeMessage.status === 'unread' ? 'Mark as Read' : 'Mark as Unread';
+                }
+
+                inquiryModal.classList.remove('hidden');
+                // Refresh inbox in background to reflect read state change
+                loadInbox();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        }
+
+        modalCloseBtn.addEventListener('click', () => {
+            inquiryModal.classList.add('hidden');
+            activeMessage = null;
         });
 
-        logsBtn.addEventListener('click', () => {
-            logsPanel.classList.remove('hidden');
-            sendPanel.classList.add('hidden');
-            logsBtn.classList.add('bg-[#0e927f]', 'text-white');
-            logsBtn.classList.remove('text-[#556e68]');
-            sendBtn.classList.remove('bg-[#0e927f]', 'text-white');
-            sendBtn.classList.add('text-[#556e68]');
-            loadLogs();
+        // Close on backdrop click
+        inquiryModal.addEventListener('click', (e) => {
+            if (e.target === inquiryModal) {
+                inquiryModal.classList.add('hidden');
+                activeMessage = null;
+            }
         });
 
+        // Toggle read/unread from modal
+        document.getElementById('modal-toggle-unread-btn')?.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (!activeMessage) return;
+            const next = activeMessage.status === 'unread' ? 'read' : 'unread';
+            try {
+                await api.updateAdminContactStatus(activeMessage._id, next);
+                showAlert(`Marked as ${next}`);
+                inquiryModal.classList.add('hidden');
+                loadInbox();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        });
+
+        // Delete from modal
+        document.getElementById('modal-delete-btn')?.addEventListener('click', async () => {
+            if (!activeMessage) return;
+            const confirmed = await window.healiixConfirm({
+                title: 'Delete Message?',
+                message: 'Permanently remove this inquiry?',
+                confirmText: 'Delete',
+                type: 'danger',
+            });
+            if (!confirmed) return;
+            try {
+                await api.deleteAdminContact(activeMessage._id);
+                showAlert('Inquiry deleted.');
+                inquiryModal.classList.add('hidden');
+                loadInbox();
+            } catch (err) {
+                showAlert(err.message, true);
+            }
+        });
+
+        // Switch to full compose tab with message pre-filled
+        document.getElementById('modal-switch-compose-btn')?.addEventListener('click', () => {
+            if (!activeMessage) return;
+            inquiryModal.classList.add('hidden');
+            switchTab('send');
+            document.getElementById('em-to').value = activeMessage.email;
+            document.getElementById('em-subject').value = `Re: ${activeMessage.subject || 'Inquiry'}`;
+            document.getElementById('em-heading').value = `Regarding your inquiry: ${activeMessage.subject || 'HealiiX Support'}`;
+            document.getElementById('em-badge').value = 'Care Desk';
+            document.getElementById('em-body').value = `Dear ${activeMessage.name},\n\nThank you for reaching out to HealiiX regarding "${activeMessage.subject || 'your inquiry'}".\n\n\n\nBest regards,\nHealiiX Support Team`;
+            updatePreview();
+        });
+
+        // Submit quick reply
+        document.getElementById('modal-reply-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!activeMessage) return;
+
+            const sendBtn = document.getElementById('modal-send-reply-btn');
+            const replySubject = document.getElementById('modal-reply-subject').value.trim();
+            const replyMessage = document.getElementById('modal-reply-body').value.trim();
+
+            try {
+                sendBtn.disabled = true;
+                sendBtn.innerHTML = '<span>Dispatching...</span>';
+
+                const res = await api.replyAdminContact(activeMessage._id, {
+                    replySubject,
+                    replyMessage,
+                    badge: 'Care Desk',
+                });
+
+                showAlert(res.message || 'Reply dispatched successfully!');
+                inquiryModal.classList.add('hidden');
+                loadInbox();
+            } catch (err) {
+                showAlert(err.message, true);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<span>Send Reply</span> <span>↗</span>';
+            }
+        });
+
+        // Inbox Search & Filter listeners
+        document.getElementById('search-inbox')?.addEventListener('input', () => { inboxPage = 1; loadInbox(); });
+        document.getElementById('filter-inbox-status')?.addEventListener('change', () => { inboxPage = 1; loadInbox(); });
+        document.getElementById('refresh-inbox-btn')?.addEventListener('click', loadInbox);
+
+        // TAB 2: COMPOSE & SEND EMAIL
         function updatePreview() {
             document.getElementById('prev-badge').textContent = document.getElementById('em-badge').value || 'Notice';
             document.getElementById('prev-heading').textContent = document.getElementById('em-heading').value || 'Email Heading';
@@ -266,6 +746,7 @@
             }
         });
 
+        // TAB 3: EMAIL LOGS (LAST 7 DAYS)
         let allLogs = [];
         let logsPage = 1;
         const LOGS_PAGE_SIZE = 20;
@@ -316,7 +797,6 @@
                 </tr>
             `).join('');
 
-            // Wire delete buttons
             tbody.querySelectorAll('[data-del-log]').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const id = btn.dataset.delLog;
@@ -338,7 +818,6 @@
                 });
             });
 
-            // Pagination controls
             pageInfo.textContent = `Showing ${start + 1}–${Math.min(start + LOGS_PAGE_SIZE, allLogs.length)} of ${allLogs.length} log${allLogs.length !== 1 ? 's' : ''}`;
 
             if (totalPages <= 1) {
@@ -368,21 +847,27 @@
         document.getElementById('search-logs')?.addEventListener('input', loadLogs);
         document.getElementById('filter-log-status')?.addEventListener('change', loadLogs);
 
+        // INITIALIZATION
         (async () => {
-            const user = await initDashboardShell('admin', 'admin-emails.html', 'Emails Center', 'Send branded emails with pre-built templates and inspect 30-day delivery logs');
+            const user = await initDashboardShell('admin', 'admin-emails.html', 'Emails & Inquiries', 'Inspect contact page messages, send branded emails, and check delivery logs');
             if (!user) return;
+            
+            // Load Inbound inquiries by default
+            loadInbox();
+
             try {
                 const uRes = await api.getAdminUsers();
                 const sel = document.getElementById('quick-user-select');
-                (uRes.users || []).forEach(u => {
-                    const opt = document.createElement('option');
-                    opt.value = u.email;
-                    opt.textContent = `${u.fullName} (@${u.username} • ${u.role})`;
-                    sel.appendChild(opt);
-                });
+                if (sel && uRes?.users) {
+                    uRes.users.forEach(u => {
+                        const opt = document.createElement('option');
+                        opt.value = u.email;
+                        opt.textContent = `${u.fullName} (@${u.username} • ${u.role})`;
+                        sel.appendChild(opt);
+                    });
+                }
             } catch (_) {}
         })();
     </script>
 </body>
 </html>
-

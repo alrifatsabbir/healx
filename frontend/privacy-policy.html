@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy Policy - Learn how HealiiX protects patient records, medical appointments, and doctor verification credentials with clinical-grade privacy safeguards.">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Privacy Policy | HealiiX Health</title>
+    <link rel="icon" href="./assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#fbfdfc] text-[#123b39] antialiased flex flex-col min-h-screen">
+
+    <!-- Header & Navigation -->
+    <header id="site-header" class="header-unscrolled fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-400 ease-out pointer-events-none">
+        <nav id="capsule-nav" class="nav-morph-transition nav-unscrolled pointer-events-auto w-full flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group hover:opacity-90 transition-opacity" aria-label="HealiiX Home">
+                <img id="nav-logo" src="./assets/images/healx-logo-bg-white.png" alt="HealiiX Logo" class="h-9 sm:h-10 w-auto object-contain transition-all duration-300">
+            </a>
+
+            <div id="nav-links" class="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-[13px] font-semibold text-[#BCD1CB] transition-all duration-300">
+                <a class="text-[#BCD1CB] hover:text-white p-1 flex items-center transition-colors" title="Home" href="index.html">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                </a>
+                <a href="find-doctors.html" class="hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 ml-6 sm:ml-8 lg:ml-12">
+                <div class="nav-actions hidden md:flex items-center gap-3 sm:gap-4">
+                    <a href="login.html" class="text-xs sm:text-[13px] font-semibold text-white/80 hover:text-white transition-colors whitespace-nowrap">Sign In</a>
+                    <a id="nav-join-btn" href="sign-up.html" class="flex items-center gap-1.5 px-4 py-2 bg-[#0E927F] hover:bg-[#0b7c6c] text-white text-xs font-bold rounded-lg shadow-sm transition-all active:scale-[0.98] whitespace-nowrap">
+                        <svg class="hidden sm:inline-block w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        <span>Join Healiix</span>
+                    </a>
+                </div>
+                <button id="mobile-menu-toggle" type="button" class="md:hidden p-1.5 text-[#BCD1CB] hover:text-white hover:bg-white/10 rounded-full transition-colors cursor-pointer" aria-label="Toggle Navigation Menu">
+                    <svg id="menu-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"></line>
+                        <line x1="4" x2="20" y1="6" y2="6"></line>
+                        <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                    <svg id="menu-icon-close" class="hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobile-menu-panel" class="pointer-events-auto hidden md:hidden absolute top-[75px] w-[calc(100%-32px)] max-w-[420px] bg-[#082C2A]/98 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 shadow-2xl transition-all">
+            <nav class="flex flex-col gap-2.5 text-sm font-semibold text-[#BCD1CB]">
+                <a href="index.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span>Home</span>
+                </a>
+                <a href="find-doctors.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Find Doctors</a>
+                <a href="categories.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Categories</a>
+                <a href="about.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">About</a>
+                <a href="faq.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">FAQ</a>
+                <a href="contact.html" class="py-2 px-3 rounded-lg hover:text-white transition-colors">Contact</a>
+                <div id="mobile-auth-section" class="border-t border-white/10 pt-3 flex items-center justify-between">
+                    <a href="login.html" class="text-xs font-bold text-white hover:underline">Sign In &rarr;</a>
+                    <a href="sign-up.html" class="px-3.5 py-1.5 bg-[#0E927F] text-white text-xs font-bold rounded-full">Join Healiix</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Header Banner -->
+    <section class="relative pt-32 pb-16 px-6 bg-gradient-to-b from-[#082C2A] to-[#0d3b38] text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(14,146,127,0.25),transparent_60%)]"></div>
+        <div class="relative max-w-4xl mx-auto text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#92F07F] text-xs font-bold uppercase tracking-wider">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Medical Data Protection Commitment</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">HealiiX Privacy Policy</h1>
+            <p class="text-sm sm:text-base text-[#BCD1CB] max-w-2xl mx-auto leading-relaxed">
+                Your medical history, appointment bookings, and consultation details belong exclusively to you. Learn how HealiiX secures and restricts access to your healthcare data.
+            </p>
+            <div class="pt-2 text-xs text-[#89AAA1] flex items-center justify-center gap-3 font-semibold">
+                <span>Effective Date: November 2026</span>
+                <span>&bull;</span>
+                <span>Version 2.4</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid with Quick Jump Sidebar -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-12 flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Sticky Navigation Index -->
+            <aside class="hidden lg:block lg:col-span-4">
+                <div class="sticky top-28 bg-white p-5 rounded-2xl border border-[#e2ece7] shadow-xs space-y-3">
+                    <p class="text-xs font-bold text-[#082C2A] uppercase tracking-wider mb-2">Policy Navigation</p>
+                    <nav class="space-y-1.5 text-xs font-medium text-[#526a64]">
+                        <a href="#overview" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">1. Overview & Scope</a>
+                        <a href="#information-collected" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">2. Information We Collect</a>
+                        <a href="#how-we-use" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">3. How Information Is Used</a>
+                        <a href="#confidentiality" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">4. Doctor-Patient Confidentiality</a>
+                        <a href="#storage-security" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">5. Storage & Cloud Security</a>
+                        <a href="#ai-triage" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">6. AI Clinical Triage Privacy</a>
+                        <a href="#data-sharing" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">7. Zero Sale of Data Pledge</a>
+                        <a href="#your-rights" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">8. Your Rights & Data Deletion</a>
+                        <a href="#contact-dpo" class="block py-1.5 px-2.5 rounded-lg hover:bg-[#E0EEE9] hover:text-[#082C2A] transition-colors">9. Contact Data Protection Officer</a>
+                    </nav>
+                    <div class="pt-4 border-t border-[#edf3f0]">
+                        <div class="p-3 rounded-xl bg-[#E0EEE9]/60 text-[11px] text-[#082C2A] leading-relaxed">
+                            <strong>Need Immediate Help?</strong><br>
+                            Reach our privacy compliance desk at <a href="mailto:info@alrifatsabbir.me" class="text-[#0E927F] font-bold underline">info@alrifatsabbir.me</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Legal Prose -->
+            <article class="lg:col-span-8 space-y-10 text-sm leading-relaxed text-[#35524c]">
+                
+                <!-- 1. Overview -->
+                <section id="overview" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">1</span>
+                        <span>Overview & Scope</span>
+                    </h2>
+                    <p>
+                        HealiiX Health Inc. (&ldquo;HealiiX&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) provides an integrated healthcare directory, doctor verification network, and verified appointment scheduling ecosystem across Bangladesh. We recognize that medical information is extraordinarily personal and sensitive.
+                    </p>
+                    <p>
+                        This Privacy Policy describes the specific policies and safeguards governing the collection, utilization, retention, and protection of personal identifying information (PII) and protected health information (PHI) when using <strong>healiix.vercel.app</strong> and our associated mobile or web interfaces.
+                    </p>
+                </section>
+
+                <!-- 2. Information We Collect -->
+                <section id="information-collected" class="space-y-4 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">2</span>
+                        <span>Information We Collect</span>
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <h3 class="font-bold text-[#082C2A] text-sm">A. Patient Information</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-[#46635d]">
+                            <li><strong>Identity & Account Details:</strong> Full legal name, preferred username, email address, contact phone number, and birth date.</li>
+                            <li><strong>Optional Clinical Vitals:</strong> Blood group, height, weight, baseline blood pressure, blood sugar indicators, allergies, and emergency contact details.</li>
+                            <li><strong>Booking Details:</strong> Selected doctor chamber, scheduled appointment date/time, chief symptom description, and visit history.</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h3 class="font-bold text-[#082C2A] text-sm">B. Medical Practitioner (Doctor) Credentials</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-[#46635d]">
+                            <li><strong>Professional Verification:</strong> Bangladesh Medical & Dental Council (BMDC) registration number, medical degrees, residency/fellowship records, and specialty qualifications.</li>
+                            <li><strong>Credential Documents:</strong> Secure digital scans of government NID/Passport and BMDC practice certificates. <em>(Stored under strict administrator-only access and never made public).</em></li>
+                            <li><strong>Chamber & Practice Logistics:</strong> Hospital affiliations, chamber addresses, consultation fee structures, visiting hours, and serial management preferences.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 3. How We Use Information -->
+                <section id="how-we-use" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">3</span>
+                        <span>How Information Is Used</span>
+                    </h2>
+                    <p>We process your data exclusively for legitimate clinical and operational healthcare objectives:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <div class="p-3.5 rounded-xl bg-[#F8F8F4] border border-[#e3ece8]">
+                            <h4 class="font-bold text-xs text-[#082C2A] mb-1">Appointment Confirmation</h4>
+                            <p class="text-xs text-[#526a64]">Transmitting booking details, serial tokens, and chamber slot notifications directly between patient and doctor.</p>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-[#F8F8F4] border border-[#e3ece8]">
+                            <h4 class="font-bold text-xs text-[#082C2A] mb-1">Board Verification</h4>
+                            <p class="text-xs text-[#526a64]">Validating practitioner licenses against official medical regulatory databases to protect patients from malpractice.</p>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-[#F8F8F4] border border-[#e3ece8]">
+                            <h4 class="font-bold text-xs text-[#082C2A] mb-1">Automated Alerts & SMS</h4>
+                            <p class="text-xs text-[#526a64]">Dispatching transactional email/SMS reminders for scheduled appointments, queue delays, or chamber cancellations.</p>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-[#F8F8F4] border border-[#e3ece8]">
+                            <h4 class="font-bold text-xs text-[#082C2A] mb-1">Platform Integrity</h4>
+                            <p class="text-xs text-[#526a64]">Guarding against fraudulent profiles, unauthorized session hijacking, and brute-force access attempts.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Confidentiality -->
+                <section id="confidentiality" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">4</span>
+                        <span>Doctor-Patient Confidentiality</span>
+                    </h2>
+                    <p>
+                        Any symptom summaries, medical notes, or personal health metrics submitted by a patient during an appointment booking are shared <strong>solely with the booked practitioner and their authorized chamber assistant</strong> for that specific consultation.
+                    </p>
+                    <p class="bg-[#E0EEE9]/40 p-4 rounded-xl border border-[#0E927F]/20 text-xs text-[#082C2A] font-medium">
+                        HealiiX administrative staff cannot view private consultation notes unless explicitly requested by the patient during an ongoing technical dispute or mandated by a lawful judicial order in Bangladesh.
+                    </p>
+                </section>
+
+                <!-- 5. Storage & Security -->
+                <section id="storage-security" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">5</span>
+                        <span>Storage & Cloud Infrastructure</span>
+                    </h2>
+                    <p>
+                        All databases are hosted on encrypted enterprise clusters with strict IP allowlisting and role-based access control. Medical credential documents and user avatars are automatically converted to compressed, sanitized WebP binaries and hosted on dedicated Cloudinary CDN storage with SSL encryption.
+                    </p>
+                    <p>
+                        Passwords are cryptographic one-way hashes salted with <strong>bcrypt (10+ rounds)</strong>. No plain-text passwords ever exist on our servers, memory, or log files.
+                    </p>
+                </section>
+
+                <!-- 6. AI Triage -->
+                <section id="ai-triage" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">6</span>
+                        <span>AI Clinical Triage Privacy</span>
+                    </h2>
+                    <p>
+                        The <strong>HealiiX Triage Bot</strong> utilizes an offline, rule-based algorithmic classifier for standard symptoms (such as common headaches, fever, and rashes) and escalates to advanced medical LLMs only when ambiguous clinical nuance requires specialty routing.
+                    </p>
+                    <p>
+                        When escalated, your session query is sanitized: <strong>no personal identifiers, names, phone numbers, or account IDs are included in the AI prompt</strong>. Conversation histories are stored client-side in your browser's session and are not used to train public machine learning models.
+                    </p>
+                </section>
+
+                <!-- 7. Zero Sale -->
+                <section id="data-sharing" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">7</span>
+                        <span>Our Zero-Sale-of-Data Pledge</span>
+                    </h2>
+                    <p class="font-bold text-[#082C2A]">
+                        HealiiX has never sold, rented, or monetized patient or practitioner data, and will never do so.
+                    </p>
+                    <p>
+                        We do not license your health inquiries to pharmaceutical companies, commercial data brokers, or advertising networks. Our platform exists solely to facilitate clinical care and appointments.
+                    </p>
+                </section>
+
+                <!-- 8. Your Rights -->
+                <section id="your-rights" class="space-y-3 bg-white p-6 sm:p-8 rounded-2xl border border-[#e2ece7] shadow-xs">
+                    <h2 class="text-xl font-bold text-[#082C2A] flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-[#E0EEE9] text-[#0E927F] text-xs font-extrabold flex items-center justify-center">8</span>
+                        <span>Your Rights & Account Deletion</span>
+                    </h2>
+                    <p>Under Bangladesh digital commerce and privacy standards, you maintain complete sovereignty over your information:</p>
+                    <ul class="list-disc pl-5 space-y-1 text-xs sm:text-sm text-[#46635d]">
+                        <li><strong>Right to Review:</strong> You may inspect all personal metrics and appointment history at any time from your Patient Settings.</li>
+                        <li><strong>Right to Rectification:</strong> You may update profile vitals, phone numbers, or emergency contacts instantly.</li>
+                        <li><strong>Right to Deletion:</strong> You may submit an account erasure request by emailing our privacy desk. Upon verification, all non-accounting records will be permanently purged within 14 business days.</li>
+                    </ul>
+                </section>
+
+                <!-- 9. Contact DPO -->
+                <section id="contact-dpo" class="space-y-3 bg-gradient-to-br from-[#082C2A] to-[#0E927F] text-white p-6 sm:p-8 rounded-2xl shadow-sm">
+                    <h2 class="text-xl font-bold flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-lg bg-white/20 text-[#92F07F] text-xs font-extrabold flex items-center justify-center">9</span>
+                        <span>Contact Our Privacy Officer</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-[#BCD1CB]">
+                        If you have inquiries, security concerns, or requests regarding this Privacy Policy, please contact our designated Data Protection Officer:
+                    </p>
+                    <div class="pt-2 space-y-1 text-xs text-[#E0EEE9]">
+                        <p><strong>HealiiX Health Inc. &bull; Data Governance Office</strong></p>
+                        <p>Email: <a href="mailto:info@alrifatsabbir.me" class="text-[#92F07F] underline font-bold">info@alrifatsabbir.me</a></p>
+                        <p>Office: WUB Campus, Uttara, Dhaka-1230, Bangladesh</p>
+                    </div>
+                </section>
+
+            </article>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="w-full bg-[#062321] text-white rounded-t-[36px] pt-16 sm:pt-24 pb-12 px-6 sm:px-12 lg:px-16">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left: Giant Healiix Logo -->
+            <div class="lg:col-span-6 space-y-4">
+                <div class="text-6xl sm:text-8xl lg:text-[110px] font-black tracking-tight leading-none">
+                    <span class="text-[#557069]">Healii</span><span class="text-[#92F07F]">X</span>
+                </div>
+                <p class="text-xs sm:text-sm text-[#89AAA1] max-w-sm leading-relaxed">
+                    Making the path to better care feel more human, accessible, and transparent for everyone.
+                </p>
+            </div>
+
+            <!-- Right: 3 Columns -->
+            <div class="lg:col-span-6 grid grid-cols-3 gap-6 sm:gap-10 pt-4">
+                
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">EXPLORE</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="find-doctors.html" class="hover:text-white transition-colors">Find a doctor</a></li>
+                        <li><a href="categories.html" class="hover:text-white transition-colors">Specialties</a></li>
+                        <li><a href="index.html#how-it-works" class="hover:text-white transition-colors">How it works</a></li>
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">COMPANY</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About HealiiX</a></li>
+                        <li><a href="sign-up.html" class="hover:text-white transition-colors">For doctors</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact & Support</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">LEGAL</h4>
+                    <ul class="space-y-2 text-xs text-[#89AAA1]">
+                        <li><a href="privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="security-policy.html" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright & Verification Line -->
+        <div class="max-w-[1320px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-[#6B9187]">
+            <span>© 2026 HealiiX Health Inc. Better care, together.</span>
+            <span>All credentials verified with authorized medical boards.</span>
+        </div>
+    </footer>
+    <!-- Scripts -->
+    <script src="./js/navbar.js"></script>
+    <script type="module" src="./js/auth.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        menuToggle?.addEventListener('click', () => {
+            const isHidden = mobilePanel.classList.contains('hidden');
+            if (isHidden) {
+                mobilePanel.classList.remove('hidden');
+                iconOpen?.classList.add('hidden');
+                iconClose?.classList.remove('hidden');
+            } else {
+                mobilePanel.classList.add('hidden');
+                iconOpen?.classList.remove('hidden');
+                iconClose?.classList.add('hidden');
+            }
+        });
+    </script>
+    <script type="module" src="./js/ai-bot-widget.js"></script>
+</body>
+</html>

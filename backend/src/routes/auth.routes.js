@@ -565,6 +565,70 @@ auth.post('/login', async (c) => {
 });
 
 // --------------------------------------------------------------------------
+// 6.1 Dedicated Administrator Login (Strict Role Verification)
+// --------------------------------------------------------------------------
+auth.post('/admin-login', async (c) => {
+    try {
+        const body = await c.req.json();
+        const identifier = (body.identifier || body.emailOrUsername || body.email || body.username || '').toLowerCase().trim();
+        const password = body.password;
+
+        if (!identifier || !password) {
+            return c.json({
+                success: false,
+                message: 'Admin email/username and password are required.',
+            }, 400);
+        }
+
+        const user = await User.findOne({
+            $or: [{ email: identifier }, { username: identifier }],
+        }).select('+password');
+
+        if (!user) {
+            return c.json({
+                success: false,
+                message: 'No administrative account found with these credentials.',
+            }, 401);
+        }
+
+        if (user.role !== 'admin') {
+            return c.json({
+                success: false,
+                message: 'Access restricted. This portal is for platform administrators only.',
+            }, 403);
+        }
+
+        const isMatch = await user.matchPassword(password);
+        if (!isMatch) {
+            return c.json({
+                success: false,
+                message: 'Invalid administrative password.',
+            }, 401);
+        }
+
+        const token = generateToken(user._id, user.role);
+
+        return c.json({
+            success: true,
+            message: 'Administrative authentication successful. Redirecting to Admin Console...',
+            token,
+            user: {
+                id: user._id,
+                fullName: user.fullName,
+                username: user.username,
+                email: user.email,
+                role: user.role,
+                phone: user.phone,
+                avatar: user.avatar,
+                profileUrl: '/admin/profile',
+            },
+        });
+    } catch (err) {
+        return c.json({ success: false, message: err.message }, 500);
+    }
+});
+
+// --------------------------------------------------------------------------
 // 7. Me Profile Endpoint (Protected)
 // --------------------------------------------------------------------------
 auth.get('/me', requireAuth, async (c) => {
